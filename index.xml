@@ -1,87 +1,90 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hello World! on Unique Divine - Home</title>
+    <title>This is my site. on Unique Divine - Home</title>
     <link>https://unique-divine.github.io/My-Website/</link>
-    <description>Recent content in Hello World! on Unique Divine - Home</description>
+    <description>Recent content in This is my site. on Unique Divine - Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Apr 2017 11:25:05 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2020 12:00:00 -0500</lastBuildDate>
     
 	<atom:link href="https://unique-divine.github.io/My-Website/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Chapter VI: Esmeralda</title>
+      <title>Banknote Fraud Classification - Decision Trees from Scratch</title>
+      <link>https://unique-divine.github.io/My-Website/projects/banknote-fraud/</link>
+      <pubDate>Mon, 01 Jun 2020 11:00:59 -0400</pubDate>
+      
+      <guid>https://unique-divine.github.io/My-Website/projects/banknote-fraud/</guid>
+      <description>Overview: The goal of this project was to get practice writing a decision tree from scratch. I figured that this could serve as an effective technical exercise.
+Data Description: Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used. The final images have 400x 400 pixels. Due to the object lens and distance to the investigated object gray-scale pictures with a resolution of about 660 dpi were gained.</description>
+    </item>
+    
+    <item>
+      <title>Neural Networks for Gravitational Lens Modeling</title>
+      <link>https://unique-divine.github.io/My-Website/projects/neural-networks-for-gravitational-lens-modeling/</link>
+      <pubDate>Mon, 01 Jun 2020 11:13:32 -0400</pubDate>
+      
+      <guid>https://unique-divine.github.io/My-Website/projects/neural-networks-for-gravitational-lens-modeling/</guid>
+      <description>Overview: This code uses convolutional neural networks (with TensorFlow) to estimate the parameters of strong gravitational lenses.
+Link to the repository:
+How to use the code: The best place to start is the Jupyter notebook. It has a quick demonstration of lens modeling with neural networks. This is what you need.
+1. Software needed:  Python 3 Tensorflow 1.1x.  I used pip to install this. Going to (https://www.tensorflow.org/install/) might be helpful.</description>
+    </item>
+    
+    <item>
+      <title>Title 6</title>
       <link>https://unique-divine.github.io/My-Website/blog/chapter-6/</link>
       <pubDate>Fri, 14 Apr 2017 11:25:05 -0400</pubDate>
       
       <guid>https://unique-divine.github.io/My-Website/blog/chapter-6/</guid>
-      <description>We are delighted to be able to inform the reader, that during the whole of this scene, Gringoire and his piece had stood firm. His actors, spurred on by him, had not ceased to spout his comedy, and he had not ceased to listen to it. He had made up his mind about the tumult, and was determined to proceed to the end, not giving up the hope of a return of attention on the part of the public.</description>
+      <description></description>
     </item>
     
     <item>
-      <title>Chapter V: Quasimodo</title>
+      <title>Title 5</title>
       <link>https://unique-divine.github.io/My-Website/blog/chapter-5/</link>
       <pubDate>Thu, 13 Apr 2017 11:15:58 -0400</pubDate>
       
       <guid>https://unique-divine.github.io/My-Website/blog/chapter-5/</guid>
-      <description>In the twinkling of an eye, all was ready to execute Coppenole’s idea. Bourgeois, scholars and law clerks all set to work. The little chapel situated opposite the marble table was selected for the scene of the grinning match. A pane broken in the pretty rose window above the door, left free a circle of stone through which it was agreed that the competitors should thrust their heads. In order to reach it, it was only necessary to mount upon a couple of hogsheads, which had been produced from I know not where, and perched one upon the other, after a fashion.</description>
+      <description></description>
     </item>
     
     <item>
-      <title>Chapter IV: Master Jacques Coppenole</title>
+      <title>Title 4</title>
       <link>https://unique-divine.github.io/My-Website/blog/chapter-4/</link>
       <pubDate>Wed, 12 Apr 2017 11:14:48 -0400</pubDate>
       
       <guid>https://unique-divine.github.io/My-Website/blog/chapter-4/</guid>
-      <description>While the pensioner of Ghent and his eminence were exchanging very low bows and a few words in voices still lower, a man of lofty stature, with a large face and broad shoulders, presented himself, in order to enter abreast with Guillaume Rym; one would have pronounced him a bull-dog by the side of a fox. His felt doublet and leather jerkin made a spot on the velvet and silk which surrounded him.</description>
+      <description></description>
     </item>
     
     <item>
-      <title>Chapter III: Monsieur the Cardinal</title>
+      <title>Title 3</title>
       <link>https://unique-divine.github.io/My-Website/blog/chapter-3/</link>
       <pubDate>Tue, 11 Apr 2017 11:13:32 -0400</pubDate>
       
       <guid>https://unique-divine.github.io/My-Website/blog/chapter-3/</guid>
-      <description>Poor Gringoire! the din of all the great double petards of the Saint-Jean, the discharge of twenty arquebuses on supports, the detonation of that famous serpentine of the Tower of Billy, which, during the siege of Paris, on Sunday, the twenty-sixth of September, 1465, killed seven Burgundians at one blow, the explosion of all the powder stored at the gate of the Temple, would have rent his ears less rudely at that solemn and dramatic moment, than these few words, which fell from the lips of the usher, “His eminence, Monseigneur the Cardinal de Bourbon.</description>
+      <description></description>
     </item>
     
     <item>
-      <title>Project 3: </title>
-      <link>https://unique-divine.github.io/My-Website/projects/project-3/</link>
-      <pubDate>Tue, 11 Apr 2017 11:13:32 -0400</pubDate>
-      
-      <guid>https://unique-divine.github.io/My-Website/projects/project-3/</guid>
-      <description>Poor Gringoire! the din of all the great double petards of the Saint-Jean, the discharge of twenty arquebuses on supports, the detonation of that famous serpentine of the Tower of Billy, which, during the siege of Paris, on Sunday, the twenty-sixth of September, 1465, killed seven Burgundians at one blow, the explosion of all the powder stored at the gate of the Temple, would have rent his ears less rudely at that solemn and dramatic moment, than these few words, which fell from the lips of the usher, “His eminence, Monseigneur the Cardinal de Bourbon.</description>
-    </item>
-    
-    <item>
-      <title>Chapter II: Pierre Gringoire</title>
+      <title>Title 2</title>
       <link>https://unique-divine.github.io/My-Website/blog/chapter-2/</link>
       <pubDate>Mon, 10 Apr 2017 11:00:59 -0400</pubDate>
       
       <guid>https://unique-divine.github.io/My-Website/blog/chapter-2/</guid>
-      <description>Nevertheless, as be harangued them, the satisfaction and admiration unanimously excited by his costume were dissipated by his w</description>
+      <description>md</description>
     </item>
     
     <item>
-      <title>Project 2: </title>
-      <link>https://unique-divine.github.io/My-Website/projects/project-2/</link>
-      <pubDate>Mon, 10 Apr 2017 11:00:59 -0400</pubDate>
-      
-      <guid>https://unique-divine.github.io/My-Website/projects/project-2/</guid>
-      <description>Nevertheless, as be harangued them, the satisfaction and admiration unanimously excited by his costume were dissipated by his words; and when he reached that untoward conclusion: “As soon as his illustrious eminence, the cardinal, arrives, we will begin,” his voice was drowned in a thunder of hooting.
-“Begin instantly! The mystery! the mystery immediately!” shrieked the people. And above all the voices, that of Johannes de Molendino was audible, piercing the uproar like the fife’s derisive serenade: “Commence instantly!</description>
-    </item>
-    
-    <item>
-      <title>Chapter I: The Grand Hall</title>
+      <title>Title 1</title>
       <link>https://unique-divine.github.io/My-Website/blog/chapter-1/</link>
       <pubDate>Sun, 09 Apr 2017 10:58:08 -0400</pubDate>
       
       <guid>https://unique-divine.github.io/My-Website/blog/chapter-1/</guid>
-      <description>Three hundred and forty-eight years, six months, and nineteen days ago to-day, the Parisians awoke to the sound of all the bells in the triple</description>
+      <description>md</description>
     </item>
     
     <item>
@@ -95,13 +98,14 @@ Your Name Email Address An email address is required.  Message   </description>
     </item>
     
     <item>
-      <title>Project 1: </title>
-      <link>https://unique-divine.github.io/My-Website/projects/project-1/</link>
+      <title>CTR-Prediction-with-Stochastic-Gradient-Descent</title>
+      <link>https://unique-divine.github.io/My-Website/projects/ctr-prediction-with-stochastic-gradient-descent/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/My-Website/projects/project-1/</guid>
-      <description>Three hundred and forty-eight years, six months, and nineteen days ago to-day, the Parisians awoke to the sound of all the bells in the triple circuit of the city, the university, and the town ringing a full peal.
-The sixth of January, 1482, is not, however, a day of which history has preserved the memory. There was nothing notable in the event which thus set the bells and the bourgeois of Paris in a ferment from early morning.</description>
+      <guid>https://unique-divine.github.io/My-Website/projects/ctr-prediction-with-stochastic-gradient-descent/</guid>
+      <description>Overview: The goal of this project is to predict whether a dataset of advertisements will be clicked or not. In solving this problem, I use a stochastic gradient descent algorithm called Pegasos, which is commonly used for click-through rate (CTR) predictions.
+If you only want to read the notebook without downloading anything, here&amp;rsquo;s a link to nbviewer: CTR-Prediction-with-Stochastic-Gradient-Descent.ipynb
+Contents:  Dataset Description Jupyter Notebook Contents Demo / Usage Instructions   1.</description>
     </item>
     
   </channel>
