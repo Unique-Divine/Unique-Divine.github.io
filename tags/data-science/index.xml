@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>data science on Unique Divine - Home</title>
-    <link>https://unique-divine.github.io/My-Website/tags/data-science/</link>
+    <link>https://unique-divine.github.io/tags/data-science/</link>
     <description>Recent content in data science on Unique Divine - Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://unique-divine.github.io/My-Website/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://unique-divine.github.io/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>CTR-Prediction-with-Stochastic-Gradient-Descent</title>
-      <link>https://unique-divine.github.io/My-Website/projects/ctr-prediction-with-stochastic-gradient-descent/</link>
+      <link>https://unique-divine.github.io/projects/ctr-prediction-with-stochastic-gradient-descent/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/My-Website/projects/ctr-prediction-with-stochastic-gradient-descent/</guid>
+      <guid>https://unique-divine.github.io/projects/ctr-prediction-with-stochastic-gradient-descent/</guid>
       <description>Overview: The goal of this project is to predict whether a dataset of advertisements will be clicked or not. In solving this problem, I use a stochastic gradient descent algorithm called Pegasos, which is commonly used for click-through rate (CTR) predictions.
 If you only want to read the notebook without downloading anything, here&amp;rsquo;s a link to nbviewer: CTR-Prediction-with-Stochastic-Gradient-Descent.ipynb
 Contents:  Dataset Description Jupyter Notebook Contents Demo / Usage Instructions   1.</description>
