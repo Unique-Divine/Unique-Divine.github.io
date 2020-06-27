@@ -1,6 +1,6 @@
 
 
-[Website Link](https://unique-divine.github.io/My-Website/)
+[Website Link](https://unique-divine.github.io/)
 
 
 
