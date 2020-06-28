@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>This is my site. on Unique Divine - Home</title>
+    <title>Unique Divine on Unique Divine - Home</title>
     <link>https://unique-divine.github.io/</link>
-    <description>Recent content in This is my site. on Unique Divine - Home</description>
+    <description>Recent content in Unique Divine on Unique Divine - Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 02 Jun 2020 12:00:00 -0500</lastBuildDate>
@@ -31,42 +31,6 @@ Data Description: Extracted from images were taken from genuine and forged bankn
 Link to the repository:
 How to use the code: The best place to start is the Jupyter notebook. It has a quick demonstration of lens modeling with neural networks. This is what you need.
 1. Software needed:  Python 3 Tensorflow 1.1x.  I used pip to install this. Going to (https://www.tensorflow.org/install/) might be helpful.</description>
-    </item>
-    
-    <item>
-      <title>Title 6</title>
-      <link>https://unique-divine.github.io/blog/chapter-6/</link>
-      <pubDate>Fri, 14 Apr 2017 11:25:05 -0400</pubDate>
-      
-      <guid>https://unique-divine.github.io/blog/chapter-6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Title 5</title>
-      <link>https://unique-divine.github.io/blog/chapter-5/</link>
-      <pubDate>Thu, 13 Apr 2017 11:15:58 -0400</pubDate>
-      
-      <guid>https://unique-divine.github.io/blog/chapter-5/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Title 4</title>
-      <link>https://unique-divine.github.io/blog/chapter-4/</link>
-      <pubDate>Wed, 12 Apr 2017 11:14:48 -0400</pubDate>
-      
-      <guid>https://unique-divine.github.io/blog/chapter-4/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Title 3</title>
-      <link>https://unique-divine.github.io/blog/chapter-3/</link>
-      <pubDate>Tue, 11 Apr 2017 11:13:32 -0400</pubDate>
-      
-      <guid>https://unique-divine.github.io/blog/chapter-3/</guid>
-      <description></description>
     </item>
     
     <item>
