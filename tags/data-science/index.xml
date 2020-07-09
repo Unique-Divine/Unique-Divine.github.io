@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Unique Divine on Unique Divine - Home</title>
-    <link>https://unique-divine.github.io/</link>
-    <description>Recent content in Unique Divine on Unique Divine - Home</description>
+    <title>Data Science on Unique Divine - Home</title>
+    <link>https://unique-divine.github.io/tags/data-science/</link>
+    <description>Recent content in Data Science on Unique Divine - Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 03 Jul 2020 11:00:59 -0400</lastBuildDate>
     
-	<atom:link href="https://unique-divine.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://unique-divine.github.io/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -44,25 +44,6 @@ How to use the code: The best place to start is the Jupyter notebook. It has a q
 &amp;ldquo;Although we were impressed with your interview/qualifications&amp;hellip;&amp;rdquo;,
 &amp;ldquo;[insert insincere compliment here]. Unfortunately, [insert rejection statement here] &amp;hellip;&amp;rdquo;.
 I heard somebody say a few weeks back to &amp;ldquo;teach the thing you want to learn&amp;rdquo;.` It seems paradoxical and reminds me a bit of the Feynman technique.</description>
-    </item>
-    
-    <item>
-      <title>Mind Reset</title>
-      <link>https://unique-divine.github.io/blog/01-first-post/</link>
-      <pubDate>Wed, 01 Jul 2020 10:58:08 -0400</pubDate>
-      
-      <guid>https://unique-divine.github.io/blog/01-first-post/</guid>
-      <description>(In Progress)</description>
-    </item>
-    
-    <item>
-      <title>Contact</title>
-      <link>https://unique-divine.github.io/contact/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/contact/</guid>
-      <description>This is an example of a custom shortcode that you can put right into your content. You will need to add a form action to the the shortcode to make it work. Check out Formspree for a simple, free form service.
-Your Name Email Address An email address is required.  Message   </description>
     </item>
     
     <item>

@@ -3,86 +3,111 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://examplesite.com/blog/simple-blog-post-8/</loc>
-    <lastmod>2018-09-12T14:51:12+06:00</lastmod>
+    <loc>https://unique-divine.github.io/projects/banknote-fraud/</loc>
+    <lastmod>2020-06-01T11:00:59-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/</loc>
-    <lastmod>2018-09-12T14:51:12+06:00</lastmod>
+    <loc>https://unique-divine.github.io/projects/</loc>
+    <lastmod>2017-03-02T12:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/installation/</loc>
-    <lastmod>2018-09-12T14:51:12+06:00</lastmod>
+    <loc>https://unique-divine.github.io/projects/neural-networks-for-gravitational-lens-modeling/</loc>
+    <lastmod>2020-06-01T11:13:32-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/</loc>
-    <lastmod>2018-09-12T14:51:12+06:00</lastmod>
+    <loc>https://unique-divine.github.io/blog/02-breaking-into-data-science/</loc>
+    <lastmod>2020-07-03T11:00:59-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/simple-blog-post-1/</loc>
-    <lastmod>2018-09-12T12:52:36+06:00</lastmod>
+    <loc>https://unique-divine.github.io/tags/career/</loc>
+    <lastmod>2020-07-03T11:00:59-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/simple-blog-post-2/</loc>
-    <lastmod>2018-09-12T12:52:36+06:00</lastmod>
+    <loc>https://unique-divine.github.io/tags/data-science/</loc>
+    <lastmod>2020-07-03T11:00:59-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/simple-blog-post-3/</loc>
-    <lastmod>2018-09-12T12:52:36+06:00</lastmod>
+    <loc>https://unique-divine.github.io/tags/krish-naik/</loc>
+    <lastmod>2020-07-03T11:00:59-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/simple-blog-post-4/</loc>
-    <lastmod>2018-09-12T12:52:36+06:00</lastmod>
+    <loc>https://unique-divine.github.io/tags/</loc>
+    <lastmod>2020-07-03T11:00:59-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/simple-blog-post-5/</loc>
-    <lastmod>2018-09-12T12:52:36+06:00</lastmod>
+    <loc>https://unique-divine.github.io/</loc>
+    <lastmod>2020-07-03T11:00:59-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/simple-blog-post-6/</loc>
-    <lastmod>2018-09-12T12:52:36+06:00</lastmod>
+    <loc>https://unique-divine.github.io/blog/01-first-post/</loc>
+    <lastmod>2020-07-01T10:58:08-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/blog/simple-blog-post-7/</loc>
-    <lastmod>2018-09-12T12:52:36+06:00</lastmod>
+    <loc>https://unique-divine.github.io/tags/scene/</loc>
+    <lastmod>2020-07-01T10:58:08-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/portfolio/a/</loc>
+    <loc>https://unique-divine.github.io/blog/</loc>
+    <lastmod>2020-06-02T12:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/author/</loc>
+    <loc>https://unique-divine.github.io/about/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/categories/</loc>
+    <loc>https://unique-divine.github.io/categories/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/author/john-doe/</loc>
+    <loc>https://unique-divine.github.io/contact/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://examplesite.com/author/mark-dinn/</loc>
-  </url>
-  
-  <url>
-    <loc>https://examplesite.com/portfolio/</loc>
-  </url>
-  
-  <url>
-    <loc>https://examplesite.com/tags/</loc>
+    <loc>https://unique-divine.github.io/projects/ctr-prediction-with-stochastic-gradient-descent/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
 </urlset>
