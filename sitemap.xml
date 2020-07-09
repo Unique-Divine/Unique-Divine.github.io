@@ -3,8 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://unique-divine.github.io/projects/banknote-fraud/</loc>
+    <loc>https://unique-divine.github.io/projects/01-banknote-fraud/</loc>
     <lastmod>2020-06-01T11:00:59-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://unique-divine.github.io/projects/02-neural-networks-for-gravitational-lens-modeling/</loc>
+    <lastmod>2020-05-22T11:13:32-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://unique-divine.github.io/about/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://unique-divine.github.io/projects/03-regression-practice/</loc>
+    <lastmod>2020-06-18T11:13:32-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -17,7 +37,14 @@
   </url>
   
   <url>
-    <loc>https://unique-divine.github.io/projects/neural-networks-for-gravitational-lens-modeling/</loc>
+    <loc>https://unique-divine.github.io/blog/</loc>
+    <lastmod>2020-06-02T12:00:00-05:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://unique-divine.github.io/projects/04-boston-house-prices/</loc>
     <lastmod>2020-06-01T11:13:32-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -80,14 +107,8 @@
   </url>
   
   <url>
-    <loc>https://unique-divine.github.io/blog/</loc>
-    <lastmod>2020-06-02T12:00:00-05:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/about/</loc>
+    <loc>https://unique-divine.github.io/projects/00-ctr-prediction-with-stochastic-gradient-descent/</loc>
+    <lastmod>2020-06-01T11:00:59-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -100,12 +121,6 @@
   
   <url>
     <loc>https://unique-divine.github.io/contact/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/projects/ctr-prediction-with-stochastic-gradient-descent/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

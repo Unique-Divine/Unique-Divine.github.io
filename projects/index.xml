@@ -13,20 +13,20 @@
     
     <item>
       <title>Banknote Fraud Classification - Decision Trees from Scratch</title>
-      <link>https://unique-divine.github.io/projects/banknote-fraud/</link>
+      <link>https://unique-divine.github.io/projects/01-banknote-fraud/</link>
       <pubDate>Mon, 01 Jun 2020 11:00:59 -0400</pubDate>
       
-      <guid>https://unique-divine.github.io/projects/banknote-fraud/</guid>
+      <guid>https://unique-divine.github.io/projects/01-banknote-fraud/</guid>
       <description>Overview: The goal of this project was to get practice writing a decision tree from scratch. I figured that this could serve as an effective technical exercise.
 Data Description: Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used. The final images have 400x 400 pixels. Due to the object lens and distance to the investigated object gray-scale pictures with a resolution of about 660 dpi were gained.</description>
     </item>
     
     <item>
       <title>Neural Networks for Gravitational Lens Modeling</title>
-      <link>https://unique-divine.github.io/projects/neural-networks-for-gravitational-lens-modeling/</link>
-      <pubDate>Mon, 01 Jun 2020 11:13:32 -0400</pubDate>
+      <link>https://unique-divine.github.io/projects/02-neural-networks-for-gravitational-lens-modeling/</link>
+      <pubDate>Fri, 22 May 2020 11:13:32 -0400</pubDate>
       
-      <guid>https://unique-divine.github.io/projects/neural-networks-for-gravitational-lens-modeling/</guid>
+      <guid>https://unique-divine.github.io/projects/02-neural-networks-for-gravitational-lens-modeling/</guid>
       <description>Overview: This code uses convolutional neural networks (with TensorFlow) to estimate the parameters of strong gravitational lenses.
 Link to the repository:
 How to use the code: The best place to start is the Jupyter notebook. It has a quick demonstration of lens modeling with neural networks. This is what you need.
@@ -34,11 +34,30 @@ How to use the code: The best place to start is the Jupyter notebook. It has a q
     </item>
     
     <item>
-      <title>CTR-Prediction-with-Stochastic-Gradient-Descent</title>
-      <link>https://unique-divine.github.io/projects/ctr-prediction-with-stochastic-gradient-descent/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Regression Practice</title>
+      <link>https://unique-divine.github.io/projects/03-regression-practice/</link>
+      <pubDate>Thu, 18 Jun 2020 11:13:32 -0400</pubDate>
       
-      <guid>https://unique-divine.github.io/projects/ctr-prediction-with-stochastic-gradient-descent/</guid>
+      <guid>https://unique-divine.github.io/projects/03-regression-practice/</guid>
+      <description>Overview: Regression Practice This repository contains a few projects that I originally used for practice with implementing regression algorithms. My main goal was to reach a high level understanding of each concept, stick to best practices as much as possible, have organized and useful code documentation, and build some useful skills to apply to real world problems. As a result, these projects gradually evolved more and more into tutorials that can serve as useful resources for those getting started in learning data science.</description>
+    </item>
+    
+    <item>
+      <title>Boston House Price Predictions</title>
+      <link>https://unique-divine.github.io/projects/04-boston-house-prices/</link>
+      <pubDate>Mon, 01 Jun 2020 11:13:32 -0400</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/04-boston-house-prices/</guid>
+      <description>Overview: Boston House Prices This purpose of this project is to serve as an example to showcase a typical data science workflow using the famous &amp;ldquo;Boston House&amp;rdquo; dataset.
+Although the notebook contains my own analysis, everything in it is written in the style of a tutorial. I assume an understanding of object-oriented programming in Python and assume no knowledge of statistical modeling and machine learning. In the &amp;ldquo;Predictive Modeling&amp;rdquo; section, a basic but thorough description of each algorithm is included in addition to some explanation about each algorithm&amp;rsquo;s strengths and weaknesses.</description>
+    </item>
+    
+    <item>
+      <title>CTR Prediction with Stochastic Gradient Descent</title>
+      <link>https://unique-divine.github.io/projects/00-ctr-prediction-with-stochastic-gradient-descent/</link>
+      <pubDate>Mon, 01 Jun 2020 11:00:59 -0400</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/00-ctr-prediction-with-stochastic-gradient-descent/</guid>
       <description>Overview: The goal of this project is to predict whether a dataset of advertisements will be clicked or not. In solving this problem, I use a stochastic gradient descent algorithm called Pegasos, which is commonly used for click-through rate (CTR) predictions.
 If you only want to read the notebook without downloading anything, here&amp;rsquo;s a link to nbviewer: CTR-Prediction-with-Stochastic-Gradient-Descent.ipynb
 Contents:  Dataset Description Jupyter Notebook Contents Demo / Usage Instructions   1.</description>
