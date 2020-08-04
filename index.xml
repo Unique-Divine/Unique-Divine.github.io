@@ -6,11 +6,21 @@
     <description>Recent content on Unique Divine</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2008–2019, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <copyright>Copyright © 2020</copyright>
     <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://uniquedivine.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>https://uniquedivine.github.io/about/</link>
+      <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://uniquedivine.github.io/about/</guid>
+      <description>Hi, I&amp;rsquo;m Unique and I&amp;rsquo;ll be answering 3 questions on this page:
+ Who am I? Why did I make this site? What am I most passionate about?  Who am I?   </description>
+    </item>
     
     <item>
       <title>Click-Through Rate Prediction with Stochastic Gradient Descent</title>
@@ -61,7 +71,7 @@ I heard somebody say a few weeks back to “teach the thing you want to learn”
       <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://uniquedivine.github.io/now/</guid>
-      <description></description>
+      <description>What are you currently doing (in regard to your career) and how did you get there? How does your background make you unique? Currently, I&amp;rsquo;m attending Columbia University as a Master of Science candidate in applied mathematics.</description>
     </item>
     
     <item>
@@ -89,18 +99,6 @@ I heard somebody say a few weeks back to “teach the thing you want to learn”
       
       <guid>https://uniquedivine.github.io/post/math-typesetting/</guid>
       <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://uniquedivine.github.io/about/</link>
-      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://uniquedivine.github.io/about/</guid>
-      <description>Who am I?
-I&amp;rsquo;m a writer, a programmer, a musician, a mathematician, an artist. I don&amp;rsquo;t really fit under a specific label. I create.
-I noticed at some point that I had something to offer the world, that by taking the extra step to turn idea into action, I could help others accomplish more of their goals, and learn something in the process.
-The mere thought of our ability to inspire change in the lives of others excites me.</description>
     </item>
     
   </channel>
