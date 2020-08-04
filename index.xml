@@ -2,41 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Unique Divine</title>
-    <link>https://uniquedivine.github.io/</link>
+    <link>https://unique-divine.github.io/</link>
     <description>Recent content on Unique Divine</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2020</copyright>
     <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://uniquedivine.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://unique-divine.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>https://uniquedivine.github.io/about/</link>
+      <link>https://unique-divine.github.io/about/</link>
       <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/about/</guid>
+      <guid>https://unique-divine.github.io/about/</guid>
       <description>Hi, I&amp;rsquo;m Unique and I&amp;rsquo;ll be answering 3 questions on this page:
  Who am I? Why did I make this site? What am I most passionate about?  Who am I?   </description>
     </item>
     
     <item>
       <title>Click-Through Rate Prediction with Stochastic Gradient Descent</title>
-      <link>https://uniquedivine.github.io/post/ctr-prediction/</link>
+      <link>https://unique-divine.github.io/post/ctr-prediction/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/post/ctr-prediction/</guid>
+      <guid>https://unique-divine.github.io/post/ctr-prediction/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Breaking Into Data Science</title>
-      <link>https://uniquedivine.github.io/post/breaking-into-ds/</link>
+      <link>https://unique-divine.github.io/post/breaking-into-ds/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/post/breaking-into-ds/</guid>
+      <guid>https://unique-divine.github.io/post/breaking-into-ds/</guid>
       <description>This post comes at a time where I, myself, am feeling the first-hire blues.
 An overall sense of burnout, frustration, confusion.
 I’ve gotten well acquainted with the phrases,
@@ -48,56 +48,56 @@ I heard somebody say a few weeks back to “teach the thing you want to learn”
     
     <item>
       <title>Image Tests</title>
-      <link>https://uniquedivine.github.io/post/image-tests/</link>
+      <link>https://unique-divine.github.io/post/image-tests/</link>
       <pubDate>Mon, 22 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/post/image-tests/</guid>
+      <guid>https://unique-divine.github.io/post/image-tests/</guid>
       <description>Photo by Manja Vitolic on Unsplash</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://uniquedivine.github.io/post/video-test/</link>
+      <link>https://unique-divine.github.io/post/video-test/</link>
       <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/post/video-test/</guid>
+      <guid>https://unique-divine.github.io/post/video-test/</guid>
       <description>Very basic page just to test how an embedded video might appear.
   </description>
     </item>
     
     <item>
       <title>Now</title>
-      <link>https://uniquedivine.github.io/now/</link>
+      <link>https://unique-divine.github.io/now/</link>
       <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/now/</guid>
+      <guid>https://unique-divine.github.io/now/</guid>
       <description>What are you currently doing (in regard to your career) and how did you get there? How does your background make you unique? Currently, I&amp;rsquo;m attending Columbia University as a Master of Science candidate in applied mathematics.</description>
     </item>
     
     <item>
       <title>Markdown Syntax Guide</title>
-      <link>https://uniquedivine.github.io/post/markdown-syntax/</link>
+      <link>https://unique-divine.github.io/post/markdown-syntax/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/post/markdown-syntax/</guid>
+      <guid>https://unique-divine.github.io/post/markdown-syntax/</guid>
       <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Rich Content</title>
-      <link>https://uniquedivine.github.io/post/rich-content/</link>
+      <link>https://unique-divine.github.io/post/rich-content/</link>
       <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/post/rich-content/</guid>
+      <guid>https://unique-divine.github.io/post/rich-content/</guid>
       <description>&lt;p&gt;Hugo ships with several &lt;a href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;&gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;&gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Math Typesetting</title>
-      <link>https://uniquedivine.github.io/post/math-typesetting/</link>
+      <link>https://unique-divine.github.io/post/math-typesetting/</link>
       <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://uniquedivine.github.io/post/math-typesetting/</guid>
+      <guid>https://unique-divine.github.io/post/math-typesetting/</guid>
       <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
     </item>
     
