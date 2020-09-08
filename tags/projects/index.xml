@@ -14,11 +14,43 @@
     
     <item>
       <title>Click-Through Rate Prediction with Stochastic Gradient Descent</title>
-      <link>https://unique-divine.github.io/post/ctr-prediction/</link>
+      <link>https://unique-divine.github.io/projects/ctr-prediction/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/post/ctr-prediction/</guid>
+      <guid>https://unique-divine.github.io/projects/ctr-prediction/</guid>
+      <description>CTR-Prediction-with-Stochastic-Gradient-Descent Motivation: Why do this? The goal of this project is to predict whether a dataset of advertisements will be clicked or not. In solving this problem, I use a stochastic gradient descent algorithm called Pegasos, which is commonly used for click-through rate (CTR) predictions.
+If you only want to read the notebook without downloading or running anything, here&amp;rsquo;s a link to nbviewer: CTR-Prediction-with-Stochastic-Gradient-Descent.ipynb
+Tools utilized: Python (NumPy, Pandas, Matplotlib), Pegasos, Logistic Regression, Support Vector Machines Contents:  Dataset Description Jupyter Notebook Contents Demo / Usage Instructions  1.</description>
+    </item>
+    
+    <item>
+      <title>CopyB</title>
+      <link>https://unique-divine.github.io/projects/copyb/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/copyb/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>CopyC</title>
+      <link>https://unique-divine.github.io/projects/copyc/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/copyc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Banknote Fraud Detection</title>
+      <link>https://unique-divine.github.io/projects/banknote_fraud/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/banknote_fraud/</guid>
+      <description>Banknote Fraud Detection - Decision Trees from Scratch Summary: The goal of this project was to develop accurate predictive models to solve a binary classification problem, detecting fraudulent banknotes (counterfeit money).
+To view the notebook without downloading anything, go here.
+Data Description: The data was downloaded from this source.
+ Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used.</description>
     </item>
     
   </channel>

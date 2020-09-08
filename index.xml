@@ -18,16 +18,37 @@
       <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://unique-divine.github.io/about/</guid>
-      <description>Hi, I&amp;rsquo;m Unique and I&amp;rsquo;ll be answering 3 questions on this page:
- Who am I? Why did I make this site? What am I most passionate about?  Who am I?   </description>
+      <description>Hi there, I&amp;rsquo;m Unique Divine and I&amp;rsquo;ll be answering 3 questions for you to get to know me a little better:
+ Who am I? Why did I make this site? What am I most passionate about and why?  Who am I? I&amp;rsquo;m a writer, a programmer, a musician, a mathematician, and an artist.
+At my core, I am&amp;hellip; a problem solver, a creator with a bias toward action.</description>
     </item>
     
     <item>
       <title>Click-Through Rate Prediction with Stochastic Gradient Descent</title>
-      <link>https://unique-divine.github.io/post/ctr-prediction/</link>
+      <link>https://unique-divine.github.io/projects/ctr-prediction/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/post/ctr-prediction/</guid>
+      <guid>https://unique-divine.github.io/projects/ctr-prediction/</guid>
+      <description>CTR-Prediction-with-Stochastic-Gradient-Descent Motivation: Why do this? The goal of this project is to predict whether a dataset of advertisements will be clicked or not. In solving this problem, I use a stochastic gradient descent algorithm called Pegasos, which is commonly used for click-through rate (CTR) predictions.
+If you only want to read the notebook without downloading or running anything, here&amp;rsquo;s a link to nbviewer: CTR-Prediction-with-Stochastic-Gradient-Descent.ipynb
+Tools utilized: Python (NumPy, Pandas, Matplotlib), Pegasos, Logistic Regression, Support Vector Machines Contents:  Dataset Description Jupyter Notebook Contents Demo / Usage Instructions  1.</description>
+    </item>
+    
+    <item>
+      <title>CopyB</title>
+      <link>https://unique-divine.github.io/projects/copyb/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/copyb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CopyC</title>
+      <link>https://unique-divine.github.io/projects/copyc/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/copyc/</guid>
       <description></description>
     </item>
     
@@ -56,13 +77,15 @@ I heard somebody say a few weeks back to “teach the thing you want to learn”
     </item>
     
     <item>
-      <title></title>
-      <link>https://unique-divine.github.io/post/video-test/</link>
-      <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
+      <title>Banknote Fraud Detection</title>
+      <link>https://unique-divine.github.io/projects/banknote_fraud/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/post/video-test/</guid>
-      <description>Very basic page just to test how an embedded video might appear.
-  </description>
+      <guid>https://unique-divine.github.io/projects/banknote_fraud/</guid>
+      <description>Banknote Fraud Detection - Decision Trees from Scratch Summary: The goal of this project was to develop accurate predictive models to solve a binary classification problem, detecting fraudulent banknotes (counterfeit money).
+To view the notebook without downloading anything, go here.
+Data Description: The data was downloaded from this source.
+ Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used.</description>
     </item>
     
     <item>
@@ -71,34 +94,7 @@ I heard somebody say a few weeks back to “teach the thing you want to learn”
       <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://unique-divine.github.io/now/</guid>
-      <description>What are you currently doing (in regard to your career) and how did you get there? How does your background make you unique? Currently, I&amp;rsquo;m attending Columbia University as a Master of Science candidate in applied mathematics.</description>
-    </item>
-    
-    <item>
-      <title>Markdown Syntax Guide</title>
-      <link>https://unique-divine.github.io/post/markdown-syntax/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/post/markdown-syntax/</guid>
-      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Rich Content</title>
-      <link>https://unique-divine.github.io/post/rich-content/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/post/rich-content/</guid>
-      <description>&lt;p&gt;Hugo ships with several &lt;a href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;&gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;&gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Math Typesetting</title>
-      <link>https://unique-divine.github.io/post/math-typesetting/</link>
-      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/post/math-typesetting/</guid>
-      <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
+      <description>  </description>
     </item>
     
   </channel>
