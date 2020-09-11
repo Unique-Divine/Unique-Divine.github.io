@@ -68,17 +68,6 @@ I heard somebody say a few weeks back to “teach the thing you want to learn”
     </item>
     
     <item>
-      <title>Image Tests</title>
-      <link>https://unique-divine.github.io/post/image-tests/</link>
-      <pubDate>Mon, 22 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/post/image-tests/</guid>
-      <description>Hello World
-almost in real time
-Photo by Manja Vitolic on Unsplash</description>
-    </item>
-    
-    <item>
       <title>Banknote Fraud Detection</title>
       <link>https://unique-divine.github.io/projects/banknote_fraud/</link>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
@@ -88,6 +77,17 @@ Photo by Manja Vitolic on Unsplash</description>
 To view the notebook without downloading anything, go here.
 Data Description: The data was downloaded from this source.
  Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used.</description>
+    </item>
+    
+    <item>
+      <title>Graduating from AJATT</title>
+      <link>https://unique-divine.github.io/post/graduating_ajatt/</link>
+      <pubDate>Fri, 22 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/post/graduating_ajatt/</guid>
+      <description>I recently crossed the 10,000 sentence mark in my dearly beloved spaced repitition software (SRS), Anki, after noticing that my deck includes 10,317 mature sentence cards.
+At the onset of my learning journey, I was excited and inspired by Khatzumoto&amp;rsquo;s progress and figured I could learn a thing or two by temporarily giving in to dogma.
+This milestone took me roughly two years of consistent grinding, where I averaged between 60-200 minutes of daily study time depending on the month and my availability.</description>
     </item>
     
     <item>
