@@ -24,6 +24,15 @@ This milestone took me roughly two years of consistent grinding, where I average
     </item>
     
     <item>
+      <title>Best Beginner Python Deep Learning Libraries </title>
+      <link>https://unique-divine.github.io/post/which_lib_dl/</link>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/post/which_lib_dl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>About</title>
       <link>https://unique-divine.github.io/about/</link>
       <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
@@ -46,21 +55,12 @@ Tools utilized: Python (NumPy, Pandas, Matplotlib), Pegasos, Logistic Regression
     </item>
     
     <item>
-      <title>CopyB</title>
-      <link>https://unique-divine.github.io/projects/copyb/</link>
+      <title>PyTorch Deep Learning Tutorial</title>
+      <link>https://unique-divine.github.io/projects/algo_trading/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/projects/copyb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CopyC</title>
-      <link>https://unique-divine.github.io/projects/copyc/</link>
-      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/projects/copyc/</guid>
-      <description></description>
+      <guid>https://unique-divine.github.io/projects/algo_trading/</guid>
+      <description>  </description>
     </item>
     
     <item>
@@ -96,7 +96,16 @@ Data Description: The data was downloaded from this source.
       <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://unique-divine.github.io/now/</guid>
-      <description>  </description>
+      <description>text</description>
+    </item>
+    
+    <item>
+      <title>Neural Networks for Gravitational Lens Modeling</title>
+      <link>https://unique-divine.github.io/projects/nn-grav_lens/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/nn-grav_lens/</guid>
+      <description></description>
     </item>
     
   </channel>

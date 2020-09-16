@@ -24,21 +24,12 @@ Tools utilized: Python (NumPy, Pandas, Matplotlib), Pegasos, Logistic Regression
     </item>
     
     <item>
-      <title>CopyB</title>
-      <link>https://unique-divine.github.io/projects/copyb/</link>
+      <title>PyTorch Deep Learning Tutorial</title>
+      <link>https://unique-divine.github.io/projects/algo_trading/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/projects/copyb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CopyC</title>
-      <link>https://unique-divine.github.io/projects/copyc/</link>
-      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/projects/copyc/</guid>
-      <description></description>
+      <guid>https://unique-divine.github.io/projects/algo_trading/</guid>
+      <description>  </description>
     </item>
     
     <item>
@@ -66,6 +57,15 @@ I heard somebody say a few weeks back to “teach the thing you want to learn”
 To view the notebook without downloading anything, go here.
 Data Description: The data was downloaded from this source.
  Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used.</description>
+    </item>
+    
+    <item>
+      <title>Neural Networks for Gravitational Lens Modeling</title>
+      <link>https://unique-divine.github.io/projects/nn-grav_lens/</link>
+      <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/projects/nn-grav_lens/</guid>
+      <description></description>
     </item>
     
   </channel>
