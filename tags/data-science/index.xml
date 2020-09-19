@@ -34,10 +34,10 @@ Tools utilized: Python (NumPy, Pandas, Matplotlib), Pegasos, Logistic Regression
     
     <item>
       <title>Breaking Into Data Science</title>
-      <link>https://unique-divine.github.io/post/breaking-into-ds/</link>
+      <link>https://unique-divine.github.io/post/ai/breaking-into-ds/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/post/breaking-into-ds/</guid>
+      <guid>https://unique-divine.github.io/post/ai/breaking-into-ds/</guid>
       <description>This post comes at a time where I, myself, am feeling the first-hire blues.
 An overall sense of burnout, frustration, confusion.
 I’ve gotten well acquainted with the phrases,
@@ -65,7 +65,8 @@ Data Description: The data was downloaded from this source.
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://unique-divine.github.io/projects/nn-grav_lens/</guid>
-      <description></description>
+      <description>Neural Networks for Gravitational Lens Modeling In this project, I use convolutional neural networks (with TensorFlow) to estimate the parameters of strong gravitational lenses, namely the coordinates of the center of the lens in two dimensions, the Einstein radius, and the complex ellipticities.
+These parameters are important because they enable us to quantify the distortions of images due to gravitational lensing. The fact that the deflection of light due to gravitational lensing is dependent on the mass structure of the lens means that recovering these parameters effectively allows us to measure and characterize the distribution of mass.</description>
     </item>
     
   </channel>

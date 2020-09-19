@@ -50,7 +50,8 @@ Data Description: The data was downloaded from this source.
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://unique-divine.github.io/projects/nn-grav_lens/</guid>
-      <description></description>
+      <description>Neural Networks for Gravitational Lens Modeling In this project, I use convolutional neural networks (with TensorFlow) to estimate the parameters of strong gravitational lenses, namely the coordinates of the center of the lens in two dimensions, the Einstein radius, and the complex ellipticities.
+These parameters are important because they enable us to quantify the distortions of images due to gravitational lensing. The fact that the deflection of light due to gravitational lensing is dependent on the mass structure of the lens means that recovering these parameters effectively allows us to measure and characterize the distribution of mass.</description>
     </item>
     
   </channel>
