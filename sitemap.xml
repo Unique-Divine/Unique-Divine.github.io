@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://unique-divine.github.io/about/</loc>
+    <lastmod>2020-09-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://unique-divine.github.io/</loc>
     <lastmod>2020-09-02T00:00:00+00:00</lastmod>
   </url>
@@ -14,11 +19,6 @@
   
   <url>
     <loc>https://unique-divine.github.io/post/</loc>
-    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/post/japanese/graduating_ajatt/</loc>
     <lastmod>2020-09-02T00:00:00+00:00</lastmod>
   </url>
   
@@ -38,28 +38,23 @@
   </url>
   
   <url>
-    <loc>https://unique-divine.github.io/tags/artifical-intelligence/</loc>
-    <lastmod>2020-08-15T00:00:00+00:00</lastmod>
+    <loc>https://unique-divine.github.io/post/japanese/why_learn_jp_again/</loc>
+    <lastmod>2020-09-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://unique-divine.github.io/post/ai/which_lib_dl/</loc>
-    <lastmod>2020-08-15T00:00:00+00:00</lastmod>
+    <loc>https://unique-divine.github.io/tags/data-science/</loc>
+    <lastmod>2020-08-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://unique-divine.github.io/tags/deep-learning/</loc>
-    <lastmod>2020-08-15T00:00:00+00:00</lastmod>
+    <loc>https://unique-divine.github.io/projects/nn-grav_lens/</loc>
+    <lastmod>2020-08-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://unique-divine.github.io/tags/gans/</loc>
-    <lastmod>2020-08-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/about/</loc>
-    <lastmod>2020-07-28T00:00:00+00:00</lastmod>
+    <loc>https://unique-divine.github.io/tags/projects/</loc>
+    <lastmod>2020-08-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -68,22 +63,7 @@
   </url>
   
   <url>
-    <loc>https://unique-divine.github.io/tags/data-science/</loc>
-    <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://unique-divine.github.io/projects/</loc>
-    <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/projects/</loc>
-    <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/projects/algo_trading/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>
   </url>
   
@@ -100,16 +80,6 @@
   <url>
     <loc>https://unique-divine.github.io/projects/banknote_fraud/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/now/</loc>
-    <lastmod>2019-07-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/projects/nn-grav_lens/</loc>
-    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
