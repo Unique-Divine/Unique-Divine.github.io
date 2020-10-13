@@ -33,21 +33,6 @@ The goal of this project is to predict whether advertisements will be clicked or
     </item>
     
     <item>
-      <title>Breaking Into Data Science</title>
-      <link>https://unique-divine.github.io/post/ai/breaking-into-ds/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/post/ai/breaking-into-ds/</guid>
-      <description>This post comes at a time where I, myself, am feeling the first-hire blues.
-An overall sense of burnout, frustration, confusion.
-I’ve gotten well acquainted with the phrases,
-“We reget to inform you at this time…”,
-“Although we were impressed with your interview/qualifications…”,
-“[insert insincere compliment here]. Unfortunately, [insert rejection statement here] …”.
-I heard somebody say a few weeks back to “teach the thing you want to learn”.` It seemed a bit paradoxical the first time I thought about it.</description>
-    </item>
-    
-    <item>
       <title>Banknote Fraud Detection</title>
       <link>https://unique-divine.github.io/projects/banknote_fraud/</link>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
@@ -57,6 +42,21 @@ I heard somebody say a few weeks back to “teach the thing you want to learn”
 To view the notebook without downloading anything, go here.
 Data Description: The data was downloaded from this source.
  Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used.</description>
+    </item>
+    
+    <item>
+      <title>Breaking Into Data Science</title>
+      <link>https://unique-divine.github.io/post/ai/breaking-into-ds/</link>
+      <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/post/ai/breaking-into-ds/</guid>
+      <description>This post comes at a time where I am feeling the first-hire blues.
+An overall sense of burnout, frustration, confusion.
+I’ve gotten well acquainted with the phrases,
+“We reget to inform you at this time…”,
+“Although we were impressed with your interview/qualifications…”,
+“[insert insincere compliment here]. Unfortunately, [insert rejection statement here] …”.
+I heard somebody say a few weeks back to “teach the thing you want to learn”. It seemed a bit paradoxical at first.</description>
     </item>
     
   </channel>
