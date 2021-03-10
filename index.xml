@@ -31,7 +31,7 @@ I was an athlete for probably 10 years of my life and so I&amp;rsquo;d tried a m
       <description>Hi there, I&amp;rsquo;m Unique Divine.
 I&amp;rsquo;m a musician, a writer, a programmer, and an artist.
 I love to solve interesting problems and build stuff.
-Current Foci:  🧬 Computational genomics research leveraging deep learning to find DNA variants that are predictive of phenotypic traits  Collaborating with Jie Yuan under the supervision of Dr. Itsik Pe&amp;rsquo;er   💰 Leading and collaborating with an algorithmic trading 👯 &amp;ldquo;dream team&amp;rdquo;. 📚 Grad school at Columbia University.</description>
+Current Foci:  💻 A deep reinforcement learning (RL) research project with Erik Skalnes: We&amp;rsquo;re integrating an attention mechanism into the actor-critic method in a way that may allow the RL agent to interpret memories 💰 Leading and collaborating with an algorithmic trading 👯 &amp;ldquo;dream team&amp;rdquo; 📚 Graduate school at Columbia University 🤖 Artificial intelligence engineering work @ Applied Technology Solutions, Inc.</description>
     </item>
     
     <item>
@@ -75,21 +75,6 @@ The goal of this project is to predict whether advertisements will be clicked or
 To view the notebook without downloading anything, go here.
 Data Description: The data was downloaded from this source.
  Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used.</description>
-    </item>
-    
-    <item>
-      <title>Breaking Into Data Science</title>
-      <link>https://unique-divine.github.io/post/ai/breaking-into-ds/</link>
-      <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://unique-divine.github.io/post/ai/breaking-into-ds/</guid>
-      <description>This post comes at a time where I am feeling the first-hire blues.
-An overall sense of burnout, frustration, confusion.
-I’ve gotten well acquainted with the phrases,
-“We reget to inform you at this time…”,
-“Although we were impressed with your interview/qualifications…”,
-“[insert insincere compliment here]. Unfortunately, [insert rejection statement here] …”.
-I heard somebody say a few weeks back to “teach the thing you want to learn”. It seemed a bit paradoxical at first.</description>
     </item>
     
   </channel>
