@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pursuit of happiness on Unique Divine</title>
+    <link>https://unique-divine.github.io/tags/pursuit-of-happiness/</link>
+    <description>Recent content in pursuit of happiness on Unique Divine</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2020</copyright>
+    <lastBuildDate>Tue, 26 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://unique-divine.github.io/tags/pursuit-of-happiness/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Breaking Into Data Science I: Plan of Attack</title>
+      <link>https://unique-divine.github.io/post/ai/breaking-into-ds-i/</link>
+      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://unique-divine.github.io/post/ai/breaking-into-ds-i/</guid>
+      <description>In 5th grade, one of my classmates fell down and broke his arm during a game of two-hand touch football, so the elementary school banned the sport during recess. I was pretty upset about this. Lots of kids were. This was Texas, afterall, and we loved our football.
+I experimented with other recess activies: hopscotch, double dutch, chalk drawing, tetherball, basketball, dodgeball, kickball. Many of these activites just didn&amp;rsquo;t do it for me.</description>
+    </item>
+    
+  </channel>
+</rss>
