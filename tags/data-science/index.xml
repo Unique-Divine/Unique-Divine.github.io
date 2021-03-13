@@ -18,7 +18,7 @@
       <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://unique-divine.github.io/projects/gans-for-genomics/</guid>
-      <description>GANs for Genomics Motivation While the central aim of this project is to investigate the viability of neural networks to identify predictive variants in the genome, I place a specific focus on comparing neural networks with linear predictors such as the polygenic risk score.
+      <description>Motivation [code] While the central aim of this project is to investigate the viability of neural networks to identify predictive variants in the genome, I place a specific focus on comparing neural networks with linear predictors such as the polygenic risk score.
 Multiple papers have shown that neural networks are generally less effective for prediction of complex genetic disorders than polygenic risk scores (PRSs) even though PRSs are linear predictors [Pinto et al.</description>
     </item>
     
