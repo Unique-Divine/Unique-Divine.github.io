@@ -18,8 +18,8 @@
       <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://unique-divine.github.io/projects/gans-for-genomics/</guid>
-      <description>Motivation [code] While the central aim of this project is to investigate the viability of neural networks to identify predictive variants in the genome, I place a specific focus on comparing neural networks with linear predictors such as the polygenic risk score.
-Multiple papers have shown that neural networks are generally less effective for prediction of complex genetic disorders than polygenic risk scores (PRSs) even though PRSs are linear predictors [Pinto et al.</description>
+      <description>Motivation Multiple papers have shown that neural networks are generally less effective for prediction of complex genetic disorders than polygenic risk scores (PRSs) even though PRSs are linear predictors [Pinto et al., 2019] [Mamani, 2020] [Badré et al., 2020]. I found this surprising at first but grew to understand why after discovering what challenges arrise when working with genomics datasets for predictive modeling.
+ High-dimensionality feature sets: Input vectors can have on the order of 100,000+ features.</description>
     </item>
     
     <item>
