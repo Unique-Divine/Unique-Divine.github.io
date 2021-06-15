@@ -91,7 +91,7 @@
                             
                             <div class="byline-meta-content">
                                 <time class="byline-meta-date" datetime="2020-1211-11">15 November 2020</time>
-                                <span class="byline-reading-time"><span class="bull">&bull;</span> 3 min read</span>
+                                <span class="byline-reading-time"><span class="bull">&bull;</span> 4 min read</span>
                             </div>
                         </section>
 
@@ -110,18 +110,17 @@
             <section class="post-full-content">
                 <div class="post-content">
                     <!-- raw HTML omitted -->
-<h2 id="motivation-codehttpsgithubcomunique-divinegans-for-genomics">Motivation <a href="https://github.com/Unique-Divine/GANs-for-Genomics">[code]</a></h2>
-<p>While the central aim of this project is to investigate the viability of neural networks to identify predictive variants in the genome, I place a specific focus on comparing neural networks with linear predictors such as the polygenic risk score.</p>
-<p>Multiple papers have shown that neural networks are generally less effective for prediction of complex genetic disorders than polygenic risk scores (PRSs) even though PRSs are linear predictors <a href="ref">[Pinto et al., 2019]</a> <a href="ref">[Mamani, 2020]</a> <a href="ref">[Badré et al., 2020]</a>.</p>
-<p>I found this pretty surprising at first, but it actually makes sense when we consider a few challenges of working with genomics datasets for predictive modeling with deep learning.</p>
+<h2 id="motivation">Motivation</h2>
+<p>Multiple papers have shown that neural networks are generally less effective for prediction of complex genetic disorders than polygenic risk scores (PRSs) even though PRSs are linear predictors <a href="ref">[Pinto et al., 2019]</a> <a href="ref">[Mamani, 2020]</a> <a href="ref">[Badré et al., 2020]</a>. I found this surprising at first but grew to understand why after discovering what <strong>challenges</strong> arrise when working with genomics datasets for predictive modeling.</p>
 <ol>
-<li>High-dimensionality feature sets: Input vectors can have on the order of 100,000+ features.</li>
-<li>Low number of training samples: Deep neural nets need plenty of data, and in the case of genomics, we probably won&rsquo;t have plenty of relevant samples.</li>
-<li>Often imbalanced: The phenotypes tend not to have an even spread. This is especially true for case-control predictions. Usually, you&rsquo;ll have a small number of cases and lots of controls.</li>
+<li><strong>High-dimensionality feature sets</strong>: Input vectors can have on the order of 100,000+ features.</li>
+<li><strong>Extremely low number of training samples</strong>: Deep neural nets need plenty of data, and in the case of genomics, we probably won&rsquo;t have plenty of relevant samples.</li>
+<li><strong>Datasets are often heavily imbalanced</strong>: This is especially true for case-control predictions. Usually, you&rsquo;ll have a small number of cases and lots of controls. The phenotypes tend not to have an even spread.</li>
 </ol>
-<p>So, I figured that it would be worth looking into the effectiveness of generative adversarial networks (GANs) to simulate synthetic samples, create more plentiful training data, and achieve higher performance.</p>
-<h2 id="dataset">Dataset</h2>
-<p><a href="">[Data source]</a><!-- raw HTML omitted --></p>
+<p>These challenges make training performant deep learning models an arduous task. I decided to try to alleviate some of the burden of having insufficient training samples.</p>
+<p><strong>TLDR</strong>: I <strong>research the effectiveness of using generative adversarial networks (GANs) to simulate synthetic samples</strong>. In doing so, I hope to create more plentiful training data, achieve higher performance on genomic predictions, and reach a greater understanding of the relevant loci in the genome. The central aim of this project is to investigate the viability of neural networks for identifying predictive variants in the genome.</p>
+<p><a href="https://github.com/Unique-Divine/GANs-for-Genomics">[Code link]</a></p>
+<h2 id="dataset-description">Dataset Description</h2>
 <p><strong>Samples</strong>: Sprague Dawley rats from GWAS</p>
 <ul>
 <li>sample size: 4106 rats</li>
@@ -145,6 +144,15 @@
 </ul>
 </li>
 </ul>
+<h4 id="data-source">Data Source:</h4>
+<ul>
+<li>For more information on the data used in this analysis, refer to the following paper:
+<blockquote>
+<p>Gileta, A. et al. (2018). Genetic characterization of outbred Sprague Dawley rats and utility for genome-wide association studies. <em>bioRxiv</em>, 412924. <a href="https://www.biorxiv.org/content/biorxiv/early/2018/09/10/412924.full.pdf">[paper]</a></p>
+</blockquote>
+</li>
+<li>The data is available for download in <a href="https://en.wikipedia.org/wiki/Variant_Call_Format">variant call format (VCF)</a> on <a href="https://github.com/agileta/SD_PavCA_GWAS/blob/master/allChr.allSamps.90DR2.maf01.hweE7.noIBD.CharlesRiverOnly.vcf.gz">Alex Gileta&rsquo;s Github</a>.</li>
+</ul>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -162,6 +170,7 @@
 <li>Mamani, N. M. (2020). Machine Learning techniques and Polygenic Risk Score application to prediction genetic diseases. <em>ADCAIJ: Advances in Distributed Computing and Artificial Intelligence Journal</em>, 9(1), 5-14.</li>
 <li>Badré, A., Zhang, L., Muchero, W., Reynolds, J. C., &amp; Pan, C. (2020). Deep neural network improves the estimation of polygenic risk scores for breast cancer. <em>Journal of Human Genetics</em>, 1-11.</li>
 <li>Yelmen, B., Decelle, A., Ongaro, L., Marnetto, D., Montinaro, F., Furtlehner, C., &hellip; &amp; Jay, F. (2019). Creating Artificial Human Genomes Using Generative Models. <a href="https://hal.archives-ouvertes.fr/hal-02413942/document">[PDF]</a></li>
+<li>Gileta, A. et al. (2018). Genetic characterization of outbred Sprague Dawley rats and utility for genome-wide association studies. <em>bioRxiv</em>, 412924. <a href="https://www.biorxiv.org/content/biorxiv/early/2018/09/10/412924.full.pdf">[PDF]</a></li>
 </ul>
 
                 </div>
