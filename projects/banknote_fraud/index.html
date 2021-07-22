@@ -110,27 +110,32 @@
             <section class="post-full-content">
                 <div class="post-content">
                     <h1 id="banknote-fraud-detection---decision-trees-from-scratch">Banknote Fraud Detection - Decision Trees from Scratch</h1>
-<h2 id="summary">Summary:</h2>
-<p>The goal of this project was to develop accurate predictive models to solve a binary classification problem, detecting  fraudulent banknotes (counterfeit money).</p>
-<p>To view the notebook without downloading anything, <a href="https://nbviewer.jupyter.org/github/Unique-Divine/Banknote-Fraud-Detection/blob/master/Banknote%20Fraud%20-%20Decision%20Tree.ipynb">go here</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>The goal of this project was to develop accurate predictive models to solve a binary classification problem: detecting  fraudulent banknotes. I figured that learning to write decision tree algorithms from scratch could serve as an effective technical exercise. Unexpectedly, this <a href="https://github.com/Unique-Divine/Banknote-Fraud-Detection/blob/master/cart.py">from-scratch implementation</a> ended up outperforming the default trees from Scikit-learn.</p>
+<!-- raw HTML omitted -->
+<p>If you&rsquo;d like to view the notebook without downloading anything, go here: <figure>
+    <img src="https://img.shields.io/badge/Jupyter%20nbviewer-View%20notebook-brightgreen?&amp;logo=Jupyter"/> 
+</figure>
+</p>
+<!-- raw HTML omitted -->
 <h2 id="data-description">Data Description:</h2>
 <p>The data was downloaded from <a href="https://archive.ics.uci.edu/ml/datasets/banknote+authentication#">this source</a>.</p>
 <blockquote>
-<p>Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used. The final images have 400x 400 pixels. Due to the object lens and distance to the investigated object, gray-scale pictures with a resolution of about 660 dpi were gained. Wavelet Transform tool were used to extract features from images.</p>
+<p>Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used. The final images have 400 x 400 pixels. Due to the object lens and distance to the investigated object, gray-scale pictures with a resolution of about 660 dpi were gained. Wavelet Transform tools were used to extract features from images.</p>
 </blockquote>
 <h4 id="dataset-attributes">Dataset Attributes:</h4>
 <ol>
-<li>variance of Wavelet Transformed image (continuous)</li>
-<li>skewness of Wavelet Transformed image (continuous)</li>
-<li>curtosis of Wavelet Transformed image (continuous)</li>
-<li>entropy of image (continuous)</li>
-<li>class (integer)</li>
+<li>Variance of Wavelet Transformed image (continuous)</li>
+<li>Skewn of Wavelet Transformed image (continuous)</li>
+<li>Curtosis of Wavelet Transformed image (continuous)</li>
+<li>Entropy of image (continuous)</li>
+<li>Class (integer): Whether or not the banknote is real or fake.</li>
 </ol>
-<h2 id="next-steps--to-do">Next Steps / To-Do:</h2>
-<ul>
-<li>The decision tree is done, but I should probably benchmark the model I wrote from scratch against heavy hitting ensemble methods like XGBoost and random forests.</li>
-<li>Afterward, I&rsquo;ll turn this entire repo into a tutorial, so people won&rsquo;t have to struggle as much as I did to understand some of these concepts.</li>
-</ul>
+<figure>
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" height="150"/> 
+</figure>
+
 
                 </div>
             </section>
