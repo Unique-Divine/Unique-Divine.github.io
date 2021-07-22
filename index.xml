@@ -79,10 +79,8 @@ The goal of this project is to predict whether advertisements will be clicked or
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://unique-divine.github.io/projects/banknote_fraud/</guid>
-      <description>Banknote Fraud Detection - Decision Trees from Scratch Summary: The goal of this project was to develop accurate predictive models to solve a binary classification problem, detecting fraudulent banknotes (counterfeit money).
-To view the notebook without downloading anything, go here.
-Data Description: The data was downloaded from this source.
- Extracted from images were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used.</description>
+      <description>Banknote Fraud Detection - Decision Trees from Scratch The goal of this project was to develop accurate predictive models to solve a binary classification problem: detecting fraudulent banknotes. I figured that learning to write decision tree algorithms from scratch could serve as an effective technical exercise. Unexpectedly, this from-scratch implementation ended up outperforming the default trees from Scikit-learn.
+If you&amp;rsquo;d like to view the notebook without downloading anything, go here:   Data Description: The data was downloaded from this source.</description>
     </item>
     
     <item>
