@@ -116,16 +116,16 @@
 <ul>
 <li><strong>Tools utilized</strong>: Python (NumPy, Pandas, Matplotlib), Pegasos, Logistic Regression, Support Vector Machines</li>
 </ul>
-<h1 id="contents">Contents:</h1>
+<h2 id="contents">Contents:</h2>
 <ol>
-<li><a href="#s1">Dataset Description</a></li>
-<li><a href="#s2">Jupyter Notebook Contents</a></li>
-<li><a href="#s3">Demo / Usage Instructions</a></li>
+<li><a href="https://unique-divine.github.io/projects/ctr-prediction/#dataset-description" title="Dataset Description">Dataset Description</a></li>
+<li><a href="https://unique-divine.github.io/projects/ctr-prediction/#notebook-contents" title="Notebook Contents">Jupyter Notebook Contents</a></li>
+<li><a href="https://unique-divine.github.io/projects/ctr-prediction/#usage-instructions" title="Usage">Demo / Usage Instructions</a></li>
 </ol>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="1-dataset-description">1. Dataset Description</h2>
+<!-- raw HTML omitted -->
+<h5 id="dataset-description">1. Dataset Description</h5>
 <h3 id="data-source">Data Source:</h3>
-<p>The data is sourced from <a href="https://labs.criteo.com/">CriteoLabs</a>, a multinational corporation in the digital marketing industry, specializing in algorithmic approaches to determine what to show users. In a <a href="https://www.kaggle.com/c/criteo-display-ad-challenge">kaggle competition in 2014</a>, 7 days worth of Criteo&rsquo;s ad data was released. From here on out, this will be referred to as &ldquo;the Criteo data&rdquo; in the notebook. The Criteo data is contained in the  &lsquo;train_subsampled&rsquo; file.</p>
+<p>The data is sourced from <a href="https://labs.criteo.com/">CriteoLabs</a>, a multinational corporation in the digital marketing industry, specializing in algorithmic approaches to determine what to show users. In a <a href="https://www.kaggle.com/c/criteo-display-ad-challenge">kaggle competition in 2014</a>, 7 days worth of Criteo&rsquo;s ad data was released. From here on out, this wlill be referred to as &ldquo;the Criteo data&rdquo;. The data is contained in <a href="https://github.com/Unique-Divine/Click-Through-Rate-Prediction/blob/master/CTR_data.csv"><code>CTR_data.csv</code></a>.</p>
 <h3 id="data-fields">Data Fields</h3>
 <ul>
 <li>Label - Target variable that indicates if an ad was clicked (1) or not (0).</li>
@@ -134,8 +134,8 @@
 </ul>
 <p>The semantics of the features remain undisclosed.<br>
 When a value is missing, the field is empty.</p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="2-jupyter-notebook-contents">2. Jupyter Notebook Contents:</h2>
+<!-- raw HTML omitted -->
+<h5 id="notebook-contents">2. Jupyter Notebook Contents:</h5>
 <ol>
 <li>Dataset Description</li>
 <li>Preprocessing</li>
@@ -145,21 +145,16 @@ When a value is missing, the field is empty.</p>
 <li>Regularized Hinge Loss Support Vector Machine Classifier</li>
 <li>Implementing the Pegasos Algorithm</li>
 <li>Pegasos on Criteo CTR Prediction Data</li>
-<li>TODO</li>
 </ol>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="3-demo--usage-instructions">3. Demo / Usage Instructions:</h2>
-<p>All required libraries can installed with pip using requirements.txt file. Simply download the file and use</p>
+<!-- raw HTML omitted -->
+<h5 id="usage-instructions">3. Demo / Usage Instructions:</h5>
+<p>All required libraries can installed with pip using <a href="https://github.com/Unique-Divine/Click-Through-Rate-Prediction/blob/master/requirements.txt"><code>requirements.txt</code></a> file. Simply download the file and use</p>
 <pre><code>pip install -r requirements.txt
-</code></pre><h3 id="todo">TODO</h3>
+</code></pre><p>at the terminal.</p>
+<h3 id="todo">TODO</h3>
 <ul>
+<li>Compare Pegasos with other benchmarks. In particular, try neural networks and ensemble methods such as XGBoost and random forests.</li>
 <li>Figure out how to get Travis CI to run automatic tests on the notebooks. If this is too time consuming, try converting everything to python scripts so that Travis CI can work that way.</li>
-<li>Compare Pegasos with other benchmark models. In particular, try&hellip;
-<ul>
-<li>neural networks and</li>
-<li>ensemble methods: XGBoost and random forests.</li>
-</ul>
-</li>
 </ul>
 <h4 id="ref">References</h4>
 <ul>
