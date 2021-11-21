@@ -1,132 +1,89 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
-    <loc>https://unique-divine.github.io/</loc>
+    <loc>https://uniquedivine.blog/post/</loc>
+    <lastmod>2021-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/books/</loc>
+    <lastmod>2021-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/creativity/</loc>
+    <lastmod>2021-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/post/books/keep-going/</loc>
+    <lastmod>2021-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/productivity/</loc>
+    <lastmod>2021-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/pursuit-of-happiness/</loc>
+    <lastmod>2021-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/</loc>
+    <lastmod>2021-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/</loc>
+    <lastmod>2021-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/data-science/</loc>
     <lastmod>2020-11-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/data-science/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/projects/gans-for-genomics/</loc>
     <lastmod>2020-11-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/projects/gans-for-genomics/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/projects/</loc>
     <lastmod>2020-11-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/projects/</loc>
-    <lastmod>2020-11-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/</loc>
-    <lastmod>2020-11-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/post/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/post/poh/flexing-on-my-checklists/</loc>
     <lastmod>2020-11-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/post/poh/flexing-on-my-checklists/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/happiness/</loc>
     <lastmod>2020-11-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/happiness/</loc>
-    <lastmod>2020-11-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/productivity/</loc>
-    <lastmod>2020-11-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/fitness/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/fitness/</loc>
     <lastmod>2020-09-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/learning/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/learning/</loc>
     <lastmod>2020-09-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/post/poh/reflection/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/post/poh/reflection/</loc>
     <lastmod>2020-09-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/about/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/about/</loc>
     <lastmod>2020-09-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/anki/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/anki/</loc>
     <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/japanese/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/japanese/</loc>
     <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/post/japanese/why_learn_jp_again/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/post/japanese/why_learn_jp_again/</loc>
     <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/projects/nn-grav_lens/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/projects/nn-grav_lens/</loc>
     <lastmod>2020-08-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/projects/ctr-prediction/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/projects/ctr-prediction/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/projects/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/projects/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/projects/banknote_fraud/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/projects/banknote_fraud/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/post/ai/breaking-into-tech-i/</loc>
+    <lastmod>2020-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/career/</loc>
+    <lastmod>2020-05-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://uniquedivine.blog/categories/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/tags/index/</loc>
+  </url><url>
+    <loc>https://uniquedivine.blog/series/</loc>
   </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/post/ai/breaking-into-ds-i/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/career/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/pursuit-of-happiness/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/tags/index/</loc>
-  </url>
-  
-  <url>
-    <loc>https://unique-divine.github.io/series/</loc>
-  </url>
-  
 </urlset>

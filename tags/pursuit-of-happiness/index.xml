@@ -2,23 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>pursuit of happiness on Unique Divine</title>
-    <link>https://unique-divine.github.io/tags/pursuit-of-happiness/</link>
+    <link>https://uniquedivine.blog/tags/pursuit-of-happiness/</link>
     <description>Recent content in pursuit of happiness on Unique Divine</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2020</copyright>
-    <lastBuildDate>Tue, 26 May 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://unique-divine.github.io/tags/pursuit-of-happiness/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 20 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://uniquedivine.blog/tags/pursuit-of-happiness/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Keep Going - by Austin Kleon</title>
+      <link>https://uniquedivine.blog/post/books/keep-going/</link>
+      <pubDate>Tue, 20 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://uniquedivine.blog/post/books/keep-going/</guid>
+      <description>[Amazon link] to support the author  Lately, something&amp;rsquo;s got me in a phase where I&amp;rsquo;m particularly interested in reading books about making art—like Art &amp;amp; Fear and Keep Going. I believe I first heard about Kleon&amp;rsquo;s writing from Ali Abdaal.
+Keep Going sticks to Kleon&amp;rsquo;s classic, pocket-sized, lighthearted but heavy-hitting style. It&amp;rsquo;s a quick read, so I went through it a few times. With books like this, I like to make one pass through to jot down quotes and notes on passages that resonate with me and then wrestle with the ideas for a while before coming back to the text.</description>
+    </item>
     
     <item>
-      <title>Breaking Into Data Science I: Plan of Attack</title>
-      <link>https://unique-divine.github.io/post/ai/breaking-into-ds-i/</link>
-      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
+      <title>Breaking Into a Career in Tech I: How I found work that I love</title>
+      <link>https://uniquedivine.blog/post/ai/breaking-into-tech-i/</link>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://unique-divine.github.io/post/ai/breaking-into-ds-i/</guid>
-      <description>Over the years, I&amp;rsquo;ve developed an effective system for accomplishing long-term goals such as learning a language, mastering a musical instrument, transitioning fields to a new discipline, and integrating exercise into one&amp;rsquo;s life as a regular habit. The first step of this system relies on answering two questions that will become the compass for setting each of several tiny micro-goals. Your wants must be transformed into actionable items, from abstract concepts into concrete objectives.</description>
+      <guid>https://uniquedivine.blog/post/ai/breaking-into-tech-i/</guid>
+      <description>Part I: Deciding A bit of context in media res Date: October 28, 2021.
+As someone that ended up in a fulfilling career at an early age, Many people close to me have asked for advice on how to find work they love and be effective doing it. The problem is, I don&amp;rsquo;t have the answers. But rather than just shrug and say &amp;ldquo;I don&amp;rsquo;t know&amp;rdquo;, I let people pick my brain.</description>
     </item>
     
   </channel>
