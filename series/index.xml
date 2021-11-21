@@ -2,14 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Series on Unique Divine</title>
-    <link>https://unique-divine.github.io/series/</link>
+    <link>https://uniquedivine.blog/series/</link>
     <description>Recent content in Series on Unique Divine</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Copyright © 2020</copyright>
-    
-	<atom:link href="https://unique-divine.github.io/series/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>Copyright © 2020</copyright><atom:link href="https://uniquedivine.blog/series/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
