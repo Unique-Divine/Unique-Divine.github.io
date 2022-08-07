@@ -15,7 +15,7 @@
       
       <guid>https://uniquedivine.blog/projects/gans-for-genomics/</guid>
       <description>Motivation Multiple papers have shown that neural networks are generally less effective for prediction of complex genetic disorders than polygenic risk scores (PRSs) even though PRSs are linear predictors [Pinto et al., 2019] [Mamani, 2020] [Badré et al., 2020]. I found this surprising at first but grew to understand why after discovering what challenges arrise when working with genomics datasets for predictive modeling.
- High-dimensionality feature sets: Input vectors can have on the order of 100,000+ features.</description>
+High-dimensionality feature sets: Input vectors can have on the order of 100,000+ features.</description>
     </item>
     
     <item>
@@ -45,7 +45,7 @@ The goal of this project is to predict whether advertisements will be clicked or
       
       <guid>https://uniquedivine.blog/projects/banknote_fraud/</guid>
       <description>Banknote Fraud Detection - Decision Trees from Scratch The goal of this project was to develop accurate predictive models to solve a binary classification problem: detecting fraudulent banknotes. I figured that learning to write decision tree algorithms from scratch could serve as an effective technical exercise. Unexpectedly, this from-scratch implementation ended up outperforming the default trees from Scikit-learn.
-If you&amp;rsquo;d like to view the notebook without downloading anything, go here:  Data Description: The data was downloaded from this source.</description>
+If you&amp;rsquo;d like to view the notebook without downloading anything, go here: Data Description: The data was downloaded from this source.</description>
     </item>
     
   </channel>
