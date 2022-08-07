@@ -9,12 +9,23 @@
     <copyright>Copyright © 2020</copyright>
     <lastBuildDate>Tue, 20 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://uniquedivine.blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>About</title>
+      <link>https://uniquedivine.blog/about/</link>
+      <pubDate>Fri, 05 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://uniquedivine.blog/about/</guid>
+      <description>I&amp;rsquo;m a programmer that makes music and writes. I&amp;rsquo;m obsessed with learning, solving interesting problems, and creating, whether it&amp;rsquo;s artwork, music, software, whatever. Creating is my ikigai (生き甲斐: &amp;ldquo;reason for being&amp;rdquo;) .
+§ — What I do for work I&amp;rsquo;m one of the lead software engineers for a new DeFi hub named Nibiru and build in the broader Cosmos and Ethereum Ecosystems.
+§ — Noteworthy open-source code Repository Description 🐍 python-crypto-api-wrappers A Python package for wrapping common Cryptocurrency APIs such as Messari, Coin Market Cap, Etherscan, CoinGecko, etc.</description>
+    </item>
+    
+    <item>
       <title>Keep Going - by Austin Kleon</title>
       <link>https://uniquedivine.blog/post/books/keep-going/</link>
       <pubDate>Tue, 20 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://uniquedivine.blog/post/books/keep-going/</guid>
-      <description>[Amazon link] to support the author  Lately, something&amp;rsquo;s got me in a phase where I&amp;rsquo;m particularly interested in reading books about making art—like Art &amp;amp; Fear and Keep Going. I believe I first heard about Kleon&amp;rsquo;s writing from Ali Abdaal.
+      <description>[Amazon link] to support the author Lately, something&amp;rsquo;s got me in a phase where I&amp;rsquo;m particularly interested in reading books about making art—like Art &amp;amp; Fear and Keep Going. I believe I first heard about Kleon&amp;rsquo;s writing from Ali Abdaal.
 Keep Going sticks to Kleon&amp;rsquo;s classic, pocket-sized, lighthearted but heavy-hitting style. It&amp;rsquo;s a quick read, so I went through it a few times. With books like this, I like to make one pass through to jot down quotes and notes on passages that resonate with me and then wrestle with the ideas for a while before coming back to the text.</description>
     </item>
     
@@ -25,7 +36,7 @@ Keep Going sticks to Kleon&amp;rsquo;s classic, pocket-sized, lighthearted but h
       
       <guid>https://uniquedivine.blog/projects/gans-for-genomics/</guid>
       <description>Motivation Multiple papers have shown that neural networks are generally less effective for prediction of complex genetic disorders than polygenic risk scores (PRSs) even though PRSs are linear predictors [Pinto et al., 2019] [Mamani, 2020] [Badré et al., 2020]. I found this surprising at first but grew to understand why after discovering what challenges arrise when working with genomics datasets for predictive modeling.
- High-dimensionality feature sets: Input vectors can have on the order of 100,000+ features.</description>
+High-dimensionality feature sets: Input vectors can have on the order of 100,000+ features.</description>
     </item>
     
     <item>
@@ -34,7 +45,7 @@ Keep Going sticks to Kleon&amp;rsquo;s classic, pocket-sized, lighthearted but h
       <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://uniquedivine.blog/post/poh/flexing-on-my-checklists/</guid>
-      <description>A quick note on scheduling. To-do lists and schedules are great tools with obvious utility. They help us keep our lives from becoming too chaotic and make it easier to &amp;ldquo;steer the ship&amp;rdquo; toward long-term goals. As someone who used to struggle with organization, I benefit a lot from utilizing strucured strategies such as the Getting Things Done (GTD) system and from convenient tools like schedules and Todoist. Inspite of this, I often find myself unable to keep up with the some of the schedules and daily goals I set for myself.</description>
+      <description>A quick note on scheduling. To-do lists and schedules are great tools with obvious utility. They help us keep our lives from becoming too chaotic and make it easier to &amp;ldquo;steer the ship&amp;rdquo; toward long-term goals. As someone who used to struggle with organization, I benefit a lot from utilizing strucured strategies such as the Getting Things Done (GTD) system and from convenient tools like schedules and Todoist. In spite of this, I often find myself unable to keep up with the some of the schedules and daily goals I set for myself.</description>
     </item>
     
     <item>
@@ -45,16 +56,6 @@ Keep Going sticks to Kleon&amp;rsquo;s classic, pocket-sized, lighthearted but h
       <guid>https://uniquedivine.blog/post/poh/reflection/</guid>
       <description>I like to dream as much as anyone. However, I&amp;rsquo;m also a huge fan of results and tangible evidence.
 I was an athlete for probably 10 years of my life and so I&amp;rsquo;d tried a multitude of different strength and conditioning programs, diets, and exercise methods. There was a point in time where I was doing a more intense phase of bodybuilding from the tail end of high school leading into my first few years of college.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://uniquedivine.blog/about/</link>
-      <pubDate>Mon, 21 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://uniquedivine.blog/about/</guid>
-      <description>I&amp;rsquo;m a programmer that makes music and writes. I&amp;rsquo;m obsessed with learning, solving interesting problems, and creating.
-What I&amp;rsquo;m currently focused on: §1. Work  📊 Lead Data Scientist @ Sommelier Finance  §2. Side projects  💻 A research project in vision-based, deep reinforcement learning [code] 🧬 Computational genomics research | I leverage deep learning to generate and learn from synthetic DNA samples. [code]  §3. Other interests Music: I try not to go a day without practicing 🎷, 🎹, or 🎸.</description>
     </item>
     
     <item>
@@ -95,7 +96,7 @@ The goal of this project is to predict whether advertisements will be clicked or
       
       <guid>https://uniquedivine.blog/projects/banknote_fraud/</guid>
       <description>Banknote Fraud Detection - Decision Trees from Scratch The goal of this project was to develop accurate predictive models to solve a binary classification problem: detecting fraudulent banknotes. I figured that learning to write decision tree algorithms from scratch could serve as an effective technical exercise. Unexpectedly, this from-scratch implementation ended up outperforming the default trees from Scikit-learn.
-If you&amp;rsquo;d like to view the notebook without downloading anything, go here:  Data Description: The data was downloaded from this source.</description>
+If you&amp;rsquo;d like to view the notebook without downloading anything, go here: Data Description: The data was downloaded from this source.</description>
     </item>
     
   </channel>
