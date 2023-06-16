@@ -1,0 +1,29 @@
+{
+  "name": "unique-divine-blog",
+  "version": "0.0.1",
+  "description": "Unique Divine",
+  "main": "index.js",
+  "scripts": {
+    "serve": "trap 'exit 0' SIGINT; vuepress dev --no-cache",
+    "build": "vuepress build",
+    "dev": "yarn serve",
+    "deploy": "bash scripts/publish.sh",
+    "export": "sh export.sh",
+    "copy-assets": "sh copy-assets.sh"
+  },
+  "author": "Unique-Divine",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vue-router": "^3.4.5",
+    "vuex": "^3.6.2",
+    "striptags": "^3.2.0",
+    "vuex-router-sync": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.12",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4",
+    "vuepress": "^1.9.8"
+  }
+}
