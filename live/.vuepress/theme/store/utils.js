@@ -1,5 +1,5 @@
-import { get } from 'lodash'
-import { toLower, getOr, curry, toUpper } from 'lodash/fp'
+import { get, capitalize, map as lodashMap } from 'lodash'
+import { toLower, getOr, curry } from 'lodash/fp'
 
 const pluckData = curry((blog, page) => ({
   ...page,
@@ -90,22 +90,24 @@ export const posts = state => {
     .map(item => state.index[item])
     .filter(item => !!item)
     .filter(item => item.type === 'post')
-    .filter(item => !category(state) || ~item.categories.map(toUpper).indexOf(toLower(category(state))))
+    .filter(item => !category(state) || ~item.categories.map(toLower).indexOf(toLower(category(state))))
     .filter(item => !tag(state) || ~item.tags.map(toLower).indexOf(toLower(tag(state))))
     .sort((a, b) => a - b)
     .slice(0, state.type === 'home' ? 10 : 50)
 }
 
+const titleCase = (str) => lodashMap(str.split(" "), capitalize).join(" ");
 
 export const header = state => {
-  console.debug("DEBUG state:", state)
-  console.debug("DEBUG category(state):", category(state))
+  // console.debug("DEBUG state: %o", state)
+  // console.debug("DEBUG state.posts: %o", state.posts)
+  // console.debug("DEBUG category(state): ", category(state))
   switch (state.type) {
     case 'category':
       return {
         showCover: true,
         coverImage: null,
-        title: category(state) ? toUpper(category(state)) : `Categories`,
+        title: category(state) ? titleCase(category(state)) : `Categories`,
         description: `${state.posts.length} ${state.posts.length === 1 ? 'article' : 'articles'}`
       }
 
@@ -113,7 +115,7 @@ export const header = state => {
       return {
         showCover: true,
         coverImage: null,
-        title: tag(state) ? toUpper(tag(state)) : `Tags`,
+        title: tag(state) ? titleCase(tag(state)) : `Tags`,
         description: `${state.posts.length} ${state.posts.length === 1 ? 'article' : 'articles'}`
       }
 
