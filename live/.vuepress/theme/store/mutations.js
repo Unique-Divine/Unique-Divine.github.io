@@ -1,3 +1,10 @@
+/* mutations.js
+ *
+ * This mutations.js file defines Vuex mutations. Mutations are responsible for 
+ * the state in a deterministic, synchronous manner. Each of the fields 
+ * exported defines a mutation. For example, the functions mapped by
+ * "types.SITE_UPDATE" and "types.PAGE_UPDATE" are mutations.
+ */
 import { pick, get } from 'lodash'
 
 import types from './types'
