@@ -704,6 +704,7 @@ body {
   display: block;
   margin: 0;
   padding: 0;
+  font-weight: bold;
 }
 .nav li a {
   position: relative;
@@ -857,6 +858,7 @@ body {
   .site-nav-main {
     padding-right: 0;
     padding-left: 0;
+    font-weight: bold;
   }
   .site-nav-left {
     margin-right: 0;
@@ -1351,11 +1353,11 @@ body {
   border-radius: 3px;
 }
 
- .language-bash, .language-js, .language-go, .language-json {
+ .language-bash, .language-js, .language-go, .language-json, .language-python, .language- {
   /* background: var(--light) !important; */
   color: var(--dark) !important;
 }
-pre.language-bash,  pre.language-js, pre.language-go, pre.language-json {
+pre.language-bash,  pre.language-js, pre.language-go, pre.language-json, pre.language-python, pre.language- {
   background: var(--white) !important;
 }
 
