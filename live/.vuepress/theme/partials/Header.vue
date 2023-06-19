@@ -8,10 +8,7 @@
     <div class="outer" :class="headerBackgroundClasses" :style="backgroundStyle">
       <div class="inner">
         <slot name="header" v-if="isHome || isPage || isPost"></slot>
-        <div
-          class="site-header-content"
-          v-if="header.showCover"
-        >
+        <div class="site-header-content" v-if="header.showCover">
           <h1 class="site-title">
             <!-- <img
               v-if="header.logo"
@@ -20,11 +17,14 @@
               :alt="header.title"
             />
             <span v-else>{{ header.title }}</span> -->
-            <span >{{ header.title }}</span>
+            <span>{{ header.title }}</span>
           </h1>
           <h2 class="site-description" v-if="header.description">
             {{ header.description }}
           </h2>
+          <!-- <ul v-if="isTags"> -->
+          <!--   <h2>hello from tags</h2> -->
+          <!-- </ul> -->
         </div>
       </div>
     </div>
@@ -54,6 +54,14 @@ export default {
 
     isArchive() {
       return this.type === "category" || this.type === "tags" || this.type === "posts"
+    },
+
+    isTags() {
+      return this.type === "tags"
+    },
+
+    isCategory() {
+      return this.type === "category"
     },
 
     isPage() {
