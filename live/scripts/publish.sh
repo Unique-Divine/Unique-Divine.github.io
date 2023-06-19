@@ -5,6 +5,11 @@ OUT_DOMAIN="uniquedivine.blog"
 BUILD_PATH=".vuepress/dist"
 
 build() {
+  if [ ! yarn ]; then
+    echo "Please install yarn"
+    exit 1
+  fi 
+
   yarn --check-files
   yarn build
 }
@@ -23,6 +28,11 @@ create_deployment_records() {
 
 # push_to_gh: pushes a production deployment
 push_to_gh() {
+  if [ ! git ]; then
+    echo "Please install git"
+    exit 1
+  fi 
+
   local root_dir=$(pwd)
   cd $BUILD_PATH
   git init 

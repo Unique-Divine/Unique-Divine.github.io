@@ -50,7 +50,7 @@ module.exports = {
     //   "meta",
     //   {
     //     name: "google-site-verification",
-    //     content: "Uj8rxJHITFhFY8jBVBQfiPt9JcLl77JMkR50e9t4qGM",
+    //     content: "CODE GOES HERE",
     //   },
     // ],
     ["meta", { name: "theme-color", content: "#f0f0f0" }],
