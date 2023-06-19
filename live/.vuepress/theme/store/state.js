@@ -1,3 +1,6 @@
+/* state.js
+ * This file defines the initial state of the Vuex store.
+ */
 export default {
   blog: {
     title: null,
