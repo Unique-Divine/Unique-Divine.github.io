@@ -1,21 +1,21 @@
-import { getOr } from 'lodash/fp'
+import { getOr } from "lodash/fp"
 
 export default {
-  blog: getOr({}, 'blog'),
-  current: getOr({}, 'current'),
-  index: getOr({}, 'index'),
-  loading: getOr(false, 'loading'),
-  params: getOr({}, 'params'),
+  blog: getOr({}, "blog"),
+  current: getOr({}, "current"),
+  index: getOr({}, "index"),
+  loading: getOr(false, "loading"),
+  params: getOr({}, "params"),
 
-  type: getOr(null, 'type'),
+  type: getOr(null, "type"),
 
-  header: getOr(null, 'header'),
+  header: getOr(null, "header"),
 
-  posts: getOr([], 'posts'),
-  footer: getOr([], 'footer'),
-  nav: getOr([], 'nav'),
+  posts: getOr([], "posts"),
+  footer: getOr([], "footer"),
+  nav: getOr([], "nav"),
 
-  social: getOr([], 'social'),
+  social: getOr([], "social"),
 
-  author: getOr(null, 'author')
+  author: getOr(null, "author"),
 }

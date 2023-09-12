@@ -108,18 +108,18 @@ html {
   font-family: Montserrat, sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  --white: #FFFFFF;
-  --white-smoke: #F0F0F0;
+  --white: #ffffff;
+  --white-smoke: #f0f0f0;
   --light: var(--white-smoke);
-  --code-sky-blue: #3F8EF7;
-  --code-pink: #D94FD5;
-  --code-blue-grey: #9FC4DC;
-  --code-purple: #5C24FF;
-  --sky-blue-2: #26A8ED;
+  --code-sky-blue: #3f8ef7;
+  --code-pink: #d94fd5;
+  --code-blue-grey: #9fc4dc;
+  --code-purple: #5c24ff;
+  --sky-blue-2: #26a8ed;
   --dark: #050505;
-  --grey600: #4B5667;
+  --grey600: #4b5667;
   --dark-sub: var(--grey600);
-  --dark-sub-2: #2E3848;
+  --dark-sub-2: #2e3848;
   --dark-sub-3: #728195;
   color: black;
 }
@@ -634,8 +634,7 @@ body {
   flex: 1 0 auto;
   display: flex;
 }
-.site-header-background:not(.responsive-header-img)
-  .site-nav-left-wrapper:after,
+.site-header-background:not(.responsive-header-img) .site-nav-left-wrapper:after,
 .site-nav-main .site-nav-left-wrapper:after {
   content: "";
   position: absolute;
@@ -851,7 +850,7 @@ body {
   opacity: 1;
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.05s;
 }
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .site-home-header .site-nav {
     margin-left: -5vw;
   }
@@ -864,9 +863,14 @@ body {
     margin-right: 0;
     padding-left: 5vw;
   }
-  .site-nav-right {
-    display: none;
+  .site-nav-content {
+    .nav {
+      color: red !important;
+    }
   }
+  /* .site-nav-right { */
+  /*   display: none; */
+  /* } */
 }
 .posts {
   overflow-x: hidden;
@@ -1005,8 +1009,7 @@ body {
   white-space: nowrap;
   background: #15171a;
   border-radius: 3px;
-  box-shadow: 0 12px 26px rgba(39, 44, 49, 0.08),
-    1px 3px 8px rgba(39, 44, 49, 0.03);
+  box-shadow: 0 12px 26px rgba(39, 44, 49, 0.08), 1px 3px 8px rgba(39, 44, 49, 0.03);
   opacity: 0;
   transition: all 0.35s cubic-bezier(0.4, 0.01, 0.165, 0.99);
   transform: translateY(6px);
@@ -1353,28 +1356,42 @@ body {
   border-radius: 3px;
 }
 
- .language-bash, .language-js, .language-go, .language-json, .language-python, .language- {
+.language-bash,
+.language-js,
+.language-go,
+.language-json,
+.language-python,
+.language- {
   /* background: var(--light) !important; */
   color: var(--dark) !important;
 }
-pre.language-bash,  pre.language-js, pre.language-go, pre.language-json, pre.language-python, pre.language- {
+pre.language-bash,
+pre.language-js,
+pre.language-go,
+pre.language-json,
+pre.language-python,
+pre.language- {
   background: var(--white) !important;
 }
 
-.token.function, .token.property {
-  color: var(--code-sky-blue) !important; 
+.token.function,
+.token.property {
+  color: var(--code-sky-blue) !important;
 }
 .token.variable {
-  color: var(--code-purple) !important; 
+  color: var(--code-purple) !important;
 }
-.token.string, .token.number, .token.operator, .token.parameter.variable {
-  color: var(--code-pink) !important; 
+.token.string,
+.token.number,
+.token.operator,
+.token.parameter.variable {
+  color: var(--code-pink) !important;
 }
 .token.comment {
-  color: var(--code-blue-grey) !important; 
+  color: var(--code-blue-grey) !important;
 }
 .token.punctuation {
-  color: var(--dark) !important; 
+  color: var(--dark) !important;
 }
 
 .post-full-content p code {
@@ -1437,8 +1454,8 @@ pre.language-bash,  pre.language-js, pre.language-go, pre.language-json, pre.lan
 .post-full-content h6 {
   /* light theme */
   color: var(--dark);
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Open Sans, Helvetica Neue, sans-serif;
 }
 .post-full-content h1 {
   margin: 0.5em 0 0.4em;
@@ -1689,8 +1706,7 @@ pre.language-bash,  pre.language-js, pre.language-go, pre.language-json, pre.lan
   line-height: 1.5em;
   background: #fff;
   border-radius: 3px;
-  box-shadow: 0 12px 26px rgba(39, 44, 49, 0.08),
-    1px 3px 8px rgba(39, 44, 49, 0.06);
+  box-shadow: 0 12px 26px rgba(39, 44, 49, 0.08), 1px 3px 8px rgba(39, 44, 49, 0.06);
   opacity: 0;
   transition: all 0.35s cubic-bezier(0.4, 0.01, 0.165, 0.99);
   transform: scale(0.98) translateY(15px);
@@ -2123,8 +2139,8 @@ pre.language-bash,  pre.language-js, pre.language-go, pre.language-json, pre.lan
 .post-full-content figcaption {
   margin: 1em auto 0;
   color: #5d7179;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Open Sans, Helvetica Neue, sans-serif;
   font-size: 75%;
   line-height: 1.5em;
   text-align: center;
@@ -2191,8 +2207,8 @@ pre.language-bash,  pre.language-js, pre.language-go, pre.language-json, pre.lan
 .post-full-content .kg-bookmark-container {
   display: flex;
   min-height: 148px;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Open Sans, Helvetica Neue, sans-serif;
   border-radius: 3px;
 }
 .post-full-content .kg-bookmark-container,
@@ -2736,7 +2752,6 @@ pre.language-bash,  pre.language-js, pre.language-go, pre.language-json, pre.lan
   }
 }
 
-
 /* ------------------------------------------
  Dark Theme 
  -------------------------------------------- */
@@ -2831,7 +2846,7 @@ pre.language-bash,  pre.language-js, pre.language-go, pre.language-json, pre.lan
   }
   .post-full-content code {
     color: var(--dark);
-    background: rgba(175,184,193,0.2);
+    background: rgba(175, 184, 193, 0.2);
   }
   hr {
     border-top-color: #2b2f36;

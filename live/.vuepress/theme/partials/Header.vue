@@ -31,7 +31,7 @@
   </header>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 
 export default {
   props: ["header"],
@@ -41,11 +41,11 @@ export default {
     backgroundStyle() {
       if (this.header.coverImage) {
         return {
-          "background-image": `url(${this.$withBase(this.header.coverImage)})`
-        };
+          "background-image": `url(${this.$withBase(this.header.coverImage)})`,
+        }
       }
 
-      return {};
+      return {}
     },
 
     isHome() {
@@ -76,19 +76,19 @@ export default {
       return {
         "site-header": this.isPage || this.isPost,
         "site-home-header": this.isHome,
-        "site-archive-header": this.isArchive
-      };
+        "site-archive-header": this.isArchive,
+      }
     },
 
     headerBackgroundClasses() {
-      const headerImage = !!this.header.coverImage;
+      const headerImage = !!this.header.coverImage
       return {
         "responsive-header-img": headerImage,
         "no-image": !headerImage,
         "site-header-background": this.isArchive || this.isHome,
-        "site-nav-main": this.isPage || this.isPost
-      };
-    }
-  }
-};
+        "site-nav-main": this.isPage || this.isPost,
+      }
+    },
+  },
+}
 </script>

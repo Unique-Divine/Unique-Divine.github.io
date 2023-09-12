@@ -1,139 +1,153 @@
-import { get, capitalize, map as lodashMap } from 'lodash'
-import { toLower, getOr, curry } from 'lodash/fp'
+import { get, capitalize, map as lodashMap } from "lodash"
+import { toLower, getOr, curry } from "lodash/fp"
 
 const pluckData = curry((blog, page) => ({
   ...page,
   ...page.frontmatter,
-  publish: page.frontmatter.publish ? new Date(page.frontmatter.publish).getTime() : null,
-  tags: get(page.frontmatter, 'tags', []).map(toLower),
-  categories: get(page.frontmatter, 'categories', []).map(toLower),
+  publish: page.frontmatter.publish
+    ? new Date(page.frontmatter.publish).getTime()
+    : null,
+  tags: get(page.frontmatter, "tags", []).map(toLower),
+  categories: get(page.frontmatter, "categories", []).map(toLower),
   author: {
-    link: get(page.frontmatter, 'author.link') || get(blog, 'defaultAuthor.link'),
-    name: get(page.frontmatter, 'author.name') || get(blog, 'defaultAuthor.name'),
-    gravatar: get(page.frontmatter, 'author.gravatar') || get(blog, 'defaultAuthor.gravatar')
-  }
+    link: get(page.frontmatter, "author.link") || get(blog, "defaultAuthor.link"),
+    name: get(page.frontmatter, "author.name") || get(blog, "defaultAuthor.name"),
+    gravatar:
+      get(page.frontmatter, "author.gravatar") || get(blog, "defaultAuthor.gravatar"),
+  },
 }))
 
-const isExternal = url => /^https?:\/\//i.test(url)
+const isExternal = (url) => /^https?:\/\//i.test(url)
 
 export const formatPages = (blog, data = []) => data.map(pluckData(blog))
 
 export const formatPage = pluckData
 
-export const relativePath = state => {
-  const route = get(state, 'route.path', '/')
-  const base = get(state, 'blog.path', '')
+export const relativePath = (state) => {
+  const route = get(state, "route.path", "/")
+  const base = get(state, "blog.path", "")
 
-  return route.replace(base, '')
+  return route.replace(base, "")
 }
 
-export const type = state => {
+export const type = (state) => {
   const path = relativePath(state)
-  const type = get(state, 'current.type')
-  const [group] = path.split('/').filter(tag => !!tag)
+  const type = get(state, "current.type")
+  const [group] = path.split("/").filter((tag) => !!tag)
 
   if (type) {
     return type
   }
 
   switch (group) {
-    case 'tags':
-      return 'tags'
+    case "tags":
+      return "tags"
 
-    case 'category':
-      return 'category'
+    case "category":
+      return "category"
 
-    case 'posts':
-      return 'posts'
+    case "posts":
+      return "posts"
 
     default:
-      return 'home'
+      return "home"
   }
 }
 
-export const category = getOr(null, 'route.params.category')
-export const tag = getOr(null, 'route.params.tag')
+export const category = getOr(null, "route.params.category")
+export const tag = getOr(null, "route.params.tag")
 
-export const footer = state =>
-  get(state, 'blog.footer', [])
-    .map(nav => ({
-      ...nav,
-      external: isExternal(nav.link)
-    }))
+export const footer = (state) =>
+  get(state, "blog.footer", []).map((nav) => ({
+    ...nav,
+    external: isExternal(nav.link),
+  }))
 
-export const navigation = state =>
-  get(state, 'blog.nav', [])
-    .map(nav => ({
-      ...nav,
-      active: state.route.path.split('/').join('') === nav.link.split('/').join(''),
-      external: isExternal(nav.link)
-    }))
+export const navigation = (state) =>
+  get(state, "blog.nav", []).map((nav) => ({
+    ...nav,
+    active: state.route.path.split("/").join("") === nav.link.split("/").join(""),
+    external: isExternal(nav.link),
+  }))
 
-export const social = site => {
-  const channels = get(site, 'themeConfig.social', {})
+export const social = (site) => {
+  const channels = get(site, "themeConfig.social", {})
 
-  return Object.keys(channels)
-    .reduce((results, type) => [
+  return Object.keys(channels).reduce(
+    (results, type) => [
       ...results,
       {
         type,
-        url: channels[type]
-      }
-    ], [])
-
+        url: channels[type],
+      },
+    ],
+    [],
+  )
 }
 
-export const posts = state => {
+export const posts = (state) => {
   const items = Object.keys(state.index)
 
   return items
-    .map(item => state.index[item])
-    .filter(item => !!item)
-    .filter(item => item.type === 'post')
-    .filter(item => !category(state) || ~item.categories.map(toLower).indexOf(toLower(category(state))))
-    .filter(item => !tag(state) || ~item.tags.map(toLower).indexOf(toLower(tag(state))))
+    .map((item) => state.index[item])
+    .filter((item) => !!item)
+    .filter((item) => item.type === "post")
+    .filter(
+      (item) =>
+        !category(state) ||
+        ~item.categories.map(toLower).indexOf(toLower(category(state))),
+    )
+    .filter(
+      (item) => !tag(state) || ~item.tags.map(toLower).indexOf(toLower(tag(state))),
+    )
     .sort((a, b) => a - b)
-    .slice(0, state.type === 'home' ? 10 : 50)
+    .slice(0, state.type === "home" ? 10 : 50)
 }
 
-const titleCase = (str) => lodashMap(str.split(" "), capitalize).join(" ");
+const titleCase = (str) => lodashMap(str.split(" "), capitalize).join(" ")
 
-export const header = state => {
-  // console.debug("DEBUG state: %o", state)
+export const header = (state) => {
+  console.debug("DEBUG state: %o", state)
+  console.debug("DEBUG state.route.fullPath: %o", state.route.fullPath)
   // console.debug("DEBUG state.posts: %o", state.posts)
-  // console.debug("DEBUG category(state): ", category(state))
   switch (state.type) {
-    case 'category':
+    case "category":
       return {
         showCover: true,
         coverImage: null,
         title: category(state) ? titleCase(category(state)) : `Categories`,
-        description: `${state.posts.length} ${state.posts.length === 1 ? 'article' : 'articles'}`
+        description: `${state.posts.length} ${
+          state.posts.length === 1 ? "article" : "articles"
+        }`,
       }
 
-    case 'tags':
+    case "tags":
       return {
         showCover: true,
         coverImage: null,
         title: tag(state) ? titleCase(tag(state)) : `Tags`,
-        description: `${state.posts.length} ${state.posts.length === 1 ? 'article' : 'articles'}`
+        description: `${state.posts.length} ${
+          state.posts.length === 1 ? "article" : "articles"
+        }`,
       }
 
-    case 'posts':
+    case "posts":
       return {
         showCover: false,
         coverImage: null,
         title: `Posts`,
-        description: `${state.posts.length} ${state.posts.length === 1 ? 'article' : 'articles'}`
+        description: `${state.posts.length} ${
+          state.posts.length === 1 ? "article" : "articles"
+        }`,
       }
 
-    case 'home':
+    case "home":
       return {
         logo: state.blog.logo,
         showCover: true,
         coverImage: state.blog.cover,
         title: state.blog.title,
-        description: state.blog.description
+        description: state.blog.description,
       }
 
     default:
@@ -141,9 +155,10 @@ export const header = state => {
         showCover: false,
         coverImage: null,
         title: null,
-        description: null
+        description: null,
       }
   }
 }
 
-export const authorImage = hash => '//www.gravatar.com/avatar/' + hash + '?s=250&d=mm&r=x'
+export const authorImage = (hash) =>
+  "//www.gravatar.com/avatar/" + hash + "?s=250&d=mm&r=x"

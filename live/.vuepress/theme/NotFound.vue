@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex"
 
-import Card from './partials/Card';
-import SiteHeader from './partials/Header';
-import Error from './partials/Error'
+import Card from "./partials/Card"
+import SiteHeader from "./partials/Header"
+import Error from "./partials/Error"
 
 export default {
   data() {
@@ -39,39 +39,39 @@ export default {
         showCover: false,
         coverImage: null,
         title: null,
-        description: null
-      }
-    };
+        description: null,
+      },
+    }
   },
   components: { SiteHeader, Card, Error },
   methods: {
-    ...mapActions(['updateSite', 'updatePage', 'updateParams']),
+    ...mapActions(["updateSite", "updatePage", "updateParams"]),
     updateLayoutClass() {
-      this.$el.parentNode.className = `error-template`;
-    }
+      this.$el.parentNode.className = `error-template`
+    },
   },
   computed: {
-    ...mapGetters(['type', 'blog', 'posts'])
+    ...mapGetters(["type", "blog", "posts"]),
   },
   watch: {
     $page() {
-      this.updatePage(this.$page);
-      this.updateLayoutClass();
+      this.updatePage(this.$page)
+      this.updateLayoutClass()
     },
     $route() {
-      this.updateParams(this.$route.params);
-    }
+      this.updateParams(this.$route.params)
+    },
   },
   mounted() {
-    this.updatePage(this.$page);
-    this.updateSite(this.$site);
-    this.updateParams(this.$route.params);
-    this.updateLayoutClass();
-  }
-};
+    this.updatePage(this.$page)
+    this.updateSite(this.$site)
+    this.updateParams(this.$route.params)
+    this.updateLayoutClass()
+  },
+}
 </script>
 
 <style>
-  @import './styles/global.css';
-  @import './styles/screen.css';
+@import "./styles/global.css";
+@import "./styles/screen.css";
 </style>
