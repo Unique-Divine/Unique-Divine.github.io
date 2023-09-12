@@ -5,13 +5,13 @@ export default {
   blog: {
     title: null,
     description: null,
-    base: null
+    base: null,
   },
   header: {
     showCover: false,
     coverImage: null,
     title: null,
-    description: null
+    description: null,
   },
   nav: [],
   params: {},
@@ -19,11 +19,11 @@ export default {
   route: {},
   index: [],
   loading: true,
-  search: '',
+  search: "",
   sidebarOpen: false,
   type: null,
   posts: [],
   footer: [],
   social: [],
-  author: null
+  author: null,
 }

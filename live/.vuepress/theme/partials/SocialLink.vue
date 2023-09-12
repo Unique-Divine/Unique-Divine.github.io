@@ -90,5 +90,5 @@
 <script>
 export default {
   props: ["type", "url"],
-};
+}
 </script>
