@@ -6,6 +6,10 @@ const socialLinks = {
     linkedin: "https://www.linkedin.com/in/unique-divine/",
     discord: "https://discord.gg/HFvbn7Wtud",
 };
+// Used with themeConfig.nav
+const navCategory = (path) => `/category/${path}`;
+const navPage = (path) => `/page/${path}`;
+const navTag = (path) => `/tags/${path}`;
 /** ------------------------ home-site/blog ------------------------
  * Please leave the zombie comments. They serve as useful documentation for
  * how to edit the vuepress theme.
@@ -80,6 +84,11 @@ export default defineConfig4CustomTheme({
         cover: "/images/cover.jpg",
         logo: "",
         // logo: "/some-logo.svg",
+        /**
+         * themeConfig.nav: Defines the routes the top-level page navigation.
+         * Note that local relative paths work here, e.g. "/posts". If the link
+         * includes "https", it will be treated as an external link.
+         * */
         nav: [
             {
                 text: "Home",
@@ -87,26 +96,21 @@ export default defineConfig4CustomTheme({
             },
             {
                 text: "About",
-                link: "/page/about",
+                link: navPage("about"),
             },
             {
                 text: "Code",
-                link: "/tags/code",
-                // note that local relative paths work here, e.g. "/posts". if the link
-                // includes "https", it will be treated as an external link.
+                // link: "/tags/code",
+                link: navTag("code"),
             },
-            {
-                text: "Tags",
-                link: "/tags",
-                // note that local relative paths work here, e.g. "/posts". if the link
-                // includes "https", it will be treated as an external link.
-            },
-            {
-                text: "Commonplace",
-                link: "/category/commonplace",
-                // note that local relative paths work here, e.g. "/posts". if the link
-                // includes "https", it will be treated as an external link.
-            },
+            // {
+            //   text: "Tags",
+            //   link: "/tags", // A "posts" page with everything tagged.
+            // },
+            // {
+            //   text: "Commonplace",
+            //   link: "/category/commonplace",
+            // },
             /** For posts.
              * Uncomment this section to add an unfiltered category-like page that
              * includes all of the blog posts.
@@ -130,7 +134,7 @@ export default defineConfig4CustomTheme({
              */
             // {
             //   text: "Futurama",
-            //   link: "/category/Futurama"
+            //   link: navCategory("Futurama")
             // },
         ],
         footer: [
@@ -159,11 +163,13 @@ export default defineConfig4CustomTheme({
             // instagram: "https://instagram.com",
             linkedin: socialLinks.linkedin,
         },
+        // TODO: Potentially revive author functionality?
+        //
         // defaultAuthor: {
         //   link: "https://alexander.heimbu.ch",
         //   name: "Default Author",
         //   gravatar: "2bfa103a13c88b5ffd26da6f982f11df"
         // },
-        search: true, // fix(css): Search bar overlaps with header nav
+        search: true, // TODO: fix(css): Search bar overlaps with header nav
     },
 });
