@@ -3,6 +3,7 @@ set -eo pipefail
 
 OUT_DOMAIN="uniquedivine.blog"
 BUILD_PATH=".vuepress/dist"
+REPO_URL="https://github.com/Unique-Divine/Unique-Divine.github.io"
 
 build() {
   if [ ! yarn ]; then
@@ -28,7 +29,7 @@ create_deployment_records() {
 
 # push_to_gh: pushes a production deployment
 push_to_gh() {
-  if [ ! git ]; then
+  if [ ! "git" ]; then
     echo "Please install git"
     exit 1
   fi 
@@ -41,7 +42,7 @@ push_to_gh() {
   git checkout -b gh-pages
   git push -u $REPO_URL gh-pages --force
   rm -rf .git 
-  cd $root_dir
+  cd "$root_dir"
 }
 
 main() {

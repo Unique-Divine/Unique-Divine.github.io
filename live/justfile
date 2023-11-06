@@ -1,0 +1,58 @@
+workspaces := ""
+
+# Displays available recipes by running `just -l`.
+setup:
+  #!/usr/bin/env bash
+  just -l
+
+# Run the dev server
+dev *args:
+  #!/usr/bin/env bash
+  run_cmd() {
+    echo "$@" 
+    "$@"
+  }
+
+  dev() {
+    run_cmd bun run vuepress dev "$@"
+  }
+
+  if [ -z "{{args}}" ]; then
+    dev
+  else 
+    dev "{{args}}"
+  fi
+
+# Run the dev server without cacheing
+dev-no-cache:
+  just dev --no-cache
+
+deploy:
+  bash scripts/publish.sh
+
+# Alias for dev
+serve:
+  just dev
+
+serve-no-cache:
+  trap 'exit 0' SIGINT; bun run vuepress dev --no-cache
+
+# Install dependencies
+install: 
+  bun install
+
+# Build TypeScript and then run vuepress build
+build:
+  tsc
+  bun run vuepress build
+
+# Run vuepress build (only)
+build-short: 
+  bun run vuepress build
+
+# Compile TypeScript to JS.
+tsc:
+  tsc
+
+copy-assets:
+  bash copy-assets.sh
