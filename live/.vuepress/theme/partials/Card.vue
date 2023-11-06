@@ -1,28 +1,11 @@
 <template>
-  <article
-    class="post-card post"
-    :class="{ 'no-image': !post.image, 'post-card-large': !!large }"
-  >
-    <a
-      v-if="post.image"
-      class="post-card-image-link"
-      :href="$withBase(post.path)"
-      aria-label="link to post"
-    >
-      <img
-        class="post-card-image"
-        :src="$withBase(this.post.image)"
-        sizes="(max-width: 1000px) 400px, 700px"
-        loading="lazy"
-        :alt="post.title"
-      />
+  <article class="post-card post" :class="{ 'no-image': !post.image, 'post-card-large': !!large }">
+    <a v-if="post.image" class="post-card-image-link" :href="$withBase(post.path)" aria-label="link to post">
+      <img class="post-card-image" :src="$withBase(this.post.image)" sizes="(max-width: 1000px) 400px, 700px"
+        loading="lazy" :alt="post.title" />
     </a>
     <div class="post-card-content">
-      <a
-        class="post-card-content-link"
-        :href="$withBase(post.path)"
-        aria-label="link to post"
-      >
+      <a class="post-card-content-link" :href="$withBase(post.path)" aria-label="link to post">
         <header class="post-card-header">
           <span v-if="post.tags.length > 0" class="post-card-primary-tag">
             {{ post.tags[0] }}
@@ -40,20 +23,16 @@
               {{ post.author.name }}
             </div>
             <a class="static-avatar" :href="post.author.link">
-              <img
-                class="author-profile-image"
-                :src="authorImage(post.author.gravatar)"
-                :alt="post.author.name"
-              />
+              <img class="author-profile-image" :src="authorImage(post.author.gravatar)" :alt="post.author.name" />
             </a>
           </li>
         </ul>
         <div class="post-card-byline-content">
-          <span v-if="post.author.name"
-            ><a :href="post.author.link">{{ post.author.name }}</a></span
-          >
+          <span v-if="post.author.name"><a :href="post.author.link">{{ post.author.name }}</a></span>
           <span class="post-card-byline-date">
-            <time v-if="datetime" :datetime="datetime">{{ localeDate }}</time>
+            <time v-if="datetime" :datetime="datetime" style="text-transform: none">{{
+              localeDate
+            }}</time>
             <span v-if="post.readingTime" class="bull">&bull;</span>
             <span>{{ post.readingTime }}</span>
           </span>
@@ -81,7 +60,11 @@ export default {
     },
 
     localeDate() {
-      return this.post.publish && new Date(this.post.publish).toLocaleDateString()
+      const options = { year: "numeric", month: "short", day: "numeric" }
+      return (
+        this.post.publish &&
+        new Date(this.post.publish).toLocaleDateString("en-US", options)
+      )
     },
   },
   methods: {

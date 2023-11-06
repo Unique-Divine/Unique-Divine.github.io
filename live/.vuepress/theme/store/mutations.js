@@ -7,7 +7,7 @@
  */
 import { pick, get } from "lodash"
 
-import types from "./types"
+import { MUTATION_TYPE } from "./types"
 import {
   formatPages,
   formatPage,
@@ -20,7 +20,7 @@ import {
 } from "./utils"
 
 export default {
-  [types.SITE_UPDATE]: (state, site) => {
+  [MUTATION_TYPE.SITE_UPDATE]: (state, site) => {
     const themeConfig = get(site, "themeConfig", {})
     const siteConfig = pick(site, ["title", "description", "base", "defaultAuthor"])
 
@@ -30,11 +30,11 @@ export default {
     state.social = social(site)
   },
 
-  [types.PAGE_UPDATE]: (state, page) => {
+  [MUTATION_TYPE.PAGE_UPDATE]: (state, page) => {
     state.current = formatPage(state.blog, page)
   },
 
-  [types.ROUTER_PARAMS]: (state, params) => {
+  [MUTATION_TYPE.ROUTER_PARAMS]: (state, params) => {
     const postDate = (post) => new Date(post.publish)
 
     state.params = params
@@ -44,19 +44,19 @@ export default {
     state.header = header(state)
   },
 
-  [types.TOGGLE_SIDEBAR]: (state, sidebarState) => {
+  [MUTATION_TYPE.TOGGLE_SIDEBAR]: (state, sidebarState) => {
     state.sidebarOpen = sidebarState
   },
 
-  [types.LOAD_START]: (state) => {
+  [MUTATION_TYPE.LOAD_START]: (state) => {
     state.loading = true
   },
 
-  [types.LOAD_END]: (state) => {
+  [MUTATION_TYPE.LOAD_END]: (state) => {
     state.loading = false
   },
 
-  [types.SEARCH]: (state, query) => {
+  [MUTATION_TYPE.SEARCH]: (state, query) => {
     state.search = query
   },
 }
