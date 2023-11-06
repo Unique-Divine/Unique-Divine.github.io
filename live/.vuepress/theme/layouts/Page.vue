@@ -7,11 +7,8 @@
         </header>
 
         <figure v-if="current.image" class="post-full-image">
-          <img
-            sizes="(max-width: 800px) 400px, (max-width: 1170px) 1170px, 2000px"
-            :src="$withBase(current.image)"
-            :alt="current.title"
-          />
+          <img sizes="(max-width: 800px) 400px, (max-width: 1170px) 1170px, 2000px" :src="$withBase(current.image)"
+            :alt="current.title" />
         </figure>
 
         <section class="post-full-content">
@@ -30,6 +27,11 @@ export default {
   computed: mapGetters(["current"]),
   methods: {
     kebabCase,
+  },
+  // In Vue, you can use the `mounted` lifecycle hook to perform logic when a
+  // component has been mounted to the DOM.
+  mounted() {
+    console.debug("DEBUG learning: this.current: %o", this.current)
   },
 }
 </script>

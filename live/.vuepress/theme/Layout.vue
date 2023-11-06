@@ -1,3 +1,4 @@
+/** Layout.vue: This is a comment. */
 <template>
   <div class="site-wrapper">
     <site-header :blog="blog" :header="header">
@@ -74,9 +75,5 @@ export default {
 div[class^="language-"] {
   min-width: 100%;
   max-width: 100%;
-}
-
-.search-box input {
-  width: 20rem;
 }
 </style>

@@ -1,28 +1,26 @@
-import Vuex from 'vuex'
-import { sync } from 'vuex-router-sync'
+import Vuex from "vuex"
+import { sync } from "vuex-router-sync"
 
-import createStore from './store'
-import types from './store/types'
+import createStore from "./store"
+import types from "./store/types"
 
-import Layout from './Layout'
+import Layout from "./Layout"
+import MarkdownIt from "markdown-it"
 
-export default ({
-  Vue,
-  options,
-  router
-}) => {
+export default ({ Vue, options, router }) => {
   Vue.use(Vuex)
 
   const store = createStore()
   sync(store, router)
 
+  console.debug("DEBUG obj: %o", router)
   router.addRoutes([
-    { path: '/category/:category?', component: Layout },
-    { path: '/posts/', component: Layout },
-    { path: '/tags/:tag?', component: Layout }
+    { path: "/category/:category?", component: Layout },
+    { path: "/posts/", component: Layout },
+    { path: "/tags/:tag?", component: Layout },
   ])
 
-  router.beforeResolve((to, from, next) => {
+  router.beforeResolve((to, _from, next) => {
     // If this isn't an initial page load.
     if (to.name) {
       // Start the route progress bar.
@@ -38,4 +36,12 @@ export default ({
   })
 
   options.store = store
+  Vue.mixin({
+    methods: {
+      md: string => {
+        const md = new MarkdownIt({html: true, linkify: true})
+        return `<div>${md.renderInline(string)}</div>`
+      }
+    }
+  })
 }

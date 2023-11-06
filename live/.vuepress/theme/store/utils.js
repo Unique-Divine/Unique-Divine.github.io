@@ -1,6 +1,9 @@
 import { get, capitalize, map as lodashMap } from "lodash"
 import { toLower, getOr, curry } from "lodash/fp"
 
+/** pluckData (fn): Used to extract page data and transform it, including
+ * normalizing tags and categories to proper case and extracting author
+ * information. */
 const pluckData = curry((blog, page) => ({
   ...page,
   ...page.frontmatter,
