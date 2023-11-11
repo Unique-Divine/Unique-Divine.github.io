@@ -1,24 +1,44 @@
 <template>
   <div class="site-wrapper">
-    <site-header :blog="blog" :header="header">
-      <nav class="site-nav-center">
-        <a :href="blog.base" class="site-nav-logo">
-          <img v-if="blog.logo" class="site-logo" :src="blog.logo" :alt="blog.title" />
-          <span v-else>{{ blog.title }}</span>
-        </a>
-      </nav>
+    <!-- <site-header :blog="blog" :header="blog.header"> -->
+    <site-header :blog="blog" :header="{}">
+      <site-navigation slot="header"></site-navigation>
     </site-header>
 
-    <main id="site-main" class="site-main outer">
-      <div class="inner">
-        <error description="Page not found" code="404" :link="blog.base" />
-      </div>
+    <!-- TODO: try populating tags or categories as buttons -->
+    <!-- <main id="site-main" class="site-main outer"> -->
+    <!--   <pre> -->
+    <!--     {{ -->
+    <!--       `ERROR: \n -->
+    <!--     ${JSON.stringify( -->
+    <!--         { -->
+    <!--           type, -->
+    <!--           // blog, -->
+    <!--           stateKeys: Object.keys(state), -->
+    <!--           blog, -->
+    <!--           posts, -->
+    <!--           route, -->
+    <!--           footer, -->
+    <!--           loading, -->
+    <!--           author, -->
+    <!--           sidebarOpen, -->
+    <!--           header, -->
+    <!--         }, -->
+    <!--         null, -->
+    <!--         2, -->
+    <!--       )}` -->
+    <!--     }} -->
+    <!--   </pre> -->
+
+    <div class="inner">
+      <error description="Page not found" code="404" :link="blog.base" />
+    </div>
     </main>
 
-    <aside class="outer" v-if="posts.length > 0">
+    <aside class="outer" v-if="true">
       <div class="inner">
         <div class="post-feed">
-          <card v-for="(post, index) in posts.slice(0, 3)" :post="post" :key="index" />
+          <card v-for="(post, index) in posts" :post="post" :key="index" :large="!index % 6" :blog="blog" />
         </div>
       </div>
     </aside>
@@ -31,19 +51,19 @@ import { mapActions, mapGetters } from "vuex"
 import Card from "./partials/Card"
 import SiteHeader from "./partials/Header"
 import Error from "./partials/Error"
+import SiteNavigation from "./partials/Navigation"
+
+import { defaultState } from "./store/types"
 
 export default {
   data() {
     return {
-      header: {
-        showCover: false,
-        coverImage: null,
-        title: null,
-        description: null,
-      },
+      // state: {},
+      header: defaultState.header,
+      sidebarOpen: false,
     }
   },
-  components: { SiteHeader, Card, Error },
+  components: { SiteHeader, SiteNavigation, Card, Error },
   methods: {
     ...mapActions(["updateSite", "updatePage", "updateParams"]),
     updateLayoutClass() {
@@ -67,6 +87,9 @@ export default {
     this.updateSite(this.$site)
     this.updateParams(this.$route.params)
     this.updateLayoutClass()
+    // const state = this.$store.state
+    // console.debug("DEBUG: NotFound.vue.$store.state %o", state)
+    // this.state = state
   },
 }
 </script>
