@@ -16,19 +16,6 @@
         <!-- Dropdown Menu -->
         <NavDropdown :items="nav" :visible="menuOpen" v-if="menuOpen" ref="navDropdown" />
 
-        <!-- DROPDOWN MENU -->
-        <!-- TEXT MENU: appear when toggled -->
-        <!-- <div v-if="menuOpen" class="site-nav-content"> -->
-        <!--   <ul class="nav" v-if="nav" role="menu"> -->
-        <!--     <li v-for="(item, index) in nav" role="menuitem" :key="index"> -->
-        <!--       <a v-if="hasHttps(item.link)" :class="{ active: item.active }" :href="item.link">{{ item.text }}</a> -->
-        <!--       <router-link v-else :class="{ active: item.active }" :to="item.link">{{ -->
-        <!--         item.text -->
-        <!--       }}</router-link> -->
-        <!--     </li> -->
-        <!--   </ul> -->
-        <!-- </div> -->
-
         <!-- ORIGINAL -->
         <!-- ORIGINAL -->
         <!-- <div class="site-nav-content"> -->
@@ -128,5 +115,11 @@ export default {
 .search-box input {
   width: min(var(--ext-max-w), 200px);
   max-width: min(var(--ext-max-w), 200px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .search-box input {
+    background-color: var(--blue-g-base-dark);
+  }
 }
 </style>
