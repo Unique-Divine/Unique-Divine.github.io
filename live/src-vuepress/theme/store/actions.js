@@ -12,10 +12,14 @@ import { MUTATION_TYPE } from "./types";
  *
  * It's very similar to Redux.
  */
-const ACTIONS = {
+export const ACTIONS = {
     updateSite: ({ commit }, site) => commit(MUTATION_TYPE.SITE_UPDATE, site),
-    updatePage: ({ commit }, page) => commit(MUTATION_TYPE.PAGE_UPDATE, page),
-    updateParams: ({ commit }, params) => commit(MUTATION_TYPE.ROUTER_PARAMS, params),
+    updatePage: ({ commit }, page) => {
+        commit(MUTATION_TYPE.PAGE_UPDATE, page);
+    },
+    updateParams: ({ commit }, params) => {
+        commit(MUTATION_TYPE.ROUTER_PARAMS, params);
+    },
     searchInput: ({ commit }, { target }) => {
         commit(MUTATION_TYPE.SEARCH, target.value);
     },

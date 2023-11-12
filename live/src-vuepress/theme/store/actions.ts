@@ -1,5 +1,5 @@
 /** actions.js: Defined the Vuex actions. */
-import { MUTATION_TYPE } from "./types"
+import { MUTATION_TYPE, Page, Site } from "./types"
 import { Commit } from "vuex"
 
 /** This object defines the Vuex actions. Actions are functions that can
@@ -14,13 +14,18 @@ import { Commit } from "vuex"
  *
  * It's very similar to Redux.
  */
-const ACTIONS: {
+export const ACTIONS: {
   [actionType: string]: Action
 } = {
-  updateSite: ({ commit }, site) => commit(MUTATION_TYPE.SITE_UPDATE, site),
-  updatePage: ({ commit }, page) => commit(MUTATION_TYPE.PAGE_UPDATE, page),
-  updateParams: ({ commit }, params) => commit(MUTATION_TYPE.ROUTER_PARAMS, params),
-  searchInput: ({ commit }, { target }) => {
+  updateSite: ({ commit }: { commit: Commit }, site: Site) =>
+    commit(MUTATION_TYPE.SITE_UPDATE, site),
+  updatePage: ({ commit }, page: Page) => {
+    commit(MUTATION_TYPE.PAGE_UPDATE, page)
+  },
+  updateParams: ({ commit }, params) => {
+    commit(MUTATION_TYPE.ROUTER_PARAMS, params)
+  },
+  searchInput: ({ commit }, { target }: { target: { value: string } }) => {
     commit(MUTATION_TYPE.SEARCH, target.value)
   },
 }
