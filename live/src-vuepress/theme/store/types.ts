@@ -1,3 +1,6 @@
+import { UserConfig } from "@vuepress/types"
+import { ThemeConfigGhost } from "../../config"
+
 /** TODO: doc Page: primary state variable used throughout the application. */
 export interface Page {
   title: string
@@ -10,13 +13,15 @@ export interface Page {
   image?: string
   /** publish is always a timestamp since it's converted using `getTime()` if it
    * exists */
-  publish: number
+  publish: number | null
   type: string
   tags: string[]
   categories: string[]
   readingTime: string
   author: Author
 }
+
+export type Post = Page
 
 export interface Frontmatter {
   title: string
@@ -30,9 +35,19 @@ export interface Frontmatter {
 }
 
 export interface Author {
-  link: string
-  name: string
-  gravatar: string
+  link?: string
+  name?: string
+  gravatar?: string
+}
+
+export interface Site {
+  title?: string
+  description?: string
+  base?: string
+  defaultAuthor?: string // The type depends on how defaultAuthor is structured
+  themeConfig?: UserConfig<ThemeConfigGhost>
+  pages?: Page[] // Assuming 'pages' is an array of 'Page' objects
+  // Add any other properties used in the site object but not listed here
 }
 
 /**

@@ -8,6 +8,13 @@ const socialLinks: { [key: string]: string } = {
   discord: "https://discord.gg/HFvbn7Wtud",
 }
 
+export interface ThemeConfigGhost extends DefaultThemeConfig {
+  cover: string
+  footer: { text: string; link: string }[]
+  // social: { [key: string]: string }
+  social: SocialIcons
+}
+
 // Used with themeConfig.nav
 const navCategory = (path: string): string => `/category/${path}`
 const navPage = (path: string): string => `/page/${path}`
@@ -181,14 +188,7 @@ export default defineConfig4CustomTheme<ThemeConfigGhost>({
   },
 })
 
-interface ThemeConfigGhost extends DefaultThemeConfig {
-  cover: string
-  footer: { text: string; link: string }[]
-  // social: { [key: string]: string }
-  social: SocialIcons
-}
-
-interface SocialIcons {
+export interface SocialIcons {
   instagram?: string
   facebook?: string
   xing?: string
