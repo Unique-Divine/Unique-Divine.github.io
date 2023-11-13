@@ -34,7 +34,7 @@ I'm a Co-Founder and one of the lead software engineers for a Web3 startup calle
 | 🏫 [Langevin-Dynamics-for-NN-Optimization](https://github.com/Unique-Divine/Langevin-Dynamics-for-NN-Optimization)                                                                                   | Bayesian Neural Network (BNN) implementations based on Langevin Dynamics and tested on real-world data                                                                                                                                                                                           |
 | <img src="https://www.assemblyscript.org/images/icon.svg" style="width:18px; margin: 0; display:inline;"> [cellar-subgraphs](https://github.com/PeggyJV/cellar-subgraphs/)                           | Subgraphs to process and store entities for blockchain events emitted from the Sommelier Cellar contracts. Built using The Graph's AssemblyScript library, `graph-ts`.                                                                                                                           |
 
-## § — Other interests
+## § — Other passions and interests
 
 - **🧠 [Anki](https://apps.ankiweb.net/)**: I'm a huge nerd about spaced
   repetition software and other strategies for accelerated learning. I've been
@@ -66,6 +66,40 @@ I'm a Co-Founder and one of the lead software engineers for a Web3 startup calle
   <!-- I coded for physics -->
   <!-- and AI research but never thought that coding would end up becoming the main -->
   <!-- thing I do with my time.  -->
+
+<!--
+1. **Reorder for Narrative Flow**: Consider arranging your interests in a way
+   that tells a story or shows a progression. For example, you could start with
+   Anki, which represents your love for learning, then transition to music and
+   reading, and finally to physics/sciences, demonstrating a journey from
+   learning methods to application in various fields.
+
+2. **Expand on Music and Reading**: Given the detailed descriptions in other
+   sections, the music and reading sections could be expanded to include why you
+   are drawn to these interests or what they bring to your life. This will
+   maintain consistency in depth across all interests.
+
+3. **Personal Anecdotes**: Where possible, include brief personal stories or
+   experiences related to each interest. This approach adds a unique and engaging
+   element to your profile.
+
+4. **Reflective Tone**: Maintain a reflective and conversational tone throughout.
+   This aligns with the overall personal theme of your website and makes your
+   content more relatable to the reader.
+
+5. **Consistent Formatting**: Ensure that the formatting (like bullet points,
+   emojis, and links) is consistent throughout the section for a polished look.
+
+6. **Concluding Statement**: Consider adding a brief concluding statement that
+   ties all your interests together, reflecting how they shape your identity or
+   influence your professional work.
+
+By implementing these suggestions, you'll enhance the narrative quality and
+personal touch of your "About" section, making it more engaging and reflective of
+your personality.
+-->
+
+
 <!-- - 📊 Algorithmic trading -->
 
 ## Contact
