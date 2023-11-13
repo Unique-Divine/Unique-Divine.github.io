@@ -5,4 +5,5 @@ import actions from "./actions"
 import mutations from "./mutations"
 import getters from "./getters"
 
-export default () => new Vuex.Store({ state, actions, mutations, getters })
+const createStore = () => new Vuex.Store({ state, actions, mutations, getters })
+export { createStore }

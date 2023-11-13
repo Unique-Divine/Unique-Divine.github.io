@@ -75,6 +75,8 @@ export default defineConfig4CustomTheme<ThemeConfigGhost>({
     ],
   ],
   markdown: {
+
+    /** Config for `markdown-it-anchor` plugin. */
     anchor: {
       permalink: false,
       permalinkBefore: false,
@@ -165,9 +167,6 @@ export default defineConfig4CustomTheme<ThemeConfigGhost>({
     social: {
       github: socialLinks.github,
       twitter: socialLinks.twitter,
-      // facebook: "https://facebook.com",
-      // xing: "https://xing.de",
-      // instagram: "https://instagram.com",
       linkedin: socialLinks.linkedin,
     },
     // TODO: Potentially revive author functionality?
@@ -184,5 +183,16 @@ export default defineConfig4CustomTheme<ThemeConfigGhost>({
 interface ThemeConfigGhost extends DefaultThemeConfig {
   cover: string
   footer: { text: string; link: string }[]
-  social: { [key: string]: string }
+  // social: { [key: string]: string }
+  social: SocialIcons
+}
+
+interface SocialIcons {
+  instagram?: string
+  facebook?: string
+  xing?: string
+  github?: string
+  youtube?: string
+  linkedin?: string
+  twitter?: string
 }

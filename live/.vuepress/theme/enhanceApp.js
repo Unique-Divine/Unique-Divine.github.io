@@ -1,7 +1,7 @@
 import Vuex from "vuex"
 import { sync } from "vuex-router-sync"
 
-import createStore from "./store"
+import { createStore } from "./store"
 import types from "./store/types"
 
 import Layout from "./Layout"
@@ -18,6 +18,8 @@ export default ({ Vue, options, router }) => {
     { path: "/category/:category?", component: Layout },
     { path: "/posts/", component: Layout },
     { path: "/tags/:tag?", component: Layout },
+    { path: "/tags/", component: Layout },
+    { path: "/category/", component: Layout },
   ])
 
   router.beforeResolve((to, _from, next) => {
@@ -38,10 +40,10 @@ export default ({ Vue, options, router }) => {
   options.store = store
   Vue.mixin({
     methods: {
-      md: string => {
-        const md = new MarkdownIt({html: true, linkify: true})
+      md: (string) => {
+        const md = new MarkdownIt({ html: true, linkify: true })
         return `<div>${md.renderInline(string)}</div>`
-      }
-    }
+      },
+    },
   })
 }
