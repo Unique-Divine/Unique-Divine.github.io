@@ -67,8 +67,13 @@ set-symlinks:
     exit 1
   fi
 
-  ln -sf $vuepress_dir .vuepress
-  ln -sf $public_dir static
+  # Note that symlinking with relative paths will cause nested symlinks on
+  # consecutive calls.
+  ln -sfn $vuepress_dir .vuepress
+  ln -sfn $public_dir public
+  # --no-dereference (-n): Treats the existing symlink to a directory as a
+  # regular file so that it will be overwritten in the case of a collision
+  # instead of adding a nested symlink. 
 
 copy-assets:
   bash copy-assets.sh

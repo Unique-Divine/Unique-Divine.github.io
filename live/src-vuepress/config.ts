@@ -18,6 +18,7 @@ const navTag = (path: string): string => `/tags/${path}`
  * how to edit the vuepress theme.
  *
  * TODO Add some of this information to the README, or a HACKING.md file.
+ * @see Vuepress Config Reference: https://vuepress.vuejs.org/config/
  * */
 export default defineConfig4CustomTheme<ThemeConfigGhost>({
   title: "Unique Divine",
