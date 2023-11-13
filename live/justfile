@@ -54,5 +54,16 @@ build-short:
 tsc:
   tsc
 
+# Reset expected symlinks for the site.
+set-symlinks:
+  #!/usr/bin/env bash
+  local public_dir=".vuepress/public"
+  if [ ! -d "$public_dir" ]; then 
+    echo "$public_dir does note exist" >&2
+    exit 1
+  fi
+
+  ln -sf $public_dir public
+
 copy-assets:
   bash copy-assets.sh
