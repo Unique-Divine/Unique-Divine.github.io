@@ -1,6 +1,6 @@
 ---
 title: "Loosening the Reins in Your Schedule to Get More Done "
-image: "/war/poh/log_sep20.png"
+image: "/winning/01/cover.png"
 publish: 2020-11-13
 type: post
 tags:
