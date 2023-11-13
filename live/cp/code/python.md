@@ -1,17 +1,19 @@
 ---
 title: "Python"
-image: "/stat/005/banner-collections.png"
-publish: 2023-01-10
+image: "/cp/code/python.png"
+publish: 2023-02-09
 type: post
 tags:
   - "code"
   - "commonplace"
 categories:
-  - futurama
+  - commonplace
 # readingTime: "4 Min read"
 ---
 
----
+Python code reference and cookbook.
+
+<!-- more -->
 
 ## Table of Contents - Python
 
@@ -21,28 +23,30 @@ categories:
     - [Using poetry](#using-poetry)
   - [Environment variables and `python-dotenv`](#environment-variables-and-python-dotenv)
 - [Standard Library](#standard-library)
-    - [File Handling - Reading and Writing Files](#file-handling---reading-and-writing-files)
-    - [HTTP Requests](#http-requests)
-    - [Command Line Applications - Argparse](#command-line-applications---argparse)
-    - [Functools](#functools)
-    - [Sort() and sorted()](#sort-and-sorted)
-    - [Binary and other bases](#binary-and-other-bases)
+  - [File Handling - Reading and Writing Files](#file-handling---reading-and-writing-files)
+  - [HTTP Requests](#http-requests)
+  - [Command Line Applications - Argparse](#command-line-applications---argparse)
+  - [Functools](#functools)
+  - [Sort() and sorted()](#sort-and-sorted)
+  - [Binary and other bases](#binary-and-other-bases)
 - [Writing Tests with `pytest`](#writing-tests-with-pytest)
-    - [Fixtures](#fixtures)
-    - [Choosing which tests to run in a suite with `-k`](#choosing-which-tests-to-run-in-a-suite-with--k)
-    - [Else](#else)
+  - [Fixtures](#fixtures)
+  - [Choosing which tests to run in a suite with `-k`](#choosing-which-tests-to-run-in-a-suite-with--k)
+  - [Else: Testing](#else-testing)
 - [Working with Databases](#working-with-databases)
-    - [MongoDB (pymongo)](#mongodb-pymongo)
+  - [MongoDB (pymongo)](#mongodb-pymongo)
 - [Discord.py](#discordpy)
 - [Object-Oriented Programming (OOP)](#object-oriented-programming-oop)
-- [Else](#else-1)
+- [Else](#else)
   - [Publishing Packages on PyPi](#publishing-packages-on-pypi)
   - [Protocol Buffers](#protocol-buffers)
   - [Miscellaneous](#miscellaneous)
 
-# Setting up a Profession Development Environment
+---
 
-## Pyenv for managing multiple Python interpreters
+## Setting up a Profession Development Environment
+
+### Pyenv for managing multiple Python interpreters
 
 The [pyenv repo](https://github.com/pyenv/pyenv) contains usage and installation instructions. If you're on MacOS or a common Linux distro, you can install `pyenv` with brew.
 
@@ -51,6 +55,7 @@ brew install pyenv
 ```
 
 You'll then need to add the following snippet to your shell config, e.g. your `.bash_profile`, `.bashrc`, or `.zshrc`.
+
 ```bash
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -60,7 +65,6 @@ eval "$(pyenv init --path)"
 
 After using `source` on your config or restarting the shell, you should have the `pyenv` root command.
 
-
 The command use to install any version of python is `pyenv install`. Display additional info for this command with `pyenv install --help`.
 
 ```bash
@@ -68,6 +72,7 @@ pyenv install 3.9.13 # example
 ```
 
 Once you have a version installed, you can print out the versions on your machine with:
+
 ```bash
 pyenv versions
 ```
@@ -87,25 +92,23 @@ pyenv global 3.10.4   # switches the global interpreter to 3.10.4
 
 You can verify this works as expected using `python --version`. You may be familiar with using `python3` as the command instead of `python`. With `pyenv`, this is not necessary.
 
-
 Reference: [malexer/cheatsheets/pyenv.md](https://github.com/malexer/cheatsheets/blob/master/pyenv.md)
 
-
-## Poetry for dependency management and publishing packages
+### Poetry for dependency management and publishing packages
 
 Reference: [Poetry docs](https://python-poetry.org/docs/)
 
-Poetry can be installed with both `curl` and `pip`. I recommended using `curl` so that it will be global to your machine. 
+Poetry can be installed with both `curl` and `pip`. I recommended using `curl` so that it will be global to your machine.
 
 NOTE I highly, highly, highly recommend that you DO NOT use `brew` to install `poetry`. If you use `brew`, it's going to install directly to your system, which prevents you from being able to leverage `pyenv` to seamlessly switch between Python interpreters.
 
-```bash 
+```bash
 # installation with pip: recommended option in tandem with pyenv
 pip install poetry
 ```
 
 ```bash
-# For UNIX systems - installation with curl 
+# For UNIX systems - installation with curl
 curl -sSL https://install.python-poetry.org/ | python -
 ```
 
@@ -120,6 +123,7 @@ export PATH=$PATH:$HOME/.poetry/bin
 To create a project from scratch, call `poetry new [pkg-name]`
 
 To create a project from a pre-existing codebase, `cd` to the root where the package is located (the parent repo or directory to the package) and call:
+
 ```bash
 poetry init
 ```
@@ -138,7 +142,7 @@ This will resolve dependencies between each of the project's packages and instal
 
 Q: Difference between `os.getenv` and `os.environ`
 
-#### When the environment variable has been set, there is no difference. 
+#### When the environment variable has been set, there is no difference.
 
 ```bash
 $ python -m timeit -s 'import os' 'os.environ.get("ENV_VAR_FOO")'
@@ -147,8 +151,6 @@ $ python -m timeit -s 'import os' 'os.environ.get("ENV_VAR_FOO")'
 $ python -m timeit -s 'import os' 'os.getenv("ENV_VAR_FOO")'
 200000 loops, best of 5: 1.83 usec per loop
 ```
-
-
 
 `os.environ` is of the built-in type `_Environ`, which is a `MutableMapping`.
 
@@ -167,9 +169,8 @@ dotenv.load_dotenv()
 ```
 
 ---
-# Standard Library
 
----
+## Standard Library
 
 ### File Handling - Reading and Writing Files
 
@@ -206,9 +207,9 @@ file.closed # returns True
 Q: Creating a blank file.
 
 ```python
-# Creates blank.txt 
+# Creates blank.txt
 
-# some_path represents a path to some existing directory. 
+# some_path represents a path to some existing directory.
 import os
 path_to_file = os.path.join(some_path, "blank.txt")
 with open(path_to_file, "w") as fh:
@@ -219,15 +220,15 @@ print(f"Directories and files at {some_path}: {os.listdir(some_path)}")
 
 - Python glossary - file object [[docs]](https://docs.python.org/3/glossary.html#term-file-object)
 
-Date: 21年6月
+Date: 21 年 6 月
 
-***
+---
 
 ### HTTP Requests
 
 `pip install requests`
 
-[Hypertext Transfer Protocol (HTTP)](https://en.wikipedia.org/wiki/Hypertext\_Transfer\_Protocol#Request\_methods) is a request-response protocol commonly used for sending data through web browsers.
+[Hypertext Transfer Protocol (HTTP)](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods) is a request-response protocol commonly used for sending data through web browsers.
 
 **GET**
 
@@ -244,21 +245,17 @@ POST
 
 The two simplest kinds of
 
-***
+---
 
 ### Command Line Applications - Argparse
-
-
-
-
 
 ### Functools
 
 Python's [functools](https://docs.python.org/3/library/functools.html#module-functools) module is used for higher-order functions and operations on callable objects. It's a part of the standard library
 
-Date: 21年8月
+Date: 21 年 8 月
 
-***
+---
 
 ### Sort() and sorted()
 
@@ -295,8 +292,8 @@ Q: What is sorting stability? → **Stable** sorting algorithms maintain the rel
 
 Cloze:
 
-* Python sorts are guaranteed to be stable.
-* Because of this, when multiple records have the same key, their original order is preserved.
+- Python sorts are guaranteed to be stable.
+- Because of this, when multiple records have the same key, their original order is preserved.
 
 Q: Sort the students by descending grade and then ascending age.
 
@@ -305,7 +302,7 @@ students = sorted(students, key=lambda s: s.age)
 students = sorted(students, key=lambda s: s.grade, reverse=True)
 ```
 
-***
+---
 
 ### Binary and other bases
 
@@ -350,10 +347,10 @@ def add_binary(a: str, b: str) -> str:
     a: int = int(a, base=2)
     b: int = int(b, base=2)
     return f"{a + b:b}"
-    # return format(a + b, "b") # equivalent 
+    # return format(a + b, "b") # equivalent
 ```
 
-***
+---
 
 Q: Return the index of the first occurence of 'needle' in 'haystack', or return -1 if 'needle' is not part of 'haystack'. Return 0 if 'needle' is an empty string.
 
@@ -436,7 +433,7 @@ def reverse(strs: List[str]) -> None:
 #### Display number in scientific notation.
 
 ```python
-def num_in_scientific_notation(num: float) -> str: 
+def num_in_scientific_notation(num: float) -> str:
     return "{:e}".format(num)
 ```
 
@@ -454,7 +451,7 @@ import pytest
 @pytest.fixture
 def foo_obj() -> SomeType:
   foo_val: SomeType
-  // ... 
+  // ...
   return foo_val
 ```
 
@@ -465,14 +462,46 @@ def test_a(foo_obj):
   ... // test logic here
 
 def test_b(foo_obj):
-  ... // test logic here 
+  ... // test logic here
 ```
 
 ### Choosing which tests to run in a suite with `-k`
 
+When working with pytest, you often want to run a specific subset of your tests.
+One of the ways to filter and select which tests to run is by using the `-k` option
+followed by an expression.
+
+The `-k` option allows you to run tests by their names. It matches the test names
+and any substring of names based on the expression you provide.
+
+Examples:
+
+Run all tests containing the substring "arg"
+
+```python
+pytest -k arg
+```
+
+NOT: Run all tests that do NOT contain "arg"
+
+```python
+pytest -k "not arg"
+```
+
+AND: Run all tests that contain "A" and "B"
+
+```python
+pytest -k "A and B"
+```
 
 
-### Else
+OR: Run all tests that contain either "A" or "B" (inclusive or)
+
+```python
+pytest -k "A or B"
+```
+
+### Else: Testing
 
 **Disabling warnings**
 
@@ -484,11 +513,11 @@ See: https://docs.pytest.org/en/latest/how-to/capture-warnings.html#disabling-wa
 
 The standard solution to creating mock objects in python is the [`unittest.mock` library](https://docs.python.org/3/library/unittest.mock.html). This section goes over how to create mocks in pytest with [pytest-mock](https://github.com/pytest-dev/pytest-mock)
 
-***
+---
 
 # Working with Databases
 
-***
+---
 
 ### MongoDB (pymongo)
 
@@ -517,13 +546,13 @@ At this point you should be able to type `mongosh` at the prompt and see the Mon
 1. Hit the Windows key, then type environment variables and hit enter. Alternatively, open the Control Panel and select "Edit the system environment variables".
 2. Under the "Advanced" tab, select `Environment Variables`.
 3. Under "System Variables", select `New`.
-4.  Add each command's name to one field its executable path to the other field. For me, `mongo`'s executable was at
+4. Add each command's name to one field its executable path to the other field. For me, `mongo`'s executable was at
 
-    ```
-    "C:\Program Files\MongoDB\Server\5.0\bin\mongo.exe"
-    ```
+   ```
+   "C:\Program Files\MongoDB\Server\5.0\bin\mongo.exe"
+   ```
 
-    The other two executables were in the same directory.
+   The other two executables were in the same directory.
 
 Now, `mongo` and `mongod` work, but what do they do?
 
@@ -539,38 +568,34 @@ Now, `mongo` and `mongod` work, but what do they do?
 - Jayatilake, Navindu. 2019. How to get started with MongoDB in 10 minutes. [[article]](https://www.freecodecamp.org/news/learn-mongodb-a4ce205e7739/)
 - [Pymongo tutorial](https://pymongo.readthedocs.io/en/stable/tutorial.html)
 
-***
+---
 
 # Discord.py
 
-***
+---
 
 To interface with Discord programmatically, you'll need a Discord token.
+
 1. Head to https://discord.com/login
-2. Open the browser's developer console with either `Ctrl + Shift + I` or by right clicking.  
+2. Open the browser's developer console with either `Ctrl + Shift + I` or by right clicking.
 3. Refresh the page
-4. Go under the "Network" tab in the console. 
+4. Go under the "Network" tab in the console.
 5. Enter "/api" as the filter and then hit `Enter`.
 6. One of the items in the table should have a name starting with "library". Click this row.
 7. In the "Headers" tab, find the place that says "authorization: ". The text for this field is your Discord token.
 
-
-
-
 Resources
+
 - [API Reference. discord.py](https://discordpy.readthedocs.io/en/v1.0.0/api.html#)
 - [Channel history in discord.py](https://stackoverflow.com/questions/64211658/how-could-i-grab-all-chat-messages-in-a-specific-channel-in-a-discord-server-usi)
 - [Webhook Resource. Discord Developer Portal.](https://discord.com/developers/docs/resources/webhook)
 - [Discord.py add role command. Stack Overflow.](https://stackoverflow.com/questions/49076798/discord-py-add-role-to-someone)
 
-
-
-
-***
+---
 
 # Object-Oriented Programming (OOP)
 
-***
+---
 
 **Abstract Base Classes**
 
@@ -588,7 +613,7 @@ Q: Define a short abstract base class, "HelloWorld", with an abstract method cal
 from abc import ABC, abstractmethod
 
 class HelloWorld(ABC):
-    
+
     @abstractmethod
     def hello(self) -> str:
         pass
@@ -710,9 +735,9 @@ If we have a class that we want to make subclasses of, it's beneficial to make t
 
 ```python
 from abc import ABC, abstractmethod
-from typing import Optional 
+from typing import Optional
 
-class FFNN(ABC):  
+class FFNN(ABC):
     """Represents a PyTorch module for a feed-forward neural network."""
 
     @abstractmethod
@@ -740,7 +765,6 @@ movie: Movie = {'name': 'Blade Runner',
                 'year': 1982}
 ```
 
-
 ---
 
 # Else
@@ -749,39 +773,42 @@ movie: Movie = {'name': 'Blade Runner',
 
 ## Publishing Packages on PyPi
 
-References: 
+References:
+
 - https://packaging.python.org/en/latest/tutorials/packaging-projects/
 - Publishing (Perfect) Python Packages on PyPi. 2020. https://youtu.be/GIF3LaRqgXo
 
 Suppose you're in the root directory of a GitHub repository.
 
-Create a Python package as a subdirectory of `src` in the repo's root. We'll call this `pkg` (repo/src/pkg). 
+Create a Python package as a subdirectory of `src` in the repo's root. We'll call this `pkg` (repo/src/pkg).
 
-Create a blank module called "setup.py" (repo/setup.py), then open it up in your favorite text editor. 
+Create a blank module called "setup.py" (repo/setup.py), then open it up in your favorite text editor.
 
 ```python
 import setuptools
 
 setuptools.setup(
-    name="pkg-pypi-name", # The name on PyPi. What you pip install. 
+    name="pkg-pypi-name", # The name on PyPi. What you pip install.
     version="0.0.1",
     description=("A Python package description"),
     package_dir={'': 'src'},
 )
 ```
 
-Think of each line of the `setup()` method as configuration for the package. 
+Think of each line of the `setup()` method as configuration for the package.
 
 Arguments of `setuptools.setup`:
-- `name`: The name on PyPi. This is the "x" in "pip install x". 
-- `version`: Version number for the package. 0.0.x version numbers imply that the package is unstable. It's good to start out with an unstable version number before publishing the package so that the people won't see failing code flags just because there's some packaging issue. 
+
+- `name`: The name on PyPi. This is the "x" in "pip install x".
+- `version`: Version number for the package. 0.0.x version numbers imply that the package is unstable. It's good to start out with an unstable version number before publishing the package so that the people won't see failing code flags just because there's some packaging issue.
 - `package_dir`: A map (dictionary) that tells setuptools the name of the package's parent directory.
 
 python3 -m pip install --upgrade build
 
 Now, run `python setup.py bdist_wheel`. This will create `build`, `build/lib`, and `dist` directories inside the repository.
-- `dist`: Houses the outputted wheel file. 
-- Running the `bdist_wheel` also creates a `src/pkg.egg-info` directory. You should git ignore this. 
+
+- `dist`: Houses the outputted wheel file.
+- Running the `bdist_wheel` also creates a `src/pkg.egg-info` directory. You should git ignore this.
 
 Testing the local package install.
 
@@ -789,27 +816,27 @@ Testing the local package install.
 pip install -e .
 ```
 
-
-
 Check out gitignore.io for standard ignores for common frameworks.
 
-
-
 Try running:
+
 ```
 python -m twine upload --repository testpypi dist/* --verbose
 ```
+
 If the command fails, you'll need to make source code or configuration changes and re-run `python -m build` in the same directory as your `pyproject.toml`. Then, you can keep checking the "twine" command.
 
-After this command runs successfully, you should be able to view your published packaged on test.pypi.org and install it locally with 
+After this command runs successfully, you should be able to view your published packaged on test.pypi.org and install it locally with
+
 ```bash
 python -m pip install --index-url https://test.pypi.org/simple/ --no-deps your-package-name
 ```
-To uninstall this local installation, run 
+
+To uninstall this local installation, run
+
 ```bash
 python -m pip uninstall your-package-name
 ```
-
 
 ---
 
@@ -822,15 +849,16 @@ Protocol buffers are the flexible, efficient, automated solution to solve the pr
 #### How does a protocol buffer solve this problem?
 
 A **protocol buffer compiler** creates a class that implements automatic encoding and parsing of the protocol buffer data with an efficient binary format. The generated class provides attributes and fields for the objects that make up a protocol buffer, abstracting away the complexity of reading and writing the protocol buffer as a unit.
-- The protocol buffer format supports future development efforts by making it easy to extend the format over time in such that the code can still read data encoded with an  old format. 
+
+- The protocol buffer format supports future development efforts by making it easy to extend the format over time in such that the code can still read data encoded with an old format.
 
 #### Protocol Format
 
-
 References:
+
 - Google. Protocol Buffer Basics: Python [[docs]](https://developers.google.com/protocol-buffers/docs/pythontutorial)
 
-***
+---
 
 ## Miscellaneous
 
@@ -844,11 +872,12 @@ The main command you'll use is `yapf -i [python-file]`
 
 **Writing to Excel Files with XlsxWriter**
 
-Installation 
+Installation
+
 - Conda install
-  ```conda install -c conda-forge XlsxWriter```
+  `conda install -c conda-forge XlsxWriter`
 - Pip install
-  ```pip install XlsxWriter```
+  `pip install XlsxWriter`
 
 ```python
 # hello-xlsx-writer.py
@@ -862,11 +891,11 @@ worksheet.write('A1', 'Hello world')
 workbook.close()
 ```
 
-References: 
+References:
+
 - https://xlsxwriter.readthedocs.io/
 - https://xlsxwriter.readthedocs.io/tutorial02.html
 - https://stackoverflow.com/questions/16560289/using-python-write-an-excel-file-with-columns-copied-from-another-excel-file
-
 
 **ML Finance Project**
 
@@ -898,4 +927,3 @@ scaler = preprocessing.MinMaxScaler()
 ```
 
 We know the field is fast moving. If the reader looking for more recent free reading resources, there are some good introductory/tutorial/survey papers on Arxiv
-
