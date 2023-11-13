@@ -1,6 +1,6 @@
 ---
 title: "On Reflection & Logging 「過去を顧みること」"
-image: "/war/poh/log_sep20.png"
+image: "/winning/00/log_sep20.png"
 publish: 2020-09-26
 type: post
 tags:
@@ -129,7 +129,7 @@ work as possible. Here's the log for the first few weeks of class that
 semester:
 
 <figure> 
-  <img src="/post/images/log_feb20.png" >
+  <img src="../../public/winning/00/log_feb20.png" >
   <figcaption>Log: First 2 Weeks of Feb. 2020</figcaption>
 </figure>
 
@@ -197,11 +197,11 @@ So, I stopped.
 Let's fast forward a few months up to the present day (currently the end of September 2020)...
 
 <figure> 
-  <img src="/post/images/log_sep20.png" >
+  <img src="../../public/winning/00/log_sep20.png" >
   <figcaption>Log: The past 2 Weeks (Sep. 2020)</figcaption>
 </figure>
 
-You may have noticed that the categories on the left are much different. That's
+You may have noiced that the categories on the left are much different. That's
 because my priorities changed quite drastically since the onset of the year. A
 lot of this had to do with the bulleted questions above and changes I made
 after reflecting.  
