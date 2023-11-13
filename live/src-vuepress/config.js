@@ -28,6 +28,7 @@ export default defineConfig4CustomTheme({
      * +3 years.
      */
     // theme: "casper",
+    patterns: ["**/*.md", ".vuepress/**/*.vue"],
     head: [
         ["link", { rel: "icon", href: "/favicon/favicon.png" }],
         [
@@ -72,6 +73,7 @@ export default defineConfig4CustomTheme({
         ],
     ],
     markdown: {
+        /** Config for `markdown-it-anchor` plugin. */
         anchor: {
             permalink: false,
             permalinkBefore: false,
@@ -158,9 +160,6 @@ export default defineConfig4CustomTheme({
         social: {
             github: socialLinks.github,
             twitter: socialLinks.twitter,
-            // facebook: "https://facebook.com",
-            // xing: "https://xing.de",
-            // instagram: "https://instagram.com",
             linkedin: socialLinks.linkedin,
         },
         // TODO: Potentially revive author functionality?

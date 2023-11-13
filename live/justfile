@@ -28,6 +28,7 @@ dev-no-cache:
   just dev --no-cache
 
 deploy:
+  just set-symlinks
   bash scripts/publish.sh
 
 # Alias for dev
@@ -58,16 +59,16 @@ tsc:
 set-symlinks:
   #!/usr/bin/env bash
 
-  vuepress_dir="vuepress"
-  public_dir="vuepress/public"
+  vuepress_dir="src-vuepress"
+  public_dir="$vuepress_dir/public"
 
   if [ ! -d "$public_dir" ]; then 
     echo "$public_dir does not exist" >&2
     exit 1
   fi
 
-  ln -sf $public_dir public
   ln -sf $vuepress_dir .vuepress
+  ln -sf $public_dir static
 
 copy-assets:
   bash copy-assets.sh

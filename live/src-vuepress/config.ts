@@ -31,6 +31,7 @@ export default defineConfig4CustomTheme<ThemeConfigGhost>({
    * +3 years.
    */
   // theme: "casper",
+  patterns: ["**/*.md", ".vuepress/**/*.vue"],
   head: [
     ["link", { rel: "icon", href: "/favicon/favicon.png" }],
     [
@@ -75,7 +76,6 @@ export default defineConfig4CustomTheme<ThemeConfigGhost>({
     ],
   ],
   markdown: {
-
     /** Config for `markdown-it-anchor` plugin. */
     anchor: {
       permalink: false,
