@@ -3,15 +3,28 @@ set -eo pipefail
 
 OUT_DOMAIN="uniquedivine.blog"
 BUILD_PATH=".vuepress/dist"
+REPO_URL="https://github.com/Unique-Divine/Unique-Divine.github.io"
+
+# which_ok: Check if the given binary is in the $PATH.
+# Returns code 0 on success and code 1 if the command fails.
+which_ok() {
+  if which "$1" >/dev/null 2>&1; then
+    return 0
+  else
+    echo "ERROR: $1 is not present in \$PATH" >&2
+    return 1
+  fi
+}
 
 build() {
-  if [ ! yarn ]; then
-    echo "Please install yarn"
-    exit 1
-  fi 
+  which_ok yarn
+  which_ok just
+  which_ok bun
 
-  yarn --check-files
-  yarn build
+  bun install 
+  just build
+  # yarn --check-files
+  # yarn build
 }
 
 create_deployment_records() {
@@ -28,12 +41,10 @@ create_deployment_records() {
 
 # push_to_gh: pushes a production deployment
 push_to_gh() {
-  if [ ! git ]; then
-    echo "Please install git"
-    exit 1
-  fi 
+  which_ok git
 
-  local root_dir=$(pwd)
+  local root_dir
+  root_dir=$(pwd)
   cd $BUILD_PATH
   git init 
   git add . 
@@ -41,7 +52,7 @@ push_to_gh() {
   git checkout -b gh-pages
   git push -u $REPO_URL gh-pages --force
   rm -rf .git 
-  cd $root_dir
+  cd "$root_dir"
 }
 
 main() {
