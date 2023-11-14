@@ -17,7 +17,6 @@ export default ({ Vue, options, router, }) => {
         { path: "/tags/:tag?", component: Layout },
         { path: "*", component: NotFound },
     ]);
-    console.debug("DEBUG router obj: %o", router);
     router.beforeResolve((to, _from, next) => {
         // If this isn't an initial page load.
         if (to.name) {
