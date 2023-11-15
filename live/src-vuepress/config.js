@@ -31,7 +31,7 @@ export default defineConfig4CustomTheme({
     // theme: "casper",
     patterns: ["**/*.md", ".vuepress/**/*.vue"],
     head: [
-        ["link", { rel: "icon", href: "/favicon/favicon.png" }],
+        ["link", { rel: "icon", href: "/favicon/favicon-256x256.png" }],
         [
             "link",
             {

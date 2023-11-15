@@ -114,3 +114,91 @@ export const MUTATION_TYPE: { [key: string]: MutationType } = types.reduce(
 )
 
 export default MUTATION_TYPE
+
+import { Store as VuexStore } from "vuex"
+
+/** Initial state of the Vuex store.
+ */
+export const defaultState: Partial<RootState> = {
+  blog: {
+    title: null,
+    description: null,
+    base: null,
+  },
+  header: {
+    showCover: false,
+    coverImage: null,
+    title: null,
+    description: null,
+  },
+  nav: [],
+  params: {},
+  current: {},
+  route: {},
+  index: [],
+  loading: true,
+  search: "",
+  sidebarOpen: false,
+  type: null,
+  posts: [],
+  footer: [],
+  social: [],
+  author: null,
+  allTags: new Set<string>(),
+  allCategories: new Set<string>(),
+}
+
+export interface NavItem {
+  /** link: route string*/
+  link: string
+  /** text: display text */
+  text: string
+}
+
+import { SocialIcons } from "../../config"
+export { SocialIcons }
+
+export interface BlogState {
+  title?: string | null
+  description?: string | null
+  base?: string | null
+  cover?: string
+  footer?: NavItem[] // TODO: type
+  logo?: string
+  nav?: NavItem[] // TODO: type
+  search?: boolean
+  social?: SocialIcons
+}
+
+export interface HeaderState {
+  showCover: boolean
+  coverImage?: string | null
+  title?: string | null
+  description?: string | null
+}
+
+/** RootState: Defines the state field for the global Vuex `store`. */
+export interface RootState {
+  blog: BlogState
+  header: HeaderState
+  nav: NavItem[] // Specify the type if known, e.g., NavItem[]
+  params: Record<string, any> // Use a more specific type if possible
+  current: Page | {} // Assuming 'current' is a Page or empty object
+  route: Record<string, any> // Use a more specific type if possible
+  index: Page[]
+  loading: boolean
+  search: string
+  sidebarOpen: boolean
+  type: string | null // Use a more specific type if known
+  posts: Page[] // Assuming 'posts' is an array of Page
+  footer: any[] // Specify the type if known
+  social: any[] // Specify the type if known, e.g., SocialLink[]
+  author: Author | null
+
+  allTags: Set<string>
+  allCategories: Set<string>
+
+  $withBase: (path: string) => string
+}
+
+export type AppStore = VuexStore<RootState>

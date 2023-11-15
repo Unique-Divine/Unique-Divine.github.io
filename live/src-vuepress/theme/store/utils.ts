@@ -1,8 +1,6 @@
 import { get, capitalize, map as lodashMap } from "lodash"
 import { toLower, getOr, curry } from "lodash/fp"
-import { BlogState, RootState } from "./store"
-import { Page } from "./types"
-import { SocialIcons } from "../../config"
+import { BlogState, RootState, Page, SocialIcons } from "./types"
 
 /** pluckData (fn): Used to extract page data and transform it, including
  * normalizing tags and categories to proper case and extracting author
@@ -70,6 +68,7 @@ export const type = (state: RootState) => {
 export const category = getOr(null, "route.params.category") as any
 export const tag = getOr(null, "route.params.tag") as any
 
+// TODO: docs
 export const footer = (state: RootState) =>
   // TODO: add type for nav
   get(state, "blog.footer", []).map((nav: any) => ({
@@ -77,6 +76,7 @@ export const footer = (state: RootState) =>
     external: isExternal(nav.link),
   }))
 
+// TODO: docs
 export const navigation = (state: RootState) =>
   // TODO: add type for nav
   get(state, "blog.nav", []).map((nav: any) => ({
@@ -85,6 +85,7 @@ export const navigation = (state: RootState) =>
     external: isExternal(nav.link),
   }))
 
+// TODO: docs
 /** social:
  * */
 export const social = (site: BlogState): { type: string; url: string }[] => {
@@ -123,9 +124,6 @@ export const filterPosts = (state: RootState): Page[] => {
 const titleCase = (str: string) => lodashMap(str.split(" "), capitalize).join(" ")
 
 export const header = (state: RootState) => {
-  console.debug("DEBUG state: %o", state)
-  console.debug("DEBUG state.route.fullPath: %o", state.route.fullPath)
-  // console.debug("DEBUG state.posts: %o", state.posts)
   switch (state.type) {
     case "category":
       return {

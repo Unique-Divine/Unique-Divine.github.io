@@ -1,12 +1,12 @@
 /* mutations.js
  *
  * This mutations.js file defines Vuex mutations. Mutations are responsible for
- * the state in a deterministic, synchronous manner. Each of the fields
- * exported defines a mutation. For example, the functions mapped by
+ * updating the state in a deterministic, synchronous manner. Each of the fields
+ * exported defines a mutation (fn). For example, the functions mapped by
  * "types.SITE_UPDATE" and "types.PAGE_UPDATE" are mutations.
  */
 import { pick, get } from "lodash"
-import { RootState } from "./store"
+import { RootState } from "./types"
 
 import { MUTATION_TYPE, Page, Post, Site } from "./types"
 
@@ -21,7 +21,12 @@ import {
   navigation,
 } from "./utils" // @ts-ignore
 
-export const MUTATIONS = {
+import { MutationTree } from "vuex"
+
+/** MUTATIONS: Vuex mutations. Responsible for updating the state in a deterministic,
+ * synchronous manner. Each of object field values defines a mutation (fn)
+ * */
+export const MUTATIONS: MutationTree<RootState> = {
   [MUTATION_TYPE.SITE_UPDATE]: (state: RootState, site: Site) => {
     const themeConfig = get(site, "themeConfig", {})
     const siteConfig = pick(site, ["title", "description", "base", "defaultAuthor"])
@@ -42,6 +47,10 @@ export const MUTATIONS = {
     state.params = params
     const posts: Page[] = filterPosts(state)
     state.posts = posts.sort((a, b) => postTime(b) - postTime(a))
+    state.posts.forEach((post) => {
+      post.tags.forEach((tag) => state.allTags.add(tag))
+      post.categories.forEach((category) => state.allCategories.add(category))
+    })
     state.nav = navigation(state)
     state.type = type(state)
     state.header = header(state)
