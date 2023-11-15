@@ -1,4 +1,4 @@
-name: "TypeScript App"
+name: "🔥 TS"
 
 on:
   push:
@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-app:
+  build-app-bun:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout branch"
