@@ -1,11 +1,13 @@
 import Vuex, { CustomVue } from "vuex"
 import { sync } from "vuex-router-sync"
 
-import { createStore } from "./store/store"
+import { createStore } from "./store"
 import types from "./store/types"
 
 // @ts-ignore
 import Layout from "./Layout"
+// @ts-ignore
+import NotFound from "./NotFound.vue"
 import MarkdownIt from "markdown-it"
 import VueRouter from "vue-router"
 
@@ -29,8 +31,8 @@ export default ({
     { path: "/category/:category?", component: Layout },
     { path: "/posts/", component: Layout },
     { path: "/tags/:tag?", component: Layout },
+    { path: "*", component: NotFound },
   ])
-  console.debug("DEBUG router obj: %o", router)
 
   router.beforeResolve((to, _from, next) => {
     // If this isn't an initial page load.

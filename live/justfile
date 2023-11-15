@@ -44,6 +44,7 @@ install:
 
 # Build TypeScript and then run vuepress build
 build:
+  just set-symlinks
   tsc
   bun run vuepress build
 

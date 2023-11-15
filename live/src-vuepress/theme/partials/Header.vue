@@ -22,9 +22,6 @@
           <h2 class="site-description" v-if="header.description">
             {{ header.description }}
           </h2>
-          <!-- <ul v-if="isTags"> -->
-          <!--   <h2>hello from tags</h2> -->
-          <!-- </ul> -->
         </div>
       </div>
     </div>

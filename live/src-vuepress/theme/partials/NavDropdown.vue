@@ -31,7 +31,9 @@ export default {
 <style>
 .nav__dropdown {
   position: absolute;
-  background-color: #f9f9f9;
+  /* background-color: var(--light); */
+  background-color: var(--light);
+
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 100;
   width: 200px;
@@ -42,7 +44,7 @@ export default {
 
 .nav__dropdown a,
 .nav__dropdown router-link {
-  color: black;
+  color: var(--dark);
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -68,5 +70,16 @@ export default {
   flex-direction: column;
   margin-bottom: 0px;
   padding: 1rem 0rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav__dropdown {
+    background-color: var(--blue-g-base);
+  }
+
+  .nav__dropdown ul>*:hover {
+    /* background-color: hsl(200, 33%, 34%);  original color */
+    background-color: var(--blue-g-31);
+  }
 }
 </style>

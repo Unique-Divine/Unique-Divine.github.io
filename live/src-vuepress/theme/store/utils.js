@@ -49,12 +49,14 @@ export const type = (state) => {
 };
 export const category = getOr(null, "route.params.category");
 export const tag = getOr(null, "route.params.tag");
+// TODO: docs
 export const footer = (state) => 
 // TODO: add type for nav
 get(state, "blog.footer", []).map((nav) => ({
     ...nav,
     external: isExternal(nav.link),
 }));
+// TODO: docs
 export const navigation = (state) => 
 // TODO: add type for nav
 get(state, "blog.nav", []).map((nav) => ({
@@ -62,6 +64,7 @@ get(state, "blog.nav", []).map((nav) => ({
     active: state.route.path.split("/").join("") === nav.link.split("/").join(""),
     external: isExternal(nav.link),
 }));
+// TODO: docs
 /** social:
  * */
 export const social = (site) => {
@@ -89,9 +92,6 @@ export const filterPosts = (state) => {
 };
 const titleCase = (str) => lodashMap(str.split(" "), capitalize).join(" ");
 export const header = (state) => {
-    console.debug("DEBUG state: %o", state);
-    console.debug("DEBUG state.route.fullPath: %o", state.route.fullPath);
-    // console.debug("DEBUG state.posts: %o", state.posts)
     switch (state.type) {
         case "category":
             return {
