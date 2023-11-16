@@ -136,6 +136,7 @@ html {
       circle at top right,
       #16222A, #3A6073
   );
+
   --blue-g-34: hsl(200, 33%, 34%);
   --blue-g-31: hsl(200, 33%, 31%);
   --blue-g-20: hsl(200, 33%, 20%);
@@ -149,6 +150,11 @@ html {
   /* --table-border: #2b2f36; */
   /* --table-border: var(--blue-g-base); */
   --table-border: var(--code-blue-grey);
+
+  --radial-bg-exp: radial-gradient(
+    circle at top right,
+    var(--blue-g-50), var(--blue-g-base-dark)
+  );
 }
 *,
 :after,
@@ -826,6 +832,7 @@ body {
   align-items: center;
   padding: 10px 0;
   height: 64px;
+  align-items: center;
 }
 .site-nav-right .nav {
   position: relative;
@@ -850,13 +857,25 @@ body {
   margin: 0;
   padding: 10px;
   opacity: 0.8;
+
+  .social-link__bubble {
+    border-radius: 50%; /* makes it circular */
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--radial-bg-exp);
+  }
 }
 .social-link:hover {
   opacity: 1;
 }
 .social-link svg {
-  height: 1.8rem;
-  fill: #fff;
+  height: 1.4rem;
+  width: 1.4rem;
+  color: var(--white-smoke);
 }
 .social-link-fb svg,
 .social-link-wb svg {
@@ -957,7 +976,7 @@ body {
   position: relative;
   display: block;
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: 1.5rem;
 }
 .post-card-image {
   width: 100%;
@@ -2952,6 +2971,17 @@ pre.language- {
   .kg-bookmark-metadata {
     color: hsla(0, 0%, 100%, 0.75);
   }
+
+
+  .social-link {
+    .social-link__bubble {
+      background: var(--white-smoke);
+    }
+  }
+  .social-link svg {
+    color: var(--blue-g-base);
+  }
+
   .site-archive-header .no-image {
     /* color: hsla(0, 0%, 100%, 0.9); */
     background: var(---light);
