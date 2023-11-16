@@ -10,6 +10,11 @@ const socialLinks = {
 const navCategory = (path) => `/category/${path}`;
 const navPage = (path) => `/page/${path}`;
 const navTag = (path) => `/tags/${path}`;
+const metaHead = {
+    descr: "Creator, meme connoisseur, programmer that makes music, Rust propagandist, Co-Founder of Nibiru Chain",
+    url: "https://uniquedivine.blog",
+    twitter: "@DeusExUnicus",
+};
 /** ------------------------ home-site/blog ------------------------
  * Please leave the zombie comments. They serve as useful documentation for
  * how to edit the vuepress theme.
@@ -19,7 +24,6 @@ const navTag = (path) => `/tags/${path}`;
  * */
 export default defineConfig4CustomTheme({
     title: "Unique Divine",
-    // description: "A DeFi hub ushering in the next era of money",
     base: "/",
     /** The "theme" field of the vuepress config determines which theme to import.
      * We have this commented out because this site uses a local theme, where we
@@ -30,7 +34,20 @@ export default defineConfig4CustomTheme({
      */
     // theme: "casper",
     patterns: ["**/*.md", ".vuepress/**/*.vue"],
+    /** head: Extra tags to inject into the page HTML `<head>` element. You can
+     * specify each tag in the form of
+     * `[tagName, { attrName: attrValue }, innerHTML?]`
+     * */
     head: [
+        ["meta", { property: "og:title", content: "Unique Divine" }],
+        ["meta", { property: "og:site_name", content: "Unique Divine" }],
+        ["meta", { property: "twitter:title", content: "Unique Divine" }],
+        ["meta", { property: "description", content: metaHead.descr }],
+        ["meta", { property: "twitter:description", content: metaHead.descr }],
+        ["meta", { property: "og:description", content: metaHead.descr }],
+        ["link", { rel: "canonical", content: metaHead.url }],
+        ["meta", { property: "twitter:site", content: metaHead.twitter }],
+        ["meta", { property: "twitter:card", content: "summary_large_image" }],
         ["link", { rel: "icon", href: "/favicon/favicon-256x256.png" }],
         [
             "link",
@@ -52,14 +69,15 @@ export default defineConfig4CustomTheme({
         ],
         ["link", { rel: "manifest", href: "/site.webmanifest" }],
         ["meta", { name: "msapplication-TileColor", content: "#2e3148" }],
-        // TODO: Add google-site-verification for search
-        // [
-        //   "meta",
-        //   {
-        //     name: "google-site-verification",
-        //     content: "CODE GOES HERE",
-        //   },
-        // ],
+        /** See [google-site-verification](https://support.google.com/webmasters/answer/9008080#domain_name_verification&zippy=%2Cdomain-name-provider)
+         * in the "where should I put my verification tags?" section. */
+        [
+            "meta",
+            {
+                name: "google-site-verification",
+                content: "yGhWx5cwJ01ox4HbLFHPAyfopSjwYtUFtJOkeqB_er0",
+            },
+        ],
         ["meta", { name: "theme-color", content: "#f0f0f0" }],
         // ICO format: for type "image/x-icon". Can contain multiple sizes of the
         // icon in a single file, which the browser can then choose from.
@@ -73,6 +91,9 @@ export default defineConfig4CustomTheme({
             },
         ],
     ],
+    /** themeConfig.description: Makes a visible description on the front page and
+     * changes the `<meta property=description" ...>` element. */
+    // description: "",
     markdown: {
         /** Config for `markdown-it-anchor` plugin. */
         anchor: {

@@ -1,5 +1,5 @@
 ---
-title: "Unique Divine | About"
+title: "About"
 image: ""
 # image: "/stat/002/banner-nibijs.png"
 publish: "2022-10-02"
@@ -10,6 +10,8 @@ tags:
 categories:
   - commonplace
 readingTime: 4 Min read
+
+canonicalUrl: https://uniquedivine.blog/about
 ---
 
 ## I'm a programmer that makes music and writes.

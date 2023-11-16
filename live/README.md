@@ -1,5 +1,5 @@
 ---
-title: Unique Divine | Blog
+title: "Unique Divine"
 # NOTE Setting "canonicalUrl" here in the README changes the output of index.html.
 canonicalUrl: https://uniquedivine.blog
 ---
