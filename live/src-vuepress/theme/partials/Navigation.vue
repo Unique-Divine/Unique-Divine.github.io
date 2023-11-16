@@ -120,6 +120,23 @@ export default {
 @media (prefers-color-scheme: dark) {
   .search-box input {
     background-color: var(--blue-g-base-dark);
+    border: 1px solid var(--dark-sub-3);
   }
+
+  .search-box input:hover {
+    border: 1px solid var(--code-blue-grey);
+  }
+
+  /* TODO: style dark version of the menu that opens 
+
+  .search-box ul .suggestions {
+  }
+
+  .search-box .suggestion.focused a {
+  }
+
+  .search-box li .suggestion .focused {
+  }
+  */
 }
 </style>
