@@ -1,0 +1,32 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import PageHeader from '~/components/widgets/PageHeader.astro';
+import Footer from '~/components/widgets/Footer.astro';
+import Announcement from '~/components/widgets/Announcement.astro';
+
+import { headerData, footerData } from '~/navigation';
+
+import type { MetaData } from '~/types';
+
+export interface Props {
+  metadata?: MetaData;
+}
+
+const { metadata } = Astro.props;
+---
+
+<Layout metadata={metadata}>
+  <!-- NOTE: Disables announcement bar -->
+  <!-- <slot name="announcement"> -->
+  <!--   <Announcement /> -->
+  <!-- </slot> -->
+  <slot name="header">
+    <PageHeader {...headerData} isSticky showRssFeed showToggleTheme />
+  </slot>
+  <main>
+    <slot />
+  </main>
+  <slot name="footer">
+    <Footer {...footerData} />
+  </slot>
+</Layout>
