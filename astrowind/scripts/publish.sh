@@ -3,7 +3,10 @@ set -eo pipefail
 
 OUT_DOMAIN="uniquedivine.blog"
 BUILD_PATH="./dist"
-REPO_URL="https://github.com/Unique-Divine/Unique-Divine.github.io"
+# GitHub auth with ssh 
+REPO_URL="git@github.com:Unique-Divine/Unique-Divine.github.io.git"
+# GitHub auth with https (DEPRECATED) 
+# REPO_URL="https://github.com/Unique-Divine/Unique-Divine.github.io"
 
 # which_ok: Check if the given binary is in the $PATH.
 # Returns code 0 on success and code 1 if the command fails.
@@ -50,13 +53,13 @@ push_to_gh() {
   git add . 
   git commit -am "deploy"
   git checkout -b gh-pages
-  git push -u $REPO_URL gh-pages --force
+  git push -u $REPO_URL gh-pages --force || echo "git push unsuccessful"
   rm -rf .git 
   cd "$root_dir"
 }
 
 main() {
-  # build
+  build
   create_deployment_records
   push_to_gh
 }
