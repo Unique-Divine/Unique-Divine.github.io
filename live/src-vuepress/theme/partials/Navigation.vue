@@ -2,7 +2,12 @@
   <nav class="site-nav" style="overflow: visible">
     <div class="site-nav-left-wrapper" style="height: 100%">
       <div class="site-nav-left">
-        <span @click="toggleMenu" class="nav__burger-icon" ref="toggleBtn">
+        <!-- NavDropdown CTA -->
+        <span
+          @click="toggleMenu"
+          class="nav__burger-frame nav__burger-icon"
+          ref="toggleBtn"
+        >
           <SvgBurger class="nav__burger-icon" />
         </span>
 
@@ -14,7 +19,12 @@
         </router-link>
 
         <!-- Dropdown Menu -->
-        <NavDropdown :items="nav" :visible="menuOpen" v-if="menuOpen" ref="navDropdown" />
+        <NavDropdown
+          :items="nav"
+          :visible="menuOpen"
+          v-if="menuOpen"
+          ref="navDropdown"
+        />
 
         <!-- ORIGINAL -->
         <!-- ORIGINAL -->
@@ -35,7 +45,12 @@
     <div class="site-nav-right">
       <SearchBox v-if="blog.search" id="nav__search-box" />
       <div class="social-links">
-        <social-link v-for="(channel, index) in social" :url="channel.url" :type="channel.type" :key="index" />
+        <social-link
+          v-for="(channel, index) in social"
+          :url="channel.url"
+          :type="channel.type"
+          :key="index"
+        />
       </div>
     </div>
   </nav>
@@ -99,10 +114,16 @@ export default {
 <style>
 @import "../styles/global.css";
 
-.nav__burger-icon {
+.nav__burger-icon,
+.nav__burger-frame {
+  /* .nav__burger-icon { */
   cursor: pointer;
   display: flex;
   justify-content: center;
+}
+
+.nav__burger-frame:hover {
+  background: var(--code-blue-grey);
 }
 
 .search-box {
