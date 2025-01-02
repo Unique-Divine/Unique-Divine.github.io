@@ -52,3 +52,12 @@ export const toUiAmount = (amount: number) => {
 
   return value;
 };
+
+export const tagMapName = (rawTag: string) => {
+  const mappedTag: string | undefined = TAG_MAP[rawTag];
+  return mappedTag ?? rawTag;
+};
+
+export const TAG_MAP: { [key: string]: string } = {
+  japanese: 'Japanese (日本語)',
+};
