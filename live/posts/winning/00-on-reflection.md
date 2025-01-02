@@ -1,20 +1,21 @@
 ---
-title: "On Reflection & Logging 「過去を顧みること」"
+title: "Reflection and Logging Outshines Planning 「過去を顧みること」"
 image: "/winning/00/log_sep20.png"
 publish: 2020-09-26
 type: post
 tags:
   - "productivity"
-  - "learning"
-  - "happiness"
+  - "meta-learning"
+  - "winning"
   - "fitness"
 # categories:
 #   - commonplace
 readingTime: 4 Min read
 ---
 
-I like to dream as much as anyone. However, I'm also a huge fan of results and
-tangible evidence. 
+What if the key to achieving your goals wasn’t planning ahead, but looking back?
+This was the lesson I learned through years of tracking progress in fitness and
+productivity.
 
 <!-- more -->
 

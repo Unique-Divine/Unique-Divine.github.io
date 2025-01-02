@@ -851,7 +851,10 @@ body {
   flex-shrink: 0;
   display: flex;
   align-items: center;
+
+  --social-link-size: 2.1rem;
 }
+
 .social-link {
   display: inline-block;
   margin: 0;
@@ -860,8 +863,8 @@ body {
 
   .social-link__bubble {
     border-radius: 50%; /* makes it circular */
-    height: 2rem;
-    width: 2rem;
+    height: var(--social-link-size);
+    width: var(--social-link-size);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -873,8 +876,8 @@ body {
   opacity: 1;
 }
 .social-link svg {
-  height: 1.4rem;
-  width: 1.4rem;
+  height: calc(var(--social-link-size) * 0.59);
+  width: calc(var(--social-link-size) * 0.59);
   color: var(--white-smoke);
 }
 .social-link-fb svg,
