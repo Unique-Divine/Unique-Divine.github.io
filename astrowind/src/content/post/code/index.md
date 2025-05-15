@@ -1,22 +1,45 @@
 ---
-title: "Coding Guides"
-image: "/bloom.jpg"
-publish: 2023-01-10
+title: "Coding Commonplace | Unique Divine"
+image: "/coding-5.png"
+# image: "/bloom.jpg"
+publishDate: 2023-01-10
 type: post
 tags:
   - coding
   - python
-# categories:
-#   - futurama
 readingTime: 4 Min read
-canonicalUrl: "https://nibiru.fi/blog/posts/005-collections.html"
 ---
 
-The collections API is a Golang package that improves upon state-related abstractions in the Cosmos-SDK. Here, we explain blockchain state and the advantages of NibiruChain/collections.
+## The Coding Commonplace
 
-<!-- more -->
+I've always liked the idea of a commonplace book. A living archive and system for
+writing down and saving the most important points you learn in one common place.
 
-We recently implemented the collections API for better state management on Nibiru Chain and thought the tool would be useful for the broader Cosmos community. After integrating it to our core modules, we proposed an architectural design record (ADR) to the Cosmos-SDK, which got merged near the end of 2022. It was awesome to see such positive responses from core SDK contributors.
+With the following reference pages, I'm showing you the notes I find myself
+coming back to again and again. These are not tutorials, nor are they geared
+toward learning "about" a language or tool. Everything here is a concise resource
+on how to *solve* a problem.
 
-- [Python](../code/python)
+If you find something useful, please take it. If it sparks something, even better.
+
+## Practitioner's Guides
+- [GitHub and Git: A Field Guide for Practitioners](../code/github-git-gh)
+- [Coding in Python](../code/python)
+- [Coding in Go](../code/golang)
+
+<!-- 
+
+What is a commonplace? 
+
+A commonplace book is a system for writing down and sorting all manner of
+tidbits: quotes, anecdotes, observations, and information gleaned from books,
+conversations, movies, song lyrics, social posts, podcasts, life experiences, or
+anything else that you might want to return to later.
+
+It's called a commonplace it's an aggregate, an all-encompassing system for
+storing all of the the most important points you learn in one common place, a
+central resource that makes it easy to find, re-read, and utilize each piece of
+wisdom you have obtained.
+
+-->
 
