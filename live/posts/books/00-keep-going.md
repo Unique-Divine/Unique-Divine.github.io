@@ -23,7 +23,6 @@ books like this, I like to make one pass through to jot down quotes and notes on
 passages that resonate with me and then wrestle with the ideas for a while before
 coming back to the text.  
 
-
 ## Notes | Keep Going
 
 #### Take One Day At a Time
