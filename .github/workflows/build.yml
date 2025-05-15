@@ -30,57 +30,15 @@ jobs:
         uses: taiki-e/install-action@just
 
       - run: |
-          cd live && just install
+          cd astrowind
+          just i # install
 
       - name: "Setup NodeJS and npm"
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/gallium"
+          node-version: "lts/jod" # jod=22, iron=20, gallium=18
 
       - name: "Build (bun)"
         run: |
-          cd live
-          just set-symlinks
-          just build
-
-  build-app-node:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "Checkout branch"
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-
-      - name: "oven-sh/setup-bun@v1"
-        # See https://bun.sh/guides/runtime/cicd
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: "1.0.7"
-
-      - name: "Install just"
-        # casey/just: https://just.systems/man/en/chapter_6.html
-        # taiki-e/install-action: https://github.com/taiki-e/install-action
-        uses: taiki-e/install-action@just
-
-      - run: |
-          cd live && just install
-
-      - name: "Setup NodeJS and npm"
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/gallium"
-      - name: "Install yarn using npm"
-        run: npm install -g yarn
-      - name: "Setup NodeJS with yarn caching"
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/gallium"
-          cache: "yarn"
-          cache-dependency-path: "live/yarn.lock"
-
-      - name: "Build (yarn/node)"
-        run: |
-          cd live
-          just set-symlinks
-          yarn --check-files
-          yarn build
+          cd astrowind
+          just b # build
