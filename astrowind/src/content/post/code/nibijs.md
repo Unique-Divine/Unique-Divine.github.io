@@ -1,7 +1,7 @@
 ---
 title: "#5 | Collections API, an upgrade to Cosmos-SDK storage"
 image: "/nc/005/banner-collections.png"
-publish: 2023-01-10
+publishDate: 2023-01-10
 type: post
 tags:
   - "For Devs"
