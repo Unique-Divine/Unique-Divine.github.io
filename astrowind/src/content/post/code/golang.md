@@ -1,8 +1,8 @@
 ---
-title: "Coding in Go"
+title: 'Coding in Go'
 author: Unique Divine
-image: "/coding-1.png"
-excerpt: ""
+image: '/coding-1.png'
+excerpt: ''
 publishDate: 2024-06-08
 ---
 
@@ -11,11 +11,12 @@ Commonplace](../code). That's odd because I've used Go more than any other
 language in my professional programming career. Well over a million lines of code
 at this point.
 
-What I've not done is write much about it. This page should start to change that. 
+What I've not done is write much about it. This page should start to change that.
 
 ---
 
 #### Table of Contents
+
 - [Init](#init)
   - [1. Installation](#1-installation)
   - [Go Basics for Anki](#go-basics-for-anki)
@@ -43,6 +44,7 @@ sudo apt-get install golang-go
 After resetting the terminal window, run `go version` to verify that this worked properly.
 
 To uninstall golang with sudo, use
+
 ```sh
 sudo apt-get remove golang-go
 sudo apt-get remove --auto-remove golang-go
@@ -58,6 +60,7 @@ Ref: https://sal.as/post/install-golan-on-wsl/
 ### Go Basics for Anki
 
 Write a hello world golang program:
+
 ```go
 // hello.go
 package main
@@ -84,6 +87,7 @@ Q: After compiling with `go build hello.go`, run the file by...
 executing the binary file with `./hello` at the prompt
 
 Q: Import the packages for dealing with the operating system and and printing formatted output.
+
 ```go
 import (
   "fmt"
@@ -104,16 +108,19 @@ func sum(x: int, y: int) int {
 ```
 
 Initialize a variable `powerLevel` to 5 with explicit typing.
+
 ```go
 var powerLevel int = 5
 ```
 
 Initialize a variable `powerLevel` to 5 with implicit typing.
+
 ```go
 powerLevel := 5
 ```
 
 Write conditional logic that prints "oof" if `x` is greater than 0.
+
 ```go
 if x > 0 {
   fmt.Println("oof")
@@ -121,6 +128,7 @@ if x > 0 {
 ```
 
 Write conditional logic that prints "whale" if `x` is greater than 10, "minnow" if `x` is less than 1, and "shark" otherwise.
+
 ```go
 if x > 10 {
   fmt.Println("whale")
@@ -132,22 +140,26 @@ if x > 10 {
 ```
 
 Create and an array, "point", that holds 2 ints.
+
 ```go
 var point [2]int
 ```
 
 Create a slice of ints called "arr".
+
 ```go
 var arr []int
 ```
 
 What will this function return?
+
 ```go
 func foo() {
   var arr []int
   return arr
 }
 ```
+
 A: An empty slice, `[]`.
 
 Write the type definition for a dictionary that maps strings to integers.
@@ -157,6 +169,7 @@ Write the type definition for a dictionary that maps `wallet` (`Wallet`) to `bal
 `map[Wallet]int`
 
 Declare a dictionary variable, `strIntMap`, that maps strings to integers.
+
 ```go
 var strIntMap map[string]int
 ```
@@ -170,6 +183,7 @@ To **initialize** a variable is to assign the variable with an intitial value.
 **Instantiate** means to "create an instance of".
 
 Will the following code run?
+
 ```go
 func main() {
   var facts map[int]string
@@ -178,35 +192,42 @@ func main() {
   fmt.Println(facts)
 }
 ```
+
 A: No, you'll get `panic: assignment to entry in nil map` because that's not how to initialize a map in go. You must use `make`: `make(map[int]string)`.
 
 Initialize a dictionary, `goku`, that maps "powerLevel" to 9001.
+
 ```go
 var goku = make(map[string]int)
 goku["powerLevel"] = 9001
 ```
 
 Q: What's another way to write this that will work?
+
 ```go
 var facts = make(map[int]string)
 ```
 
 A:
+
 ```go
 facts := make(map[int]string)
 ```
 
 How do you delete the "age" key-value pair?
+
 ```go
 var goku = make(map[string]int)
 goku["powerLevel"] = 9001
 goku["age"] = 40
 ```
+
 A: `delete(goku, "age")`
 
 Cl: The `delete` method operates on `map`s.
 
 Q: Print the values 0 through 4 going incrementing by 1.
+
 ```go
 func main() {
   for i := 0; i < 4; i++ {
@@ -216,12 +237,14 @@ func main() {
 ```
 
 Q: Initalize a slice, `letters`, containing the letters "a", "b", "c"
+
 ```go
 arr := []string{"a", "b", "c"}
 // var arr = []string{"a", "b", "c"}
 ```
 
 Q: Given that `arr := []string{"a", "b", "c"}`, iterate through the slice printing the indices and values.
+
 ```go
 for index, value := range arr {
   fmt.Println(index, value)
@@ -229,12 +252,15 @@ for index, value := range arr {
 ```
 
 Given that
+
 ```go
 goku := make(map[string]int)
 goku["powerLevel"] = 9001
 goku["age"] = 40
 ```
+
 Iterate through the dictionary printing the keys and values.
+
 ```go
 for key, value := range goku {
   fmt.Println(key, value)
@@ -245,6 +271,7 @@ Q: What method allows you to take the square root of a number?
 A: `math.Sqrt`
 
 Q: Create a "person" struct with name (string) and age (int) fields.
+
 ```go
 type person struct {
   name string
@@ -253,6 +280,7 @@ type person struct {
 ```
 
 Given the "person" struct, initialize Naruto at age 22.
+
 ```go
 type person struct {
   name string
@@ -268,7 +296,6 @@ fmt.Println(naruto)
 Q: If I give you a variable `x := 7`, how do you find its memory address?
 A: `&x`
 
-
 ### Structures
 
 <!-- Anki placeholder -->
@@ -278,6 +305,7 @@ Q: GO is not an object-oriented language like C++ or Java.
 Q: Define a `Saiyan` structure with a name (string) and power (int).
 
 A:
+
 ```go
 type Saiyan struct {
     name string
@@ -295,13 +323,13 @@ type Saiyan struct {
 ```
 
 A:
+
 ```go
 goku := Saiyan{
     name: "Goku",
     power: 9001,
 }
 ```
-
 
 Q:
 
@@ -313,6 +341,7 @@ type Saiyan struct {
 ```
 
 Is it valid to write the following?
+
 ```go
 goku := Saiyan{}
 // or
@@ -326,6 +355,7 @@ Cl: Structures can have unassigned fields just like variables can have unassigne
 Cl: Go passes arguments to a function as copies.
 
 Q: What does the following print?
+
 ```go
 package main
 
@@ -375,13 +405,14 @@ var _ Spec = (*MyType)(nil)
 ```
 
 This will error at compile time:
+
 ```
 prog.go:23: cannot use (*MyType)(nil) (type *MyType) as type Spec in assignment:
     *MyType does not implement Spec (missing Method method)
  [process exited with non-zero status]
 ```
 
-Q:  `*MyType` means pointer to `MyType`.
+Q: `*MyType` means pointer to `MyType`.
 
 ## golangci-lint
 
@@ -391,18 +422,19 @@ the runs tend to be inconsistent across different machines with this pattern.
 Likely due to caching.
 
 I recommend using the docker container instead.
+
 ```bash
 docker run --rm -v $(pwd):/app -v ~/.cache/golangci-lint/v1.64.8:/root/.cache -w /app golangci/golangci-lint:v1.64.8 golangci-lint run -v --fix 2>&1
 ```
 
 To clean the cache inside the container, invoke `golangci-lint cache clean` inside the container, wiping everything in `/root/.cache`:
+
 ```bash
 docker run --rm \
   -v ~/.cache/golangci-lint/v1.64.8:/root/.cache \
   golangci/golangci-lint:v1.64.8 \
   golangci-lint cache clean
 ```
-
 
 ## Golang: for loop can be modernized using range over int
 
@@ -421,7 +453,6 @@ for i := range 42069 {}
 for range 42069 {}
 ```
 
-
 ## Bytes in Go
 
 ## Debugging
@@ -436,11 +467,9 @@ Opens permissions for the go directories that were unable to see the staandard l
 chown -R realu:realu $GOPATH
 ```
 
-
 ```shell
 go clean -modcache
 ```
-
 
 ## Testing
 
@@ -459,13 +488,14 @@ Q: When is it better to use require versus assert?
 
 It depends on the behavior you need. You get a log entry for each assertion with `assert`. However with `require`, the first failed requirement interrups and fails the complete test. This means that any requirements after the first failed one won't be evaluated; they'll be skipped.
 
-
 Q: Test all go files visible from the current path.
+
 ```sh
 go test ./...
 ```
 
 To test with code coverage:
+
 ```sh
 go test ./... -cover
 ```
@@ -477,6 +507,7 @@ memory access at runtime to check for race conditions where goroutines access th
 same variable concurrently, and at least one of them accesses a write operation.
 
 When a race condition is detected, the output looks like:
+
 ```
 ==================
 WARNING: DATA RACE

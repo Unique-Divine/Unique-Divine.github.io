@@ -1,15 +1,15 @@
 ---
-title: "#5 | Collections API, an upgrade to Cosmos-SDK storage"
-image: "/nc/005/banner-collections.png"
+title: '#5 | Collections API, an upgrade to Cosmos-SDK storage'
+image: '/nc/005/banner-collections.png'
 publishDate: 2023-01-10
 type: post
 tags:
-  - "For Devs"
+  - 'For Devs'
   - newsletter
 # categories:
 #   - futurama
 <!-- readingTime: 4 Min read -->
-canonicalUrl: "https://nibiru.fi/blog/posts/005-collections.html"
+canonicalUrl: 'https://nibiru.fi/blog/posts/005-collections.html'
 draft: true
 ---
 
@@ -87,104 +87,93 @@ The entrypoint for `nibijs` is the `Sdk` object, which is meant to mimic the roo
 ### Example: Creating a wallet
 
 ```js
-import { newRandomWallet } from "@nibiruchain/nibijs"
+import { newRandomWallet } from '@nibiruchain/nibijs';
 
 // Create a new Nibiru wallet
-const wallet = await newRandomWallet()
-const [{ address }] = await wallet.getAccounts()
+const wallet = await newRandomWallet();
+const [{ address }] = await wallet.getAccounts();
 
 // Save the mnemonic somewhere to re-use the account
-console.log("mnemonic: ", wallet.mnemonic)
-console.log("address: ", address)
+console.log('mnemonic: ', wallet.mnemonic);
+console.log('address: ', address);
 ```
 
 ### Example: Querying
 
 ```js
-import { NibiruQuerier, Testnet } from "@nibiruchain/nibijs"
+import { NibiruQuerier, Testnet } from '@nibiruchain/nibijs';
 
-export const CHAIN = Testnet(2)
-const querier = await NibiruQuerier.connect(CHAIN.endptTm)
+export const CHAIN = Testnet(2);
+const querier = await NibiruQuerier.connect(CHAIN.endptTm);
 
 // Query balances
-const exampleAddress = "nibi17dz4cdw5fmm2cxd4ht9xvjmpw3ycmpkpcc6js9"
-const balances = await querier.getAllBalances(exampleAddress)
-console.log("balances: %o", balances)
+const exampleAddress = 'nibi17dz4cdw5fmm2cxd4ht9xvjmpw3ycmpkpcc6js9';
+const balances = await querier.getAllBalances(exampleAddress);
+console.log('balances: %o', balances);
 
 // Query block
-const blockHeight = 200000
-const block = await querier.getBlock(blockHeight)
-console.log("block: %o", block)
+const blockHeight = 200000;
+const block = await querier.getBlock(blockHeight);
+console.log('block: %o', block);
 
 // Query PERP markets
-const perpMarkets = await querier.nibiruExtensions.perp.markets()
-console.log("perpMarkets: %o", perpMarkets)
+const perpMarkets = await querier.nibiruExtensions.perp.markets();
+console.log('perpMarkets: %o', perpMarkets);
 
 // Query SPOT pools
-const spotPools = await querier.nibiruExtensions.spot.pools()
-console.log("spotPools: %o", spotPools)
+const spotPools = await querier.nibiruExtensions.spot.pools();
+console.log('spotPools: %o', spotPools);
 ```
 
 ### Example: Sending funds
 
 ```js
-import {
-  NibiruTxClient,
-  newSignerFromMnemonic,
-  Testnet,
-  NibiruQuerier,
-} from "@nibiruchain/nibijs"
-import { coins } from "@cosmjs/proto-signing"
+import { NibiruTxClient, newSignerFromMnemonic, Testnet, NibiruQuerier } from '@nibiruchain/nibijs';
+import { coins } from '@cosmjs/proto-signing';
 
-export const CHAIN = Testnet(2)
-const mnemonic = "your mnemonic here..."
-const signer = await newSignerFromMnemonic(mnemonic)
-const querier = await NibiruQuerier.connect(CHAIN.endptTm)
-const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer)
-const [{ address: fromAddr }] = await signer.getAccounts()
+export const CHAIN = Testnet(2);
+const mnemonic = 'your mnemonic here...';
+const signer = await newSignerFromMnemonic(mnemonic);
+const querier = await NibiruQuerier.connect(CHAIN.endptTm);
+const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer);
+const [{ address: fromAddr }] = await signer.getAccounts();
 
 // Check balance before sending tokens
-const exampleAddress = "nibi1mzjkw9z5ugajxchl884y0c28lk2627hpuljuw4"
-let balances = await querier.getAllBalances(exampleAddress)
-console.log("balances: %o", balances)
+const exampleAddress = 'nibi1mzjkw9z5ugajxchl884y0c28lk2627hpuljuw4';
+let balances = await querier.getAllBalances(exampleAddress);
+console.log('balances: %o', balances);
 
-const tokens = coins(5, "unibi")
+const tokens = coins(5, 'unibi');
 const txResp = await txClient.sendTokens(
   fromAddr,
   exampleAddress,
   tokens,
   5000 // gas fee 5000 unibi
-)
-console.log(txResp)
+);
+console.log(txResp);
 
 // Execution could take several seconds
-const delay = (ms) => new Promise((res) => setTimeout(res, ms))
-await delay(10000)
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+await delay(10000);
 
 // Check balance after send tokens
-balances = await querier.getAllBalances(exampleAddress)
-console.log("balances: %o", balances)
+balances = await querier.getAllBalances(exampleAddress);
+console.log('balances: %o', balances);
 ```
 
 ### Example: Transaction with arbitrary messages
 
 ```js
-import {
-  NibiruTxClient,
-  newSignerFromMnemonic,
-  Msg,
-  Testnet,
-  NibiruQuerier,
-} from "@nibiruchain/nibijs"
-import { coin } from "@cosmjs/proto-signing"
+import { NibiruTxClient, newSignerFromMnemonic, Msg, Testnet, NibiruQuerier } from '@nibiruchain/nibijs';
+import { coin } from '@cosmjs/proto-signing';
 
-const mnemonic = "Your mnemonic here"
-export const CHAIN = Testnet(2)
-const signer = await newSignerFromMnemonic(mnemonic)
-const querier = await NibiruQuerier.connect(CHAIN.endptTm)
-const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer)
-const [{ address: fromAddr }] = await signer.getAccounts()
-const pair = "ubtc:unusd"
+const mnemonic = 'Your mnemonic here';
+export const CHAIN = Testnet(2);
+const signer = await newSignerFromMnemonic(mnemonic);
+const querier = await NibiruQuerier.connect(CHAIN.endptTm);
+const txClient = await NibiruTxClient.connectWithSigner(CHAIN.endptTm, signer);
+const [{ address: fromAddr }] = await signer.getAccounts();
+const pair = 'ubtc:unusd';
 
 // Construct tx msgs
 const msgs = [
@@ -199,28 +188,28 @@ const msgs = [
   Msg.perp.addMargin({
     sender: fromAddr,
     pair: pair,
-    margin: coin("20", "unusd"),
+    margin: coin('20', 'unusd'),
   }),
   Msg.perp.removeMargin({
     sender: fromAddr,
     pair: pair,
-    margin: coin("5", "unusd"),
+    margin: coin('5', 'unusd'),
   }),
   // final margin value of 10 (open) + 20 (add) - 5 (remove) = 25
-]
+];
 
 // Broadcast tx
-const txResp = await txClient.signAndBroadcast(fromAddr, msgs, "auto")
-console.log(txResp)
+const txResp = await txClient.signAndBroadcast(fromAddr, msgs, 'auto');
+console.log(txResp);
 
 // Check your open PERP positions
-const delay = (ms) => new Promise((res) => setTimeout(res, ms))
-await delay(5000)
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+await delay(5000);
 
 const perpPositions = await querier.nibiruExtensions.perp.positions({
   trader: fromAddr,
-})
-console.log("perpPositions: %o", perpPositions)
+});
+console.log('perpPositions: %o', perpPositions);
 ```
 
 ## Codebase structure

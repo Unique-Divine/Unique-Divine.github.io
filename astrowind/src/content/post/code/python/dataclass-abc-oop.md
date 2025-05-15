@@ -1,12 +1,12 @@
 ---
-title: "Python: Dataclasses, Abstract Base Classes (ABC), and Object-Oriented Programming (OOP)"
+title: 'Python: Dataclasses, Abstract Base Classes (ABC), and Object-Oriented Programming (OOP)'
 publishDate: 2021-07-10
-image: "/coding-2.png"
+image: '/coding-2.png'
 type: post
 category: Coding
 tags:
- - coding
- - python
+  - coding
+  - python
 readingTime: 4 Min read
 ---
 
