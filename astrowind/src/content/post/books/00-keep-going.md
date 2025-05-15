@@ -17,19 +17,19 @@ tags:
 
 Lately, something's got me in a phase where I'm particularly interested in
 reading books about making art—like Art & Fear and Keep Going. I believe I first
-heard about Kleon's writing from [Ali Abdaal](https://aliabdaal.com/). 
+heard about Kleon's writing from [Ali Abdaal](https://aliabdaal.com/).
 
 Keep Going sticks to Kleon's classic, pocket-sized, lighthearted but
 heavy-hitting style. It's a quick read, so I went through it a few times. With
 books like this, I like to make one pass through to jot down quotes and notes on
 passages that resonate with me and then wrestle with the ideas for a while before
-coming back to the text.  
+coming back to the text.
 
 ## Notes | Keep Going
 
 #### Take One Day At a Time
 
-"There are no rules, of course. Life is an art, not a science." 
+"There are no rules, of course. Life is an art, not a science."
 
 "When I'm working on my art, I don't feel like Odysseus. I feel more like Sisyphus rolling his boulder up the hill... I don't feel like Luke Skywalker."
 
@@ -41,12 +41,11 @@ coming back to the text.
 
 #### Finish Each Day and Be Done With It
 
-"Before you go to bed, make a list of anything you did accomplish, and write down a list of what you want to get done tomorrow. Then forget about it. Hit the pillow with a clear mind. Let you subconscious work on stuff while you're sleeping." 
-
+"Before you go to bed, make a list of anything you did accomplish, and write down a list of what you want to get done tomorrow. Then forget about it. Hit the pillow with a clear mind. Let you subconscious work on stuff while you're sleeping."
 
 #### Establish a Routine
 
-"When you don't know what to do, your routine tells you." 
+"When you don't know what to do, your routine tells you."
 
 "Rather than restricting your freedom, a routine gives you freedom by protecting you from the ups and downs of life and helping you take advantage of limited time, energy, and talent. A routine established good habits that can lead to your best work."
 
@@ -56,18 +55,18 @@ coming back to the text.
 
 Saying "no" to the world can be really hard, but sometimes it's the only way to say "yes" to your art and your sanity.
 
-"I paint with my back to the world." —Agnes Martin 
+"I paint with my back to the world." —Agnes Martin
 
 #### "Creative" is not a noun.
 
-"Let go of the thing that you're trying to be (the noun), and focus on the actual work you need to be doing (the verb). Doing the verb will take you someplace further and far more interesting." 
+"Let go of the thing that you're trying to be (the noun), and focus on the actual work you need to be doing (the verb). Doing the verb will take you someplace further and far more interesting."
 
 #### Your real work is play.
 
-"Great artists are able to retain this sense of playfulness. Art and the artist both suffer most when the artist get *too heavy*, too focused on results."
+"Great artists are able to retain this sense of playfulness. Art and the artist both suffer most when the artist get _too heavy_, too focused on results."
 
 "You will find that you have already been gloriously rewarded for your poem. You have experienced becoming, learned a lot more about what's inside you, and you have made your soul grow... Practicing an art, no matter how well or badly, is a way to make your soul grow." - Kurt Vonnegot, on writing poetry and throwing away the poems.
- 
+
 "You must practice being stupid, dumb, unthinking, empty. Then, you will be able to DO... Try to do some bad work—the worst you can think—and see what happens, but mainly relax and let everything go to hell..." - Sol LeWitt to Eva Hesse
 
 #### Ignore the numbers.
@@ -84,7 +83,7 @@ Saying "no" to the world can be really hard, but sometimes it's the only way to 
 
 #### Ordinary + Extra Attention = Extraordinary
 
-"Attention is the most basic form of love." - John Tarrant. 
+"Attention is the most basic form of love." - John Tarrant.
 
 "If you want to change your life, change what you pay attention to."
 
@@ -96,14 +95,12 @@ Saying "no" to the world can be really hard, but sometimes it's the only way to 
 
 "Drawing helps us live in the moment and concentrate on what's really in front of us."
 
-"By sitting somewhere and sketching something, I was forced to really look at it." Robert Ebert said his drawings were "a means of experiencing a place or a moment more deeply." 
+"By sitting somewhere and sketching something, I was forced to really look at it." Robert Ebert said his drawings were "a means of experiencing a place or a moment more deeply."
 
 On page 137, like minded vs. like hearted
 If you want to explore ideas, hang out with people who are like-hearted, those who are "temperamentally disposed to openness and have habits of listening." People who are generous, kind, caring, and thoughtful.
 
-
 "I have to help other people" - p. 140. Take your situation and turn it into something that positively impacts others.
-
 
 ... TBC
 

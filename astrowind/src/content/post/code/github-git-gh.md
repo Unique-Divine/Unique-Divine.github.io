@@ -1,14 +1,14 @@
 ---
 publishDate: 2023-08-12T00:00:00Z
 author: Unique Divine
-title: "GitHub and Git: A Field Guide for Practitioners"
-excerpt: "Python code reference and cookbook."
-image: "/coding-3.png"
+title: 'GitHub and Git: A Field Guide for Practitioners'
+excerpt: 'Python code reference and cookbook.'
+image: '/coding-3.png'
 category: Coding
 tags:
   - coding
   - commonplace
-readingTime: "5 Min read"
+readingTime: '5 Min read'
 # metadata:
 #   canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
 ---
@@ -35,7 +35,9 @@ TODO: How to Read This Guide
 -->
 
 <!-- git-github-gh-cli.md -->
+
 #### GitHub Section Links
+
 - [GitHub](#github)
 - [GitHub CLI (gh) Cheatsheet](#github-cli-gh-cheatsheet)
 - [GitHub Releases and Tags](#github-releases-and-tags)
@@ -43,8 +45,8 @@ TODO: How to Read This Guide
 - [GitHub Workflows and `act`](#github-workflows-and-act)
 - [GitHub Templates](#github-templates)
 - [GitHub Badges from Shields](#github-badges-from-shields)
-    - [Colors](#colors)
-    - [Template for a Custom Badge](#template-for-a-custom-badge)
+  - [Colors](#colors)
+  - [Template for a Custom Badge](#template-for-a-custom-badge)
 - [GitHub Markdown](#github-markdown)
   - [Notes, Tips, and Warnings](#notes-tips-and-warnings)
   - [Collapsible sections in markdown](#collapsible-sections-in-markdown)
@@ -58,6 +60,7 @@ TODO: How to Read This Guide
 - [GitHub: Cloning without Cloning](#github-cloning-without-cloning)
 
 #### Git Section Linsk
+
 - [Git](#git)
   - [Fundamental Concepts](#fundamental-concepts)
     - [Initial Repo Configuration](#initial-repo-configuration)
@@ -91,8 +94,8 @@ TODO: How to Read This Guide
 - [GitHub Workflows and `act`](#github-workflows-and-act)
 - [GitHub Templates](#github-templates)
 - [GitHub Badges from Shields](#github-badges-from-shields)
-    - [Colors](#colors)
-    - [Template for a Custom Badge](#template-for-a-custom-badge)
+  - [Colors](#colors)
+  - [Template for a Custom Badge](#template-for-a-custom-badge)
 - [GitHub Markdown](#github-markdown)
   - [Notes, Tips, and Warnings](#notes-tips-and-warnings)
   - [Collapsible sections in markdown](#collapsible-sections-in-markdown)
@@ -107,19 +110,18 @@ TODO: How to Read This Guide
 
 ## GitHub CLI (gh) Cheatsheet
 
-
 Set the editor as vim instead of the default, nano.
+
 ```sh
 gh config set editor vim
 ```
 
 Other examples of [`gh config set`](https://cli.github.com/manual/gh_config_set):
+
 ```sh
 gh config set git_protocol ssh --host github.com
 gh config set prompt disabled
 ```
-
-
 
 ```sh
 # list commands
@@ -136,8 +138,8 @@ gh repo view
 `gh pr create`: Creates a pull-request
 `gh pr checks`:
 
-
 GH Issues:
+
 - `gh issue close`:
 
 ```sh
@@ -159,6 +161,7 @@ git tag -s v0.0.16 -m "Release description for v0.0.16"
 ```
 
 Refs:
+
 - [Managing Tags - GitHub docs](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/managing-commits/managing-tags)
 - [`git tag` docs](https://git-scm.com/docs/git-tag)
 
@@ -189,20 +192,20 @@ Ref: https://docs.github.com/en/repositories/releasing-projects-on-github
 
 About Releases (Docs): https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
 
-
 [[Click here to go back to the "GitHub" section](#github)]
 
 ## GitHub Workflows and `act`
 
-
 Run and test workflows locally with [nektos/act](https://github.com/nektos/act). Note that it depends on `docker` to run the workflows.
 
 Installation bash script
+
 ```sh
 curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
 ```
 
 On MacOS:
+
 ```sh
 brew install act
 ```
@@ -253,12 +256,10 @@ Please list the steps to reproduce the bug.
 
 Not obligatory, but suggest a fix/reason for the bug, or ideas how to implement the addition or change.
 
-
 ## Version
 
 Include info on the commit, tag, release, machine used, or local environment.
 ```
-
 
 [[Click here to go back to the "GitHub" section](#github)]
 
@@ -281,7 +282,6 @@ Badges come from [shields.io](https://shields.io/). Its source code is hosted at
 ![](/code/badge-colors.png)
 
 Color options are available with keywords, 6-symbol hex codes, and 3-symbol hex codes.
-
 
 #### Template for a Custom Badge
 
@@ -340,11 +340,13 @@ Tags: dropdown, menu, collapse, expand
 <details>
   <summary>[Show SVG text to copy]</summary>
 
-  ```html
-  <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M6 7V54H61C61.7956 54 62.5587 54.3161 63.1213 54.8787C63.6839 55.4413 64 56.2044 64 57C64 57.7956 63.6839 58.5587 63.1213 59.1213C62.5587 59.6839 61.7956 60 61 60H3C2.20435 60 1.44129 59.6839 0.87868 59.1213C0.31607 58.5587 0 57.7956 0 57L0 7C0 6.20435 0.31607 5.44129 0.87868 4.87868C1.44129 4.31607 2.20435 4 3 4C3.79565 4 4.55871 4.31607 5.12132 4.87868C5.68393 5.44129 6 6.20435 6 7ZM63.12 17.12L42.12 38.12C41.5575 38.6818 40.795 38.9974 40 38.9974C39.205 38.9974 38.4425 38.6818 37.88 38.12L28 28.24L17.12 39.12C16.551 39.6496 15.7987 39.938 15.0215 39.9246C14.2442 39.9112 13.5024 39.597 12.952 39.048C12.403 38.4976 12.0888 37.7558 12.0754 36.9785C12.062 36.2013 12.3504 35.449 12.88 34.88L25.88 21.88C26.4425 21.3182 27.205 21.0026 28 21.0026C28.795 21.0026 29.5575 21.3182 30.12 21.88L40 31.76L58.88 12.88C59.449 12.3504 60.2013 12.062 60.9785 12.0754C61.7558 12.0888 62.4976 12.403 63.048 12.952C63.597 13.5024 63.9112 14.2442 63.9246 15.0215C63.938 15.7987 63.6496 16.551 63.12 17.12Z" />
-  </svg>
-  ```
+```html
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M6 7V54H61C61.7956 54 62.5587 54.3161 63.1213 54.8787C63.6839 55.4413 64 56.2044 64 57C64 57.7956 63.6839 58.5587 63.1213 59.1213C62.5587 59.6839 61.7956 60 61 60H3C2.20435 60 1.44129 59.6839 0.87868 59.1213C0.31607 58.5587 0 57.7956 0 57L0 7C0 6.20435 0.31607 5.44129 0.87868 4.87868C1.44129 4.31607 2.20435 4 3 4C3.79565 4 4.55871 4.31607 5.12132 4.87868C5.68393 5.44129 6 6.20435 6 7ZM63.12 17.12L42.12 38.12C41.5575 38.6818 40.795 38.9974 40 38.9974C39.205 38.9974 38.4425 38.6818 37.88 38.12L28 28.24L17.12 39.12C16.551 39.6496 15.7987 39.938 15.0215 39.9246C14.2442 39.9112 13.5024 39.597 12.952 39.048C12.403 38.4976 12.0888 37.7558 12.0754 36.9785C12.062 36.2013 12.3504 35.449 12.88 34.88L25.88 21.88C26.4425 21.3182 27.205 21.0026 28 21.0026C28.795 21.0026 29.5575 21.3182 30.12 21.88L40 31.76L58.88 12.88C59.449 12.3504 60.2013 12.062 60.9785 12.0754C61.7558 12.0888 62.4976 12.403 63.048 12.952C63.597 13.5024 63.9112 14.2442 63.9246 15.0215C63.938 15.7987 63.6496 16.551 63.12 17.12Z"
+  />
+</svg>
+```
 
 </details>
 
@@ -419,14 +421,15 @@ within the `<details>` tag.
 - [ ] Resolve merge conflicts: Make sure the target branch is merged into the PR branch.
 
 Self-review
+
 - [ ] Add code comments for lines that reviewer might not understand correctly.
-Consider refactoring the names of variables and functions for clarity.
+      Consider refactoring the names of variables and functions for clarity.
 - [ ] DRY: Don't repeat yourself
 - [ ] KISS: Keep it simple, sweetie
 - [ ] YAGNI: You aren't gonna need it. Check that you are not overcomplicating
-something for the sake of "making it future-proof". Fowler said "Yagni only
-applies to capabilities built into the software to support a presumptive feature,
-it does not apply to effort to make the software easier to modify".
+      something for the sake of "making it future-proof". Fowler said "Yagni only
+      applies to capabilities built into the software to support a presumptive feature,
+      it does not apply to effort to make the software easier to modify".
 
 ## GitHub: Cloning without Cloning
 
@@ -438,6 +441,7 @@ svn export https://github.com/<Owner>/<Repo>/trunk/<Path to Directory>
 ```
 
 Installing subversion:
+
 ```bash
 sudo apt-get update
 sudo apt-get install subversion
@@ -461,9 +465,9 @@ git config user.email gitHubAccount@email.address
 #### Local branch vs. remote branch
 
 - **local branch**: a branch only the local user can see. It exists only on your local machine.
-  * Ex. Create local branch named "myNewBranch": `git branch myNewBranch`
+  - Ex. Create local branch named "myNewBranch": `git branch myNewBranch`
 - **remote branch**: a branch on a remote location (in most cases 'origin'). Local branches can be pushed to 'origin' (a remote branch), where other users can track it.
-  * Ex. Push local branch, "myNewBranch", to the remote, "origin" so that a new branch named "myNewBranch" is created on the remote machine ("origin"):\
+  - Ex. Push local branch, "myNewBranch", to the remote, "origin" so that a new branch named "myNewBranch" is created on the remote machine ("origin"):\
     `git push -u origin myNewBranch`
 - **remote tracking branch**: A local copy of a remote branch. When 'myNewBranch' is pushed to 'origin' using the command above, a remote tracking branch named 'origin/myNewBranch' is created on your local machine.
 - **local tracking branch**: a local branch that is tracking another branch.
@@ -488,9 +492,9 @@ Suppose your application is stable. Later, you discover a gigantic bug that was 
 
 Once all of the necessary changes have been made and the application is stable, someone from the team would commit merge the commits from the other branch into master. Since the commit history from the branch will have been saved to master, the new branch could be deleted without loss of information (if you no longer wanted to work on this branch).
 
-* **View all local branches**: `git branch`
-* **Switch branches**: `git checkout [branch-name]`
-* **Grab a file from a specific branch**: `git checkout [branch_name] [paths]`. Note that if the files are on a remote branch, you'll have to use\
+- **View all local branches**: `git branch`
+- **Switch branches**: `git checkout [branch-name]`
+- **Grab a file from a specific branch**: `git checkout [branch_name] [paths]`. Note that if the files are on a remote branch, you'll have to use\
   `git checkout origin/[branch_name] [paths]` instead.
 
 #### Merging
@@ -618,10 +622,9 @@ The cryptography behind SSH keys ensures that no one can reverse engineer your p
 
 Generating a new SSH key: Follow [Generating a new SSH key and adding it to the ssh-agent \[article\]](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
-
 **References:**
 
-* A successful Git branching model. [[web](https://nvie.com/posts/a-successful-git-branching-model/)]
+- A successful Git branching model. [[web](https://nvie.com/posts/a-successful-git-branching-model/)]
 
 ### Commit SHA Hashes
 
@@ -639,13 +642,13 @@ There are variants like SHA-1, SHA-256, etc. In git, "SHA" usually refers specif
 
 The main differences between the SHA-1 and SHA-256 hash algorithms are:
 
-| Topic | SHA-1 | SHA-256 |
-| ----- | ----- | ------- |
-| Digest Length | SHA-1 produces a 160-bit (20 byte) hash value. | SHA-256 produces a 256-bit (32 byte) hash value. |
-| Security | There are known cryptanalytic attacks against SHA-1. | Considered more secure against brute force collisions and attacks than SHA-1. |
-| Speed | SHA-1 is generally faster to compute than SHA-256. The simpler process results in better performance. |  |
-| Adoption | SHA-1 is still more widely used and is the default git
-  algorithm. | SHA-256 adoption is growing due to the security weaknesses of SHA-1. |
+| Topic         | SHA-1                                                                                                 | SHA-256                                                                       |
+| ------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Digest Length | SHA-1 produces a 160-bit (20 byte) hash value.                                                        | SHA-256 produces a 256-bit (32 byte) hash value.                              |
+| Security      | There are known cryptanalytic attacks against SHA-1.                                                  | Considered more secure against brute force collisions and attacks than SHA-1. |
+| Speed         | SHA-1 is generally faster to compute than SHA-256. The simpler process results in better performance. |                                                                               |
+| Adoption      | SHA-1 is still more widely used and is the default git                                                |
+| algorithm.    | SHA-256 adoption is growing due to the security weaknesses of SHA-1.                                  |
 
 SHA-256 trades some speed for significantly improved cryptographic strength
 over the now dated SHA-1 algorithm.

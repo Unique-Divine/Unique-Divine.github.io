@@ -1,12 +1,12 @@
 ---
-title: "How to Find Your Discord token in the Browser"
+title: 'How to Find Your Discord token in the Browser'
 publishDate: 2022-01-10
 type: post
-image: "/coding-4.png"
+image: '/coding-4.png'
 category: Coding
 tags:
- - coding
- - discord
+  - coding
+  - discord
 readingTime: 1 Min read
 ---
 
@@ -19,6 +19,7 @@ readingTime: 1 Min read
 7. In the "Headers" tab, find the place that says "authorization: ". The text for this field is your Discord token.
 
 Reference:
+
 - [Webhook Resource. Discord Developer Portal.](https://discord.com/developers/docs/resources/webhook)
 
 <!-- TODO: add pictures -->

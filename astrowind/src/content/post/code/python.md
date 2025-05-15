@@ -1,9 +1,9 @@
 ---
 publishDate: 2023-08-12T00:00:00Z
 author: Unique Divine
-title: "Coding in Python"
-excerpt: "Python code reference and cookbook."
-image: "/coding-1.png"
+title: 'Coding in Python'
+excerpt: 'Python code reference and cookbook.'
+image: '/coding-1.png'
 category: Coding
 tags:
   - coding
@@ -35,8 +35,8 @@ tags:
 - [Else](#else)
 - [Publishing Packages on PyPi](#publishing-packages-on-pypi)
 - [Protocol Buffers](#protocol-buffers)
-    - [How does a protocol buffer solve this problem?](#how-does-a-protocol-buffer-solve-this-problem)
-    - [Protocol Format](#protocol-format)
+  - [How does a protocol buffer solve this problem?](#how-does-a-protocol-buffer-solve-this-problem)
+  - [Protocol Format](#protocol-format)
 - [Miscellaneous](#miscellaneous)
 
 ---
@@ -373,7 +373,6 @@ AND: Run all tests that contain "A" and "B"
 pytest -k "A and B"
 ```
 
-
 OR: Run all tests that contain either "A" or "B" (inclusive or)
 
 ```python
@@ -430,7 +429,7 @@ command's corresponding executable to the system's environment variables.
 
 1. Hit the Windows key, then type environment variables and hit enter.
    Alternatively, open the Control Panel and select "Edit the system environment
-variables".
+   variables".
 2. Under the "Advanced" tab, select `Environment Variables`.
 3. Under "System Variables", select `New`.
 4. Add each command's name to one field its executable path to the other field.

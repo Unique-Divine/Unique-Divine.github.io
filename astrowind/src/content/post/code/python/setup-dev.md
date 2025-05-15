@@ -1,15 +1,14 @@
 ---
 publishDate: 2023-08-12T00:00:00Z
 author: Unique Divine
-title: "Pyenv and Poetry: Setting Up a Professional Python Development Environment"
-excerpt: ""
-image: "/coding-4.png"
+title: 'Pyenv and Poetry: Setting Up a Professional Python Development Environment'
+excerpt: ''
+image: '/coding-4.png'
 category: Coding
 tags:
   - coding
   - python
 ---
-
 
 ### Pyenv for managing multiple Python interpreters
 
