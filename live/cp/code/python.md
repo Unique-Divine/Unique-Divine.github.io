@@ -65,13 +65,40 @@ eval "$(pyenv init --path)"
 
 After using `source` on your config or restarting the shell, you should have the `pyenv` root command.
 
-The command use to install any version of python is `pyenv install`. Display additional info for this command with `pyenv install --help`.
+#### Installing a Python version
+
+The command use to install any version of Python is `pyenv install`. 
+
+To list out all available versions of Python, run
+```bash
+pyenv install --list
+```
+
+If, for example, you want version 3.9.13, use that version as an argument to the
+command.
 
 ```bash
 pyenv install 3.9.13 # example
 ```
 
-Once you have a version installed, you can print out the versions on your machine with:
+Display additional info for this command with `pyenv install --help`.
+
+Note that if the installation fails, you may be missing dependencies related to C
+or Unix essentials. I use Ubuntu-24.04 with WSL personally, and this next command
+usually always does the trick that sort of issue:
+
+```
+sudo apt-get update && sudo apt-get upgrade
+sudo apt install -y \
+  make build-essential libssl-dev zlib1g-dev libbz2-dev \
+  libreadline-dev libsqlite3-dev wget curl llvm \
+  libncurses5-dev libncursesw5-dev xz-utils tk-dev \
+  libffi-dev liblzma-dev python3-openssl git
+```
+
+#### Setting a Python version as your interpreter
+
+Once you have a Python version installed, you can print out the versions on your machine with:
 
 ```bash
 pyenv versions
@@ -218,7 +245,7 @@ with open(path_to_file, "w") as fh:
 print(f"Directories and files at {some_path}: {os.listdir(some_path)}")
 ```
 
-- Python glossary - file object [[docs]](https://docs.python.org/3/glossary.html#term-file-object)
+- Python glossary - file object [[docs](https://docs.python.org/3/glossary.html#term-file-object)]
 
 Date: 21 年 6 月
 
@@ -531,8 +558,8 @@ In my case, I only needed the community edition.
 
 There are two main steps for this installation.
 
-1. Install MondoDB Server: [[installation instructions (Windows)]](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
-2. Install MongoDB Shell (mongosh): [[installation instructions]](https://docs.mongodb.com/mongodb-shell/install/)
+1. Install MondoDB Server: [[installation instructions (Windows)](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)]
+2. Install MongoDB Shell (mongosh): [[installation instructions](https://docs.mongodb.com/mongodb-shell/install/)]
 
 The installation instructions for Community Edition are toward the bottom of the page (at the above link) where it says "Procedure". You're finished with step 1 when you can start MongoDB with\
 `"C:\Program Files\MongoDB\Server\5.0\bin\mongod.exe" --dbpath="c:\data\db"`
@@ -565,7 +592,7 @@ Now, `mongo` and `mongod` work, but what do they do?
 
 **References MongoDB:**
 
-- Jayatilake, Navindu. 2019. How to get started with MongoDB in 10 minutes. [[article]](https://www.freecodecamp.org/news/learn-mongodb-a4ce205e7739/)
+- Jayatilake, Navindu. 2019. How to get started with MongoDB in 10 minutes. [[article](https://www.freecodecamp.org/news/learn-mongodb-a4ce205e7739/)]
 - [Pymongo tutorial](https://pymongo.readthedocs.io/en/stable/tutorial.html)
 
 ---
@@ -723,7 +750,7 @@ class Person:
                 self.job = "Baby, toddler, or pre-K"
 ```
 
-Reference: ArjanCodes. 2021. If you're not using Python DATA CLASSES yet, you should. 🚀 [[YouTube]](https://youtu.be/vRVVyl9uaZc)
+Reference: ArjanCodes. 2021. If you're not using Python DATA CLASSES yet, you should. 🚀 [[YouTube](https://youtu.be/vRVVyl9uaZc)]
 
 #### Prefer composition over inheritance
 
@@ -745,7 +772,7 @@ class FFNN(ABC):
         """TODO"""
 ```
 
-Reference: ArjanCodes. Why COMPOSITION is better than INHERITANCE - detailed Python example. 2021. [[YouTube]](https://youtu.be/0mcP8ZpUR38)
+Reference: ArjanCodes. Why COMPOSITION is better than INHERITANCE - detailed Python example. 2021. [[YouTube](https://youtu.be/0mcP8ZpUR38)]
 
 #### `NamedTuple` and `TypedDict`
 
@@ -856,7 +883,7 @@ A **protocol buffer compiler** creates a class that implements automatic encodin
 
 References:
 
-- Google. Protocol Buffer Basics: Python [[docs]](https://developers.google.com/protocol-buffers/docs/pythontutorial)
+- Google. Protocol Buffer Basics: Python [[docs](https://developers.google.com/protocol-buffers/docs/pythontutorial)]
 
 ---
 
