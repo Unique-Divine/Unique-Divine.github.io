@@ -18,6 +18,9 @@
   .text-muted {
     color: var(--aw-color-text-muted);
   }
+  .bg-primary {
+    @apply bg-cyan-400 border-cyan-400;
+  }
 }
 
 @layer components {
@@ -87,4 +90,8 @@
 
 .dd *:first-child {
   margin-top: 0;
+}
+
+.prose a {
+  @apply text-cyan-400;
 }

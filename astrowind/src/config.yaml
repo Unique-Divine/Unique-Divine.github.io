@@ -1,6 +1,7 @@
 site:
   name: Unique Divine
-  site: 'https://divine.one'
+  # TODO: domain change to uniquedivine.com
+  site: 'https://uniquedivine.blog'
   base: '/'
   trailingSlash: false
 

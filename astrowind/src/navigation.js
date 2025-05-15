@@ -5,46 +5,8 @@ import { socialHrefs } from './const';
 export const headerData = {
   links: [
     {
-      text: 'About',
-      links: [
-        {
-          text: 'About Unique Divine',
-          href: getPermalink('/about-unique-divine'),
-        },
-        {
-          text: 'About Nibi, Inc. & Nibiru',
-          href: getPermalink('/web3/nibiru/nibi-inc', 'post'),
-        },
-        // {
-        //   text: 'Features (Anchor Link)',
-        //   href: getPermalink('/#features'),
-        // },
-        // {
-        //   text: 'Services',
-        //   href: getPermalink('/services'),
-        // },
-        // {
-        //   text: 'Pricing',
-        //   href: getPermalink('/pricing'),
-        // },
-        {
-          text: 'Contact',
-          href: getPermalink('/about-unique-divine#contact'),
-        },
-        // TODO: Parse for future utility
-        // {
-        //   text: 'Contact',
-        //   href: getPermalink('/contact'),
-        // },
-        // {
-        //   text: 'Terms',
-        //   href: getPermalink('/terms'),
-        // },
-        // {
-        //   text: 'Privacy policy',
-        //   href: getPermalink('/privacy'),
-        // },
-      ],
+      text: 'About Unique',
+      href: getPermalink('/about-unique-divine'),
     },
     {
       text: 'Japanese',
@@ -80,11 +42,15 @@ export const headerData = {
     //   ],
     // },
     {
-      text: 'Blog / Writings',
+      text: 'Writings / Musings',
       links: [
         {
           text: 'Everything (Latest)',
           href: getBlogPermalink(),
+        },
+        {
+          text: 'About Nibi, Inc. & Nibiru',
+          href: getPermalink('/web3/nibiru/nibi-inc', 'post'),
         },
         {
           text: 'Winning',
@@ -95,8 +61,16 @@ export const headerData = {
           href: getPermalink('coding', 'category'),
         },
         {
-          text: 'Coding | Python',
+          text: 'Coding in Python',
           href: getPermalink('python', 'tag'),
+        },
+        {
+          text: 'Coding in Golang',
+          href: '/code/golang',
+        },
+        {
+          text: 'Contact',
+          href: getPermalink('/about-unique-divine#contact'),
         },
       ],
     },
