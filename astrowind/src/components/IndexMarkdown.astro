@@ -1,9 +1,7 @@
 ---
-import RelatedPosts from './blog/RelatedPosts.astro';
 import BlogLatestPosts from './widgets/BlogLatestPosts.astro';
 
 const { content } = Astro.props;
-// max-w-4xl
 ---
 
 <section
@@ -17,6 +15,7 @@ const { content } = Astro.props;
   `}
 >
   <slot />
+  <!-- {content} -->
 
   <BlogLatestPosts
     id="blog"
@@ -27,6 +26,4 @@ const { content } = Astro.props;
       <div class="absolute inset-0 dark:bg-transparent"></div>
     </Fragment>
   </BlogLatestPosts>
-
-  <!-- <RelatedPosts post={} /> -->
 </section>
