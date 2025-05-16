@@ -9,6 +9,7 @@ import { socialHrefs } from '~/const';
 import { getHomePermalink } from '~/utils/permalinks';
 import { trimSlash, getAsset } from '~/utils/permalinks';
 import type { CallToAction } from '~/types';
+import { twMerge } from 'tailwind-merge';
 
 interface Link {
   text?: string;
@@ -84,10 +85,10 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
       >
         {
           links.map(({ text, href, links }) => (
-            <li class={links?.length ? 'dropdown' : ''}>
+            <li class={twMerge(links?.length ? 'dropdown' : '', 'rounded-lg')}>
               {links?.length ? (
                 <>
-                  <button class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center">
+                  <button class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center dark:hover:bg-HoverBgDark hover:bg-HoverBgLight rounded-lg">
                     {text}{' '}
                     <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
                   </button>
@@ -110,7 +111,8 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
               ) : (
                 <a
                   class:list={[
-                    'hover:text-link dark:hover:text-white px-4 py-3 flex items-centers',
+                    'hover:text-link dark:hover:text-white px-4 py-3 flex items-centers ',
+                    'hover:bg-HoverBgLight dark:hover:bg-HoverBgDark rounded-lg',
                     { 'aw-link-active': href === currentPath },
                   ]}
                   href={href}

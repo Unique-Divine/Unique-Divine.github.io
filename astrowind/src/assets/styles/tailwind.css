@@ -93,5 +93,5 @@
 }
 
 .prose a {
-  @apply text-cyan-400;
+  @apply text-cyan-400 dark:text-cyan-400;
 }

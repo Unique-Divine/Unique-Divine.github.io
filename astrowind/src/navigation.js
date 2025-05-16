@@ -49,7 +49,7 @@ export const headerData = {
           href: getBlogPermalink(),
         },
         {
-          text: 'About Nibi, Inc. & Nibiru',
+          text: 'Nibi Inc. & Nibiru',
           href: getPermalink('/web3/nibiru/nibi-inc', 'post'),
         },
         {

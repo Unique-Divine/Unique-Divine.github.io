@@ -1,0 +1,47 @@
+# Include all patterns from .gitignore
+!.gitignore
+
+# Additional patterns specific to Cursor
+.env*
+**/credentials/*
+**/secrets/*
+private/
+confidential/
+
+# Large binary files and datasets
+*.bin
+*.dat
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*~
+
+# Memory dumps and debugging files
+*.dump
+*.core
+*.stackdump
+
+# Additional security-sensitive files
+*passwords*
+discord-backup-codes.txt
+brex-recovery-codes.txt
+*access-token*
+*credential*
+*auth*
+*oauth*
+*.pem
+*.crt
+*.key
+*.p12
+*.pfx
+*.keystore
+
+# Exclude large generated files
+node_modules/
+dist/
+build/
+.cache/ 
+

@@ -13,6 +13,8 @@ module.exports = {
         White: '#FFFFFF',
         Light: '#FFFFFF',
         Dark: '#101720', // midnight
+        HoverBgLight: '#eaedf0',
+        HoverBgDark: '#394150',
       },
       fontFamily: {
         sans: ['var(--aw-font-sans)', ...defaultTheme.fontFamily.sans],

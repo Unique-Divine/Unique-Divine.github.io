@@ -14,18 +14,18 @@ tags:
 
 ## I'm a programmer that makes music and writes.
 
-I'm obsessed with learning, solving problems, and **creating**, whether this involves artwork, music, coding, anything. Learning and creating, that's my ikigai ([生き甲斐](https://en.wikipedia.org/wiki/Ikigai)).
+I'm obsessed with learning, solving problems, and **creating**, whether this involves artwork, music, coding, anything. To learn and to create is my ikigai ([生き甲斐](https://en.wikipedia.org/wiki/Ikigai)).
 
 ## What I do for work
 
-I'm a Co-Founder and one of the lead software engineers for a Web3 project called [Nibiru](https://nibiru.fi). Formally, I'm the CEO of tech company called [Nibi, Inc.](/web3/nibiru/nibi-inc). I'm also an open-source contributor across several domains but tend to build mostly in the artificial intelligence and Web3 spaces.
+I'm a Co-Founder and one of the lead software engineers for a Web3 project called [Nibiru](https://nibiru.fi). Formally, I'm the CEO of tech company called [Nibi Inc.](/web3/nibiru/nibi-inc). I'm also an open-source contributor. I build mostly in the artificial intelligence and Web3 spaces.
 
 ## What I'm doing right now
 
 In learning, there are times for exploration and times for exploitation. That is,
-there are times when one should be expanding the knowledge base to get more source
-material and times when one should make use of what knowledge is already there,
-leverage their sharpened saw, and finish what is started.
+there are times to expand your knowledge base to get more source
+material and times when you should make use of what knowledge is already there,
+leverage the sharpened saw, and finish what is started.
 
 I am in this second mode. Lots of programming. Lots of strategizing. No new books
 or entertainment. Just growth and execution.

@@ -37,7 +37,7 @@ I’m not here to tell you what to do. The world already has plenty of that. Ins
 I don’t think the point of advice is to make you feel like crap.  
 I don’t think the goal is to frantically rearrange your life to match someone else’s vision.
 
-Certainly, that’s not _my_ intention.  
+Certainly, that’s not *my* intention.  
 **Good advice should make your life easier, not harder.**
 
 ### A Two-Step Process for Handling Advice
@@ -72,11 +72,9 @@ Everything else is optional.
 Of course, if it’s easier to just follow the advice exactly, do that.  
 But chill. Relax. Don’t be a stressed-out zealot, frantically obeying every word as if your life depends on it. It doesn’t.
 
-And don’t spiral into despair, either.
+And don’t spiral into despair either.
 **“Maybe it’s possible for others, but not for me”** is the mantra of people who’ve already given up.  
-Don’t be that person. Don’t be the emo “it’s all B.S.” person, either.
-
-Or…fine. Be that person. But be it **quietly**.
+Don’t be that person. Don’t be the emo “it’s all B.S.” person either.
 
 ### Protect Your Inner Child
 
