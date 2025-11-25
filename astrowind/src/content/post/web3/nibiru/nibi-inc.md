@@ -43,7 +43,7 @@ supporting the teams building apps on top of Nibiru.
 Nibiru is a blockchain engineered to make building and using Web3 applications
 faster, more efficient, and more accessible. Nibiru moves digital assets and data
 quickly and securely, enabling developers to create innovative solutions without
-the usual limitations in blockchain scaling. 
+the usual limitations in blockchain scaling.
 
 Backed by $20.5 million from top investors in East Asia and the United States,
 we're opening the door to new decentralized financial (DeFi) products and
@@ -51,12 +51,13 @@ user-friendly experiences.
 
 Nibiru is a **high-performance blockchain** that implements a novel, **Multi VM (virtual machine) architecture**, which includes an
 **EVM-equivalent** execution engine called Nibiru EVM. This opens Nibiru up to a wide
-design space of useful applications for consumers and institutions. 
+design space of useful applications for consumers and institutions.
+
 1. **Builders on Nibiru can launch faster**: Developers can pick familiar tools,
-avoid costly rewrites, and deploy new services in hours instead of weeks.
+   avoid costly rewrites, and deploy new services in hours instead of weeks.
 2. **Built for speed**: Nibiru **executes state updates in parallel**,
-meaning multiple tasks run concurrently, so the network stays performant even under
-heavy load.
+   meaning multiple tasks run concurrently, so the network stays performant even under
+   heavy load.
 3. **EVM Bytecode Compatibility**: Nibiru runs the same smart contract code that
    Ethereum uses.
 4. **Flexible Runtimes**: Our design lets you mix language and frameworks without
@@ -66,4 +67,3 @@ heavy load.
 
 - [About Me (Unique Divine)](/about-unique-divine)
 - Looking to get in contact? Feel free to [message me directly](/about-unique-divine#contact).
-

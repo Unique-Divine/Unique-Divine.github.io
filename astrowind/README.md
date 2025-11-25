@@ -1,6 +1,6 @@
 # Unique Divine Website Source Code
 
-[Astrowind](/ASTROWIND.md)
+[Astrowind](./ASTROWIND.md)
 
 ## Task List
 

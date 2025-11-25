@@ -37,7 +37,7 @@ I’m not here to tell you what to do. The world already has plenty of that. Ins
 I don’t think the point of advice is to make you feel like crap.  
 I don’t think the goal is to frantically rearrange your life to match someone else’s vision.
 
-Certainly, that’s not *my* intention.  
+Certainly, that’s not _my_ intention.  
 **Good advice should make your life easier, not harder.**
 
 ### A Two-Step Process for Handling Advice

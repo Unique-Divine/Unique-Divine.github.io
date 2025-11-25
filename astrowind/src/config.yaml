@@ -1,7 +1,7 @@
+# This file is read in to the "src/utils/config.ts" file
 site:
   name: Unique Divine
-  # TODO: domain change to uniquedivine.com
-  site: 'https://uniquedivine.blog'
+  site: 'https://uniquedivine.com'
   base: '/'
   trailingSlash: false
 

@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-OUT_DOMAIN="uniquedivine.blog"
+OUT_DOMAIN="uniquedivine.com"
 BUILD_PATH="./dist"
 # GitHub auth with ssh 
 REPO_URL="git@github.com:Unique-Divine/Unique-Divine.github.io.git"
 # GitHub auth with https (DEPRECATED) 
 # REPO_URL="https://github.com/Unique-Divine/Unique-Divine.github.io"
 
-# which_ok: Check if the given binary is in the $PATH.
+
+# which_ok: Check if the given binary is in the $PATH or if it is something
+# callable in a bash program.
 # Returns code 0 on success and code 1 if the command fails.
 which_ok() {
   if which "$1" >/dev/null 2>&1; then

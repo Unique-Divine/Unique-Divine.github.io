@@ -11,6 +11,6 @@ layout: '~/components/IndexMarkdown.astro'
 ## Popular Articles
 
 - [Advice on How to Take Advice (Including Mine)](/japanese/02-advice-how-to-take-advice)
-- [Coding Guides](/code): I code *a lot*. And sometimes, I document parts of that
-process better than an AI model, focusing only on what's useful for reference,
-  learning, or solving specific problems.
+- [Coding Guides](/code): I code _a lot_. This page links to my notes and guide
+on things I've found most useful for learning, daily reference, and solving
+specific problems.
