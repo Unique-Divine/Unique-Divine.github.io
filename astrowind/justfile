@@ -32,17 +32,13 @@ i:
 
 # Build TypeScript and then run vuepress build
 b:
-  bun run build
+  bun run astro build
 
 preview:
-  bun run preview
-
-# Compile TypeScript to JS.
-tsc:
-  tsc
+  bun run astro preview
 
 fmt: 
-  bun run format
+  bun run prettier -w .
 
 lint:
   bun run lint:eslint
