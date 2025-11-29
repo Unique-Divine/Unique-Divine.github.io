@@ -27,12 +27,16 @@ deploy:
   bash scripts/publish.sh
 
 # Install dependencies
-i: 
+install: 
   bun install
 
+alias i := install
+
 # Build TypeScript and then run vuepress build
-b:
+build:
   bun run astro build
+
+alias b := build
 
 preview:
   bun run astro preview
