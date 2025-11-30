@@ -32,7 +32,7 @@ install:
 
 alias i := install
 
-# Build TypeScript and then run vuepress build
+# Build and compile the app
 build:
   bun run astro build
 

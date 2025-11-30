@@ -1,4 +1,20 @@
 #!/usr/bin/env bash
+
+# scripts/publish.sh: Deploys the built site to GitHub Pages.
+# 
+# Summary:
+#   Builds the project, adds GitHub Pages metadata (CNAME + .nojekyll),
+#   and force-pushes the contents of $BUILD_PATH to the `gh-pages` branch
+#   of $REPO_URL.
+#
+# Requirements:
+#   bun, just, git
+#
+# Usage:
+#    Run either of these from the repo root:
+#       just deploy
+#       bash scripts/deploy.sh  # This is fine too.
+
 set -eo pipefail
 
 OUT_DOMAIN="uniquedivine.com"
@@ -30,17 +46,14 @@ which_ok() {
   return 1
 }
 
-
+# build: Build and compile the app.
 build() {
-  which_ok yarn
   which_ok just
   which_ok bun
   which_ok just
 
   bun install 
   just b # build
-  # yarn --check-files
-  # yarn build
 }
 
 # create_gh_pages_records: Creates CNAME and .nojekyll files.
