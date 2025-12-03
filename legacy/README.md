@@ -4,7 +4,7 @@ title: "Unique Divine"
 canonicalUrl: https://uniquedivine.blog
 ---
 
-# ud-site-gen
+# LEGACY (DEPRECATED) - ud-site-gen
 
 Source code for https://uniquedivine.blog
 
