@@ -95,3 +95,25 @@
 .prose a {
   @apply text-cyan-400 dark:text-cyan-400;
 }
+
+/* By default, some styling in `.prose` is including "`" characters around
+* in-line code. We edit the `::before` and `::after` blocks to remove them.
+* */
+.prose :where(code)::before,
+.prose :where(code)::after {
+  content: none !important;
+}
+
+.ud__pre {
+  white-space: pre;
+  font-family: "Consolas", "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
+}
+
+.dark ::selection {
+  background: #375674 !important;
+  /* color: white; */
+}
+
+::selection {
+  background: #c7f7eb !important;
+}
