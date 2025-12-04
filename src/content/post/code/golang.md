@@ -21,8 +21,11 @@ What I've not done is write much about it. This page should start to change that
   - [1. Installation](#1-installation)
   - [Go Basics for Anki](#go-basics-for-anki)
   - [Structures](#structures)
+- [Linter and Static Analysis (`golangci-lint`)](#linter-and-static-analysis-golangci-lint)
 - [Debugging](#debugging)
-- [Testing](#testing)
+  - [Resetting the Project, Cleaning Cache, and `go mod tidy`](#resetting-the-project-cleaning-cache-and-go-mod-tidy)
+  - [Golang: for loop can be modernized using range over int](#golang-for-loop-can-be-modernized-using-range-over-int)
+- [Testing (go test)](#testing-go-test)
 
 ## Init
 
@@ -300,7 +303,7 @@ A: `&x`
 
 <!-- Anki placeholder -->
 
-Q: GO is not an object-oriented language like C++ or Java.
+Q: Go is not an object-oriented language like C++ or Java.
 
 Q: Define a `Saiyan` structure with a name (string) and power (int).
 
@@ -414,17 +417,20 @@ prog.go:23: cannot use (*MyType)(nil) (type *MyType) as type Spec in assignment:
 
 Q: `*MyType` means pointer to `MyType`.
 
-## golangci-lint
+## Linter and Static Analysis (`golangci-lint`)
 
 The standard linter is `golangci-lint`. You can install it with `go get`, however
-in my experience,
-the runs tend to be inconsistent across different machines with this pattern.
-Likely due to caching.
+in my experience, the runs tend to be inconsistent across different machines with
+this pattern. Likely due to caching.
 
 I recommend using the docker container instead.
 
 ```bash
-docker run --rm -v $(pwd):/app -v ~/.cache/golangci-lint/v1.64.8:/root/.cache -w /app golangci/golangci-lint:v1.64.8 golangci-lint run -v --fix 2>&1
+docker run --rm \
+  -v $(pwd):/app \
+  -v ~/.cache/golangci-lint/v1.64.8:/root/.cache \
+  -w /app golangci/golangci-lint:v1.64.8 \
+  golangci-lint run -v --fix 2>&1
 ```
 
 To clean the cache inside the container, invoke `golangci-lint cache clean` inside the container, wiping everything in `/root/.cache`:
@@ -436,7 +442,26 @@ docker run --rm \
   golangci-lint cache clean
 ```
 
-## Golang: for loop can be modernized using range over int
+## Debugging
+
+
+### Resetting the Project, Cleaning Cache, and `go mod tidy`
+
+```bash
+go mod tidy
+```
+
+Opens permissions for the go directories that were unable to see the standard library dependencies.
+
+```bash
+chown -R realu:realu $GOPATH
+```
+
+```bash
+go clean -modcache
+```
+
+### Golang: for loop can be modernized using range over int
 
 For loops can range over integers [as of Go 1.22](https://tip.golang.org/doc/go1.22)
 
@@ -453,25 +478,9 @@ for i := range 42069 {}
 for range 42069 {}
 ```
 
-## Bytes in Go
 
-## Debugging
 
-```shell
-go mod tidy
-```
-
-Opens permissions for the go directories that were unable to see the staandard library dependencies.
-
-```shell
-chown -R realu:realu $GOPATH
-```
-
-```shell
-go clean -modcache
-```
-
-## Testing
+## Testing (go test)
 
 #### Testify assert vs. require
 

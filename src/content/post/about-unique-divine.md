@@ -8,8 +8,6 @@ category: Nibiru
 tags:
   - 'about'
   - 'nibiru'
-# metadata:
-#   canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
 ---
 
 ## I'm a programmer that makes music and writes.
@@ -18,7 +16,7 @@ I'm obsessed with learning, solving problems, and **creating**, whether this inv
 
 ## What I do for work
 
-I'm a Co-Founder and one of the lead software engineers for a Web3 project called [Nibiru](https://nibiru.fi). Formally, I'm the CEO of tech company called [Nibi Inc.](/web3/nibiru/nibi-inc). I'm also an open-source contributor. I build mostly in the artificial intelligence and Web3 spaces.
+I'm a Co-Founder and one of the lead software engineers for a Web3 project called [Nibiru](https://nibiru.fi). Formally, I'm the CEO of tech company called [Nibi Inc.](/web3/nibiru/nibi-inc). I'm also an open-source software contributor. I build mostly in the artificial intelligence and blockchain spaces.
 
 ## What I'm doing right now
 
@@ -33,6 +31,11 @@ or entertainment. Just growth and execution.
 ## Contact
 
 The fastest way to get in contact with me is probably a direct message on [X/Twitter](https://twitter.com/DivineNibirun), but [e-mail](mailto:realuniquedivine@gmail.com) works too.
+
+## Other Sections
+- [Passions and interests](#passions-and-interests)
+- [My drug of choice (coding)](#my-drug-of-choice-coding)
+- [Some open source code I've written:](#some-open-source-code-ive-written)
 
 ## Passions and interests
 
@@ -118,17 +121,17 @@ results.
 
 ## Some open source code I've written:
 
-| Repository                                                                                                                                                                                           | Description                                                                                                                                                                                                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="/hero/nibiru-icon.png" style="width:18px; margin: 0; display:inline; border-radius: 0.5rem;"> [NibiruChain/nibiru](https://github.com/NibiruChain/nibiru)                                  | Nibiru source code. Nibiru is a breakthrough smart contract platform powering an ecosystem of decentralized applications.                                                                                                                                                                        |
-| <img src="/hero/nibiru-icon.png" style="width:18px; margin: 0; display:inline; border-radius: 0.5rem;"> [NibiruChain/nibiru-wasm](https://github.com/NibiruChain/nibiru-wasm)                        | Rust monorepo and smart contract prototyping hub for Nibiru. Includes dev tooling, production and example smart contracts, an end-to-end testing framework, and other useful libraries.                                                                                                          |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" style="width:18px; margin: 0; display:inline;"> [NibiruChain/ts-sdk](https://github.com/NibiruChain/ts-sdk/) | TypeScript-based client SDK for interacting with the Nibiru blockchain                                                                                                                                                                                                                           |
-| 💻 [grid-world-plus](https://github.com/Unique-Divine/grid-world-plus)                                                                                                                               | A research project in vision-based, deep reinforcement learning. The goal is to improve sample efficiency using transfer learning, unsupervised representation learning, and attention mechanisms to interpret memories.                                                                         |
-| 🐍 [python-crypto-api-wrappers](https://github.com/Unique-Divine/python-crypto-api-wrappers)                                                                                                         | A Python package for wrapping common Cryptocurrency APIs such as Messari, Coin Market Cap, Etherscan, CoinGecko, etc.                                                                                                                                                                            |
-| 📝 [Commonplace book](https://unique-divine.gitbook.io/commonplace-book/introduction/readme)                                                                                                         | Notes, tutorials, and reference materials for Python, Golang and the Cosmos SDK, Typescript, React, Artificial Intelligence, and effective learning. [[book](https://unique-divine.gitbook.io/commonplace-book/introduction/readme)] [[repo](https://github.com/Unique-Divine/Commonplace-Book)] |
-| 🧬 [GANs-for-Genomics](https://github.com/Unique-Divine/GANs-for-Genomics)                                                                                                                           | Computational genomics research. I leverage deep learning to generate and learn from synthetic DNA samples.                                                                                                                                                                                      |
-| 🏫 [Langevin-Dynamics-for-NN-Optimization](https://github.com/Unique-Divine/Langevin-Dynamics-for-NN-Optimization)                                                                                   | Bayesian Neural Network (BNN) implementations based on Langevin Dynamics and tested on real-world data                                                                                                                                                                                           |
-| <img src="https://www.assemblyscript.org/images/icon.svg" style="width:18px; margin: 0; display:inline;"> [cellar-subgraphs](https://github.com/PeggyJV/cellar-subgraphs/)                           | Subgraphs to process and store entities for blockchain events emitted from the Sommelier Cellar contracts. Built using The Graph's AssemblyScript library, `graph-ts`.                                                                                                                           |
+| Repository  | Description |
+| --- | --- |
+| <img src="/hero/nibiru-icon.png" style="width:18px; margin: 0; display:inline; border-radius: 0.5rem;"> [NibiruChain/nibiru](https://github.com/NibiruChain/nibiru) | Nibiru source code. Nibiru is a breakthrough smart contract platform powering an ecosystem of decentralized applications. |
+| <img src="/hero/nibiru-icon.png" style="width:18px; margin: 0; display:inline; border-radius: 0.5rem;"> [NibiruChain/nibiru-wasm](https://github.com/NibiruChain/nibiru-wasm) | Rust monorepo and smart contract prototyping hub for Nibiru. Includes dev tooling, production and example smart contracts, an end-to-end testing framework, and other useful libraries. |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" style="width:18px; margin: 0; display:inline;"> [NibiruChain/ts-sdk](https://github.com/NibiruChain/ts-sdk/) | TypeScript-based client SDK for interacting with the Nibiru blockchain |
+| 💻 [grid-world-plus](https://github.com/Unique-Divine/grid-world-plus) | A research project in vision-based, deep reinforcement learning. The goal is to improve sample efficiency using transfer learning, unsupervised representation learning, and attention mechanisms to interpret memories. |
+| 🐍 [python-crypto-api-wrappers](https://github.com/Unique-Divine/python-crypto-api-wrappers) | A Python package for wrapping common Cryptocurrency APIs such as Messari, Coin Market Cap, Etherscan, CoinGecko, etc. |
+| 📝 [Commonplace book](https://unique-divine.gitbook.io/commonplace-book/introduction/readme) | Notes, tutorials, and reference materials for Python, Golang and the Cosmos SDK, Typescript, React, Artificial Intelligence, and effective learning. [[book](https://unique-divine.gitbook.io/commonplace-book/introduction/readme)] [[repo](https://github.com/Unique-Divine/Commonplace-Book)] |
+| 🧬 [GANs-for-Genomics](https://github.com/Unique-Divine/GANs-for-Genomics) | Computational genomics research. I leverage deep learning to generate and learn from synthetic DNA samples. |
+| 🏫 [Langevin-Dynamics-for-NN-Optimization](https://github.com/Unique-Divine/Langevin-Dynamics-for-NN-Optimization) | Bayesian Neural Network (BNN) implementations based on Langevin Dynamics and tested on real-world data |
+| <img src="https://www.assemblyscript.org/images/icon.svg" style="width:18px; margin: 0; display:inline;"> [cellar-subgraphs](https://github.com/PeggyJV/cellar-subgraphs/) | Subgraphs to process and store entities for blockchain events emitted from the Sommelier Cellar contracts. Built using The Graph's AssemblyScript library, `graph-ts`. |
 
 <!--
 1. **Reorder for Narrative Flow**: Consider arranging your interests in a way
@@ -161,5 +164,3 @@ By implementing these suggestions, you'll enhance the narrative quality and
 personal touch of your "About" section, making it more engaging and reflective of
 your personality.
 -->
-
-<!-- - 📊 Algorithmic trading -->

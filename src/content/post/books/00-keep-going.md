@@ -16,8 +16,9 @@ tags:
 ---
 
 Lately, something's got me in a phase where I'm particularly interested in
-reading books about making art—like Art & Fear and Keep Going. I believe I first
-heard about Kleon's writing from [Ali Abdaal](https://aliabdaal.com/).
+reading books about making art. Books like "Art & Fear" and Austin Kleon's "Keep Going". I
+believe I first heard about Kleon's writing from [Ali
+Abdaal](https://aliabdaal.com/).
 
 Keep Going sticks to Kleon's classic, pocket-sized, lighthearted but
 heavy-hitting style. It's a quick read, so I went through it a few times. With

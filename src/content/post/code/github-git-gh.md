@@ -2,7 +2,7 @@
 publishDate: 2023-08-12T00:00:00Z
 author: Unique Divine
 title: 'GitHub and Git: A Field Guide for Practitioners'
-excerpt: 'Python code reference and cookbook.'
+excerpt: ''
 image: '/coding-3.png'
 category: Coding
 tags:
@@ -59,7 +59,7 @@ TODO: How to Read This Guide
   - [Pull-request checklist](#pull-request-checklist)
 - [GitHub: Cloning without Cloning](#github-cloning-without-cloning)
 
-#### Git Section Linsk
+#### Git Section Links
 
 - [Git](#git)
   - [Fundamental Concepts](#fundamental-concepts)
