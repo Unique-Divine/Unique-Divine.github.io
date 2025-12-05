@@ -42,7 +42,7 @@ export const headerData = {
     //   ],
     // },
     {
-      text: 'Writings / Musings',
+      text: 'Blog & Essays',
       links: [
         {
           text: 'Everything (Latest)',
