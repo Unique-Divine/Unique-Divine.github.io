@@ -27,7 +27,7 @@ const metadata: MetaData = {
 <Layout metadata={metadata}>
   <!-- Hero Widget ******************* -->
 
-  <Hero
+  {false && <Hero
     actions={[
       {
         variant: 'primary',
@@ -36,12 +36,12 @@ const metadata: MetaData = {
         target: '_blank',
         // icon: 'tabler:download',
       },
-      { text: 'Writings / Musings', href: '/blog' },
+      { text: 'Essays', href: '/blog' },
     ]}
   >
     <!-- image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }} -->
-    <Fragment slot="title"> Unique Divine </Fragment>
-  </Hero>
+    <Fragment slot="title">Unique Divine</Fragment>
+  </Hero>}
 
   <Fragment slot="subtitle">
     <div>
