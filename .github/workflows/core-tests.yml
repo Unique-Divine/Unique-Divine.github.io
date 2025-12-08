@@ -1,0 +1,42 @@
+name: "Core"
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build-app-bun:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout branch"
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: "oven-sh/setup-bun@v1"
+        # See https://bun.sh/guides/runtime/cicd
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: "1.0.7"
+
+      - name: "Install just"
+        # casey/just: https://just.systems/man/en/chapter_6.html
+        # taiki-e/install-action: https://github.com/taiki-e/install-action
+        uses: taiki-e/install-action@just
+
+      - run: |
+          just i # install
+
+      - name: "Setup NodeJS and npm"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/jod" # jod=22, iron=20, gallium=18
+
+      - name: "Build (bun)"
+        run: |
+          just b # build

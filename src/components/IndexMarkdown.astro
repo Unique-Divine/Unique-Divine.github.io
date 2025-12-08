@@ -1,0 +1,41 @@
+---
+/**
+ * IndexMarkdown.astro: Astro file describing the strucutre for the front page of
+ * the app. Content comes from the following markdown file:
+ * ```
+ * import IndexMarkdown from '~/components/index.md';
+ * ```
+ * */
+
+import cx from 'classnames';
+import BlogLatestPosts from './widgets/BlogLatestPosts.astro';
+
+const { content } = Astro.props;
+---
+
+<section
+  class={cx(
+    `prose mx-auto` /* center horizontally */,
+    `dark:prose-invert my-8 max-w-[800px] px-3`,
+    `text-[18px] leading-[1.6] text-[#444] dark:text-slate-200`,
+    `prose-lg dark:prose-headings:text-slate-300`,
+    `prose-md prose-headings:font-heading`,
+    `prose-headings:leading-tighter prose-headings:tracking-tighter`,
+    `prose-headings:font-bold prose-a:text-cyan-400`,
+    `dark:prose-a:text-cyan-400`,
+    `prose-img:rounded-md prose-img:shadow-lg mt-8`
+  )}
+>
+  <slot />
+  <!-- {content} -->
+
+  <BlogLatestPosts
+    id="blog"
+    title="Latest Writing"
+    information={`Here you'll find essays, field notes, and reflections on what matters to me.`}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 dark:bg-transparent"></div>
+    </Fragment>
+  </BlogLatestPosts>
+</section>

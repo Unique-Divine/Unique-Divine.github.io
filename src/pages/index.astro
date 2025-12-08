@@ -1,0 +1,65 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+
+import IndexMarkdown from '~/components/index.md';
+
+// import Note from '~/components/widgets/Note.astro';
+// import Features from '~/components/widgets/Features.astro';
+// import Features2 from '~/components/widgets/Features2.astro';
+// import Steps from '~/components/widgets/Steps.astro';
+// import Content from '~/components/widgets/Content.astro';
+// import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+// import FAQs from '~/components/widgets/FAQs.astro';
+// import Stats from '~/components/widgets/Stats.astro';
+// import CallToAction from '~/components/widgets/CallToAction.astro';
+// import CustomStyles from '~/components/CustomStyles.astro';
+
+import type { MetaData } from '~/types';
+
+const metadata: MetaData = {
+  title: `Unique Divine | Programmer that makes music and writes`,
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  {false && <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'About Me',
+        href: '/about-unique-divine',
+        target: '_blank',
+        // icon: 'tabler:download',
+      },
+      { text: 'Essays', href: '/blog' },
+    ]}
+  >
+    <!-- image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }} -->
+    <Fragment slot="title">Unique Divine</Fragment>
+  </Hero>}
+
+  <Fragment slot="subtitle">
+    <div>
+      <span class="hidden sm:inline">
+        This website's undergoing heavy construction right now. I'm combining each of my personal sites into one and
+        improving them to be content-focused and more easy to maintain
+        <span class="block mb-1 sm:hidden font-bold text-blue-600"></span>
+      </span>
+    </div>
+  </Fragment>
+
+  <!-- <Fragment slot="subtitle"> -->
+  <!--   <span class="hidden sm:inline"> -->
+  <!--     This website's undergoing heavy construction right now. I'm combining each of my personal sites into one and -->
+  <!--     improving them to be content-focused and more easy to maintain -->
+  <!--     <span class="block mb-1 sm:hidden font-bold text-blue-600"></span> -->
+  <!--   </span> -->
+  <!-- </Fragment> -->
+
+  <IndexMarkdown class="index-markdown" />
+</Layout>
