@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -104,11 +106,6 @@
   content: none !important;
 }
 
-.ud__pre {
-  white-space: pre;
-  font-family: "Consolas", "SFMono-Regular", Menlo, Monaco, "Courier New", monospace;
-}
-
 .dark ::selection {
   background: #375674 !important;
   /* color: white; */
@@ -117,3 +114,31 @@
 ::selection {
   background: #c7f7eb !important;
 }
+
+.ud-tree {
+  font-family: Consolas, SFMono-Regular, "IBM Plex Mono", Menlo, Monaco, "Liberation Mono", "Courier New", ui-monospace, monospace;
+  white-space: pre-wrap;
+  line-height: 1.4;
+  font-size: 0.95rem;
+
+  overflow-x:hidden;
+  /* scrollbar-width: none; /** Disables Firefox scrollbar *1/ */
+}
+
+pre.ud-tree {
+  @apply dark:bg-PreCodeGrey
+}
+
+/* .ud-tree::-webkit-scrollbar { */
+/*   display: none; */
+/* } */
+
+.ud-tree a {
+  text-decoration: none;
+}
+
+.ud-tree a:hover {
+  text-decoration: underline;
+}
+
+

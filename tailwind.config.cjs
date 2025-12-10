@@ -13,6 +13,7 @@ module.exports = {
         White: '#FFFFFF',
         Light: '#FFFFFF',
         Dark: '#101720', // midnight
+        PreCodeGrey: '#212936',
         HoverBgLight: '#eaedf0',
         HoverBgDark: '#394150',
       },
