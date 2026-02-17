@@ -19,8 +19,9 @@ tags:
 
 Brain health is a structural challenge, not a mental one. This guide connects the neurobiology of focus with the endocrinology of bodybuilding. It discards generic "wellness" in favor of clinical doses, structural fats, and the visual-mental anchors required to sustain 90-minute bouts of deep work.
 
-Nootropics = Cognitive enhancers for memory, focus, learning, creativity, and motivation.
+# Brain Optimization, Focus, Nootropics, Testosterone, and Feeding the Mind
 
+- [Supplements for Neurogensis and Synaptogenesis](#supplements-for-neurogensis-and-synaptogenesis)
   - [Lion's Mane](#lions-mane)
   - [Bacopa Monnieri](#bacopa-monnieri)
   - [Gotu Kola](#gotu-kola)
