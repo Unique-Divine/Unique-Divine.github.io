@@ -8,17 +8,21 @@ export const headerData = {
       text: 'About Unique',
       href: getPermalink('/about-unique-divine'),
     },
-    {
-      text: 'Japanese',
-      href: getPermalink('/tag/japanese'),
-      // TODO: Parse for future utility
-      // links: [
-      //   {
-      //     text: 'Product Details (or Services)',
-      //     href: getPermalink('/landing/product'),
-      //   },
-      // ],
-    },
+
+    // TODO: Include in top navigation?
+    // {
+    //   text: 'Japanese',
+    //   href: getPermalink('/tag/japanese'),
+    // },
+
+    // TODO: Parse for future utility
+    // links: [
+    //   {
+    //     text: 'Product Details (or Services)',
+    //     href: getPermalink('/landing/product'),
+    //   },
+    // ],
+
     // TODO: Parse for future utility
     // {
     //   text: 'Japanese',
@@ -41,6 +45,7 @@ export const headerData = {
     //     },
     //   ],
     // },
+
     {
       text: 'Blog & Essays',
       links: [
@@ -53,7 +58,7 @@ export const headerData = {
           href: getPermalink('/web3/nibiru/nibi-inc', 'post'),
         },
         {
-          text: 'Winning',
+          text: 'Productivity & Winning',
           href: getPermalink('winning', 'tag'),
         },
         {
