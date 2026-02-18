@@ -31,8 +31,8 @@ anchors required to sustain bouts of deep work.
   - [2. The Visual-Mental Anchor](#2-the-visual-mental-anchor)
   - [3. The Consolidation Phase](#3-the-consolidation-phase)
 - [Part III: Supplements for Neurogenesis and Synaptogenesis](#part-iii-supplements-for-neurogenesis-and-synaptogenesis)
-  - [Nootropics at a Glance](#nootropics-at-a-glance)
   - [Neurogenesis, Synaptogenesis, Myelination, and Alertness](#neurogenesis-synaptogenesis-myelination-and-alertness)
+  - [Nootropics at a Glance](#nootropics-at-a-glance)
 - [Part IV: My Stack - What I Use and Why](#part-iv-my-stack---what-i-use-and-why)
   - [My Stack: Buying Lion's Mane, Bacopa, and Gotu Kola](#my-stack-buying-lions-mane-bacopa-and-gotu-kola)
   - [My Stack: Buying Tongkat Ali, Zinc, Omega-3s, and Magnesium](#my-stack-buying-tongkat-ali-zinc-omega-3s-and-magnesium)
@@ -307,6 +307,35 @@ flicker.
 
 Now that the biological gates are defined, here are the compounds that may influence them.
 
+### Neurogenesis, Synaptogenesis, Myelination, and Alertness
+
+There are several "nerve tonics" and nootropics that focus on neurogenesis
+(creating new neurons) and synaptogenesis (strengthening the connections between
+them).
+
+  - Neurogenesis - Adding Hardware for Computation and Memory: For a long time,
+  scientists thought adults couldn't grow new brain cells, but we now know that's
+  not true, especially in the hippocampus (the seat of memory). Signaling that
+  tells your brain, "It's time to build more cells".
+
+  - Synaptogenesis - Increasing Bandwidth: Learning isn't just about having more
+  cells; it's about how well they talk to each other. This is the formation of
+  synapses, the gaps between neurons where signals jump. Bacopa Monnieri is the
+  heavy hitter here.
+
+  - Myelination - Faster Signal Speed: Strengthening the insulation around nerve
+  fibers.
+
+The Role of Alertness: Alertness still matters for skill acquisition. If
+Caffeine/Theanine or Yerba Mate can keep you in a high-focus state for 90 minutes
+instead of 45, you are getting double the high-quality repetitions for your brain
+to consolidate later.
+
+The "Anki" Connection: If you use spaced repetition, these nootropics
+theoretically lower the "friction" of encoding. If Bacopa improves dendrite
+branching, the "memory trace" you create when reviewing a flashcard becomes more
+robust and easier to retrieve later.
+
 ### Nootropics at a Glance
 
 #### The Memory Builders (Long-Term)
@@ -356,34 +385,6 @@ Yerba Mate
 - Primary Benefit: High Energy
 - Key Components: "Mateine" (Caffeine-like) + Antioxidants
 
-### 3.1. Neurogenesis, Synaptogenesis, Myelination, and Alertness
-
-There are several "nerve tonics" and nootropics that focus on neurogenesis
-(creating new neurons) and synaptogenesis (strengthening the connections between
-them).
-
-  - Neurogenesis - Adding Hardware for Computation and Memory: For a long time,
-  scientists thought adults couldn't grow new brain cells, but we now know that's
-  not true, especially in the hippocampus (the seat of memory). Signaling that
-  tells your brain, "It's time to build more cells".
-
-  - Synaptogenesis - Increasing Bandwidth: Learning isn't just about having more
-  cells; it's about how well they talk to each other. This is the formation of
-  synapses, the gaps between neurons where signals jump. Bacopa Monnieri is the
-  heavy hitter here.
-
-  - Myelination - Faster Signal Speed: Strengthening the insulation around nerve
-  fibers.
-
-The Role of Alertness: Alertness still matters for skill acquisition. If
-Caffeine/Theanine or Yerba Mate can keep you in a high-focus state for 90 minutes
-instead of 45, you are getting double the high-quality repetitions for your brain
-to consolidate later.
-
-The "Anki" Connection: If you use spaced repetition, these nootropics
-theoretically lower the "friction" of encoding. If Bacopa improves dendrite
-branching, the "memory trace" you create when reviewing a flashcard becomes more
-robust and easier to retrieve later.
 
 Bacopa Monnieri: This is one of the most researched herbs for memory
 consolidation. It works by increasing the growth of dendrites, the branch-like
