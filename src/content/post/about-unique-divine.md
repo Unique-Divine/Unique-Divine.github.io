@@ -30,7 +30,7 @@ or entertainment. Just growth and execution.
 
 ## Contact
 
-The fastest way to get in contact with me is probably a direct message on [X/Twitter](https://twitter.com/DivineNibirun), but [e-mail](mailto:realuniquedivine@gmail.com) works too.
+The fastest way to get in contact with me is probably a direct message on [X/Twitter](https://twitter.com/UniqueDivine), but [e-mail](mailto:realuniquedivine@gmail.com) works too.
 
 ## Other Sections
 - [Passions and interests](#passions-and-interests)
