@@ -5,7 +5,7 @@ import { socialHrefs } from './const';
 export const headerData = {
   links: [
     {
-      text: 'About Unique',
+      text: 'About',
       href: getPermalink('/about-unique-divine'),
     },
 
@@ -121,6 +121,6 @@ export const footerData = {
   //   Divine One Ventures, Inc. <a class="text-cyan-400 underline dark:text-muted" href="https://onwidget.com/"> onWidget</a> © 2020-2025 · All rights reserved.
   // `,
   footNote: `
-    <a class="text-cyan-400 underline dark:text-muted" href="https://github.com/Unique-Divine">Unique Divine</a> © 2020-2025 · All rights reserved.
+    <a class="text-cyan-400 underline dark:text-muted" href="https://github.com/Unique-Divine">Unique Divine</a> © 2020-2026 · All rights reserved.
   `,
 };

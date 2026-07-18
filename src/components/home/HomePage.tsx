@@ -19,7 +19,7 @@ const terminalSections = [
       { label: 'Golang Coding Guides', href: '/code/golang' },
       { label: 'Unique-Divine/Dotfiles', href: 'https://github.com/Unique-Divine/dotfiles' },
       { label: 'Unique-Divine/jiyuu', href: 'https://github.com/Unique-Divine/jiyuu' },
-      { label: 'NibiruChain/Nibiru', href: 'https://github.com/NibiruChain/nibiru/' },
+      { label: 'Nibiru', href: 'https://github.com/NibiruChain/nibiru/' },
       { label: 'GitHub and Git', href: '/code/github-git-gh' },
     ],
   },
@@ -28,13 +28,14 @@ const terminalSections = [
     href: '/blog',
     actionLabel: '[See All]',
     items: [
-      { label: 'Advice on How to Take Advice Including Mine', href: '/japanese/02-advice-how-to-take-advice' },
-      { label: 'Why I Learned Japanese', href: '/japanese/01-why-learn-japanese' },
+      { label: 'Advice on How to Take Advice (Including Mine)', href: '/japanese/02-advice-how-to-take-advice' },
+      { label: 'Why I Learned Japanese and What It Taught Me About Myself', href: '/japanese/01-why-learn-japanese' },
     ],
   },
 ];
 
-const focusAreas = ['software', 'crypto', 'language', 'music', 'writing'];
+const focusAreas = ['software', 'productivity', 'language', 'music', 'fitness'];
+const statusDate = new Date().toISOString().slice(0, 10);
 
 function TerminalLink({ href, children }: { href: string; children: ReactNode }) {
   return (
@@ -44,6 +45,24 @@ function TerminalLink({ href, children }: { href: string; children: ReactNode })
     >
       {children}
     </a>
+  );
+}
+
+function StatusLeftSegment({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return (
+    <span
+      className={`relative -mr-2 px-3 py-0.5 pr-5 [clip-path:polygon(0_0,calc(100%-8px)_0,100%_50%,calc(100%-8px)_100%,0_100%)] ${className}`}
+    >
+      {children}
+    </span>
+  );
+}
+
+function StatusRightSegment({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return (
+    <span className={`-ml-2 px-3 py-0.5 pl-5 [clip-path:polygon(8px_0,100%_0,100%_100%,8px_100%,0_50%)] ${className}`}>
+      {children}
+    </span>
   );
 }
 
@@ -62,13 +81,12 @@ export default function HomePage() {
             Unique Divine
           </h1>
           <p className="mt-5 text-xl leading-8 text-slate-700 dark:text-slate-300">
-            Software engineer, founder, writer, and creative. I build systems, write notes, and publish what I learn
-            along the way.
+            Software engineer, creative, and lifelong autodidact.
           </p>
-          <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 dark:text-slate-400">
-            This site is my public notebook: part archive, part workshop, part map for software, crypto, language, and
-            creative discipline.
-          </p>
+          {/* <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 dark:text-slate-400"> */}
+          {/*   This site is my public notebook. A place for essays, guides, and reflections from the work of deliberate */}
+          {/*   practice and solving complex problems. */}
+          {/* </p> */}
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -79,7 +97,8 @@ export default function HomePage() {
             </a>
             <a
               className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-900 backdrop-blur transition hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:border-cyan-300 dark:hover:text-cyan-200"
-              href="/code"
+              href="https://github.com/Unique-Divine"
+              // href="/code"
             >
               Explore code
             </a>
@@ -97,8 +116,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-cyan-300/20 bg-slate-900 shadow-[0_24px_80px_rgba(15,23,42,0.22),0_0_0_1px_rgba(56,216,255,0.12)] dark:bg-[#17202d]">
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+        <div className="overflow-hidden rounded-2xl border border-cyan-300/20 bg-slate-900 shadow-[0_24px_80px_rgba(15,23,42,0.22),0_0_0_1px_rgba(56,216,255,0.12)] dark:bg-[#17202d]">
+          <div className="flex items-center justify-between border-b border-white/10 px-4 py-2">
             <div className="flex gap-2" aria-hidden="true">
               <span className="h-3 w-3 rounded-full bg-rose-400/80" />
               <span className="h-3 w-3 rounded-full bg-amber-300/80" />
@@ -107,13 +126,9 @@ export default function HomePage() {
             <p className="font-mono text-xs text-slate-400">~/unique-divine</p>
           </div>
 
-          <div className="space-y-6 overflow-x-auto p-5 font-mono text-sm leading-6 text-slate-200 sm:p-6">
-            <p>
-              <span className="text-cyan-300">$</span> tree ~/unique
-            </p>
-
+          <div className="space-y-5 p-4 font-mono text-sm leading-6 text-slate-200 sm:p-5">
             {terminalSections.map((section) => (
-              <div className="min-w-[34rem]" key={section.label}>
+              <div key={section.label}>
                 <p>
                   <TerminalLink href={section.href}>{section.label}</TerminalLink>
                   {section.actionLabel && (
@@ -126,13 +141,37 @@ export default function HomePage() {
                 <div className="mt-1 text-slate-400">
                   {section.items.map((item, index) => (
                     <p key={item.href}>
-                      {index === section.items.length - 1 ? '`-- ' : '|-- '}
+                      {index === section.items.length - 1 ? '└── ' : '├── '}
                       <TerminalLink href={item.href}>{item.label}</TerminalLink>
                     </p>
                   ))}
                 </div>
               </div>
             ))}
+          </div>
+
+          <div
+            className="flex min-w-0 items-center justify-between border-t border-white/10 bg-slate-900 font-mono text-[11px] leading-none text-slate-300 dark:bg-[#17202d]"
+            aria-label="Terminal status line"
+          >
+            <div className="flex min-w-0 items-center">
+              <StatusLeftSegment className="z-40 bg-emerald-400 font-semibold text-slate-950">0</StatusLeftSegment>
+              <StatusLeftSegment className="z-30 bg-slate-800 pl-5 text-slate-200">zsh</StatusLeftSegment>
+              <StatusLeftSegment className="z-20 bg-cyan-300 pl-5 font-semibold text-slate-950">
+                1 nvim
+              </StatusLeftSegment>
+            </div>
+
+            <div className="flex min-w-0 items-center">
+              <StatusRightSegment className="hidden bg-cyan-300/15 text-cyan-100 sm:inline">
+                CPU 3.4%
+              </StatusRightSegment>
+              <StatusRightSegment className="hidden bg-slate-800 text-slate-300 md:inline">
+                {statusDate}
+              </StatusRightSegment>
+              <StatusRightSegment className="bg-cyan-300 font-semibold text-slate-950">03:32</StatusRightSegment>
+              <StatusRightSegment className="truncate bg-slate-800 text-cyan-100">ud/hero-revamp</StatusRightSegment>
+            </div>
           </div>
         </div>
       </div>

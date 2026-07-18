@@ -7,7 +7,7 @@ import Button from '~/components/ui/Button.astro';
 
 import { socialHrefs } from '~/const';
 import { getHomePermalink } from '~/utils/permalinks';
-import { trimSlash, getAsset } from '~/utils/permalinks';
+import { trimSlash } from '~/utils/permalinks';
 import type { CallToAction } from '~/types';
 import { twMerge } from 'tailwind-merge';
 
@@ -62,7 +62,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
   <div class="absolute inset-0"></div>
   <div
     class:list={[
-      'relative text-default py-3 px-3 md:px-6 mx-auto w-full md:flex md:justify-between',
+      'relative text-default py-2 px-3 md:px-6 mx-auto w-full md:flex md:justify-between',
       {
         'max-w-7xl': !isFullWidth,
       },
@@ -88,7 +88,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
             <li class={twMerge(links?.length ? 'dropdown' : '', 'rounded-lg')}>
               {links?.length ? (
                 <>
-                  <button class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center dark:hover:bg-HoverBgDark hover:bg-HoverBgLight rounded-lg">
+                  <button class="hover:text-link dark:hover:text-white px-4 py-2 flex items-center dark:hover:bg-HoverBgDark hover:bg-HoverBgLight rounded-lg">
                     {text}{' '}
                     <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
                   </button>
@@ -111,7 +111,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
               ) : (
                 <a
                   class:list={[
-                    'hover:text-link dark:hover:text-white px-4 py-3 flex items-centers ',
+                    'hover:text-link dark:hover:text-white px-4 py-2 flex items-centers ',
                     'hover:bg-HoverBgLight dark:hover:bg-HoverBgDark rounded-lg',
                     { 'aw-link-active': href === currentPath },
                   ]}
@@ -137,12 +137,21 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
             showContactCta && (
               <a
                 class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-                aria-label="RSS Feed"
+                aria-label="X/Twitter"
                 href={socialHrefs.x}
-                href={getAsset('/rss.xml')}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Icon name="tabler:brand-x" class="w-5 h-5" />
-                {/* <Icon name="tabler:rss" class="w-5 h-5" /> */}
+              </a>
+              <a
+                class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+                aria-label="GitHub"
+                href={socialHrefs.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name="tabler:brand-github" class="w-5 h-5" />
               </a>
             )
           }
