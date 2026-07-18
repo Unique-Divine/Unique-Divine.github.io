@@ -65,7 +65,6 @@ const terminalSections: TerminalSection[] = [
 ];
 
 const focusAreas = ['software', 'productivity', 'language', 'music', 'fitness'];
-const statusDate = new Date().toISOString().slice(0, 10);
 
 function TerminalLink({ href, children }: { href: string; children: ReactNode }) {
   return (
@@ -96,7 +95,7 @@ function StatusRightSegment({ children, className = '' }: { children: ReactNode;
   );
 }
 
-export default function HomePage() {
+export default function HomePage({ children }: { children?: ReactNode }) {
   return (
     <section className="relative isolate overflow-hidden">
       <div
@@ -215,10 +214,7 @@ export default function HomePage() {
               <StatusRightSegment className="hidden bg-cyan-300/15 text-cyan-100 sm:inline">
                 CPU 3.4%
               </StatusRightSegment>
-              <StatusRightSegment className="hidden bg-slate-800 text-slate-300 md:inline">
-                {statusDate}
-              </StatusRightSegment>
-              <StatusRightSegment className="bg-cyan-300 font-semibold text-slate-950">03:32</StatusRightSegment>
+              {children}
               <StatusRightSegment className="truncate bg-slate-800 text-cyan-100">ud/hero-revamp</StatusRightSegment>
             </div>
           </div>

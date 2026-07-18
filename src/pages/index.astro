@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 
 import HomePage from '~/components/home/HomePage';
+import StatusClock from '~/components/home/StatusClock';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 
 // import Note from '~/components/widgets/Note.astro';
@@ -23,7 +24,9 @@ const metadata: MetaData = {
 ---
 
 <Layout metadata={metadata}>
-  <HomePage />
+  <HomePage>
+    <StatusClock client:idle />
+  </HomePage>
 
   <BlogLatestPosts
     id="blog"
