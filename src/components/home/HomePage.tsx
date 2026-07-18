@@ -1,6 +1,21 @@
 import type { ReactNode } from 'react';
 
-const terminalSections = [
+type TerminalSection = {
+  label: string;
+  href?: string;
+  description?: string;
+  actionLabel?: string;
+  items: Array<{
+    label: string;
+    href?: string;
+    /** Inline supporting text after the label (`: …`), outside the link. */
+    description?: string;
+    /** Extra body lines under the item, outside the link. */
+    notes?: string[];
+  }>;
+};
+
+const terminalSections: TerminalSection[] = [
   {
     label: 'About Me',
     href: '/about-unique-divine',
@@ -18,9 +33,24 @@ const terminalSections = [
     items: [
       { label: 'Golang Coding Guides', href: '/code/golang' },
       { label: 'Unique-Divine/Dotfiles', href: 'https://github.com/Unique-Divine/dotfiles' },
-      { label: 'Unique-Divine/jiyuu', href: 'https://github.com/Unique-Divine/jiyuu' },
-      { label: 'Nibiru', href: 'https://github.com/NibiruChain/nibiru/' },
-      { label: 'GitHub and Git', href: '/code/github-git-gh' },
+      {
+        label: 'Unique-Divine/jiyuu',
+        href: 'https://github.com/Unique-Divine/jiyuu',
+        notes: [
+          'Jiyuu contains my devlogs and implementations for core algorithms.',
+          "It's also a monorepo of tools I built and use regularly.",
+        ],
+      },
+      {
+        label: 'Nibiru',
+        href: 'https://github.com/NibiruChain/nibiru/',
+        description: 'Go source code for the Nibiru blockchain.',
+      },
+      {
+        label: 'GitHub and Git',
+        href: '/code/github-git-gh',
+        description: 'Awesome reference.',
+      },
     ],
   },
   {
@@ -69,9 +99,13 @@ function StatusRightSegment({ children, className = '' }: { children: ReactNode;
 export default function HomePage() {
   return (
     <section className="relative isolate overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_12%,rgba(34,211,238,0.16),transparent_30%),radial-gradient(circle_at_82%_22%,rgba(20,184,166,0.12),transparent_28%),linear-gradient(to_bottom,#ffffff,#f8fafc)] dark:bg-[radial-gradient(circle_at_18%_12%,rgba(34,211,238,0.10),transparent_30%),radial-gradient(circle_at_82%_22%,rgba(20,184,166,0.08),transparent_28%),linear-gradient(to_bottom,#101720,#0f172a)]" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.035)_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(rgba(226,232,240,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.035)_1px,transparent_1px)]" />
-
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_14%,black_86%,transparent_100%)] [mask-image:linear-gradient(to_bottom,transparent_0%,black_14%,black_86%,transparent_100%)]"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(34,211,238,0.16),transparent_30%),radial-gradient(circle_at_82%_22%,rgba(20,184,166,0.12),transparent_28%),linear-gradient(to_bottom,#ffffff,#f8fafc)] dark:bg-[radial-gradient(circle_at_18%_12%,rgba(34,211,238,0.10),transparent_30%),radial-gradient(circle_at_82%_22%,rgba(20,184,166,0.08),transparent_28%),linear-gradient(to_bottom,#101720,#0f172a)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.035)_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(rgba(226,232,240,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.035)_1px,transparent_1px)]" />
+      </div>
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-24">
         <div className="max-w-2xl">
           <p className="mb-4 font-mono text-sm font-medium uppercase tracking-[0.28em] text-cyan-600 dark:text-cyan-300">
@@ -127,7 +161,7 @@ export default function HomePage() {
           </div>
 
           <div className="space-y-5 p-4 font-mono text-sm leading-6 text-slate-200 sm:p-5">
-            {terminalSections.map((section) => (
+            {terminalSections.map((section: TerminalSection) => (
               <div key={section.label}>
                 <p>
                   <TerminalLink href={section.href}>{section.label}</TerminalLink>
@@ -138,13 +172,28 @@ export default function HomePage() {
                   )}
                   {section.description && <span className="text-slate-400"> - {section.description}</span>}
                 </p>
-                <div className="mt-1 text-slate-400">
-                  {section.items.map((item, index) => (
-                    <p key={item.href}>
-                      {index === section.items.length - 1 ? '└── ' : '├── '}
-                      <TerminalLink href={item.href}>{item.label}</TerminalLink>
-                    </p>
-                  ))}
+                <div className="mt-1 whitespace-pre-wrap text-slate-400">
+                  {section.items.map((item, index) => {
+                    const isLast = index === section.items.length - 1;
+                    const branch = isLast ? '└── ' : '├── ';
+                    const notePrefix = isLast ? '    - ' : '│   - ';
+
+                    return (
+                      <div key={item.href ?? item.label}>
+                        <p>
+                          {branch}
+                          {item.href ? <TerminalLink href={item.href}>{item.label}</TerminalLink> : item.label}
+                          {item.description && <span>: {item.description}</span>}
+                        </p>
+                        {item.notes?.map((note) => (
+                          <p key={note}>
+                            {notePrefix}
+                            {note}
+                          </p>
+                        ))}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ))}
