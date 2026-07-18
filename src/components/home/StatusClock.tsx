@@ -27,6 +27,7 @@ function StatusRightSegment({ children, className = '' }: { children: ReactNode;
 export default function StatusClock() {
   const [date, setDate] = useState('----/--/--');
   const [time, setTime] = useState('--:--:--');
+  const [cpu, setCpu] = useState(3.4);
 
   useEffect(() => {
     let timeoutId = 0;
@@ -42,8 +43,23 @@ export default function StatusClock() {
     return () => window.clearTimeout(timeoutId);
   }, []);
 
+  useEffect(() => {
+    let timeoutId = 0;
+
+    const tick = () => {
+      setCpu(0.2 + Math.random() * 9.8);
+      timeoutId = window.setTimeout(tick, 3000 + Math.random() * 1000);
+    };
+
+    tick();
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
   return (
     <>
+      <StatusRightSegment className="hidden bg-cyan-300/15 text-cyan-100 sm:inline">
+        CPU {cpu.toFixed(1)}%
+      </StatusRightSegment>
       <StatusRightSegment className="hidden bg-slate-800 text-slate-300 md:inline">{date}</StatusRightSegment>
       <StatusRightSegment className="bg-cyan-300 font-semibold text-slate-950">{time}</StatusRightSegment>
     </>

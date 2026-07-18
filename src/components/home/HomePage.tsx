@@ -211,9 +211,6 @@ export default function HomePage({ children }: { children?: ReactNode }) {
             </div>
 
             <div className="flex min-w-0 items-center">
-              <StatusRightSegment className="hidden bg-cyan-300/15 text-cyan-100 sm:inline">
-                CPU 3.4%
-              </StatusRightSegment>
               {children}
               <StatusRightSegment className="truncate bg-slate-800 text-cyan-100">ud/hero-revamp</StatusRightSegment>
             </div>
