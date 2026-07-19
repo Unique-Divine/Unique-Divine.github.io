@@ -2,14 +2,14 @@
 
 /** @type {import("prettier").Config} */
 const config = {
-  trailingComma: 'all',
+  trailingComma: "all",
   tabWidth: 2,
   printWidth: 80,
   semi: false,
   singleQuote: false,
-  arrowParens: 'always',
+  arrowParens: "always",
 
-  plugins: ['@ianvs/prettier-plugin-sort-imports'],
+  plugins: ["@ianvs/prettier-plugin-sort-imports"],
   /** Using the "@ianvs/prettier-plugin-sort-imports" plugin, the `importOrder` field
    * controls the order in which imports are sorted.
    *
@@ -23,14 +23,14 @@ const config = {
    * 5. "^[.]" - Relative imports like "./file" or "../state/utils".
    * */
   importOrder: [
-    '<BUILT_IN_MODULES>',
-    '<THIRD_PARTY_MODULES>',
-    '', // creates a blank line in the import block
-    '^@/(.*)$',
-    '^~/(.*)$',
-    '', // creates a blank line in the import block
-    '^[.]',
+    "<BUILT_IN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    "", // creates a blank line in the import block
+    "^@/(.*)$",
+    "^~/(.*)$",
+    "", // creates a blank line in the import block
+    "^[.]",
   ],
-};
+}
 
-export default config;
+export default config

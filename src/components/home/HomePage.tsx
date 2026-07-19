@@ -1,72 +1,90 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react"
 
 type TerminalSection = {
-  label: string;
-  href?: string;
-  description?: string;
-  actionLabel?: string;
+  label: string
+  href?: string
+  description?: string
+  actionLabel?: string
   items: Array<{
-    label: string;
-    href?: string;
+    label: string
+    href?: string
     /** Inline supporting text after the label (`: …`), outside the link. */
-    description?: string;
+    description?: string
     /** Extra body lines under the item, outside the link. */
-    notes?: string[];
-  }>;
-};
+    notes?: string[]
+  }>
+}
 
 const terminalSections: TerminalSection[] = [
   {
-    label: 'About Me',
-    href: '/about-unique-divine',
+    label: "About Me",
+    href: "/about-unique-divine",
     items: [
-      { label: "What I'm doing right now", href: '/about-unique-divine#what-i-do-for-work' },
-      { label: 'Nibi Inc. and Nibiru', href: '/web3/nibiru/nibi-inc' },
-      { label: 'In the Media', href: '/media' },
-      { label: 'Contact Me', href: '/about-unique-divine#contact' },
+      {
+        label: "What I'm doing right now",
+        href: "/about-unique-divine#what-i-do-for-work",
+      },
+      { label: "Nibi Inc. and Nibiru", href: "/web3/nibiru/nibi-inc" },
+      { label: "In the Media", href: "/media" },
+      { label: "Contact Me", href: "/about-unique-divine#contact" },
     ],
   },
   {
-    label: 'Code',
-    href: '/code',
-    description: 'Tools, notes, and larger software engineering projects.',
+    label: "Code",
+    href: "/code",
+    description: "Tools, notes, and larger software engineering projects.",
     items: [
-      { label: 'Golang Coding Guides', href: '/code/golang' },
-      { label: 'Unique-Divine/Dotfiles', href: 'https://github.com/Unique-Divine/dotfiles' },
+      { label: "Golang Coding Guides", href: "/code/golang" },
       {
-        label: 'Unique-Divine/jiyuu',
-        href: 'https://github.com/Unique-Divine/jiyuu',
+        label: "Unique-Divine/Dotfiles",
+        href: "https://github.com/Unique-Divine/dotfiles",
+      },
+      {
+        label: "Unique-Divine/jiyuu",
+        href: "https://github.com/Unique-Divine/jiyuu",
         notes: [
-          'Jiyuu contains my devlogs and implementations for core algorithms.',
+          "Jiyuu contains my devlogs and implementations for core algorithms.",
           "It's also a monorepo of tools I built and use regularly.",
         ],
       },
       {
-        label: 'Nibiru',
-        href: 'https://github.com/NibiruChain/nibiru/',
-        description: 'Go source code for the Nibiru blockchain.',
+        label: "Nibiru",
+        href: "https://github.com/NibiruChain/nibiru/",
+        description: "Go source code for the Nibiru blockchain.",
       },
       {
-        label: 'GitHub and Git',
-        href: '/code/github-git-gh',
-        description: 'Awesome reference.',
+        label: "GitHub and Git",
+        href: "/code/github-git-gh",
+        description: "Awesome reference.",
       },
     ],
   },
   {
-    label: 'Popular Articles',
-    href: '/blog',
-    actionLabel: '[See All]',
+    label: "Popular Articles",
+    href: "/blog",
+    actionLabel: "[See All]",
     items: [
-      { label: 'Advice on How to Take Advice (Including Mine)', href: '/japanese/02-advice-how-to-take-advice' },
-      { label: 'Why I Learned Japanese and What It Taught Me About Myself', href: '/japanese/01-why-learn-japanese' },
+      {
+        label: "Advice on How to Take Advice (Including Mine)",
+        href: "/japanese/02-advice-how-to-take-advice",
+      },
+      {
+        label: "Why I Learned Japanese and What It Taught Me About Myself",
+        href: "/japanese/01-why-learn-japanese",
+      },
     ],
   },
-];
+]
 
-const focusAreas = ['software', 'productivity', 'language', 'music', 'fitness'];
+const focusAreas = ["software", "productivity", "language", "music", "fitness"]
 
-function TerminalLink({ href, children }: { href: string; children: ReactNode }) {
+function TerminalLink({
+  href,
+  children,
+}: {
+  href: string
+  children: ReactNode
+}) {
   return (
     <a
       className="text-cyan-300 decoration-cyan-300/40 underline-offset-4 transition hover:text-white hover:underline"
@@ -74,25 +92,39 @@ function TerminalLink({ href, children }: { href: string; children: ReactNode })
     >
       {children}
     </a>
-  );
+  )
 }
 
-function StatusLeftSegment({ children, className = '' }: { children: ReactNode; className?: string }) {
+function StatusLeftSegment({
+  children,
+  className = "",
+}: {
+  children: ReactNode
+  className?: string
+}) {
   return (
     <span
       className={`relative -mr-2 px-3 py-0.5 pr-5 [clip-path:polygon(0_0,calc(100%-8px)_0,100%_50%,calc(100%-8px)_100%,0_100%)] ${className}`}
     >
       {children}
     </span>
-  );
+  )
 }
 
-function StatusRightSegment({ children, className = '' }: { children: ReactNode; className?: string }) {
+function StatusRightSegment({
+  children,
+  className = "",
+}: {
+  children: ReactNode
+  className?: string
+}) {
   return (
-    <span className={`-ml-2 px-3 py-0.5 pl-5 [clip-path:polygon(8px_0,100%_0,100%_100%,8px_100%,0_50%)] ${className}`}>
+    <span
+      className={`-ml-2 px-3 py-0.5 pl-5 [clip-path:polygon(8px_0,100%_0,100%_100%,8px_100%,0_50%)] ${className}`}
+    >
       {children}
     </span>
-  );
+  )
 }
 
 export default function HomePage({ children }: { children?: ReactNode }) {
@@ -163,26 +195,43 @@ export default function HomePage({ children }: { children?: ReactNode }) {
             {terminalSections.map((section: TerminalSection) => (
               <div key={section.label}>
                 <p>
-                  <TerminalLink href={section.href}>{section.label}</TerminalLink>
+                  <TerminalLink href={section.href}>
+                    {section.label}
+                  </TerminalLink>
                   {section.actionLabel && (
                     <span className="ml-6">
-                      <TerminalLink href={section.href}>{section.actionLabel}</TerminalLink>
+                      <TerminalLink href={section.href}>
+                        {section.actionLabel}
+                      </TerminalLink>
                     </span>
                   )}
-                  {section.description && <span className="text-slate-400"> - {section.description}</span>}
+                  {section.description && (
+                    <span className="text-slate-400">
+                      {" "}
+                      - {section.description}
+                    </span>
+                  )}
                 </p>
                 <div className="mt-1 whitespace-pre-wrap text-slate-400">
                   {section.items.map((item, index) => {
-                    const isLast = index === section.items.length - 1;
-                    const branch = isLast ? '└── ' : '├── ';
-                    const notePrefix = isLast ? '    - ' : '│   - ';
+                    const isLast = index === section.items.length - 1
+                    const branch = isLast ? "└── " : "├── "
+                    const notePrefix = isLast ? "    - " : "│   - "
 
                     return (
                       <div key={item.href ?? item.label}>
                         <p>
                           {branch}
-                          {item.href ? <TerminalLink href={item.href}>{item.label}</TerminalLink> : item.label}
-                          {item.description && <span>: {item.description}</span>}
+                          {item.href ? (
+                            <TerminalLink href={item.href}>
+                              {item.label}
+                            </TerminalLink>
+                          ) : (
+                            item.label
+                          )}
+                          {item.description && (
+                            <span>: {item.description}</span>
+                          )}
                         </p>
                         {item.notes?.map((note) => (
                           <p key={note}>
@@ -191,7 +240,7 @@ export default function HomePage({ children }: { children?: ReactNode }) {
                           </p>
                         ))}
                       </div>
-                    );
+                    )
                   })}
                 </div>
               </div>
@@ -203,8 +252,12 @@ export default function HomePage({ children }: { children?: ReactNode }) {
             aria-label="Terminal status line"
           >
             <div className="flex min-w-0 items-center">
-              <StatusLeftSegment className="z-40 bg-emerald-400 font-semibold text-slate-950">0</StatusLeftSegment>
-              <StatusLeftSegment className="z-30 bg-slate-800 pl-5 text-slate-200">zsh</StatusLeftSegment>
+              <StatusLeftSegment className="z-40 bg-emerald-400 font-semibold text-slate-950">
+                0
+              </StatusLeftSegment>
+              <StatusLeftSegment className="z-30 bg-slate-800 pl-5 text-slate-200">
+                zsh
+              </StatusLeftSegment>
               <StatusLeftSegment className="z-20 bg-cyan-300 pl-5 font-semibold text-slate-950">
                 1 nvim
               </StatusLeftSegment>
@@ -212,11 +265,13 @@ export default function HomePage({ children }: { children?: ReactNode }) {
 
             <div className="flex min-w-0 items-center">
               {children}
-              <StatusRightSegment className="truncate bg-slate-800 text-cyan-100">ud/hero-revamp</StatusRightSegment>
+              <StatusRightSegment className="truncate bg-slate-800 text-cyan-100">
+                ud/hero-revamp
+              </StatusRightSegment>
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

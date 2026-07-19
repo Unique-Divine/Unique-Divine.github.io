@@ -1,29 +1,29 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
       colors: {
-        primary: 'var(--aw-color-primary)',
-        secondary: 'var(--aw-color-secondary)',
-        accent: 'var(--aw-color-accent)',
-        default: 'var(--aw-color-text-default)',
-        muted: 'var(--aw-color-text-muted)',
-        White: '#FFFFFF',
-        Light: '#FFFFFF',
-        Dark: '#101720', // midnight
-        PreCodeGrey: '#212936',
-        HoverBgLight: '#eaedf0',
-        HoverBgDark: '#394150',
+        primary: "var(--aw-color-primary)",
+        secondary: "var(--aw-color-secondary)",
+        accent: "var(--aw-color-accent)",
+        default: "var(--aw-color-text-default)",
+        muted: "var(--aw-color-text-muted)",
+        White: "#FFFFFF",
+        Light: "#FFFFFF",
+        Dark: "#101720", // midnight
+        PreCodeGrey: "#212936",
+        HoverBgLight: "#eaedf0",
+        HoverBgDark: "#394150",
       },
       fontFamily: {
-        sans: ['var(--aw-font-sans)', ...defaultTheme.fontFamily.sans],
-        serif: ['var(--aw-font-serif)', ...defaultTheme.fontFamily.serif],
-        heading: ['var(--aw-font-heading)', ...defaultTheme.fontFamily.sans],
+        sans: ["var(--aw-font-sans)", ...defaultTheme.fontFamily.sans],
+        serif: ["var(--aw-font-serif)", ...defaultTheme.fontFamily.serif],
+        heading: ["var(--aw-font-heading)", ...defaultTheme.fontFamily.sans],
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
-  darkMode: 'class',
-};
+  plugins: [require("@tailwindcss/typography")],
+  darkMode: "class",
+}

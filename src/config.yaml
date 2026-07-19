@@ -1,8 +1,8 @@
 # This file is read in to the "src/utils/config.ts" file
 site:
   name: Unique Divine
-  site: 'https://uniquedivine.com'
-  base: '/'
+  site: "https://uniquedivine.com"
+  base: "/"
   trailingSlash: false
 
   # TODO: replace with actual ID for Google site verification.
@@ -14,20 +14,20 @@ metadata:
     default:
       Unique Divine
       # template: '%s — AstroWind' # FIXME: Why is this here?
-  description: 'Unique Divine. Programmer and creator obsessed with learning. Co-founder and CEO building Nibiru.'
+  description: "Unique Divine. Programmer and creator obsessed with learning. Co-founder and CEO building Nibiru."
   robots:
     index: true
     follow: true
   openGraph:
     site_name: Unique Divine
     images:
-      - url: '~/assets/images/default.png'
+      - url: "~/assets/images/default.png"
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@UniqueDivine'
-    site: '@UniqueDivine'
+    handle: "@UniqueDivine"
+    site: "@UniqueDivine"
     cardType: summary_large_image
 
 i18n:
@@ -41,25 +41,25 @@ apps:
 
     post:
       isEnabled: true
-      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      permalink: "/%slug%" # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
       robots:
         index: true
 
     list:
       isEnabled: true
-      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
+      pathname: "blog" # Blog main path, you can change this to "articles" (/articles)
       robots:
         index: true
 
     category:
       isEnabled: true
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
+      pathname: "category" # Category main path /category/some-category, you can change this to "group" (/group/some-category)
       robots:
         index: true
 
     tag:
       isEnabled: true
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
+      pathname: "tag" # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
       robots:
         index: false
 
@@ -72,7 +72,7 @@ analytics:
       id: null # or "G-XXXXXXXXXX"
 
 ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  theme: "system" # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
 
   tokens:
     default:

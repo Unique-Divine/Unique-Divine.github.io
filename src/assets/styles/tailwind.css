@@ -55,7 +55,11 @@
 #header[data-aw-sticky-header].dark > div:first-child {
   bottom: -1.5rem;
   @apply backdrop-blur-md;
-  background-color: color-mix(in srgb, var(--aw-color-bg-page-dark) 78%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--aw-color-bg-page-dark) 78%,
+    transparent
+  );
   -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
   box-shadow: none;
@@ -124,17 +128,18 @@
 }
 
 .ud-tree {
-  font-family: Consolas, SFMono-Regular, "IBM Plex Mono", Menlo, Monaco, "Liberation Mono", "Courier New", ui-monospace, monospace;
+  font-family: Consolas, SFMono-Regular, "IBM Plex Mono", Menlo, Monaco,
+    "Liberation Mono", "Courier New", ui-monospace, monospace;
   white-space: pre-wrap;
   line-height: 1.4;
   font-size: 0.95rem;
 
-  overflow-x:hidden;
+  overflow-x: hidden;
   /* scrollbar-width: none; /** Disables Firefox scrollbar *1/ */
 }
 
 pre.ud-tree {
-  @apply dark:bg-PreCodeGrey
+  @apply dark:bg-PreCodeGrey;
 }
 
 /* .ud-tree::-webkit-scrollbar { */
@@ -148,5 +153,3 @@ pre.ud-tree {
 .ud-tree a:hover {
   text-decoration: underline;
 }
-
-
