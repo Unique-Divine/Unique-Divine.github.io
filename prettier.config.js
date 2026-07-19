@@ -9,7 +9,7 @@ const config = {
   singleQuote: false,
   arrowParens: "always",
 
-  plugins: ["@ianvs/prettier-plugin-sort-imports"],
+  plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-astro"],
   /** Using the "@ianvs/prettier-plugin-sort-imports" plugin, the `importOrder` field
    * controls the order in which imports are sorted.
    *
@@ -31,6 +31,7 @@ const config = {
     "", // creates a blank line in the import block
     "^[.]",
   ],
+  overrides: [{ files: "*.astro", options: { parser: "astro" } }],
 }
 
 export default config

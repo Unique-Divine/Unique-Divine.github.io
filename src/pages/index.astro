@@ -1,10 +1,8 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-
-import HomePage from '~/components/home/HomePage';
-import StatusClock from '~/components/home/StatusClock';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-
+import HomePage from "~/components/home/HomePage"
+import StatusClock from "~/components/home/StatusClock"
+import BlogLatestPosts from "~/components/widgets/BlogLatestPosts.astro"
+import Layout from "~/layouts/PageLayout.astro"
 // import Note from '~/components/widgets/Note.astro';
 // import Features from '~/components/widgets/Features.astro';
 // import Features2 from '~/components/widgets/Features2.astro';
@@ -15,12 +13,12 @@ import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 // import CallToAction from '~/components/widgets/CallToAction.astro';
 // import CustomStyles from '~/components/CustomStyles.astro';
 
-import type { MetaData } from '~/types';
+import type { MetaData } from "~/types"
 
 const metadata: MetaData = {
   title: `Unique Divine | Programmer that makes music and writes`,
   ignoreTitleTemplate: true,
-};
+}
 ---
 
 <Layout metadata={metadata}>
@@ -33,7 +31,7 @@ const metadata: MetaData = {
     title="Latest Posts"
     information="Essays, devlogs, notes, and field reports."
     classes={{
-      container: 'px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 lg:pt-20',
+      container: "px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 lg:pt-20",
     }}
   >
     <Fragment slot="bg">
