@@ -29,6 +29,7 @@
     "@astrojs/mdx": "^2.1.1",
     "@astrojs/partytown": "^2.0.4",
     "@astrojs/tailwind": "5.1.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@iconify-json/flat-color-icons": "^1.1.10",
     "@iconify-json/tabler": "^1.1.106",
     "@tailwindcss/typography": "^0.5.10",

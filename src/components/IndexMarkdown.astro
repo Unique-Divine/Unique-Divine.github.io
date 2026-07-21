@@ -7,10 +7,11 @@
  * ```
  * */
 
-import cx from 'classnames';
-import BlogLatestPosts from './widgets/BlogLatestPosts.astro';
+import cx from "classnames"
 
-const { content } = Astro.props;
+import BlogLatestPosts from "./widgets/BlogLatestPosts.astro"
+
+const { content } = Astro.props
 ---
 
 <section
@@ -23,7 +24,7 @@ const { content } = Astro.props;
     `prose-headings:leading-tighter prose-headings:tracking-tighter`,
     `prose-headings:font-bold prose-a:text-cyan-400`,
     `dark:prose-a:text-cyan-400`,
-    `prose-img:rounded-md prose-img:shadow-lg mt-8`
+    `prose-img:rounded-md prose-img:shadow-lg mt-8`,
   )}
 >
   <slot />

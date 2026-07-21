@@ -1,3 +1,3 @@
-import imgBloom from '~/assets/images/bloom.jpg';
+import imgBloom from "~/assets/images/bloom.jpg"
 
-export { imgBloom };
+export { imgBloom }

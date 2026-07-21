@@ -1,15 +1,14 @@
 ---
-import PageLayout from '~/layouts/PageLayout.astro';
-import Header from '~/components/widgets/PageHeader.astro';
-
-import { headerData } from '~/navigation';
-import type { MetaData } from '~/types';
+import Header from "~/components/widgets/PageHeader.astro"
+import PageLayout from "~/layouts/PageLayout.astro"
+import { headerData } from "~/navigation"
+import type { MetaData } from "~/types"
 
 export interface Props {
-  metadata?: MetaData;
+  metadata?: MetaData
 }
 
-const { metadata } = Astro.props;
+const { metadata } = Astro.props
 ---
 
 <PageLayout metadata={metadata}>

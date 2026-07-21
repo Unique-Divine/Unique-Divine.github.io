@@ -1,14 +1,14 @@
 ---
-import Button from '~/components/ui/Button.astro';
+import Button from "~/components/ui/Button.astro"
 
 const {
-  title = await Astro.slots.render('title'),
-  subtitle = await Astro.slots.render('subtitle'),
+  title = await Astro.slots.render("title"),
+  subtitle = await Astro.slots.render("subtitle"),
   tagline,
-  content = await Astro.slots.render('content'),
-  callToAction = await Astro.slots.render('callToAction'),
-  callToAction2 = await Astro.slots.render('callToAction2'),
-} = Astro.props;
+  content = await Astro.slots.render("content"),
+  callToAction = await Astro.slots.render("callToAction"),
+  callToAction2 = await Astro.slots.render("callToAction2"),
+} = Astro.props
 ---
 
 <section class="relative md:-mt-[76px] not-prose">
@@ -34,12 +34,21 @@ const {
           )
         }
         <div class="max-w-3xl mx-auto">
-          {subtitle && <p class="text-xl text-muted mb-6 dark:text-slate-300" set:html={subtitle} />}
-          <div class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4">
+          {
+            subtitle && (
+              <p
+                class="text-xl text-muted mb-6 dark:text-slate-300"
+                set:html={subtitle}
+              />
+            )
+          }
+          <div
+            class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4"
+          >
             {
               callToAction && (
                 <div class="flex w-full sm:w-auto">
-                  {typeof callToAction === 'string' ? (
+                  {typeof callToAction === "string" ? (
                     <Fragment set:html={callToAction} />
                   ) : (
                     <Button variant="primary" {...callToAction} />
@@ -50,7 +59,7 @@ const {
             {
               callToAction2 && (
                 <div class="flex w-full sm:w-auto">
-                  {typeof callToAction2 === 'string' ? (
+                  {typeof callToAction2 === "string" ? (
                     <Fragment set:html={callToAction2} />
                   ) : (
                     <Button {...callToAction2} />
