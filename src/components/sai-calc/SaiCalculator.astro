@@ -1,0 +1,626 @@
+<section class="sai-calculator" aria-labelledby="sai-calculator-title">
+  <header class="calculator-heading">
+    <div>
+      <p class="calculator-eyebrow">Sai Deal Desk</p>
+      <h1 id="sai-calculator-title">Fee coverage calculator</h1>
+      <p class="calculator-intro">
+        Size the trading volume required to recover a deal cost after revenue
+        share and volume-based payouts.
+      </p>
+    </div>
+    <div class="top-actions">
+      <button id="share-calculations" class="share-calculations" type="button">
+        Share
+      </button>
+      <button id="add-calculation" class="primary-action" type="button">
+        Add calculation
+      </button>
+    </div>
+  </header>
+
+  <div class="storage-note">
+    <span id="storage-status">Saved in this browser</span>
+    <span>Deal terms never leave this page.</span>
+  </div>
+
+  <p id="shared-link-warning" class="shared-link-warning" role="alert" hidden>
+  </p>
+
+  <section id="shared-session" class="shared-session" hidden>
+    <div>
+      <strong id="shared-session-title">Viewing shared calculations</strong>
+      <p>Changes stay temporary until you add them to this browser.</p>
+    </div>
+    <div class="shared-session-actions">
+      <button id="add-shared-calculations" class="primary-action" type="button">
+        Add to my calculations
+      </button>
+      <button id="dismiss-shared-calculations" type="button">Dismiss</button>
+    </div>
+  </section>
+
+  <section id="calculator-cards" class="calculator-list"></section>
+
+  <dialog id="share-dialog" aria-labelledby="share-dialog-title">
+    <div class="share-dialog-content">
+      <header>
+        <div>
+          <p class="calculator-eyebrow">Share scenarios</p>
+          <h2 id="share-dialog-title">Choose calculations</h2>
+        </div>
+        <button
+          id="close-share-dialog"
+          class="dialog-close"
+          type="button"
+          aria-label="Close share dialog"
+        >
+          ×
+        </button>
+      </header>
+      <p class="share-help">
+        The link contains the selected inputs. Anyone with the link can read
+        them.
+      </p>
+      <div id="share-options" class="share-options"></div>
+      <p id="share-error" class="share-error" role="alert" hidden></p>
+      <label id="share-link-field" class="share-link-field" hidden>
+        <span>Share link</span>
+        <input id="share-link-output" type="text" readonly />
+      </label>
+      <p id="share-copy-status" class="share-copy-status" aria-live="polite">
+      </p>
+      <footer>
+        <button id="cancel-share-dialog" type="button">Cancel</button>
+        <button id="copy-share-link" class="primary-action" type="button">
+          Copy link
+        </button>
+      </footer>
+    </div>
+  </dialog>
+
+  <noscript>
+    <p class="javascript-required">
+      Enable JavaScript to use the fee coverage calculator.
+    </p>
+  </noscript>
+</section>
+
+<script>
+  import "./client.ts"
+</script>
+
+<style is:global>
+  .sai-calculator {
+    --calc-panel: rgb(255 255 255);
+    --calc-panel-2: rgb(246 248 251);
+    --calc-input: rgb(255 255 255);
+    --calc-border: rgb(15 23 42 / 14%);
+    --calc-accent: rgb(103 232 249);
+    --calc-accent-hover: rgb(165 243 252);
+    --calc-accent-ink: rgb(15 23 42);
+    --calc-accent-readable: rgb(14 116 144);
+    --calc-accent-soft: rgb(103 232 249 / 18%);
+    --calc-primary-result: rgb(22 78 99);
+    --calc-danger: rgb(190 24 93);
+    --calc-danger-soft: rgb(190 24 93 / 8%);
+
+    width: min(1180px, calc(100% - 2rem));
+    min-height: 65vh;
+    margin: 0 auto;
+    padding: 4rem 0 5rem;
+    color: var(--aw-color-text-default);
+  }
+
+  .dark .sai-calculator {
+    --calc-panel: rgb(24 34 48);
+    --calc-panel-2: rgb(32 45 62);
+    --calc-input: rgb(16 23 32);
+    --calc-border: rgb(229 236 246 / 15%);
+    --calc-accent-readable: rgb(103 232 249);
+    --calc-accent-soft: rgb(103 232 249 / 10%);
+    --calc-primary-result: rgb(37 73 88);
+    --calc-danger: rgb(251 113 133);
+    --calc-danger-soft: rgb(251 113 133 / 9%);
+  }
+
+  .sai-calculator button,
+  .sai-calculator input {
+    font: inherit;
+  }
+
+  .sai-calculator button {
+    cursor: pointer;
+  }
+
+  .sai-calculator [hidden] {
+    display: none !important;
+  }
+
+  .sai-calculator .calculator-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: flex-end;
+  }
+
+  .sai-calculator .calculator-eyebrow {
+    margin: 0;
+    color: var(--calc-accent-readable);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .sai-calculator h1 {
+    margin: 0.3rem 0 0.55rem;
+    color: var(--aw-color-text-default);
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .sai-calculator .calculator-intro {
+    max-width: 720px;
+    margin: 0;
+    color: var(--aw-color-text-muted);
+    font-size: 1.04rem;
+    line-height: 1.55;
+  }
+
+  .sai-calculator .top-actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.65rem;
+  }
+
+  .sai-calculator .primary-action {
+    flex: 0 0 auto;
+    padding: 0.75rem 1rem;
+    color: var(--calc-accent-ink);
+    font-weight: 750;
+    background: var(--calc-accent);
+    border: 1px solid var(--calc-accent);
+    border-radius: 0.7rem;
+  }
+
+  .sai-calculator .primary-action:hover,
+  .sai-calculator .primary-action:focus-visible {
+    background: var(--calc-accent-hover);
+    border-color: var(--calc-accent-hover);
+  }
+
+  .sai-calculator .share-calculations,
+  .sai-calculator .shared-session-actions button:last-child,
+  .sai-calculator dialog footer button:first-child {
+    padding: 0.75rem 1rem;
+    color: var(--calc-accent-readable);
+    font-weight: 700;
+    background: var(--calc-accent-soft);
+    border: 1px solid var(--calc-accent);
+    border-radius: 0.7rem;
+  }
+
+  .sai-calculator .share-calculations:hover,
+  .sai-calculator .share-calculations:focus-visible,
+  .sai-calculator .shared-session-actions button:last-child:hover,
+  .sai-calculator .shared-session-actions button:last-child:focus-visible,
+  .sai-calculator dialog footer button:first-child:hover,
+  .sai-calculator dialog footer button:first-child:focus-visible {
+    color: var(--calc-accent-ink);
+    background: var(--calc-accent-hover);
+  }
+
+  .sai-calculator .storage-note {
+    display: flex;
+    gap: 0.7rem;
+    margin: 1.1rem 0 2rem;
+    color: var(--aw-color-text-muted);
+    font-size: 0.78rem;
+  }
+
+  .sai-calculator .storage-note span + span::before {
+    content: "·";
+    margin-right: 0.7rem;
+  }
+
+  .sai-calculator .storage-error {
+    color: var(--calc-danger);
+  }
+
+  .sai-calculator .shared-session,
+  .sai-calculator .shared-link-warning {
+    margin: 0 0 1rem;
+    padding: 1rem;
+    background: var(--calc-accent-soft);
+    border: 1px solid var(--calc-accent);
+    border-radius: 0.8rem;
+  }
+
+  .sai-calculator .shared-session {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .sai-calculator .shared-session p,
+  .sai-calculator .shared-link-warning {
+    margin-top: 0.2rem;
+    color: var(--aw-color-text-muted);
+    font-size: 0.86rem;
+  }
+
+  .sai-calculator .shared-session-actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.55rem;
+  }
+
+  .sai-calculator .calculator-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .sai-calculator .calculator-card {
+    overflow: hidden;
+    background: var(--calc-panel);
+    border: 1px solid var(--calc-border);
+    border-radius: 1rem;
+    box-shadow: 0 18px 50px rgb(15 23 42 / 8%);
+  }
+
+  .dark .sai-calculator .calculator-card {
+    box-shadow: 0 18px 50px rgb(0 0 0 / 18%);
+  }
+
+  .sai-calculator .calculator-card > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--calc-border);
+  }
+
+  .sai-calculator .card-number {
+    margin: 0;
+    color: var(--aw-color-text-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .sai-calculator .card-actions {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .sai-calculator .card-actions button {
+    padding: 0.35rem 0.55rem;
+    color: var(--aw-color-text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.45rem;
+    font-size: 0.78rem;
+  }
+
+  .sai-calculator .card-actions button:hover,
+  .sai-calculator .card-actions button:focus-visible {
+    color: var(--aw-color-text-default);
+    background: var(--calc-panel-2);
+    border-color: var(--calc-border);
+  }
+
+  .sai-calculator .field-grid {
+    display: grid;
+    grid-template-columns: 1.35fr repeat(4, minmax(125px, 1fr));
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .sai-calculator .field {
+    display: grid;
+    align-content: start;
+    gap: 0.38rem;
+    min-width: 0;
+    color: var(--aw-color-text-muted);
+    font-size: 0.76rem;
+    font-weight: 650;
+  }
+
+  .sai-calculator .input-shell {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    height: 2.65rem;
+    padding: 0 0.65rem;
+    color: var(--aw-color-text-muted);
+    background: var(--calc-input);
+    border: 1px solid var(--calc-border);
+    border-radius: 0.55rem;
+  }
+
+  .sai-calculator .input-shell:focus-within {
+    border-color: var(--calc-accent);
+    box-shadow: 0 0 0 3px var(--calc-accent-soft);
+  }
+
+  .sai-calculator .input-shell input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.55rem 0.35rem;
+    color: var(--aw-color-text-default);
+    background: transparent;
+    border: 0;
+    outline: 0;
+  }
+
+  .sai-calculator .input-shell input::placeholder {
+    color: var(--aw-color-text-muted);
+    opacity: 0.55;
+  }
+
+  .sai-calculator .input-shell > span {
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .sai-calculator .result-panel {
+    display: grid;
+    grid-template-columns: minmax(210px, 0.8fr) 2fr;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--calc-panel-2);
+    border-top: 1px solid var(--calc-border);
+  }
+
+  .sai-calculator .primary-result {
+    display: grid;
+    align-content: center;
+    gap: 0.25rem;
+    padding: 1rem;
+    background: var(--calc-primary-result);
+    border: 1px solid var(--calc-accent);
+    border-radius: 0.7rem;
+  }
+
+  .sai-calculator .primary-result span,
+  .sai-calculator .metric-label {
+    color: var(--aw-color-text-muted);
+    font-size: 0.76rem;
+  }
+
+  .sai-calculator .primary-result span {
+    color: rgb(207 250 254);
+  }
+
+  .sai-calculator .primary-result strong {
+    color: var(--calc-accent);
+    font-size: clamp(1.45rem, 3vw, 2.25rem);
+    letter-spacing: -0.03em;
+  }
+
+  .sai-calculator .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+    gap: 0.65rem;
+  }
+
+  .sai-calculator .metric {
+    display: grid;
+    gap: 0.2rem;
+    align-content: center;
+    padding: 0.6rem 0.75rem;
+    background: var(--calc-input);
+    border-radius: 0.55rem;
+  }
+
+  .sai-calculator .metric strong {
+    overflow-wrap: anywhere;
+    font-size: 0.9rem;
+  }
+
+  .sai-calculator .result-pending,
+  .sai-calculator .result-error {
+    display: block;
+    color: var(--aw-color-text-muted);
+  }
+
+  .sai-calculator .result-pending p,
+  .sai-calculator .result-error p {
+    margin: 0;
+  }
+
+  .sai-calculator .result-error {
+    color: var(--calc-danger);
+    background: var(--calc-danger-soft);
+  }
+
+  .sai-calculator .empty-state,
+  .sai-calculator .javascript-required {
+    padding: 3rem 1rem;
+    color: var(--aw-color-text-muted);
+    text-align: center;
+    background: var(--calc-panel);
+    border: 1px dashed var(--calc-border);
+    border-radius: 1rem;
+  }
+
+  .sai-calculator dialog {
+    width: min(620px, calc(100% - 2rem));
+    max-height: min(760px, calc(100vh - 2rem));
+    padding: 0;
+    overflow: auto;
+    color: var(--aw-color-text-default);
+    background: var(--calc-panel);
+    border: 1px solid var(--calc-border);
+    border-radius: 1rem;
+    box-shadow: 0 24px 80px rgb(0 0 0 / 28%);
+  }
+
+  .sai-calculator dialog::backdrop {
+    background: rgb(2 6 23 / 72%);
+    backdrop-filter: blur(3px);
+  }
+
+  .sai-calculator .share-dialog-content {
+    padding: 1.25rem;
+  }
+
+  .sai-calculator .share-dialog-content > header,
+  .sai-calculator .share-dialog-content > footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .sai-calculator .share-dialog-content h2 {
+    margin: 0.2rem 0 0;
+    font-size: 1.45rem;
+  }
+
+  .sai-calculator .dialog-close {
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--aw-color-text-muted);
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    font-size: 1.65rem;
+    line-height: 1;
+  }
+
+  .sai-calculator .dialog-close:hover,
+  .sai-calculator .dialog-close:focus-visible {
+    color: var(--aw-color-text-default);
+    background: var(--calc-panel-2);
+  }
+
+  .sai-calculator .share-help {
+    margin: 0.8rem 0 1rem;
+    color: var(--aw-color-text-muted);
+    font-size: 0.88rem;
+  }
+
+  .sai-calculator .share-options {
+    display: grid;
+    gap: 0.55rem;
+    max-height: 310px;
+    overflow-y: auto;
+  }
+
+  .sai-calculator .share-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--calc-panel-2);
+    border: 1px solid var(--calc-border);
+    border-radius: 0.65rem;
+  }
+
+  .sai-calculator .share-option input {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--calc-accent-readable);
+  }
+
+  .sai-calculator .share-option span {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .sai-calculator .share-option small {
+    color: var(--aw-color-text-muted);
+  }
+
+  .sai-calculator .share-error,
+  .sai-calculator .share-copy-status {
+    min-height: 1.25rem;
+    margin: 0.75rem 0;
+    color: var(--calc-danger);
+    font-size: 0.84rem;
+  }
+
+  .sai-calculator .share-copy-status {
+    color: var(--calc-accent-readable);
+  }
+
+  .sai-calculator .share-link-field {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.8rem;
+    color: var(--aw-color-text-muted);
+    font-size: 0.78rem;
+  }
+
+  .sai-calculator .share-link-field input {
+    width: 100%;
+    padding: 0.7rem;
+    color: var(--aw-color-text-default);
+    background: var(--calc-input);
+    border: 1px solid var(--calc-border);
+    border-radius: 0.55rem;
+  }
+
+  .sai-calculator dialog footer {
+    justify-content: flex-end !important;
+  }
+
+  @media (max-width: 900px) {
+    .sai-calculator .field-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sai-calculator .field-wide {
+      grid-column: 1 / -1;
+    }
+
+    .sai-calculator .result-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .sai-calculator {
+      width: min(100% - 1rem, 1180px);
+      padding-top: 2rem;
+    }
+
+    .sai-calculator .calculator-heading {
+      display: grid;
+    }
+
+    .sai-calculator .top-actions,
+    .sai-calculator .shared-session,
+    .sai-calculator .shared-session-actions {
+      display: grid;
+    }
+
+    .sai-calculator .top-actions > button,
+    .sai-calculator .shared-session-actions > button {
+      width: 100%;
+    }
+
+    .sai-calculator .storage-note {
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .sai-calculator .storage-note span + span::before {
+      content: none;
+    }
+
+    .sai-calculator .field-grid,
+    .sai-calculator .metric-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sai-calculator .field-wide {
+      grid-column: auto;
+    }
+  }
+</style>

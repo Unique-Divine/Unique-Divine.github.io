@@ -1,0 +1,15 @@
+---
+import SaiCalculator from "~/components/sai-calc/SaiCalculator.astro"
+import PageLayout from "~/layouts/PageLayout.astro"
+import type { MetaData } from "~/types"
+
+const metadata: MetaData = {
+  title: "Sai Fee Coverage Calculator",
+  description:
+    "Calculate the trading volume required to recover a Sai deal cost after revenue share and volume-based payouts.",
+}
+---
+
+<PageLayout metadata={metadata}>
+  <SaiCalculator />
+</PageLayout>
