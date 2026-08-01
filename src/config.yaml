@@ -21,9 +21,9 @@ metadata:
   openGraph:
     site_name: Unique Divine
     images:
-      - url: "~/assets/images/default.png"
-        width: 1200
-        height: 628
+      - url: "~/assets/images/social-preview-ud.png"
+        width: 1921
+        height: 1068
     type: website
   twitter:
     handle: "@UniqueDivine"
