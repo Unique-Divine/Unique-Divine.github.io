@@ -10,6 +10,7 @@ import {
 } from "./model.ts"
 import {
   buildSharedCalculationsUrl,
+  MAX_SHARED_CALCULATIONS,
   mergeSharedCalculations,
   readSharedCalculationsUrl,
   removeSharedCalculationsFromUrl,
@@ -313,7 +314,9 @@ const buildCard = (record: CalculatorRecord, index: number): HTMLElement => {
 
 const renderCards = (): void => {
   cards.replaceChildren()
-  shareButton.disabled = state.calculations.length === 0
+  shareButton.disabled = !state.calculations.some(
+    (record) => calculateRecord(record).status === "success",
+  )
   if (state.calculations.length === 0) {
     const empty = document.createElement("div")
     empty.className = "empty-state"
@@ -344,6 +347,9 @@ cards.addEventListener("input", (event) => {
   record[fieldName] = input.value
   persistMutation()
   renderResult(card, record)
+  shareButton.disabled = !state.calculations.some(
+    (calculation) => calculateRecord(calculation).status === "success",
+  )
 })
 
 cards.addEventListener("click", (event) => {
@@ -385,18 +391,33 @@ addButton.addEventListener("click", () => {
 
 const closeSharing = (): void => shareDialog.close()
 
+const syncShareSelection = (): void => {
+  const checkboxes = Array.from(
+    shareOptions.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'),
+  )
+  const selectedCount = checkboxes.filter((checkbox) => checkbox.checked).length
+  checkboxes.forEach((checkbox) => {
+    checkbox.disabled =
+      !checkbox.checked && selectedCount >= MAX_SHARED_CALCULATIONS
+  })
+  copyShareLink.disabled = selectedCount === 0
+}
+
 const openSharing = (): void => {
   shareOptions.replaceChildren()
   shareError.hidden = true
   shareLinkField.hidden = true
   shareCopyStatus.textContent = ""
-  state.calculations.forEach((record, index) => {
+  const shareable = state.calculations
+    .map((record, index) => ({ record, index }))
+    .filter(({ record }) => calculateRecord(record).status === "success")
+  shareable.forEach(({ record, index }, optionIndex) => {
     const option = document.createElement("label")
     option.className = "share-option"
     const checkbox = document.createElement("input")
     checkbox.type = "checkbox"
     checkbox.value = record.id
-    checkbox.checked = true
+    checkbox.checked = optionIndex < MAX_SHARED_CALCULATIONS
     const text = document.createElement("span")
     const name = document.createElement("strong")
     name.textContent = record.label.trim() || `Calculation ${index + 1}`
@@ -406,7 +427,7 @@ const openSharing = (): void => {
     option.append(checkbox, text)
     shareOptions.append(option)
   })
-  copyShareLink.disabled = state.calculations.length === 0
+  syncShareSelection()
   shareDialog.showModal()
 }
 
@@ -414,10 +435,7 @@ shareButton.addEventListener("click", openSharing)
 closeShareDialog.addEventListener("click", closeSharing)
 cancelShareDialog.addEventListener("click", closeSharing)
 shareOptions.addEventListener("change", () => {
-  const selected = shareOptions.querySelectorAll<HTMLInputElement>(
-    'input[type="checkbox"]:checked',
-  )
-  copyShareLink.disabled = selected.length === 0
+  syncShareSelection()
   shareError.hidden = true
   shareCopyStatus.textContent = ""
 })

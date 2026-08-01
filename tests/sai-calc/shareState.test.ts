@@ -23,28 +23,54 @@ const record = (
   ...overrides,
 })
 
-const encodeTestJson = (value: unknown): string =>
-  btoa(JSON.stringify(value))
-    .replaceAll("+", "-")
-    .replaceAll("/", "_")
-    .replace(/=+$/, "")
-
 describe("calculator share state", () => {
-  test("round-trips multiple compact calculations and Unicode labels", () => {
+  test("encodes the exact compact separator format", () => {
+    expect(encodeSharedCalculations([record("one", { label: "Fade" })])).toBe(
+      "5e3-8-65-100-Fade",
+    )
+  })
+
+  test("uses the shortest exact integer or scientific representation", () => {
+    const payload = encodeSharedCalculations([
+      record("one", {
+        label: "Fractional",
+        feeBps: "7.5",
+        revSharePercent: "0.01",
+        perMillionPayout: "0",
+      }),
+    ])
+
+    expect(payload).toBe("5e3-75e-1-1e-2-0-Fractional")
+    expect(decodeSharedCalculations(payload, () => "decoded")).toEqual([
+      record("decoded", {
+        label: "Fractional",
+        costBasisUsd: "5e3",
+        feeBps: "75e-1",
+        revSharePercent: "1e-2",
+        perMillionPayout: "0",
+      }),
+    ])
+  })
+
+  test("round-trips four calculations and escaped labels", () => {
     const inputs = [
       record("source-1", { label: "提携先 🚀" }),
-      record("source-2", { label: "Second", revSharePercent: "50" }),
+      record("source-2", { label: "under__score" }),
+      record("source-3", { label: "hyphen-label" }),
+      record("source-4", { label: "Fourth", revSharePercent: "50" }),
     ]
     const payload = encodeSharedCalculations(inputs)
 
-    expect(payload).not.toContain("costBasisUsd")
+    expect(payload.split("__")).toHaveLength(4)
+    expect(payload).toContain("under_0_0score")
     let id = 0
-    const decoded = decodeSharedCalculations(payload, () => `shared-${++id}`)
-
-    expect(decoded).toEqual([
-      { ...inputs[0], id: "shared-1" },
-      { ...inputs[1], id: "shared-2" },
-    ])
+    expect(decodeSharedCalculations(payload, () => `shared-${++id}`)).toEqual(
+      inputs.map((input, index) => ({
+        ...input,
+        id: `shared-${index + 1}`,
+        costBasisUsd: "5e3",
+      })),
+    )
   })
 
   test("builds a fragment link while preserving query and fragment values", () => {
@@ -57,47 +83,69 @@ describe("calculator share state", () => {
     expect(parsed.searchParams.get("theme")).toBe("test")
     const fragment = new URLSearchParams(parsed.hash.slice(1))
     expect(fragment.get("note")).toBe("keep")
-    expect(fragment.get("calcs")).toBeTruthy()
+    expect(fragment.get("calcs")).toBe("5e3-8-65-100-Partner scenario")
   })
 
-  test("reads valid links directly into full records with fresh IDs", () => {
+  test("reads valid links into full records with fresh IDs", () => {
     const url = buildSharedCalculationsUrl(
       [record("source")],
       "https://uniquedivine.com/sai-calc",
     )
-    const result = readSharedCalculationsUrl(url, () => "recipient")
 
-    expect(result).toEqual({
+    expect(readSharedCalculationsUrl(url, () => "recipient")).toEqual({
       status: "valid",
-      calculations: [record("recipient")],
+      calculations: [record("recipient", { costBasisUsd: "5e3" })],
     })
   })
 
-  test("rejects malformed, unsupported, and invalid compact payloads", () => {
-    expect(() => decodeSharedCalculations("not+base64")).toThrow(/base64url/)
-    expect(() =>
-      decodeSharedCalculations(encodeTestJson({ v: 2, c: [] })),
-    ).toThrow(/unsupported version/)
-    expect(() =>
-      decodeSharedCalculations(
-        encodeTestJson({
-          v: 1,
-          c: [{ l: "bad", b: 5, f: "8", r: "65", p: "100" }],
-        }),
-      ),
-    ).toThrow(/invalid fields/)
-  })
-
-  test("rejects empty, excessive, and overlong shares", () => {
-    expect(() => encodeSharedCalculations([])).toThrow(/between 1 and 10/)
+  test("rejects empty and excessive shares", () => {
+    expect(() => encodeSharedCalculations([])).toThrow(/between 1 and 4/)
     expect(() =>
       encodeSharedCalculations(
-        Array.from({ length: 11 }, (_, index) => record(String(index))),
+        Array.from({ length: 5 }, (_, index) => record(String(index))),
       ),
-    ).toThrow(/between 1 and 10/)
+    ).toThrow(/between 1 and 4/)
+    expect(() => decodeSharedCalculations("")).toThrow(/between 1 and 4/)
+  })
+
+  test("rejects incomplete and semantically invalid calculations", () => {
+    expect(() =>
+      encodeSharedCalculations([record("blank", { feeBps: "" })]),
+    ).toThrow(/complete, valid/)
+    expect(() =>
+      encodeSharedCalculations([
+        record("impossible", { feeBps: "1", revSharePercent: "90" }),
+      ]),
+    ).toThrow(/complete, valid/)
+    expect(() => decodeSharedCalculations("5e3-1-90-100-impossible")).toThrow(
+      /invalid deal terms/,
+    )
+  })
+
+  test("rejects malformed, non-canonical, and former Base64 payloads", () => {
+    expect(() => decodeSharedCalculations("5e3-7.5-65-100-decimal")).toThrow(
+      /compact format/,
+    )
+    expect(() => decodeSharedCalculations("5e3-75e--1-65-100-bad")).toThrow(
+      /compact format/,
+    )
+    expect(() =>
+      decodeSharedCalculations("5000-8-65-100-not-shortest"),
+    ).toThrow(/non-canonical/)
+    expect(() => decodeSharedCalculations("5e3-8-65-100-bad_escape")).toThrow(
+      /invalid escape/,
+    )
+    expect(() =>
+      decodeSharedCalculations(
+        "eyJ2IjoxLCJjIjpbeyJsIjoiT2xkIEJhc2U2NCBsaW5rIn1dfQ",
+      ),
+    ).toThrow(/compact format/)
+  })
+
+  test("rejects overlong labels and links", () => {
     expect(() =>
       encodeSharedCalculations([record("long", { label: "x".repeat(201) })]),
-    ).toThrow(/invalid fields/)
+    ).toThrow(/label is too long/)
     expect(() =>
       buildSharedCalculationsUrl(
         [record("one")],

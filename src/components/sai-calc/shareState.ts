@@ -1,118 +1,124 @@
-import type { CalculatorRecord } from "./model.ts"
+import BigNumber from "bignumber.js"
+
+import { calculateRecord, type CalculatorRecord } from "./model.ts"
 
 export const SHARED_CALCULATIONS_HASH_KEY = "calcs"
-export const MAX_SHARED_CALCULATIONS = 10
+export const MAX_SHARED_CALCULATIONS = 4
 export const MAX_SHARED_LINK_LENGTH = 8_192
 
 const MAX_LABEL_LENGTH = 200
 const MAX_NUMERIC_LENGTH = 100
 
-interface CompactCalculationV1 {
-  l: string
-  b: string
-  f: string
-  r: string
-  p: string
-}
-
-interface CompactSharedStateV1 {
-  v: 1
-  c: CompactCalculationV1[]
-}
+const FIELD_SEPARATOR = "-"
+const CALCULATION_SEPARATOR = "__"
+const COMPACT_NUMBER_PATTERN = "(?:0|[1-9]\\d*)(?:e-?(?:[1-9]\\d*))?"
+const COMPACT_CALCULATION_PATTERN = new RegExp(
+  `^(${COMPACT_NUMBER_PATTERN})-(${COMPACT_NUMBER_PATTERN})-(${COMPACT_NUMBER_PATTERN})-(${COMPACT_NUMBER_PATTERN})-(.*)$`,
+  "s",
+)
 
 export type SharedLinkReadResult =
   | { status: "absent" }
   | { status: "invalid"; message: string }
   | { status: "valid"; calculations: CalculatorRecord[] }
 
-const encodeBase64Url = (value: string): string => {
-  const bytes = new TextEncoder().encode(value)
-  let binary = ""
-  for (const byte of bytes) binary += String.fromCharCode(byte)
-  return btoa(binary)
-    .replaceAll("+", "-")
-    .replaceAll("/", "_")
-    .replace(/=+$/, "")
-}
-
-const decodeBase64Url = (value: string): string => {
-  if (!/^[A-Za-z0-9_-]+$/.test(value)) {
-    throw new Error("The shared calculation payload is not valid base64url.")
+const compactNumber = (value: string): string => {
+  const trimmed = value.trim()
+  if (trimmed.length === 0 || trimmed.length > MAX_NUMERIC_LENGTH) {
+    throw new Error("Shared calculation numbers must be valid and bounded.")
   }
-  const base64 = value.replaceAll("-", "+").replaceAll("_", "/")
-  const padded = base64.padEnd(Math.ceil(base64.length / 4) * 4, "=")
-  const binary = atob(padded)
-  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0))
-  return new TextDecoder("utf-8", { fatal: true }).decode(bytes)
-}
 
-const compactCalculation = (
-  record: CalculatorRecord,
-): CompactCalculationV1 => ({
-  l: record.label,
-  b: record.costBasisUsd,
-  f: record.feeBps,
-  r: record.revSharePercent,
-  p: record.perMillionPayout,
-})
-
-const isBoundedString = (value: unknown, maxLength: number): value is string =>
-  typeof value === "string" && value.length <= maxLength
-
-const isCompactCalculation = (
-  value: unknown,
-): value is CompactCalculationV1 => {
-  if (!value || typeof value !== "object") return false
-  const record = value as Partial<CompactCalculationV1>
-  return (
-    isBoundedString(record.l, MAX_LABEL_LENGTH) &&
-    isBoundedString(record.b, MAX_NUMERIC_LENGTH) &&
-    isBoundedString(record.f, MAX_NUMERIC_LENGTH) &&
-    isBoundedString(record.r, MAX_NUMERIC_LENGTH) &&
-    isBoundedString(record.p, MAX_NUMERIC_LENGTH)
-  )
-}
-
-const parseCompactState = (value: unknown): CompactSharedStateV1 => {
-  if (!value || typeof value !== "object") {
-    throw new Error("The shared calculation payload must be an object.")
-  }
-  const state = value as Partial<CompactSharedStateV1>
-  if (state.v !== 1) {
-    throw new Error("This shared calculation link uses an unsupported version.")
-  }
-  if (
-    !Array.isArray(state.c) ||
-    state.c.length === 0 ||
-    state.c.length > MAX_SHARED_CALCULATIONS
-  ) {
+  const number = new BigNumber(trimmed)
+  if (!number.isFinite() || number.isNegative()) {
     throw new Error(
-      `A shared link must contain 1–${MAX_SHARED_CALCULATIONS} calculations.`,
+      "Shared calculation numbers must be non-negative and finite.",
     )
   }
-  if (!state.c.every(isCompactCalculation)) {
-    throw new Error("One or more shared calculations have invalid fields.")
+  if (number.isZero()) return "0"
+
+  const exponential = number.toExponential()
+  const match = /^(\d)(?:\.(\d+))?e([+-]\d+)$/.exec(exponential)
+  if (!match)
+    throw new Error("A shared calculation number could not be encoded.")
+
+  const fraction = match[2] ?? ""
+  const coefficient = `${match[1]}${fraction}`
+  const exponent = Number(match[3]) - fraction.length
+  const scientific = exponent === 0 ? coefficient : `${coefficient}e${exponent}`
+
+  if (
+    number.isInteger() &&
+    number.e !== null &&
+    number.e < MAX_NUMERIC_LENGTH
+  ) {
+    const integer = number.toFixed(0)
+    if (integer.length <= scientific.length) return integer
   }
-  return { v: 1, c: state.c }
+  if (scientific.length > MAX_NUMERIC_LENGTH) {
+    throw new Error("A shared calculation number is too long.")
+  }
+  return scientific
+}
+
+const escapeLabel = (label: string): string => {
+  if (label.length > MAX_LABEL_LENGTH) {
+    throw new Error("A shared calculation label is too long.")
+  }
+  return label.replaceAll("_", "_0")
+}
+
+const unescapeLabel = (label: string): string => {
+  let decoded = ""
+  for (let index = 0; index < label.length; index += 1) {
+    const character = label[index]
+    if (character !== "_") {
+      decoded += character
+      continue
+    }
+    if (label[index + 1] !== "0") {
+      throw new Error("A shared calculation label has an invalid escape.")
+    }
+    decoded += "_"
+    index += 1
+  }
+  if (decoded.length > MAX_LABEL_LENGTH) {
+    throw new Error("A shared calculation label is too long.")
+  }
+  return decoded
+}
+
+const assertCalculationCount = (
+  count: number,
+  action: "Select" | "contain",
+): void => {
+  if (count === 0 || count > MAX_SHARED_CALCULATIONS) {
+    const subject =
+      action === "Select" ? "Select" : "A shared link must contain"
+    const suffix = action === "Select" ? " to share" : ""
+    throw new Error(
+      `${subject} between 1 and ${MAX_SHARED_CALCULATIONS} calculations${suffix}.`,
+    )
+  }
+}
+
+const compactCalculation = (record: CalculatorRecord): string => {
+  if (calculateRecord(record).status !== "success") {
+    throw new Error("Only complete, valid calculations can be shared.")
+  }
+  return [
+    compactNumber(record.costBasisUsd),
+    compactNumber(record.feeBps),
+    compactNumber(record.revSharePercent),
+    compactNumber(record.perMillionPayout),
+    escapeLabel(record.label),
+  ].join(FIELD_SEPARATOR)
 }
 
 export const encodeSharedCalculations = (
   calculations: CalculatorRecord[],
 ): string => {
-  if (
-    calculations.length === 0 ||
-    calculations.length > MAX_SHARED_CALCULATIONS
-  ) {
-    throw new Error(
-      `Select between 1 and ${MAX_SHARED_CALCULATIONS} calculations to share.`,
-    )
-  }
-  const compact: CompactSharedStateV1 = {
-    v: 1,
-    c: calculations.map(compactCalculation),
-  }
-  parseCompactState(compact)
-  return encodeBase64Url(JSON.stringify(compact))
+  assertCalculationCount(calculations.length, "Select")
+  return calculations.map(compactCalculation).join(CALCULATION_SEPARATOR)
 }
 
 export const decodeSharedCalculations = (
@@ -122,15 +128,39 @@ export const decodeSharedCalculations = (
   if (payload.length > MAX_SHARED_LINK_LENGTH) {
     throw new Error("The shared calculation payload is too long.")
   }
-  const compact = parseCompactState(JSON.parse(decodeBase64Url(payload)))
-  return compact.c.map((record) => ({
-    id: idFactory(),
-    label: record.l,
-    costBasisUsd: record.b,
-    feeBps: record.f,
-    revSharePercent: record.r,
-    perMillionPayout: record.p,
-  }))
+  if (payload.length === 0) assertCalculationCount(0, "contain")
+  const compactCalculations = payload.split(CALCULATION_SEPARATOR)
+  assertCalculationCount(compactCalculations.length, "contain")
+
+  return compactCalculations.map((compact) => {
+    const match = COMPACT_CALCULATION_PATTERN.exec(compact)
+    if (!match) {
+      throw new Error("A shared calculation has an invalid compact format.")
+    }
+    const numbers = match.slice(1, 5)
+    if (
+      numbers.some(
+        (number) =>
+          number === undefined ||
+          number.length > MAX_NUMERIC_LENGTH ||
+          compactNumber(number) !== number,
+      )
+    ) {
+      throw new Error("A shared calculation has a non-canonical number.")
+    }
+    const record: CalculatorRecord = {
+      id: idFactory(),
+      costBasisUsd: numbers[0]!,
+      feeBps: numbers[1]!,
+      revSharePercent: numbers[2]!,
+      perMillionPayout: numbers[3]!,
+      label: unescapeLabel(match[5] ?? ""),
+    }
+    if (calculateRecord(record).status !== "success") {
+      throw new Error("A shared calculation contains invalid deal terms.")
+    }
+    return record
+  })
 }
 
 export const buildSharedCalculationsUrl = (
