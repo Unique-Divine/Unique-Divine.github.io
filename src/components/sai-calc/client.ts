@@ -285,7 +285,7 @@ const buildCard = (record: CalculatorRecord, index: number): HTMLElement => {
     field("Scenario name", "label", record.label, {
       placeholder: "e.g. Partner launch incentive",
     }),
-    field("Cost basis", "costBasisUsd", record.costBasisUsd, {
+    field("Cost basis / Target ROI", "costBasisUsd", record.costBasisUsd, {
       prefix: "$",
       placeholder: "5000",
     }),
