@@ -3,10 +3,10 @@ publishDate: 2025-01-08T00:00:00Z
 author: Unique Divine
 title: 'Structured Freedom: Using a Flexible Schedule to Unlock More Productivity'
 excerpt: ''
-image: '/winning/01/cover.png'
-category: Winning
+image: '/self-improvement/01/cover.png'
+category: Self-Improvement
 tags:
-  - 'winning'
+  - 'self-improvement'
   - 'productivity'
 # metadata:
 #   canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css

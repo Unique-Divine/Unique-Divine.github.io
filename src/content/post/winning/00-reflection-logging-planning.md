@@ -6,9 +6,9 @@ excerpt: "What if the key to achieving your goals wasn’t planning ahead, but l
 This was the lesson I learned through years of tracking progress in fitness and
 productivity."
 image: "/glitch-girl.jpg"
-category: Winning
+category: Self-Improvement
 tags:
-  - "winning"
+  - "self-improvement"
   - "productivity"
   - "meta-learning"
   - "fitness"
@@ -131,7 +131,7 @@ work as possible. Here's the log for the first few weeks of class that
 semester:
 
 <figure> 
-  <img src="/winning/00/log_feb20.png" >
+  <img src="/self-improvement/00/log_feb20.png" >
   <figcaption>Log: First 2 Weeks of Feb. 2020</figcaption>
 </figure>
 
@@ -200,7 +200,7 @@ So, I stopped.
 Let's fast forward a few months up to the present day (currently the end of September 2020)...
 
 <figure> 
-  <img src="/winning/00/log_sep20.png" >
+  <img src="/self-improvement/00/log_sep20.png" >
   <figcaption>Log: The past 2 Weeks (Sep. 2020)</figcaption>
 </figure>
 

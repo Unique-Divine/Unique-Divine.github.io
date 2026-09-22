@@ -3,8 +3,8 @@ publishDate: 2026-02-16T00:00:00Z
 author: "Unique Divine"
 title: "Brain Optimization, Focus, Nootropics, Testosterone, and Feeding the Mind"
 excerpt: 'Engineering the biology of focus and skill acquisition. This guide connects nootropic stacks for memory with endocrinology for high-output work and muscle growth. Memory consolidation, structural fats for brain integrity, and the neurochemistry of deep, focused work.'
-image: '/winning/03/cover.png'
-category: Winning
+image: '/self-improvement/03/cover.png'
+category: Self-Improvement
 tags:
   - nootropics
   - brain-health
@@ -14,7 +14,7 @@ tags:
   - neuroplasticity
   - fitness
   - productivity
-  - winning
+  - self-improvement
 ---
 
 Brain health is a structural challenge, not a mental one. This guide connects the

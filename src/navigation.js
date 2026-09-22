@@ -58,8 +58,8 @@ export const headerData = {
           href: getPermalink("/web3/nibiru/nibi-inc", "post"),
         },
         {
-          text: "Productivity & Winning",
-          href: getPermalink("winning", "tag"),
+          text: "Self-Improvement & Productivity",
+          href: getPermalink("self-improvement", "tag"),
         },
         {
           text: "Coding",
@@ -106,10 +106,6 @@ export const footerData = {
       ],
     },
   ],
-  // secondaryLinks: [
-  //   { text: 'Terms', href: getPermalink('/terms') },
-  //   { text: 'Privacy Policy', href: getPermalink('/privacy') },
-  // ],
   socialLinks: [
     { ariaLabel: "X", icon: "tabler:brand-x", href: socialHrefs.x },
     {
