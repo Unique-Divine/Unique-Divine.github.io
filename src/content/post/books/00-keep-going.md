@@ -6,10 +6,10 @@ excerpt: "Keep Going is a book about how to stay in love with your craft. The fo
 creative work, however many of the ideas in the book are applicable to a variety
 of domains."
 image: "/glitch-girl.jpg"
-category: Winning
+category: Self-Improvement
 tags:
   - "books"
-  - "winning"
+  - "self-improvement"
   - "creativity"
 # metadata:
 #   canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css

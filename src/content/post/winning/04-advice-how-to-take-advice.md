@@ -5,12 +5,12 @@ title: "Advice On How To Take Advice (Including Mine)"
 excerpt: >-
   The best advice doesn't demand blind obedience. It's tool to help you
   adapt, innovate, and find your own way forward.
-image: '/winning/04/cover.png'
-category: Winning
+image: '/self-improvement/04/cover.png'
+category: Self-Improvement
 tags:
   - "japanese"
   - "ajatt"
-  - "winning"
+  - "self-improvement"
   - "productivity"
   - "meta-learning"
 ---

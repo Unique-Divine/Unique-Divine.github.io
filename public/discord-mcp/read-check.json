@@ -1,0 +1,11 @@
+{
+  "checked_on": "2026-10-10",
+  "application_id": "1041378802477051977",
+  "public_bot": false,
+  "check_type": "Discord REST diagnostic, not an end-to-end MCP demonstration",
+  "endpoint": "GET /channels/1171230865800568852/messages?limit=1",
+  "http_status": 200,
+  "messages_returned": 1,
+  "content_field_present": true,
+  "content_length": 0
+}

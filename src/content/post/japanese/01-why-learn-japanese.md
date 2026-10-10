@@ -4,10 +4,10 @@ author: Unique Divine
 title: 'Why I Learned Japanese (And What It Taught Me About Myself)'
 excerpt: "A short post on the real reason I learned Japanese (It's not anime)."
 image: '/glitch-girl.jpg'
-category: Winning
+category: Self-Improvement
 tags:
   - 'japanese'
-  - 'winning'
+  - 'self-improvement'
   - 'meta-learning'
 ---
 

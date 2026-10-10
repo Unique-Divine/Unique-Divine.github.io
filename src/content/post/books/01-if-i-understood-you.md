@@ -4,11 +4,11 @@ author: Unique Divine
 title: '"If I understood you, would I have this look on my face?" by Alan Alda'
 excerpt: ''
 image: '/glitch-girl.jpg'
-category: Winning
+category: Self-Improvement
 tags:
   - 'books'
   - 'communication'
-  - 'winning'
+  - 'self-improvement'
 # metadata:
 #   canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
 ---

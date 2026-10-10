@@ -4,7 +4,7 @@ author: John Smith
 title: Get started with AstroWind to create a website using Astro and Tailwind CSS
 excerpt: Start your web journey with AstroWind – harness Astro and Tailwind CSS for a stunning site. Explore our guide now.
 image: '/glitch-girl.jpg'
-category: Winning
+category: Self-Improvement
 tags:
   - astro
   - tailwind css
@@ -12,6 +12,8 @@ metadata:
   canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
 draft: true
 ---
+
+<!-- TODO: DELETE ASTROWIND TEMPLATE POST. Draft-hidden. Remove in a later cleanup. -->
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis

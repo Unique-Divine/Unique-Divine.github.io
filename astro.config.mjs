@@ -33,6 +33,10 @@ export default defineConfig({
 
   output: "static",
 
+  redirects: {
+    "/discord-mcp/intent-review": "/discord-mcp",
+  },
+
   integrations: [
     tailwind({
       applyBaseStyles: false,
