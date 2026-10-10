@@ -32,16 +32,17 @@ The integration operates in these Discord guilds:
 | Nibiru | `947911971515293759` |
 | Sai \| Onchain Markets | `1288600349602484315` |
 
-Discord's Public Bot setting is disabled. Installation is restricted to the
-application owner, Unique Divine; the application does not offer public
-installation. Unique Divine is also the sole authorized operator of the local
-MCP connection. Server membership does not grant access to that connection.
+The bot is publicly installable in Discord servers. Installation does not grant
+access to the local MCP connection, which Unique Divine operates personally.
+The documented operational scope is Nibiru and Sai | Onchain Markets. Installation
+in another server does not authorize its members to invoke the MCP tools or
+establish an agreement to provide service there.
 
 Within these guilds, the operator uses the tool for public-channel communication
 and authorized administrative tasks. Discord channel permissions and the scope
 of the operator's request determine the permitted access and actions. Extending
-operation to another guild requires an installation by the owner and an update
-to the documented guild scope.
+operator-directed workflows to another guild requires authorization for that
+work and an update to the documented operational scope.
 
 ## Relationship with Discord
 

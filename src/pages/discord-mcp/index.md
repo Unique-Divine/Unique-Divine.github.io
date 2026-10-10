@@ -33,16 +33,17 @@ The integration operates in these Discord guilds:
 | Nibiru | `947911971515293759` |
 | Sai \| Onchain Markets | `1288600349602484315` |
 
-Discord's Public Bot setting is disabled. Installation is restricted to the
-application owner, Unique Divine; the application does not offer public
-installation. Unique Divine is also the sole authorized operator of the local
-MCP connection. Server membership does not grant access to that connection.
+The bot is publicly installable in Discord servers. Installation does not grant
+access to the local MCP connection, which Unique Divine operates personally.
+The documented operational scope is Nibiru and Sai | Onchain Markets. Installation
+in another server does not authorize its members to invoke the MCP tools or
+establish an agreement to provide service there.
 
 Within these guilds, the operator uses the tool for public-channel communication
 and authorized administrative tasks. Discord channel permissions and the scope
 of the operator's request determine the permitted access and actions. Extending
-operation to another guild requires an installation by the owner and an update
-to the documented guild scope.
+operator-directed workflows to another guild requires authorization for that
+work and an update to the documented operational scope.
 
 ## Public policies
 
@@ -122,12 +123,42 @@ and its
 are recorded operational precedent. Discord visibility depends on the viewer's
 access to that channel.
 
+### Validator announcement evidence
+
+![The bot's PebbleDB upgrade instructions in Nibiru's mainnet-validators channel](/discord-mcp/validator-upgrade-announcement.png)
+
+This operator-provided screenshot shows UniqueDivine-PC-AI posting the
+"PebbleDB note for v2.19.0" in Nibiru's `mainnet-validators` channel on September
+7, 2026. It includes database configuration, migration instructions, and links
+to node documentation and snapshots. This is an example of the operational
+context used to prepare and review upgrade communications.
+
+[Open the full screenshot](/discord-mcp/validator-upgrade-announcement.png).
+It demonstrates a historical bot publication in Discord. It does not demonstrate
+a successful MCP history read or a Guild Members workflow. Reading the bot's own
+messages alone does not require Message Content; the requested feature also
+retrieves surrounding messages from other participants.
+
+An example operator request is:
+
+> Review this upgrade announcement and its surrounding replies to identify the
+> established format and follow-up instructions. Prepare a draft for the next
+> upgrade. Do not publish anything.
+
+The `discord_read_messages` arguments above illustrate that bounded read.
+During this session, a separate live call with the same channel ID and `limit: 1`
+returned "Discord client not logged in." A fresh Gateway login subsequently
+returned "Used disallowed intents." These checks are failure diagnostics,
+not a successful feature demonstration.
+
 ### Access diagnostic
 
 A read-only REST check using the configured bot credential fetched one message
 from `mainnet-validators` on October 10, 2026. Discord returned HTTP 200 and one
-message object, but its content field was empty. The same credential confirmed
-that Public Bot is disabled.
+message object, but its content field was empty. At the time of that check,
+the same credential confirmed that Public Bot was disabled. A later check on October 10 confirmed that Public
+Bot was enabled and the bot had the Verified Bot badge. The JSON below records
+the earlier check.
 
 ```json
 {
