@@ -1,7 +1,12 @@
 import { cloneElement, useEffect, useState } from "react"
-import { GitHubCalendar } from "react-github-calendar"
+import { ActivityCalendar, type Activity } from "react-activity-calendar"
 
 import "./GitHubActivity.css"
+
+import {
+  readCachedContributions,
+  refreshContributions,
+} from "./githubActivityCache"
 
 const theme = {
   light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
@@ -18,6 +23,26 @@ function describeActivity({ date, count }: { date: string; count: number }) {
 
 export default function GitHubActivity() {
   const [colorScheme, setColorScheme] = useState<"light" | "dark" | null>(null)
+  const [data, setData] = useState<Activity[] | null>(null)
+  const [unavailable, setUnavailable] = useState(false)
+
+  useEffect(() => {
+    let active = true
+    const cached = readCachedContributions()
+    if (cached) setData(cached)
+
+    refreshContributions()
+      .then((contributions) => {
+        if (active) setData(contributions)
+      })
+      .catch(() => {
+        if (active && !cached) setUnavailable(true)
+      })
+
+    return () => {
+      active = false
+    }
+  }, [])
 
   useEffect(() => {
     const root = document.documentElement
@@ -58,10 +83,18 @@ export default function GitHubActivity() {
               aria-label="Loading GitHub activity"
               className="h-28 rounded bg-slate-100 motion-safe:animate-pulse dark:bg-slate-800"
             />
+          ) : unavailable ? (
+            <p role="status">
+              GitHub activity is unavailable. You can still view my profile
+              above.
+            </p>
           ) : (
-            <GitHubCalendar
-              username="Unique-Divine"
-              year="last"
+            <ActivityCalendar
+              data={data ?? []}
+              loading={data === null}
+              labels={{
+                totalCount: "{{count}} contributions in the last year",
+              }}
               colorScheme={colorScheme}
               theme={theme}
               blockSize={12}
@@ -69,7 +102,6 @@ export default function GitHubActivity() {
               blockRadius={3}
               fontSize={14}
               showWeekdayLabels={["mon", "wed", "fri"]}
-              errorMessage="GitHub activity is unavailable. You can still view my profile above."
               renderBlock={(block, activity) =>
                 cloneElement(block, {
                   "aria-label": describeActivity(activity),
