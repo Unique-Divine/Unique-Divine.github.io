@@ -110,6 +110,14 @@
   @apply text-cyan-400 dark:text-cyan-400;
 }
 
+.prose .project-evidence a {
+  @apply text-slate-700 dark:text-slate-200;
+}
+
+.prose .project-evidence a:hover {
+  @apply text-blue-600 dark:text-cyan-300;
+}
+
 /* By default, some styling in `.prose` is including "`" characters around
 * in-line code. We edit the `::before` and `::after` blocks to remove them.
 * */

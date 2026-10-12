@@ -8,6 +8,10 @@ export const headerData = {
       text: "About",
       href: getPermalink("/about-unique-divine"),
     },
+    {
+      text: "Projects",
+      href: getPermalink("/code/projects"),
+    },
 
     // TODO: Include in top navigation?
     // {

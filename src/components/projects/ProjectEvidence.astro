@@ -1,0 +1,109 @@
+---
+import { getCollection } from "astro:content"
+
+import { getProjects } from "~/utils/projects"
+
+const projects = await getProjects()
+const current = projects.filter(({ data }) => data.group === "current")
+const earlier = projects.filter(({ data }) => data.group === "earlier")
+const research = await getCollection(
+  "post",
+  ({ slug, data }) => slug.startsWith("code/projects/") && !data.draft,
+)
+research.sort((a, b) => a.data.title.localeCompare(b.data.title))
+const earlierLinks = [
+  ...earlier.map(({ slug, data }) => ({
+    title: data.title,
+    href: `/code/projects/${slug}`,
+  })),
+  ...research.map(({ slug, data }) => ({
+    title: data.title,
+    href: `/${slug}`,
+  })),
+]
+---
+
+<section
+  aria-labelledby="code-projects-title"
+  class="project-evidence not-prose my-12 sm:my-16"
+>
+  <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+    <span
+      aria-hidden="true"
+      class="flex items-center gap-2 font-mono text-sm text-muted"
+    >
+      <span class="h-2 w-2 rounded-full bg-amber-600 dark:bg-cyan-300"></span> 01
+    </span>
+    <h2
+      id="code-projects-title"
+      class="font-heading text-2xl sm:text-3xl font-bold tracking-tight"
+    >
+      What I've Built / Evidence
+    </h2>
+    <span
+      aria-hidden="true"
+      class="h-px flex-1 min-w-8 bg-slate-200 dark:bg-slate-700"></span>
+  </div>
+  <p class="mt-4 text-lg text-muted">
+    A few things I've worked on. The write-ups explain what I built and why we
+    made the decisions we did.
+  </p>
+  <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-4">
+    {
+      current.map(({ slug, data }) => (
+        <li class="flex flex-wrap items-center gap-3">
+          <a
+            href={`/code/projects/${slug}`}
+            class="inline-flex items-center gap-2 rounded-full border border-amber-700/20 dark:border-slate-600 bg-amber-50/50 dark:bg-slate-800/40 px-4 py-2 font-mono text-sm hover:border-amber-700/60 dark:hover:border-cyan-300 focus-visible:outline-offset-4"
+          >
+            <span aria-hidden="true" class="text-muted">
+              →
+            </span>
+            {data.title}
+          </a>
+          {data.links
+            .filter(({ href }) => new URL(href).hostname === "github.com")
+            .map(({ href }) => (
+              <a
+                href={href}
+                aria-label={`${data.title} on GitHub`}
+                class="text-sm text-muted hover:text-blue-600 dark:hover:text-cyan-300 underline underline-offset-4"
+              >
+                GitHub <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+        </li>
+      ))
+    }
+  </ul>
+  {
+    earlierLinks.length > 0 && (
+      <div class="mt-8">
+        <h3 class="font-heading text-lg font-semibold">
+          Research & Earlier Work
+        </h3>
+        <ul class="mt-3 flex flex-wrap gap-3">
+          {earlierLinks.map(({ title, href }) => (
+            <li>
+              <a
+                href={href}
+                class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 px-4 py-2 text-sm hover:text-blue-600 dark:hover:text-cyan-300 focus-visible:outline-offset-4"
+              >
+                <span aria-hidden="true" class="text-muted">
+                  →
+                </span>
+                {title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  <a
+    href="/code/projects"
+    class="mt-6 inline-block text-sm text-blue-600 dark:text-cyan-300 hover:underline"
+  >
+    All Project Stories <span aria-hidden="true">→</span>
+  </a>
+</section>

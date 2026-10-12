@@ -1,0 +1,37 @@
+---
+import { getProjects } from "~/utils/projects"
+
+import ProjectList from "./ProjectList.astro"
+
+const projects = (await getProjects())
+  .filter(({ data }) => data.featured && data.group === "current")
+  .slice(0, 4)
+---
+
+{
+  projects.length > 0 && (
+    <section
+      aria-labelledby="featured-projects-title"
+      class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 py-12 md:py-16"
+    >
+      <div class="flex flex-wrap items-baseline justify-between gap-4">
+        <h2
+          id="featured-projects-title"
+          class="text-3xl sm:text-4xl font-heading font-bold tracking-tight"
+        >
+          What I've Built / Evidence
+        </h2>
+        <a
+          class="text-blue-600 dark:text-cyan-300 font-medium hover:underline"
+          href="/code/projects"
+        >
+          All Projects →
+        </a>
+      </div>
+      <p class="mt-3 text-lg text-muted">
+        Software I've built and maintained, with the stories behind it.
+      </p>
+      <ProjectList projects={projects} />
+    </section>
+  )
+}
