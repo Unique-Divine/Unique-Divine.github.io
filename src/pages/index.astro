@@ -1,4 +1,5 @@
 ---
+import GitHubActivity from "~/components/home/GitHubActivity"
 import HomePage from "~/components/home/HomePage"
 import StatusClock from "~/components/home/StatusClock"
 import BlogLatestPosts from "~/components/widgets/BlogLatestPosts.astro"
@@ -25,6 +26,8 @@ const metadata: MetaData = {
   <HomePage>
     <StatusClock client:idle />
   </HomePage>
+
+  <GitHubActivity client:visible />
 
   <BlogLatestPosts
     id="blog"
