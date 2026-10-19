@@ -100,3 +100,11 @@ contents-test:
 # Preview the article alongside the current website work without deploying.
 research-preview:
     bun run astro dev --host 127.0.0.1 --port 4323
+
+# Refresh the public skills snapshot from a local jiyuu checkout.
+skills-import source:
+    bun scripts/import-skills.ts {{quote(source)}}
+
+# Verify skill import, route mapping, and snapshot integrity.
+skills-test:
+    bun test tests/skills
