@@ -27,7 +27,7 @@ const currentPage = page.currentPage ?? 1
 const metadata = {
   title: `${sectionTitle ?? `Category '${category}'`}${currentPage > 1 ? ` — Page ${currentPage}` : ""}`,
   robots: {
-    index: blogCategoryRobots?.index,
+    index: blogCategoryRobots?.index && currentPage === 1,
     follow: blogCategoryRobots?.follow,
   },
 }

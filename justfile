@@ -85,6 +85,14 @@ fmt:
 lint:
   bun run lint:eslint
 
+# List tag spellings, display names, article counts, and normalization collisions.
+tags:
+  bun scripts/tags.ts
+
+# Test sitemap publication rules, tag inventories, and generated output validation.
+sitemap-test: build
+  bun test tests/sitemap
+
 # Refresh the block-latency article assets from the saved boku profiling directory.
 research-import profiling:
     python3 scripts/import-block-latency.py {{quote(profiling)}}

@@ -168,7 +168,7 @@ const getAppBlog = () => {
       isEnabled: true,
       pathname: "tag",
       robots: {
-        index: false,
+        index: true,
         follow: true,
       },
     },

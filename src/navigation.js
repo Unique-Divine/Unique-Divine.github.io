@@ -110,6 +110,7 @@ export const headerData = {
 }
 
 export const footerData = {
+  secondaryLinks: [{ text: "Sitemap", href: getPermalink("/sitemap") }],
   links: [
     {
       title: "Socials",

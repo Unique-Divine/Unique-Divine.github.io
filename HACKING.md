@@ -92,6 +92,9 @@ All commands are run from the root of the project using `just`:
 
 ## Configuration
 
+See [Sitemap and tags](docs/sitemap-and-tags.md) for public-page discovery,
+tag conventions, the `just tags` inventory, and sitemap validation.
+
 Basic configuration file: `./src/config.yaml`
 
 The main site configuration is in `src/config.yaml`, including:

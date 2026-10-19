@@ -4,10 +4,9 @@ import type { GetStaticPaths, InferGetStaticPropsType } from "astro"
 import Headline from "~/components/blog/Headline.astro"
 import BlogList from "~/components/blog/List.astro"
 import Pagination from "~/components/blog/Pagination.astro"
-import { getSectionTitleOverride } from "~/data/blogSections"
 import Layout from "~/layouts/PageLayout.astro"
 import { blogTagRobots, getStaticPathsBlogTag } from "~/utils/blog"
-import { tagMapName } from "~/utils/utils"
+import { getTagTitle } from "~/utils/tags"
 
 export const prerender = true
 
@@ -19,14 +18,14 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { page, tag } = Astro.props as Props
 
-const sectionTitle = getSectionTitleOverride("tag", tag)
+const sectionTitle = getTagTitle(tag)
 
 const currentPage = page.currentPage ?? 1
 
 const metadata = {
   title: `${sectionTitle ?? `Unique Divine | Posts by tag '${tag}'`}${currentPage > 1 ? ` — Page ${currentPage}` : ""}`,
   robots: {
-    index: blogTagRobots?.index,
+    index: blogTagRobots?.index && currentPage === 1,
     follow: blogTagRobots?.follow,
   },
 }
@@ -34,7 +33,7 @@ const metadata = {
 
 <Layout metadata={metadata}>
   <section class="px-4 md:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
-    <Headline>{sectionTitle ?? `On ${tagMapName(tag)}`}</Headline>
+    <Headline>{sectionTitle}</Headline>
     <BlogList posts={page.data} />
     <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
   </section>
