@@ -51,6 +51,7 @@ const postCollection = defineCollection({
     updateDate: z.date().optional(),
     draft: z.boolean().optional(),
     contentLayout: z.enum(["article", "wide"]).default("article"),
+    stickyToc: z.boolean().default(false),
 
     title: z.string(),
     excerpt: z.string().optional(),

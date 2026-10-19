@@ -1,11 +1,7 @@
 ---
-import styles from "./article-contents.css?raw"
+import type { ContentsItem } from "~/utils/article-contents"
 
-export interface ContentsItem {
-  id: string
-  label: string
-  depth?: 2 | 3
-}
+import styles from "./article-contents.css?raw"
 
 interface Props {
   items: ContentsItem[]
@@ -14,7 +10,7 @@ interface Props {
 const { items } = Astro.props
 ---
 
-<div class="article-contents" data-article-contents>
+<div class="article-contents not-prose" data-article-contents>
   <aside class="article-contents-desktop">
     <nav aria-label="On this page">
       <p class="article-contents-title">On this page</p>
@@ -22,7 +18,7 @@ const { items } = Astro.props
         {
           items.map(({ id, label, depth }) => (
             <li class:list={{ "article-contents-nested": depth === 3 }}>
-              <a href={`#${id}`}>{label}</a>
+              <a href={`#${encodeURIComponent(id)}`}>{label}</a>
             </li>
           ))
         }
@@ -51,7 +47,7 @@ const { items } = Astro.props
         {
           items.map(({ id, label, depth }) => (
             <li class:list={{ "article-contents-nested": depth === 3 }}>
-              <a href={`#${id}`}>{label}</a>
+              <a href={`#${encodeURIComponent(id)}`}>{label}</a>
             </li>
           ))
         }

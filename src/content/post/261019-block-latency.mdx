@@ -13,6 +13,7 @@ tags:
   - nibiru-bft
   - sai
 contentLayout: article
+stickyToc: true
 draft: false
 ---
 
@@ -40,7 +41,7 @@ upgrade.
 The promising result is how much of that interval sits in two places. Removing
 the measured NewHeight interval and both voting intervals, while holding
 everything else fixed, leaves **267.70 ms**, roughly a quarter of a second.
-The [four-scenario table](#opportunities) shows the arithmetic. That gives me a
+The [four-scenario table](#what-would-remain-if-we-removed-the-wait-and-voting) shows the arithmetic. That gives me a
 concrete reason to test shorter scheduling and a different ordering architecture.
 It is a calculation from real phase measurements, not an achieved confirmation
 time or proof that every subtracted cost can disappear.
@@ -50,7 +51,7 @@ chain, so their interval counts do not add together. The observed application
 load was about 1.33 delivered transactions per second on each observer. This is
 a low-load cadence baseline, not a measurement of maximum throughput.
 
-<h2 id="cycle">A block needs agreement, execution, and delivery.</h2>
+## A block needs agreement, execution, and delivery.
 
 The proposer supplies a candidate block containing ordered transactions.
 Validators exchange prevotes and precommits before committing it. Each executing
@@ -72,7 +73,7 @@ The diagram shows a successful round. Invalid proposals, unavailable proposers,
 and delayed votes can cause retries. The arrows explain order; their lengths
 are not measurements of transaction latency.
 
-<h2 id="budget">The largest phase is the wait for the next height.</h2>
+## The largest phase is the wait for the next height.
 
 NewHeight contributes about 61% of the validator's measured interval. Prevote
 and Precommit together contribute about 21%. Each phase contains local work and
@@ -94,7 +95,7 @@ consistent, but their distribution is not an individual-block p50, p95, or p99.
 The available histogram buckets are too coarse to establish precise subsecond
 tail percentiles.
 
-<h2 id="opportunities">What would remain if we removed the wait and voting?</h2>
+## What would remain if we removed the wait and voting?
 
 The validator averages 1,515.04 ms per block. NewHeight contributes 922.49 ms,
 and Prevote plus Precommit contributes 324.85 ms. Subtracting both leaves
@@ -117,7 +118,7 @@ The table is an opportunity estimate, not a throughput forecast or an end-to-end
 transaction latency benchmark. It makes the potential large enough to test
 against representative application load and an explicit confirmation guarantee.
 
-<h2 id="timer">Commit processing uses part of the next-height schedule.</h2>
+## Commit processing uses part of the next-height schedule.
 
 CometBFT v0.37.18 schedules the next height when it enters Commit. Application
 execution and persistence consume some of that interval. NewHeight contains the
@@ -153,7 +154,7 @@ result from the previous block. Shorter cadence can reduce how long newly arrivi
 transactions wait for their next inclusion opportunity, while repeating
 block-level work more frequently. The experiment needs to measure both effects.
 
-<h2 id="upgrades">Blocks resume before the phase budget settles.</h2>
+## Blocks resume before the phase budget settles.
 
 The initial upgrade interruption lasts seconds. Elevated Propose and Precommit
 contributions continue after the restart. I keep the initial gap and the recovery
@@ -171,13 +172,11 @@ the criterion had not been met at six hours. The v2.21.0 observation met it with
 the original capture. The detailed figures retain the longer curves rather than
 showing only selected favorable windows.
 
-<h2 id="scenario">
-  A different ordering architecture changes the voting path.
-</h2>
+## A different ordering architecture changes the voting path.
 
 Prevote plus Precommit contributes 324.85 ms per block on the validator. Setting
 those contributions to zero leaves 1,190.19 ms, if everything else stays fixed.
-The [earlier opportunity table](#opportunities) includes the separate NewHeight
+The [earlier opportunity table](#what-would-remain-if-we-removed-the-wait-and-voting) includes the separate NewHeight
 opportunity and the combined roughly 268 ms scenario.
 
 <Scenario />
@@ -188,7 +187,7 @@ from a replacement protocol. Removing Commit processing and the entire shared
 schedule would double-count an opportunity. Even the zero-NewHeight scenario
 assumes that the remaining work behaves the same after changing the schedule.
 
-<h3 id="sequencing">Why can a sequencer avoid the voting exchange?</h3>
+### Why can a sequencer avoid the voting exchange?
 
 A sequencer is the service or protocol that chooses transaction order. A trusted
 single sequencer can choose that order without waiting for distributed
@@ -217,9 +216,7 @@ use CometBFT. Fewer voters and controlled connectivity may reduce coordination
 cost, but execution and persistence remain. The useful comparison is the latency
 of the guarantee the application actually needs.
 
-<h2 id="testing">
-  A one-validator run is a control, not the network benchmark.
-</h2>
+## A one-validator run is a control, not the network benchmark.
 
 A single validator still performs local processing and may retain configured
 waiting. It satisfies its voting quorum locally. That makes it a useful control
@@ -254,7 +251,7 @@ durability, and result-delivery boundaries. Latency percentiles, successful
 throughput, and queue growth matter together. Faster ordering that leaves an
 ever-growing execution backlog would not meet the user-experience goal.
 
-<h2 id="evidence">Each clock answers a different question.</h2>
+## Each clock answers a different question.
 
 Use counters for phase averages, event logs for local lifecycle events, and block
 headers for canonical cadence. Their clocks are not interchangeable.

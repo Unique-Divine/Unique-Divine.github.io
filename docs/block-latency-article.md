@@ -37,9 +37,9 @@ validator calculation is `1,515.04 − 922.49 − 324.85 ≈ 267.70 ms`. The sub
 retains other work and the signed residual. Node selection updates the table and
 calculation together. This is a hypothesis supported by measured phase costs.
 
-Component `ArticleContents.astro` provides the article's opt-in navigation. Its
-items are explicitly authored in the guide, so interactive phase headings never
-enter the section list. At 1280px and above it uses a sticky sidebar beside the
+The article enables [automatic contents navigation](./sticky-contents.md) with
+`stickyToc: true`. Astro generates the section IDs and list from its Markdown
+headings. Interactive figure headings remain outside that compiler metadata. At 1280px and above it uses a sticky sidebar beside the
 normal reading column. Smaller screens use a collapsible list. Static links work
 without JavaScript; the client adds active-section tracking and menu dismissal.
 Other posts retain their layout and navigation. SVG download CTAs are omitted;

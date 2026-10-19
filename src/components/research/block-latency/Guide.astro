@@ -1,29 +1,9 @@
 ---
-import ArticleContents from "~/components/blog/ArticleContents.astro"
-
 import { ASSET_BASE, data, fmt, PRIMARY } from "./model"
 import styles from "./styles.css?raw"
-
-const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "cycle", label: "The block path" },
-  { id: "budget", label: "Measured phase budget" },
-  { id: "opportunities", label: "What could remain: 268 ms" },
-  { id: "timer", label: "The shared commit timer" },
-  { id: "upgrades", label: "Upgrade interruptions and recovery" },
-  { id: "scenario", label: "Changing the ordering architecture" },
-  {
-    id: "sequencing",
-    label: "Why a sequencer can avoid voting",
-    depth: 3 as const,
-  },
-  { id: "testing", label: "Experiments and fault testing" },
-  { id: "evidence", label: "Evidence and measurement clocks" },
-]
 ---
 
-<div class="bl-guide not-prose" data-block-latency id="overview">
-  <ArticleContents items={sections} />
+<div class="bl-guide not-prose" data-block-latency>
   <p class="bl-scope">
     Research note by Unique Divine · Nibiru production capture, October 17 to
     19, 2026 · All times UTC

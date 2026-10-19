@@ -93,6 +93,10 @@ research-import profiling:
 research-test:
     bun test tests/research
 
+# Verify contents links against Astro-generated Markdown IDs.
+contents-test:
+    bun test tests/blog
+
 # Preview the article alongside the current website work without deploying.
 research-preview:
     bun run astro dev --host 127.0.0.1 --port 4323

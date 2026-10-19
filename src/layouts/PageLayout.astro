@@ -28,3 +28,9 @@ const { metadata } = Astro.props
     <Footer {...footerData} />
   </slot>
 </Layout>
+
+<script>
+  if (document.querySelector("[data-article-contents]")) {
+    import("~/components/blog/article-contents")
+  }
+</script>

@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components"
 
+import ArticleBody from "~/components/blog/ArticleBody.astro"
 import PostTags from "~/components/blog/Tags.astro"
 import Image from "~/components/common/Image.astro"
 import SocialShare from "~/components/common/SocialShare.astro"
@@ -100,11 +101,15 @@ const { Content } = post
     </header>
     <div
       class:list={[
-        post.contentLayout === "wide" ? "max-w-7xl" : "max-w-3xl",
+        post.contentLayout === "wide" && !post.stickyToc
+          ? "max-w-7xl"
+          : "max-w-3xl",
         "mx-auto px-6 sm:px-6 prose prose-lg lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-md prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px]",
       ]}
     >
-      {Content ? <Content /> : <Fragment set:html={post.content || ""} />}
+      <ArticleBody stickyToc={post.stickyToc} headings={post.headings}>
+        {Content ? <Content /> : <Fragment set:html={post.content || ""} />}
+      </ArticleBody>
     </div>
     <div
       class="mx-auto px-6 sm:px-6 max-w-3xl mt-8 flex justify-between flex-col sm:flex-row"
@@ -124,9 +129,6 @@ const { Content } = post
   // component. Ordinary posts do not import the research controller or data.
   if (document.querySelector("[data-block-latency]")) {
     import("~/components/research/block-latency/client")
-  }
-  if (document.querySelector("[data-article-contents]")) {
-    import("~/components/blog/article-contents")
   }
   if (document.querySelector("expandable-diagram")) {
     import("~/components/common/expandable-diagram")

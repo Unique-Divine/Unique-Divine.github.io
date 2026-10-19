@@ -1,8 +1,11 @@
 function initializeContents(root: HTMLElement) {
   const links = [...root.querySelectorAll<HTMLAnchorElement>("a[href^='#']")]
-  const sections = [...new Set(links.map((link) => link.hash.slice(1)))].map(
-    (id) => ({ id, element: document.getElementById(id) }),
-  )
+  const linkId = (link: HTMLAnchorElement) =>
+    decodeURIComponent(link.hash.slice(1))
+  const sections = [...new Set(links.map(linkId))].map((id) => ({
+    id,
+    element: document.getElementById(id),
+  }))
   const details = root.querySelector<HTMLDetailsElement>("details")!
   const summary = details.querySelector<HTMLElement>("summary")!
   const header = document.getElementById("header")
@@ -33,7 +36,7 @@ function initializeContents(root: HTMLElement) {
         current = section.id
     }
     for (const link of links) {
-      if (link.hash.slice(1) === current) {
+      if (linkId(link) === current) {
         link.setAttribute("aria-current", "location")
         currentLabel.textContent = link.textContent
         currentLabel.title = link.textContent ?? ""
