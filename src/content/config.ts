@@ -72,6 +72,19 @@ export const collections = {
       title: z.string(),
       summary: z.string(),
       role: z.string(),
+      icon: z
+        .enum([
+          "code",
+          "nibiru",
+          "typescript",
+          "rust",
+          "computer",
+          "dna",
+          "school",
+          "database",
+          "notes",
+        ])
+        .default("code"),
       group: z.enum(["current", "earlier"]).default("current"),
       featured: z.boolean().default(false),
       order: z.number().default(0),
