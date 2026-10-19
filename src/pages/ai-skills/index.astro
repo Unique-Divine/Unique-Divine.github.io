@@ -1,7 +1,7 @@
 ---
 import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
-import { getSkills, SKILLS_REPOSITORY } from "~/utils/skills"
+import { getSkills, skillCover, SKILLS_REPOSITORY } from "~/utils/skills"
 
 const skills = await getSkills()
 ---
@@ -9,6 +9,9 @@ const skills = await getSkills()
 <Layout
   metadata={{
     title: "Agent Skills",
+    openGraph: {
+      images: [{ url: skillCover("catalogue"), width: 1200, height: 630 }],
+    },
     description:
       "My public collection of agent skills for engineering, research, chain queries, and technical writing.",
   }}

@@ -9,6 +9,7 @@ import compress from "astro-compress"
 import icon from "astro-icon"
 import { defineConfig, squooshImageService } from "astro/config"
 
+import { skillCoverValidation } from "./scripts/skill-covers.mjs"
 import { ANALYTICS, SITE } from "./src/utils/config.ts"
 import {
   readingTimeRemarkPlugin,
@@ -95,6 +96,7 @@ export default defineConfig({
 
     tasks(),
     sitemapValidation(),
+    skillCoverValidation(),
   ],
 
   image: {
