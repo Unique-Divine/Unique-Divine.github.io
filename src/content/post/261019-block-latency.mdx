@@ -1,6 +1,7 @@
 ---
 title: "Where a 1.5-second block spends its time"
 excerpt: "Profiling Tendermint on Nibiru: the wait between heights, the cost of voting, and what a different ordering architecture might change."
+image: /research/261019-block-latency/normal-budget.svg
 publishDate: 2026-10-19T00:00:00Z
 author: Unique Divine
 category: Nibiru
@@ -11,7 +12,7 @@ tags:
   - research
   - nibiru-bft
   - sai
-contentLayout: wide
+contentLayout: article
 draft: false
 ---
 
@@ -19,6 +20,7 @@ import Budget from "~/components/research/block-latency/Budget.astro"
 import Figure from "~/components/research/block-latency/Figure.astro"
 import Guide from "~/components/research/block-latency/Guide.astro"
 import Legend from "~/components/research/block-latency/Legend.astro"
+import Opportunity from "~/components/research/block-latency/Opportunity.astro"
 import Scenario from "~/components/research/block-latency/Scenario.astro"
 import Upgrade from "~/components/research/block-latency/Upgrade.astro"
 
@@ -34,6 +36,14 @@ This note uses a 48-hour production capture, observations from a voting validato
 and two nonvoting nodes, and the histories of two chain upgrades. It describes
 measured behavior and possible experiments. It does not announce a performance
 upgrade.
+
+The promising result is how much of that interval sits in two places. Removing
+the measured NewHeight interval and both voting intervals, while holding
+everything else fixed, leaves **267.70 ms**, roughly a quarter of a second.
+The [four-scenario table](#opportunities) shows the arithmetic. That gives me a
+concrete reason to test shorter scheduling and a different ordering architecture.
+It is a calculation from real phase measurements, not an achieved confirmation
+time or proof that every subtracted cost can disappear.
 
 The headline numbers describe the voting validator. Each node observes the same
 chain, so their interval counts do not add together. The observed application
@@ -54,7 +64,7 @@ guarantee backs that outcome.
 
 <Figure
   file="block-cycle.svg"
-  badge="Schematic · not to scale"
+  badge="Successful-round flow"
   alt="One successful Tendermint round, its local states, and the separate result-delivery path"
 />
 
@@ -76,12 +86,36 @@ proposer heights from its other heights.
 
 NewRound itself contributes only 1.68 ms per block on the validator. Propose
 contributes 187.56 ms. Those averages establish neither a 250 ms ceiling nor a
-250 ms complete agreement-and-execution path.
+complete agreement-and-execution path. The roughly 268 ms figure below comes
+from a different calculation across the entire phase budget.
 
 The 96 half-hour bins partition the capture. Their means are relatively
 consistent, but their distribution is not an individual-block p50, p95, or p99.
 The available histogram buckets are too coarse to establish precise subsecond
 tail percentiles.
+
+<h2 id="opportunities">What would remain if we removed the wait and voting?</h2>
+
+The validator averages 1,515.04 ms per block. NewHeight contributes 922.49 ms,
+and Prevote plus Precommit contributes 324.85 ms. Subtracting both leaves
+**267.70 ms**, about an 82% reduction in this fixed-cost model.
+
+<Opportunity />
+
+The first row is measured. Each other row sets the named phase contributions
+to zero and keeps everything else, including Commit processing and the signed
+residual. The table follows the node selected above.
+
+This separates two experiments. Reducing the next-height schedule could shorten
+cadence while retaining voting. A trusted sequencer could change the agreement
+path and remove its distributed voting exchange. The combined row asks what
+would remain if both changes removed their measured intervals completely.
+
+The remaining work may change under either experiment. Validation, replication,
+signing, and persistence can retain or replace part of the subtracted costs.
+The table is an opportunity estimate, not a throughput forecast or an end-to-end
+transaction latency benchmark. It makes the potential large enough to test
+against representative application load and an explicit confirmation guarantee.
 
 <h2 id="timer">Commit processing uses part of the next-height schedule.</h2>
 
@@ -137,12 +171,14 @@ the criterion had not been met at six hours. The v2.21.0 observation met it with
 the original capture. The detailed figures retain the longer curves rather than
 showing only selected favorable windows.
 
-<h2 id="scenario">Removing a phase gives a question to test.</h2>
+<h2 id="scenario">
+  A different ordering architecture changes the voting path.
+</h2>
 
 Prevote plus Precommit contributes 324.85 ms per block on the validator. Setting
 those contributions to zero leaves 1,190.19 ms, if everything else stays fixed.
-The longer NewHeight wait is a separate opportunity. The table extends the same
-accounting to both costs and follows the node selected above.
+The [earlier opportunity table](#opportunities) includes the separate NewHeight
+opportunity and the combined roughly 268 ms scenario.
 
 <Scenario />
 
@@ -152,7 +188,7 @@ from a replacement protocol. Removing Commit processing and the entire shared
 schedule would double-count an opportunity. Even the zero-NewHeight scenario
 assumes that the remaining work behaves the same after changing the schedule.
 
-### Why can a sequencer avoid the voting exchange?
+<h3 id="sequencing">Why can a sequencer avoid the voting exchange?</h3>
 
 A sequencer is the service or protocol that chooses transaction order. A trusted
 single sequencer can choose that order without waiting for distributed

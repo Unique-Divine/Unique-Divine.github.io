@@ -1,0 +1,11 @@
+---
+import { opportunityText, PRIMARY, scenarioTable } from "./model"
+---
+
+<p class="bl-opportunity" data-opportunity-text>{opportunityText(PRIMARY)}</p>
+<p class="bl-scope" data-scenario-node>Scenario table · voting validator</p>
+<div
+  class="bl-scroll-table"
+  data-scenario-table
+  set:html={scenarioTable(PRIMARY)}
+/>

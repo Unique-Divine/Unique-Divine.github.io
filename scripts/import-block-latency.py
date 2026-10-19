@@ -44,6 +44,8 @@ def main():
     destination = site / "public/research/261019-block-latency"
     destination.mkdir(parents=True, exist_ok=True)
     figures = {}
+    source_figures = {}
+    presentation_edits = {}
     for relative, digest in provenance["artifacts"].items():
         if not relative.endswith(".svg"):
             continue
@@ -52,7 +54,12 @@ def main():
             raise ValueError(f"SVG hash mismatch: {relative}")
         target = destination / relative
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, target)
+        original = source.read_text()
+        exported = original.replace("SCHEMATIC · NOT TO SCALE", "SUCCESSFUL-ROUND FLOW")
+        target.write_text(exported)
+        source_figures[relative] = digest
+        if exported != original:
+            presentation_edits[relative] = "Replace schematic scale label with successful-round flow label."
         root = ET.parse(source).getroot()
         figures[relative] = {
             "width": float(root.get("width")),
@@ -74,6 +81,8 @@ def main():
         "capture": "2026-10-19-baseline-v1",
         "source_report_sha256": provenance["source_sha256"],
         "importer_sha256": sha(Path(__file__)),
+        "source_figure_sha256": source_figures,
+        "presentation_edits": presentation_edits,
         "artifacts": {
             str(p.relative_to(destination)): sha(p)
             for p in sorted(destination.rglob("*"))

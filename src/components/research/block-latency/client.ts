@@ -5,6 +5,7 @@ import {
   endpoints,
   fmt,
   normalTable,
+  opportunityText,
   phaseDetail,
   PRIMARY,
   scenarioTable,
@@ -25,20 +26,14 @@ function initialize(root: HTMLElement) {
 
   function show(view: string, file: string, alt: string) {
     const figure = find(`[data-view="${view}"]`)
-    const image = figure.querySelector<HTMLImageElement>("img")!
+    const image = figure.querySelector<HTMLImageElement>(
+      "[data-diagram-preview]",
+    )!
     image.src = `${ASSET_BASE}${file}`
     image.alt = alt
-    figure
-      .querySelector(".bl-canvas")!
-      .setAttribute(
-        "aria-label",
-        `${alt}. Scroll horizontally on small screens.`,
-      )
     const size = data.figures[file as keyof typeof data.figures]
     image.width = size.width
     image.height = size.height
-    figure.querySelector<HTMLAnchorElement>("a[download]")!.href =
-      `${ASSET_BASE}${file}`
   }
 
   function detail() {
@@ -69,6 +64,7 @@ function initialize(root: HTMLElement) {
     find("[data-normal-table]").innerHTML = normalTable(pod)
     find("[data-endpoints]").textContent = endpoints(pod)
     find("[data-scenario-table]").innerHTML = scenarioTable(pod)
+    find("[data-opportunity-text]").textContent = opportunityText(pod)
     find("[data-scenario-text]").textContent = scenarioText(pod)
     find("[data-scenario-node]").textContent =
       `Scenario table · ${data.names[pod]}${data.normal[pod].complete ? "" : " · incomplete coverage"}`
