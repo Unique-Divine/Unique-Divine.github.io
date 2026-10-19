@@ -307,3 +307,15 @@
     break-inside: avoid;
   }
 }
+
+.bl-guide .bl-phase-glossary table {
+  font-size: 0.95rem;
+}
+.bl-guide .bl-phase-glossary :is(th, td) {
+  white-space: normal;
+  vertical-align: top;
+  text-align: left;
+}
+.bl-guide .bl-phase-glossary :is(th, td):first-child {
+  width: 7rem;
+}

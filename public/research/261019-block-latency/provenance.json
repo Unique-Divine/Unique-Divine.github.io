@@ -1,7 +1,7 @@
 {
   "capture": "2026-10-19-baseline-v1",
   "source_report_sha256": "f5fd6e71bb2dc647a4580c3f9c4b3bf4e2e788a856ef6cdb92dbc8eb06246d23",
-  "importer_sha256": "17ee0ad0ded7504867e2ab9afaf47b7be18c6b773ae4b766cd721d249934a8af",
+  "importer_sha256": "e25e3bc93636481bfbe2a2909058a3b6390c4672230120ba95e26c89801e8d5d",
   "source_figure_sha256": {
     "block-cycle.svg": "3662320d7fb8f8eaebbe7656bde8ae99408d1be4fdb7fa87b82da5f6bac96e90",
     "evidence-map.svg": "8d92a4f8c4f4cc23794cd75799010f58d45459686bf384712b79644c7b8731d9",
@@ -17,10 +17,10 @@
     "variants/upgrade-v2.21.0.svg": "4e83509c407714c052f9829060547ea7cc99de4a6ac526070e7d79eae163aa95"
   },
   "presentation_edits": {
-    "block-cycle.svg": "Replace schematic scale label with successful-round flow label."
+    "block-cycle.svg": "Replace schematic scale label with successful-round flow label. Distinguish the precommit-quorum decision from local execution and persistence."
   },
   "artifacts": {
-    "block-cycle.svg": "82ac816582674d029785c283dd81a7440f1d5333a3de7327aad9d93d461e627c",
+    "block-cycle.svg": "2c8fbb462424952308b342494d99cbda237bfd988983ba9280b30833c4010ec6",
     "evidence-map.svg": "8d92a4f8c4f4cc23794cd75799010f58d45459686bf384712b79644c7b8731d9",
     "measurements.json": "8e8e219fccd456276009864e9dc9f24992df42774d18d706f3b6ebf07340ac59",
     "no-voting.svg": "350293faf436b3e407555db7c3ac44a36388983550df61278eace6581e2dcde9",

@@ -56,10 +56,37 @@ def main():
         target.parent.mkdir(parents=True, exist_ok=True)
         original = source.read_text()
         exported = original.replace("SCHEMATIC · NOT TO SCALE", "SUCCESSFUL-ROUND FLOW")
+        edits = []
+        if exported != original:
+            edits.append("Replace schematic scale label with successful-round flow label.")
+        if relative == "block-cycle.svg":
+            replacements = {
+                ">Apply block</text>": ">After quorum:</text>",
+                ">+ persist state</text>": ">apply + persist</text>",
+            }
+            for old, new in replacements.items():
+                if old not in exported:
+                    raise ValueError(f"Block-cycle label changed: {old}")
+                exported = exported.replace(old, new, 1)
+            marker = '<text x="48" y="670"'
+            if marker not in exported:
+                raise ValueError("Block-cycle footer marker changed")
+            note = (
+                '<text x="48" y="435" font-size="18" fill="#202f36" font-weight="normal">'
+                'More than 2/3 of voting power precommits the block → consensus decision; local processing follows.'
+                '</text>'
+            )
+            exported = exported.replace(marker, note + marker, 1)
+            exported = exported.replace(
+                "The next height repeats the cycle.",
+                "A matching precommit quorum establishes the consensus decision before local execution and persistence. The next height repeats the cycle.",
+                1,
+            )
+            edits.append("Distinguish the precommit-quorum decision from local execution and persistence.")
         target.write_text(exported)
         source_figures[relative] = digest
-        if exported != original:
-            presentation_edits[relative] = "Replace schematic scale label with successful-round flow label."
+        if edits:
+            presentation_edits[relative] = " ".join(edits)
         root = ET.parse(source).getroot()
         figures[relative] = {
             "width": float(root.get("width")),

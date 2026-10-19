@@ -21,8 +21,9 @@ just research-preview
 
 The importer checks the source report and original guide hashes, verifies the
 baseline and upgrade tables against the report, and exports the generated SVGs.
-It replaces the block-flow scale label for this article and records both source
-figure hashes and presentation edits. The research originals remain unchanged.
+It replaces the block-flow scale label and distinguishes the precommit-quorum
+decision from subsequent local execution and persistence. The manifest records
+both source figure hashes and presentation edits. The research originals remain unchanged.
 It exports identical build-time and downloadable display data and a hash manifest.
 The detailed timelines and generated tables accompany the 12 guide SVGs.
 
@@ -71,3 +72,26 @@ sections retain their existing behavior.
 
 Building does not deploy. The existing working tree may contain other website
 changes; publication remains a separate operation.
+
+## Confirmation background revision
+
+The article defines heights, rounds, voting-power quorums, and the six measured
+phase names beside the successful-round diagram. It introduces the sampled
+validator and two nonvoting full-node observers before the budget selector. The
+observed mean block interval remains distinct from submission-to-finality latency.
+
+The sequencer explanation distinguishes a trusted operator's ordering authority
+from Tendermint's quorum agreement. It separates provisional feedback over the
+existing chain from replacing its agreement path, then connects those choices
+to inclusion waits and result delivery.
+
+A brief section near the bottom compares confirmation boundaries on Monad,
+Solana, Hyperliquid, and OP Stack. Its four primary-source links live under
+Background reading, with no tracking parameters. The comparison is dated October
+19, 2026. It distinguishes Monad's later Verified stage, Solana's pending upgrade
+target, Hyperliquid's streamed inputs, and OP Mainnet's later Ethereum finality.
+
+Phase definitions were checked with `git show v0.37.18:...` in the local
+`nibi-cmt` repository. Its checked-out tag is v0.38.12; it was not used as evidence
+for the captured application lifecycle. Raw measurements, opportunity arithmetic,
+and offline evidence remain unchanged.
