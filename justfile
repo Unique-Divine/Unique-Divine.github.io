@@ -116,3 +116,15 @@ skills-import source:
 # Verify skill import, route mapping, and snapshot integrity.
 skills-test:
     bun test tests/skills
+
+# Generate skill cover PNGs and a local contact sheet from the shared template.
+covers-generate:
+    bun scripts/skill-covers.mjs
+
+# Verify cover freshness, dimensions, and checksums without launching a browser.
+covers-check:
+    bun scripts/skill-covers.mjs --check
+
+# View the generated cover contact sheet locally.
+covers-preview:
+    python3 -m http.server 4334 --bind 127.0.0.1 --directory public/covers/skills

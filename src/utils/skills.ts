@@ -19,6 +19,7 @@ export function skillArchivePost(entry: CollectionEntry<"skill">): Post {
     permalink: `ai-skills/${entry.data.route}`,
     title: entry.data.title,
     excerpt: entry.data.description,
+    image: skillCover(entry.data.folder),
     publishDate: entry.data.publishDate,
     category: "agent-skills",
     tags: ["agent-skills", "ai"],
@@ -27,3 +28,5 @@ export function skillArchivePost(entry: CollectionEntry<"skill">): Post {
     kind: "skill",
   }
 }
+
+export const skillCover = (folder: string) => `/covers/skills/${folder}.png`

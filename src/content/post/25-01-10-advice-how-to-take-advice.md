@@ -94,5 +94,5 @@ Take the feathers you need, and let the goose keep the rest.
 
 ---
 
-Written in 2021 by [Unique Divine](/about-unique-divine). Inspired by my own
+Written in 2021 by [Unique Divine](/about). Inspired by my own
 experience and works from Khatzumoto.

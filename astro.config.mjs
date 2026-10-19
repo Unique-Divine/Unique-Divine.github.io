@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs"
 import path from "path"
 import { fileURLToPath } from "url"
 import mdx from "@astrojs/mdx"
@@ -8,6 +9,7 @@ import compress from "astro-compress"
 import icon from "astro-icon"
 import { defineConfig, squooshImageService } from "astro/config"
 
+import { skillCoverValidation } from "./scripts/skill-covers.mjs"
 import { ANALYTICS, SITE } from "./src/utils/config.ts"
 import {
   readingTimeRemarkPlugin,
@@ -37,6 +39,13 @@ export default defineConfig({
   output: "static",
 
   redirects: {
+    ...Object.fromEntries(
+      JSON.parse(
+        readFileSync(new URL("./firebase.json", import.meta.url), "utf8"),
+      )
+        .hosting.redirects.filter((entry) => !entry.source.endsWith("/"))
+        .map(({ source, destination }) => [source, destination]),
+    ),
     "/discord-mcp/intent-review": "/discord-mcp",
   },
 
@@ -87,6 +96,7 @@ export default defineConfig({
 
     tasks(),
     sitemapValidation(),
+    skillCoverValidation(),
   ],
 
   image: {

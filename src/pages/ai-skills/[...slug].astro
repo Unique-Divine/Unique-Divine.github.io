@@ -6,6 +6,7 @@ import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import {
   getSkills,
+  skillCover,
   skillInstallCommand,
   SKILLS_REPOSITORY,
 } from "~/utils/skills"
@@ -30,7 +31,15 @@ const references = (await getCollection("skill"))
   .sort((a, b) => a.data.title.localeCompare(b.data.title))
 ---
 
-<Layout metadata={{ title: data.title, description: data.description }}>
+<Layout
+  metadata={{
+    title: data.title,
+    description: data.description,
+    openGraph: {
+      images: [{ url: skillCover(data.folder), width: 1200, height: 630 }],
+    },
+  }}
+>
   <article class="skill-article">
     <header>
       <nav aria-label="Breadcrumb" class="skill-breadcrumb">

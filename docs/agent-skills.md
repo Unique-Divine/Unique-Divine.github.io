@@ -71,3 +71,28 @@ clipboard controls, responsive layouts, both themes, skill breadcrumbs, sticky
 contents and anchor offsets, category archives, the writing-only homepage widget,
 the live GitHub chart, API failure/cache behavior, no-JavaScript links, and print.
 No browser errors remain in either preview.
+
+## Generated covers
+
+Each skill has a 1200 by 630 PNG at `/covers/skills/<folder>.png`. Reference
+pages reuse their parent skill's image. The catalogue uses `catalogue.png`.
+Blog archive cards and Open Graph/Twitter metadata use the same images.
+
+Run `just covers-generate` after changing skill titles, adding skills, or
+editing the template. The generator uses Playwright Chromium to render
+`scripts/skill-cover.html` with Archivo display text, JetBrains Mono labels,
+a saved GitHub avatar, and jiyuu branding. Fonts, licenses, and the avatar
+live in `assets/skill-covers`. No remote requests occur during generation.
+Install the browser once with `bunx playwright install chromium` if needed.
+
+Run `just covers-preview`, then open
+`http://127.0.0.1:4334/viewer.html` to inspect the contact sheet. Review long
+titles and thumbnail crops before committing the output. The template shrinks
+long titles to fit and rejects overflow.
+
+Commit the template, assets, PNGs, and manifest together. Run
+`just covers-check` to verify input hashes, image checksums, and dimensions.
+Ordinary builds perform that check without launching a browser or fetching
+fonts. A stale cover stops the build and names the regeneration command.
+The public Markdown snapshots and their provenance remain independent of
+these presentation assets.

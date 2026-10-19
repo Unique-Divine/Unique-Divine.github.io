@@ -78,7 +78,6 @@ test("blog entries are grouped under category headings and the TOC targets real 
     "sitemap-blog-category-coding",
     "sitemap-blog-category-nibiru",
     "sitemap-blog-category-self-improvement",
-    "sitemap-blog-uncategorized",
   ])
   expect(
     querySelector(
@@ -86,16 +85,13 @@ test("blog entries are grouped under category headings and the TOC targets real 
         document,
         '[data-sitemap-group="sitemap-blog-category-coding"]',
       ),
-      'a[href="/code/python"]',
+      'a[href="/blog/23-08-12-python"]',
     ),
   ).toBeTruthy()
   expect(
     querySelector(
-      querySelector(
-        document,
-        '[data-sitemap-group="sitemap-blog-uncategorized"]',
-      ),
-      'a[href="/media"]',
+      querySelector(document, '[data-sitemap-section="site"]'),
+      'a[href="/about/media"]',
     ),
   ).toBeTruthy()
   expect(

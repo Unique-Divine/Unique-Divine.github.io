@@ -18,15 +18,15 @@ type TerminalSection = {
 const terminalSections: TerminalSection[] = [
   {
     label: "About Me",
-    href: "/about-unique-divine",
+    href: "/about",
     items: [
       {
         label: "What I'm doing right now",
-        href: "/about-unique-divine#what-i-do-for-work",
+        href: "/about#what-i-do-for-work",
       },
-      { label: "Nibi Inc. and Nibiru", href: "/web3/nibiru/nibi-inc" },
-      { label: "In the Media", href: "/media" },
-      { label: "Contact Me", href: "/about-unique-divine#contact" },
+      { label: "Nibi Inc. and Nibiru", href: "/about/nibiru" },
+      { label: "In the Media", href: "/about/media" },
+      { label: "Contact Me", href: "/about#contact" },
     ],
   },
   {
@@ -34,7 +34,7 @@ const terminalSections: TerminalSection[] = [
     href: "/code",
     description: "Tools, notes, and larger software engineering projects.",
     items: [
-      { label: "Golang Coding Guides", href: "/code/golang" },
+      { label: "Golang Coding Guides", href: "/blog/24-06-08-golang" },
       {
         label: "Unique-Divine/Dotfiles",
         href: "https://github.com/Unique-Divine/dotfiles",
@@ -54,7 +54,7 @@ const terminalSections: TerminalSection[] = [
       },
       {
         label: "GitHub and Git",
-        href: "/code/github-git-gh",
+        href: "/blog/23-08-12-github-git-gh",
         description: "Awesome reference.",
       },
     ],
@@ -66,11 +66,11 @@ const terminalSections: TerminalSection[] = [
     items: [
       {
         label: "Advice on How to Take Advice (Including Mine)",
-        href: "/japanese/02-advice-how-to-take-advice",
+        href: "/blog/25-01-10-advice-how-to-take-advice",
       },
       {
         label: "Why I Learned Japanese and What It Taught Me About Myself",
-        href: "/japanese/01-why-learn-japanese",
+        href: "/blog/20-09-02-why-learn-japanese",
       },
     ],
   },

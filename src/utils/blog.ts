@@ -5,50 +5,9 @@ import type { CollectionEntry } from "astro:content"
 import type { Post } from "~/types"
 import { APP_BLOG } from "~/utils/config"
 
-import {
-  BLOG_BASE,
-  CATEGORY_BASE,
-  cleanSlug,
-  POST_PERMALINK_PATTERN,
-  TAG_BASE,
-  trimSlash,
-} from "./permalinks"
+import { BLOG_BASE, CATEGORY_BASE, cleanSlug, TAG_BASE } from "./permalinks"
+import { assertUniquePermalinks, postPermalink } from "./post-routes"
 import { skillArchivePost } from "./skills"
-
-const generatePermalink = async ({
-  id,
-  slug,
-  publishDate,
-  category,
-}: {
-  id: string
-  slug: string
-  publishDate: Date
-  category: string | undefined
-}) => {
-  const year = String(publishDate.getFullYear()).padStart(4, "0")
-  const month = String(publishDate.getMonth() + 1).padStart(2, "0")
-  const day = String(publishDate.getDate()).padStart(2, "0")
-  const hour = String(publishDate.getHours()).padStart(2, "0")
-  const minute = String(publishDate.getMinutes()).padStart(2, "0")
-  const second = String(publishDate.getSeconds()).padStart(2, "0")
-
-  const permalink = POST_PERMALINK_PATTERN.replace("%slug%", slug)
-    .replace("%id%", id)
-    .replace("%category%", category || "")
-    .replace("%year%", year)
-    .replace("%month%", month)
-    .replace("%day%", day)
-    .replace("%hour%", hour)
-    .replace("%minute%", minute)
-    .replace("%second%", second)
-
-  return permalink
-    .split("/")
-    .map((el) => trimSlash(el))
-    .filter((el) => !!el)
-    .join("/")
-}
 
 const getNormalizedPost = async (
   post: CollectionEntry<"post">,
@@ -57,7 +16,7 @@ const getNormalizedPost = async (
   const { Content, headings, remarkPluginFrontmatter } = await post.render()
 
   const {
-    publishDate: rawPublishDate = new Date(),
+    publishDate: rawPublishDate,
     updateDate: rawUpdateDate,
     title,
     excerpt,
@@ -69,18 +28,26 @@ const getNormalizedPost = async (
     contentLayout = "article",
     stickyToc = false,
     metadata = {},
+    kind = "article",
+    permalink: pagePermalink,
   } = data
 
-  const slug = cleanSlug(rawSlug) // cleanSlug(rawSlug.split('/').pop());
+  const slug = cleanSlug(rawSlug)
   const publishDate = new Date(rawPublishDate)
   const updateDate = rawUpdateDate ? new Date(rawUpdateDate) : undefined
   const category = rawCategory ? cleanSlug(rawCategory) : undefined
-  const tags = rawTags.map((tag: string) => cleanSlug(tag))
+  const tags = [...new Set(rawTags.map((tag: string) => cleanSlug(tag)))]
 
   return {
     id: id,
     slug: slug,
-    permalink: await generatePermalink({ id, slug, publishDate, category }),
+    kind,
+    permalink: postPermalink({
+      slug,
+      publishDate,
+      kind,
+      permalink: pagePermalink,
+    }),
 
     publishDate: publishDate,
     updateDate: updateDate,
@@ -132,6 +99,7 @@ const load = async function (): Promise<Array<Post>> {
     .sort((a, b) => b.publishDate.valueOf() - a.publishDate.valueOf())
     .filter((post) => !post.draft)
 
+  assertUniquePermalinks(results)
   return results
 }
 
@@ -158,7 +126,12 @@ export const fetchPosts = async (): Promise<Array<Post>> => {
     _posts = await load()
   }
 
-  return _posts
+  return _posts.filter((post) => post.kind !== "page")
+}
+
+export const fetchStandingPages = async (): Promise<Post[]> => {
+  if (!_posts) _posts = await load()
+  return _posts.filter((post) => post.kind === "page")
 }
 
 /** */
@@ -223,7 +196,7 @@ export const getStaticPathsBlogList = async ({
 /** */
 export const getStaticPathsBlogPost = async () => {
   if (!isBlogEnabled || !isBlogPostRouteEnabled) return []
-  return (await fetchPosts())
+  return [...(await fetchPosts()), ...(await fetchStandingPages())]
     .filter((post) => post.kind !== "skill")
     .flatMap((post) => ({
       params: {

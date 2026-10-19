@@ -1,0 +1,117 @@
+{
+  "catalogue": {
+    "title": "Agent skills.\nLess repeating myself.",
+    "input": "97ac8458e73944615ba436d9f50e56cd8a9e1adcbb7880c605fce54473db2092",
+    "sha256": "eb9be652eab62b2df32ed04123cecbf5f3b38a3c3a5bfea0b4d2d3154e41803d"
+  },
+  "bash-defensive-patterns": {
+    "title": "Bash Defensive Patterns",
+    "input": "73db1e00a884445a2cccab4745c4131524322c5d6f8f0c70ed8bd52663b6b743",
+    "sha256": "02b9bbc802a94924c9a6121e943e31ff1186f7b9b46e51dbfac825c272fbf3bb"
+  },
+  "drill-spec": {
+    "title": "drill-spec",
+    "input": "db613da44a89c058d955736692b3fc368ede4a1d320134ed7432d0173a2caca2",
+    "sha256": "949dd7887c913e33380bd9d759ae7e5c9abb6b2106eb58060757fe0720810851"
+  },
+  "evm-rpc": {
+    "title": "EVM RPC: Receipt and Trace Playbook",
+    "input": "8da6780a9525fdc939f82f63d0d1e5ec3dc6db5891da83b3f6d6a098c79405da",
+    "sha256": "8b7ee5ecfc1e87d910d82fad56856c474d538d99bad6e9140630a06a46e9c088"
+  },
+  "gh-actionlint": {
+    "title": "GH Actionlint",
+    "input": "1abf61a52757fabd2f017194023028d17f06e3cafb36a34a523cb99f64bea2ab",
+    "sha256": "8ac9cb55b0bdd0e4bd10f167d1bcde0f5c1d5251fbff142aeead12e312346a30"
+  },
+  "gh-ci-watch": {
+    "title": "GitHub CI Watch",
+    "input": "6f5ab77994b7f1edf8df40641d16098011fbab6c8372687b824cf991a436c486",
+    "sha256": "6f0d15d513b1bf2f9e8a4b9b39f64d416e18ad9fa56f109b4857888226baab91"
+  },
+  "gh-labels": {
+    "title": "GitHub labels",
+    "input": "16dcac793dfd56651cb1fd528dd76d53ba4f83168efa5b19d11fff424633d0dd",
+    "sha256": "07e7e2bcdb6de98796562f7a62cb48722304842c9bf7e9aee32421d7e579a8d2"
+  },
+  "gh-pr-review": {
+    "title": "GitHub PR Review Skill",
+    "input": "18f51e6825e3d9859778376c7475a4da63a071cb9d2bea3ccedf11b350a11d61",
+    "sha256": "435cbfced1b82b773c8f2e6a70883fb8fc19b6ed72f5d6309c3b7f8e64814d52"
+  },
+  "gh-pr": {
+    "title": "GH PR",
+    "input": "d56ccb8e6b9a51c577e8ea98c8cd02354373c6497f59be1bce043e7a88e8f70b",
+    "sha256": "2aa640867fd94fe0d57c0d43d189a86188d380467655256ed0c9769b82acf1b9"
+  },
+  "gh-rev": {
+    "title": "gh-rev",
+    "input": "4b1a6ae53178b39c0da6d38a144e039cec6c8e2b55239ef4c9cb30b2dcef64c4",
+    "sha256": "7fa94b493b67a8d1d3e295dd34da56d26ee6b20f19c071630d7ed6633c964ffd"
+  },
+  "herdr": {
+    "title": "Herdr",
+    "input": "c1a5463f70d6a6c1e90d3a28132508d46db915d4c39cbec3023be66a1424c4dc",
+    "sha256": "f63a6656ca7c4ea931c971e44430b00868114a38e63869113072037c1167c751"
+  },
+  "justfile": {
+    "title": "Just",
+    "input": "5f003f0a054919e704d3b378ea30dc069de7cc07b46e2676733de89d2a8654c7",
+    "sha256": "848c3a2a8382551483d7423bd61810fc5c14135d7acc39e91a404ceee5e00c7a"
+  },
+  "md-tasks": {
+    "title": "Markdown tasks and checkbox conventions",
+    "input": "7900c0a34a071d3a0ac7efc70fc66b088a498d959584b722dbb8d3d430c9efbd",
+    "sha256": "75aebdb47c7e34f535739c3c89578e76306b0039e035f690bdf25e5cc729335f"
+  },
+  "new-chat-prompt": {
+    "title": "New Chat Prompt",
+    "input": "779d6cd3be90b58e5fbfc88b93a1d9cb523e6c5dacfd6fe42f5ecff0bbd589cb",
+    "sha256": "acb7fd3a6d34ed985ee8d3064b7d59a405c9321faaafd81cbcbc8a4d2c3392fe"
+  },
+  "nibiru-cli": {
+    "title": "Nibiru CLI",
+    "input": "63b5c47168c8f4cf72418df91f05cff97fde833ea96194c63f47e9af908aec19",
+    "sha256": "6c91d3ca5476ebc7b16ff41fe38b06abc586494af28b461948d9db90f5c30afc"
+  },
+  "nibiru-gov-upgrade": {
+    "title": "Nibiru governance and upgrades",
+    "input": "25be33a252611439396fdd1c77dabffa9dab5acefcb2545da1d1d969a45d5e5d",
+    "sha256": "945a4dfd75c7cb18d248a4a72d6c4eb4084790e29e381d60b9ea3d7b2e6b7d99"
+  },
+  "nibiru-gql": {
+    "title": "Nibiru GraphQL and Heart Monitor",
+    "input": "d7a22ac51184e6a309e082e1fc39546e811cb4eaacdd936e411fdc9587e358a7",
+    "sha256": "c0e249d4ca9549329caf167501da43726a6cccb843a8542c1b093739736fc174"
+  },
+  "postgresql-psql": {
+    "title": "PostgreSQL psql Skill",
+    "input": "a8399c72a86560dc58717f1705a84c5742adb848abbaf648a9d2ebcc9befbcba",
+    "sha256": "d32d5362a832d7d89e02e9e5d9f568c74566480b99d3d235952ea91a3460360a"
+  },
+  "repo-map": {
+    "title": "Repo Map — Nibiru and Personal Repos",
+    "input": "7ff694f3dd4fac1d6d52828c2fdb0e893a9ea6090e4a73f847ba179fdb57caed",
+    "sha256": "ed1e7622d15aaf2dbf707a71b8f911735ced7dcf5e068959beba28136959f28a"
+  },
+  "sai-perps": {
+    "title": "Sai Perps",
+    "input": "a6bbc26b6e903098f28f165ea3dba3a94664422b023abf3a31b18f6227d406ff",
+    "sha256": "dabfc031333bd2e428c09beaddb8a5f15dff7234854163ad157094c89afb7a45"
+  },
+  "tailscale-serve": {
+    "title": "Tailscale Serve",
+    "input": "c8b38b7733380c7c195a058cf8e1f8ca9dafbe53e879ab47d4af661151d4bc74",
+    "sha256": "88890e1dead29290dc0e0b7ab06dfeceff8f7a5b9fd0e6ecc19c0f1491cb265f"
+  },
+  "ud-writing-tech": {
+    "title": "UD writing tech",
+    "input": "fb0c22b99babab2bd8d9b13acb1d38fbd132879520aebfafaeed4361b8cd8bcd",
+    "sha256": "c553c291ba24ab86d395a1df94c533d16d1427e05c8d89a4cfff2e4ec0ab2e45"
+  },
+  "unslop": {
+    "title": "Unslop",
+    "input": "fa512066896f4a0303ccc566c8eb7fbbf0104565a4be523eb5b10043e8138ca8",
+    "sha256": "869adc2a1d4e639b46c31d5b1659ef3c4731eef0582203e79804a699979d0bff"
+  }
+}
