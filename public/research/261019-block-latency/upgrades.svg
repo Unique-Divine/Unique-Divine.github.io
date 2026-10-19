@@ -1,0 +1,603 @@
+<svg role="img" aria-labelledby="upgrades-title upgrades-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="920" viewBox="0 0 864 662.4" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="upgrades-title">Upgrade phase comparison</title><desc id="upgrades-desc">Measured validator phase contributions before, five to thirty minutes after, and thirty to sixty minutes after upgrades. The canonical initial gap is distinct from the longer recovery criterion. Transition counters are incomplete.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="upgrades-figure_1">
+  <g id="upgrades-patch_1">
+   <path d="M 0 662.4 
+L 864 662.4 
+L 864 0 
+L 0 0 
+z
+" style="fill: #f7f5ef"/>
+  </g>
+  <g id="upgrades-axes_1">
+   <g id="upgrades-patch_2">
+    <path d="M 190.08 298.08 
+L 768.96 298.08 
+L 768.96 172.224 
+L 190.08 172.224 
+z
+" style="fill: #f7f5ef"/>
+   </g>
+   <g id="upgrades-matplotlib.axis_1">
+    <g id="upgrades-xtick_1">
+     <g id="upgrades-line2d_1">
+      <path d="M 190.08 298.08 
+L 190.08 172.224 
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrades-line2d_2"/>
+     <g id="upgrades-text_1">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="190.08" y="313.677656" transform="rotate(-0 190.08 313.677656)">0</text>
+     </g>
+    </g>
+    <g id="upgrades-xtick_2">
+     <g id="upgrades-line2d_3">
+      <path d="M 383.04 298.08 
+L 383.04 172.224 
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrades-line2d_4"/>
+     <g id="upgrades-text_2">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="383.04" y="313.677656" transform="rotate(-0 383.04 313.677656)">1000</text>
+     </g>
+    </g>
+    <g id="upgrades-xtick_3">
+     <g id="upgrades-line2d_5">
+      <path d="M 576 298.08 
+L 576 172.224 
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrades-line2d_6"/>
+     <g id="upgrades-text_3">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="576" y="313.677656" transform="rotate(-0 576 313.677656)">2000</text>
+     </g>
+    </g>
+    <g id="upgrades-xtick_4">
+     <g id="upgrades-line2d_7">
+      <path d="M 768.96 298.08 
+L 768.96 172.224 
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrades-line2d_8"/>
+     <g id="upgrades-text_4">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="768.96" y="313.677656" transform="rotate(-0 768.96 313.677656)">3000</text>
+     </g>
+    </g>
+   </g>
+   <g id="upgrades-matplotlib.axis_2"/>
+   <g id="upgrades-patch_3">
+    <path d="M 190.08 205.2612 
+L 366.094868 205.2612 
+L 366.094868 186.3828 
+L 190.08 186.3828 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrades-patch_4">
+    <path d="M 366.094868 205.2612 
+L 366.439191 205.2612 
+L 366.439191 186.3828 
+L 366.094868 186.3828 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrades-patch_5">
+    <path d="M 366.439191 205.2612 
+L 402.318735 205.2612 
+L 402.318735 186.3828 
+L 366.439191 186.3828 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrades-patch_6">
+    <path d="M 402.318735 205.2612 
+L 436.40852 205.2612 
+L 436.40852 186.3828 
+L 402.318735 186.3828 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrades-patch_7">
+    <path d="M 436.40852 205.2612 
+L 436.40852 205.2612 
+L 436.40852 186.3828 
+L 436.40852 186.3828 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="upgrades-patch_8">
+    <path d="M 436.40852 205.2612 
+L 468.775802 205.2612 
+L 468.775802 186.3828 
+L 436.40852 186.3828 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrades-patch_9">
+    <path d="M 468.775802 205.2612 
+L 485.879323 205.2612 
+L 485.879323 186.3828 
+L 468.775802 186.3828 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrades-patch_10">
+    <path d="M 190.08 244.5912 
+L 360.133511 244.5912 
+L 360.133511 225.7128 
+L 190.08 225.7128 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrades-patch_11">
+    <path d="M 360.133511 244.5912 
+L 360.452001 244.5912 
+L 360.452001 225.7128 
+L 360.133511 225.7128 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrades-patch_12">
+    <path d="M 360.452001 244.5912 
+L 532.9276 244.5912 
+L 532.9276 225.7128 
+L 360.452001 225.7128 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrades-patch_13">
+    <path d="M 532.9276 244.5912 
+L 580.915905 244.5912 
+L 580.915905 225.7128 
+L 532.9276 225.7128 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrades-patch_14">
+    <path d="M 580.915905 244.5912 
+L 580.915905 244.5912 
+L 580.915905 225.7128 
+L 580.915905 225.7128 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="upgrades-patch_15">
+    <path d="M 580.915905 244.5912 
+L 683.694892 244.5912 
+L 683.694892 225.7128 
+L 580.915905 225.7128 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrades-patch_16">
+    <path d="M 683.694892 244.5912 
+L 706.432326 244.5912 
+L 706.432326 225.7128 
+L 683.694892 225.7128 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrades-patch_17">
+    <path d="M 190.08 283.9212 
+L 364.143241 283.9212 
+L 364.143241 265.0428 
+L 190.08 265.0428 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrades-patch_18">
+    <path d="M 364.143241 283.9212 
+L 364.475534 283.9212 
+L 364.475534 265.0428 
+L 364.143241 265.0428 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrades-patch_19">
+    <path d="M 364.475534 283.9212 
+L 493.183733 283.9212 
+L 493.183733 265.0428 
+L 364.475534 265.0428 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrades-patch_20">
+    <path d="M 493.183733 283.9212 
+L 533.443761 283.9212 
+L 533.443761 265.0428 
+L 493.183733 265.0428 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrades-patch_21">
+    <path d="M 533.443761 283.9212 
+L 533.443761 283.9212 
+L 533.443761 265.0428 
+L 533.443761 265.0428 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="upgrades-patch_22">
+    <path d="M 533.443761 283.9212 
+L 613.28089 283.9212 
+L 613.28089 265.0428 
+L 533.443761 265.0428 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrades-patch_23">
+    <path d="M 613.28089 283.9212 
+L 632.551705 283.9212 
+L 632.551705 265.0428 
+L 613.28089 265.0428 
+z
+" clip-path="url(#upgrades-pe5024e3a48)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrades-text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="198.679852" transform="rotate(-0 182.3616 198.679852)">Before</text>
+   </g>
+   <g id="upgrades-text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="493.597723" y="198.419656" transform="rotate(-0 493.597723 198.419656)">1,533.02</text>
+   </g>
+   <g id="upgrades-text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="238.009852" transform="rotate(-0 182.3616 238.009852)">+5 to +30 min</text>
+   </g>
+   <g id="upgrades-text_8">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="714.150726" y="237.749656" transform="rotate(-0 714.150726 237.749656)">2,677.78</text>
+   </g>
+   <g id="upgrades-text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="277.339852" transform="rotate(-0 182.3616 277.339852)">+30 to +60 min</text>
+   </g>
+   <g id="upgrades-text_10">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="640.270105" y="277.079656" transform="rotate(-0 640.270105 277.079656)">2,288.03</text>
+   </g>
+  </g>
+  <g id="upgrades-axes_2">
+   <g id="upgrades-patch_24">
+    <path d="M 190.08 529.92 
+L 768.96 529.92 
+L 768.96 404.064 
+L 190.08 404.064 
+z
+" style="fill: #f7f5ef"/>
+   </g>
+   <g id="upgrades-matplotlib.axis_3">
+    <g id="upgrades-xtick_5">
+     <g id="upgrades-line2d_9">
+      <path d="M 190.08 529.92 
+L 190.08 404.064 
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrades-line2d_10"/>
+     <g id="upgrades-text_11">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="190.08" y="545.517656" transform="rotate(-0 190.08 545.517656)">0</text>
+     </g>
+    </g>
+    <g id="upgrades-xtick_6">
+     <g id="upgrades-line2d_11">
+      <path d="M 383.04 529.92 
+L 383.04 404.064 
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrades-line2d_12"/>
+     <g id="upgrades-text_12">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="383.04" y="545.517656" transform="rotate(-0 383.04 545.517656)">1000</text>
+     </g>
+    </g>
+    <g id="upgrades-xtick_7">
+     <g id="upgrades-line2d_13">
+      <path d="M 576 529.92 
+L 576 404.064 
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrades-line2d_14"/>
+     <g id="upgrades-text_13">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="576" y="545.517656" transform="rotate(-0 576 545.517656)">2000</text>
+     </g>
+    </g>
+    <g id="upgrades-xtick_8">
+     <g id="upgrades-line2d_15">
+      <path d="M 768.96 529.92 
+L 768.96 404.064 
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrades-line2d_16"/>
+     <g id="upgrades-text_14">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="768.96" y="545.517656" transform="rotate(-0 768.96 545.517656)">3000</text>
+     </g>
+    </g>
+   </g>
+   <g id="upgrades-matplotlib.axis_4"/>
+   <g id="upgrades-patch_25">
+    <path d="M 190.08 437.1012 
+L 369.783379 437.1012 
+L 369.783379 418.2228 
+L 190.08 418.2228 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrades-patch_26">
+    <path d="M 369.783379 437.1012 
+L 370.060942 437.1012 
+L 370.060942 418.2228 
+L 369.783379 418.2228 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrades-patch_27">
+    <path d="M 370.060942 437.1012 
+L 405.730751 437.1012 
+L 405.730751 418.2228 
+L 370.060942 418.2228 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrades-patch_28">
+    <path d="M 405.730751 437.1012 
+L 439.408923 437.1012 
+L 439.408923 418.2228 
+L 405.730751 418.2228 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrades-patch_29">
+    <path d="M 439.408923 437.1012 
+L 439.408923 437.1012 
+L 439.408923 418.2228 
+L 439.408923 418.2228 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="upgrades-patch_30">
+    <path d="M 439.408923 437.1012 
+L 471.25062 437.1012 
+L 471.25062 418.2228 
+L 439.408923 418.2228 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrades-patch_31">
+    <path d="M 471.25062 437.1012 
+L 484.450656 437.1012 
+L 484.450656 418.2228 
+L 471.25062 418.2228 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrades-patch_32">
+    <path d="M 190.08 476.4312 
+L 362.409117 476.4312 
+L 362.409117 457.5528 
+L 190.08 457.5528 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrades-patch_33">
+    <path d="M 362.409117 476.4312 
+L 362.73733 476.4312 
+L 362.73733 457.5528 
+L 362.409117 457.5528 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrades-patch_34">
+    <path d="M 362.73733 476.4312 
+L 530.672555 476.4312 
+L 530.672555 457.5528 
+L 362.73733 457.5528 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrades-patch_35">
+    <path d="M 530.672555 476.4312 
+L 577.07869 476.4312 
+L 577.07869 457.5528 
+L 530.672555 457.5528 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrades-patch_36">
+    <path d="M 577.07869 476.4312 
+L 682.192667 476.4312 
+L 682.192667 457.5528 
+L 577.07869 457.5528 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrades-patch_37">
+    <path d="M 682.192667 476.4312 
+L 703.268555 476.4312 
+L 703.268555 457.5528 
+L 682.192667 457.5528 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrades-patch_38">
+    <path d="M 190.08 515.7612 
+L 366.21985 515.7612 
+L 366.21985 496.8828 
+L 190.08 496.8828 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrades-patch_39">
+    <path d="M 366.21985 515.7612 
+L 366.497817 515.7612 
+L 366.497817 496.8828 
+L 366.21985 496.8828 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrades-patch_40">
+    <path d="M 366.497817 515.7612 
+L 462.442842 515.7612 
+L 462.442842 496.8828 
+L 366.497817 496.8828 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrades-patch_41">
+    <path d="M 462.442842 515.7612 
+L 500.995344 515.7612 
+L 500.995344 496.8828 
+L 462.442842 496.8828 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrades-patch_42">
+    <path d="M 500.995344 515.7612 
+L 565.722495 515.7612 
+L 565.722495 496.8828 
+L 500.995344 496.8828 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrades-patch_43">
+    <path d="M 565.722495 515.7612 
+L 582.498514 515.7612 
+L 582.498514 496.8828 
+L 565.722495 496.8828 
+z
+" clip-path="url(#upgrades-p9f458b1b01)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrades-text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="430.519852" transform="rotate(-0 182.3616 430.519852)">Before</text>
+   </g>
+   <g id="upgrades-text_16">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="492.169056" y="430.259656" transform="rotate(-0 492.169056 430.259656)">1,526.93</text>
+   </g>
+   <g id="upgrades-text_17">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="469.849852" transform="rotate(-0 182.3616 469.849852)">+5 to +30 min</text>
+   </g>
+   <g id="upgrades-text_18">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="710.986955" y="469.589656" transform="rotate(-0 710.986955 469.589656)">2,658.17</text>
+   </g>
+   <g id="upgrades-text_19">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="509.179852" transform="rotate(-0 182.3616 509.179852)">+30 to +60 min</text>
+   </g>
+   <g id="upgrades-text_20">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="590.216914" y="508.919656" transform="rotate(-0 590.216914 508.919656)">2,034.88</text>
+   </g>
+  </g>
+  <g id="upgrades-patch_44">
+   <path d="M 34.56 139.104 
+L 41.472 139.104 
+L 41.472 131.1552 
+L 34.56 131.1552 
+z
+" style="fill: #84949d"/>
+  </g>
+  <g id="upgrades-patch_45">
+   <path d="M 166.752 139.104 
+L 173.664 139.104 
+L 173.664 131.1552 
+L 166.752 131.1552 
+z
+" style="fill: #bac5c8"/>
+  </g>
+  <g id="upgrades-patch_46">
+   <path d="M 298.944 139.104 
+L 305.856 139.104 
+L 305.856 131.1552 
+L 298.944 131.1552 
+z
+" style="fill: #c88821"/>
+  </g>
+  <g id="upgrades-patch_47">
+   <path d="M 431.136 139.104 
+L 438.048 139.104 
+L 438.048 131.1552 
+L 431.136 131.1552 
+z
+" style="fill: #16857b"/>
+  </g>
+  <g id="upgrades-patch_48">
+   <path d="M 563.328 139.104 
+L 570.24 139.104 
+L 570.24 131.1552 
+L 563.328 131.1552 
+z
+" style="fill: #7865ad"/>
+  </g>
+  <g id="upgrades-patch_49">
+   <path d="M 695.52 139.104 
+L 702.432 139.104 
+L 702.432 131.1552 
+L 695.52 131.1552 
+z
+" style="fill: #3e71a3"/>
+  </g>
+  <g id="upgrades-text_21">
+   <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #126f67" x="34.56" y="36.432" transform="rotate(-0 34.56 36.432)">MEASURED</text>
+  </g>
+  <g id="upgrades-text_22">
+   <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="82.8" transform="rotate(-0 34.56 82.8)">The restart gap and the recovery tail differ</text>
+  </g>
+  <g id="upgrades-text_23">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="115.92" transform="rotate(-0 34.56 115.92)">Voting validator · phase contributions in milliseconds per block</text>
+  </g>
+  <g id="upgrades-text_24">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="46.656" y="139.104" transform="rotate(-0 46.656 139.104)">NewHeight</text>
+  </g>
+  <g id="upgrades-text_25">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="178.848" y="139.104" transform="rotate(-0 178.848 139.104)">NewRound</text>
+  </g>
+  <g id="upgrades-text_26">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="311.04" y="139.104" transform="rotate(-0 311.04 139.104)">Propose</text>
+  </g>
+  <g id="upgrades-text_27">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="443.232" y="139.104" transform="rotate(-0 443.232 139.104)">Prevote</text>
+  </g>
+  <g id="upgrades-text_28">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="575.424" y="139.104" transform="rotate(-0 575.424 139.104)">Precommit</text>
+  </g>
+  <g id="upgrades-text_29">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="707.616" y="139.104" transform="rotate(-0 707.616 139.104)">Commit</text>
+  </g>
+  <g id="upgrades-text_30">
+   <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="158.976" transform="rotate(-0 34.56 158.976)">v2.20.0 · H 46,828,562 · 2026-09-26</text>
+  </g>
+  <g id="upgrades-text_31">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="344.448" transform="rotate(-0 34.56 344.448)">Canonical gap 46.14 s at H+2   ·   Stable-window criterion confirmed at +10 h 10 min</text>
+  </g>
+  <g id="upgrades-text_32">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="361.008" transform="rotate(-0 34.56 361.008)">Residuals, before / recovery / later: +0.07 / +1.83 / -5.05 ms</text>
+  </g>
+  <g id="upgrades-text_33">
+   <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="390.816" transform="rotate(-0 34.56 390.816)">v2.21.0 · H 47,668,356 · 2026-10-11</text>
+  </g>
+  <g id="upgrades-text_34">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="576.288" transform="rotate(-0 34.56 576.288)">Canonical gap 53.85 s at H+2   ·   Stable-window criterion confirmed at +1 h 35 min</text>
+  </g>
+  <g id="upgrades-text_35">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="592.848" transform="rotate(-0 34.56 592.848)">Residuals, before / recovery / later: +1.37 / -1.39 / +1.20 ms</text>
+  </g>
+  <g id="upgrades-text_36">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 619.904)">Before = −30 to −5 min. Recovery criterion = six complete 5-minute bins within 10% of the pre-upgrade mean.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 635.904)">Gap seconds and recovery hours are separate measures. Labels give block means; residuals stay signed.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="upgrades-pe5024e3a48">
+   <rect x="190.08" y="172.224" width="578.88" height="125.856"/>
+  </clipPath>
+  <clipPath id="upgrades-p9f458b1b01">
+   <rect x="190.08" y="404.064" width="578.88" height="125.856"/>
+  </clipPath>
+ </defs>
+</svg>

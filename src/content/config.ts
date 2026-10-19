@@ -50,6 +50,7 @@ const postCollection = defineCollection({
     publishDate: z.date().optional(),
     updateDate: z.date().optional(),
     draft: z.boolean().optional(),
+    contentLayout: z.enum(["article", "wide"]).default("article"),
 
     title: z.string(),
     excerpt: z.string().optional(),
@@ -65,4 +66,17 @@ const postCollection = defineCollection({
 
 export const collections = {
   post: postCollection,
+  project: defineCollection({
+    type: "content",
+    schema: z.object({
+      title: z.string(),
+      summary: z.string(),
+      role: z.string(),
+      group: z.enum(["current", "earlier"]).default("current"),
+      featured: z.boolean().default(false),
+      order: z.number().default(0),
+      draft: z.boolean().default(false),
+      links: z.array(z.object({ label: z.string(), href: z.string().url() })),
+    }),
+  }),
 }

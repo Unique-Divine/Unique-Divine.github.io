@@ -8,6 +8,10 @@ export const headerData = {
       text: "About",
       href: getPermalink("/about-unique-divine"),
     },
+    {
+      text: "Projects",
+      href: getPermalink("/code/projects"),
+    },
 
     // TODO: Include in top navigation?
     // {
@@ -66,14 +70,6 @@ export const headerData = {
           href: getPermalink("coding", "category"),
         },
         {
-          text: "Coding in Python",
-          href: getPermalink("python", "tag"),
-        },
-        {
-          text: "Coding in Golang",
-          href: "/code/golang",
-        },
-        {
           text: "Contact",
           href: getPermalink("/about-unique-divine#contact"),
         },
@@ -86,6 +82,7 @@ export const headerData = {
 }
 
 export const footerData = {
+  secondaryLinks: [{ text: "Sitemap", href: getPermalink("/sitemap") }],
   links: [
     {
       title: "Socials",

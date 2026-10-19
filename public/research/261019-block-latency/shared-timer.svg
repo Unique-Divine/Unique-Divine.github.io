@@ -1,0 +1,201 @@
+<svg role="img" aria-labelledby="shared-timer-title shared-timer-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="660" viewBox="0 0 864 475.2" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="shared-timer-title">The shared Commit and NewHeight schedule</title><desc id="shared-timer-desc">Commit processing and the remaining NewHeight wait use a shared schedule. Compare local means on the validator and two observers; do not treat them as two independent removable timers.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="shared-timer-figure_1">
+  <g id="shared-timer-patch_1">
+   <path d="M 0 475.2 
+L 864 475.2 
+L 864 0 
+L 0 0 
+z
+" style="fill: #f7f5ef"/>
+  </g>
+  <g id="shared-timer-axes_1">
+   <g id="shared-timer-patch_2">
+    <path d="M 198.72 323.136 
+L 803.52 323.136 
+L 803.52 123.552 
+L 198.72 123.552 
+z
+" style="fill: #f7f5ef"/>
+   </g>
+   <g id="shared-timer-matplotlib.axis_1">
+    <g id="shared-timer-xtick_1">
+     <g id="shared-timer-line2d_1">
+      <path d="M 198.72 323.136 
+L 198.72 123.552 
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="shared-timer-line2d_2"/>
+     <g id="shared-timer-text_1">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="198.72" y="338.733656" transform="rotate(-0 198.72 338.733656)">0</text>
+     </g>
+    </g>
+    <g id="shared-timer-xtick_2">
+     <g id="shared-timer-line2d_3">
+      <path d="M 336.174545 323.136 
+L 336.174545 123.552 
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="shared-timer-line2d_4"/>
+     <g id="shared-timer-text_2">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="336.174545" y="338.733656" transform="rotate(-0 336.174545 338.733656)">250</text>
+     </g>
+    </g>
+    <g id="shared-timer-xtick_3">
+     <g id="shared-timer-line2d_5">
+      <path d="M 473.629091 323.136 
+L 473.629091 123.552 
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="shared-timer-line2d_6"/>
+     <g id="shared-timer-text_3">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="473.629091" y="338.733656" transform="rotate(-0 473.629091 338.733656)">500</text>
+     </g>
+    </g>
+    <g id="shared-timer-xtick_4">
+     <g id="shared-timer-line2d_7">
+      <path d="M 611.083636 323.136 
+L 611.083636 123.552 
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="shared-timer-line2d_8"/>
+     <g id="shared-timer-text_4">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="611.083636" y="338.733656" transform="rotate(-0 611.083636 338.733656)">750</text>
+     </g>
+    </g>
+    <g id="shared-timer-xtick_5">
+     <g id="shared-timer-line2d_9">
+      <path d="M 748.538182 323.136 
+L 748.538182 123.552 
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="shared-timer-line2d_10"/>
+     <g id="shared-timer-text_5">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="748.538182" y="338.733656" transform="rotate(-0 748.538182 338.733656)">1000</text>
+     </g>
+    </g>
+    <g id="shared-timer-text_6">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="198.72" y="360.734438" transform="rotate(-0 198.72 360.734438)">milliseconds per block</text>
+    </g>
+   </g>
+   <g id="shared-timer-matplotlib.axis_2"/>
+   <g id="shared-timer-patch_3">
+    <path d="M 198.72 175.3191 
+L 241.810058 175.3191 
+L 241.810058 146.6289 
+L 198.72 146.6289 
+z
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: #3e71a3"/>
+   </g>
+   <g id="shared-timer-patch_4">
+    <path d="M 241.810058 175.3191 
+L 749.010956 175.3191 
+L 749.010956 146.6289 
+L 241.810058 146.6289 
+z
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: #84949d"/>
+   </g>
+   <g id="shared-timer-patch_5">
+    <path d="M 198.72 237.6891 
+L 267.35693 237.6891 
+L 267.35693 208.9989 
+L 198.72 208.9989 
+z
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: #3e71a3"/>
+   </g>
+   <g id="shared-timer-patch_6">
+    <path d="M 267.35693 237.6891 
+L 750.558107 237.6891 
+L 750.558107 208.9989 
+L 267.35693 208.9989 
+z
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: #84949d"/>
+   </g>
+   <g id="shared-timer-patch_7">
+    <path d="M 198.72 300.0591 
+L 266.22888 300.0591 
+L 266.22888 271.3689 
+L 198.72 271.3689 
+z
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: #3e71a3"/>
+   </g>
+   <g id="shared-timer-patch_8">
+    <path d="M 266.22888 300.0591 
+L 750.552743 300.0591 
+L 750.552743 271.3689 
+L 266.22888 271.3689 
+z
+" clip-path="url(#shared-timer-p248cb35041)" style="fill: #84949d"/>
+   </g>
+   <g id="shared-timer-text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172329" x="247.30824" y="163.831852" transform="rotate(-0 247.30824 163.831852)">922.49 ms wait</text>
+   </g>
+   <g id="shared-timer-text_8">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="755.608774" y="163.571656" transform="rotate(-0 755.608774 163.571656)">1,000.86</text>
+   </g>
+   <g id="shared-timer-text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172329" x="272.855112" y="226.201852" transform="rotate(-0 272.855112 226.201852)">878.84 ms wait</text>
+   </g>
+   <g id="shared-timer-text_10">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="757.155925" y="225.941656" transform="rotate(-0 757.155925 225.941656)">1,003.67</text>
+   </g>
+   <g id="shared-timer-text_11">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172329" x="271.727062" y="288.571852" transform="rotate(-0 271.727062 288.571852)">880.88 ms wait</text>
+   </g>
+   <g id="shared-timer-text_12">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="757.150562" y="288.311656" transform="rotate(-0 757.150562 288.311656)">1,003.66</text>
+   </g>
+  </g>
+  <g id="shared-timer-text_13">
+   <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #126f67" x="34.56" y="26.136" transform="rotate(-0 34.56 26.136)">MEASURED</text>
+  </g>
+  <g id="shared-timer-text_14">
+   <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="59.4" transform="rotate(-0 34.56 59.4)">Commit and NewHeight share a schedule</text>
+  </g>
+  <g id="shared-timer-text_15">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="83.16" transform="rotate(-0 34.56 83.16)">48-hour phase means · October 17 to 19, 2026 · compare nodes observing the same chain</text>
+  </g>
+  <g id="shared-timer-text_16">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #202f36" transform="translate(34.56 155.209313)">Voting validator</text>
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #202f36" transform="translate(34.56 173.874937)">Commit 78.37 ms</text>
+  </g>
+  <g id="shared-timer-text_17">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #202f36" transform="translate(34.56 217.579313)">Snapshot 0</text>
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #202f36" transform="translate(34.56 236.244937)">Commit 124.84 ms</text>
+  </g>
+  <g id="shared-timer-text_18">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #202f36" transform="translate(34.56 279.949313)">Snapshot 1</text>
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #202f36" transform="translate(34.56 298.614937)">Commit 122.78 ms</text>
+  </g>
+  <g id="shared-timer-text_19">
+   <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="380.16" transform="rotate(-0 34.56 380.16)">At entry to Commit, CometBFT schedules the next height. Application work uses part of that interval.</text>
+  </g>
+  <g id="shared-timer-text_20">
+   <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="403.92" transform="rotate(-0 34.56 403.92)">NewHeight records the remaining wait. A longer Commit can therefore leave a shorter NewHeight.</text>
+  </g>
+  <g id="shared-timer-text_21">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 440.192)">These are pooled means, not paired per-block traces. Live timeout settings were not retrieved.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 456.192)">Snapshot 0 has incomplete phase coverage. Removing Commit plus the whole timer would double-count time.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="shared-timer-p248cb35041">
+   <rect x="198.72" y="123.552" width="604.8" height="199.584"/>
+  </clipPath>
+ </defs>
+</svg>
