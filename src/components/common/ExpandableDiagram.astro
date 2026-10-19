@@ -1,0 +1,113 @@
+---
+import { randomUUID } from "node:crypto"
+
+import styles from "./expandable-diagram.css?raw"
+
+interface Props {
+  src: string
+  alt: string
+  width: number
+  height: number
+  caption?: string
+  loading?: "lazy" | "eager"
+}
+
+const { src, alt, width, height, caption, loading = "lazy" } = Astro.props
+const dialogId = `diagram-${randomUUID()}`
+---
+
+<expandable-diagram class="ed-diagram not-prose">
+  <figure class="ed-figure">
+    <button
+      class="ed-preview"
+      type="button"
+      data-diagram-open
+      aria-label={`Expand diagram: ${alt}`}
+      aria-haspopup="dialog"
+      aria-controls={dialogId}
+      disabled
+    >
+      <img
+        data-diagram-preview
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding="async"
+      />
+      <span class="ed-expand-mark" aria-hidden="true" title="Expand diagram">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M8 3H3v5m0-5 6 6m7-6h5v5m0-5-6 6M3 16v5h5m-5 0 6-6m12 1v5h-5m5 0-6-6"
+          ></path>
+        </svg>
+      </span>
+    </button>
+    {
+      (caption || Astro.slots.has("caption")) && (
+        <figcaption class="ed-caption">
+          <slot name="caption">{caption}</slot>
+        </figcaption>
+      )
+    }
+  </figure>
+  <dialog
+    class="ed-dialog"
+    id={dialogId}
+    aria-label={`Expanded diagram: ${alt}`}
+  >
+    <div class="ed-toolbar">
+      <span>Expanded diagram</span>
+      <button
+        class="ed-close"
+        type="button"
+        data-diagram-close
+        aria-label="Close diagram"
+        autofocus
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="m6 6 12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+    </div>
+    <div
+      class="ed-dialog-body"
+      tabindex="0"
+      role="region"
+      aria-label="Scrollable expanded diagram"
+    >
+      <img
+        data-diagram-expanded
+        alt={alt}
+        width={width}
+        height={height}
+        decoding="async"
+      />
+    </div>
+  </dialog>
+</expandable-diagram>
+
+<!-- Inline rules also reach posts rendered through the dynamic MDX component. -->
+<style is:inline set:html={styles}></style>
+<script>
+  import "./expandable-diagram"
+</script>

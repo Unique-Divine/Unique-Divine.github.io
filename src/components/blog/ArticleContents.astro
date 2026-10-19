@@ -1,0 +1,63 @@
+---
+import styles from "./article-contents.css?raw"
+
+export interface ContentsItem {
+  id: string
+  label: string
+  depth?: 2 | 3
+}
+
+interface Props {
+  items: ContentsItem[]
+}
+
+const { items } = Astro.props
+---
+
+<div class="article-contents" data-article-contents>
+  <aside class="article-contents-desktop">
+    <nav aria-label="On this page">
+      <p class="article-contents-title">On this page</p>
+      <ul>
+        {
+          items.map(({ id, label, depth }) => (
+            <li class:list={{ "article-contents-nested": depth === 3 }}>
+              <a href={`#${id}`}>{label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </aside>
+  <details class="article-contents-mobile">
+    <summary>
+      <span class="article-contents-label">On this page</span>
+      <span data-contents-current>Overview</span>
+      <svg
+        class="article-contents-chevron"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        aria-hidden="true"
+      >
+        <path d="m6 9 6 6 6-6"></path>
+      </svg>
+    </summary>
+    <nav aria-label="On this page">
+      <ul>
+        {
+          items.map(({ id, label, depth }) => (
+            <li class:list={{ "article-contents-nested": depth === 3 }}>
+              <a href={`#${id}`}>{label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </details>
+</div>
+
+<style is:inline set:html={styles}></style>
