@@ -1,0 +1,257 @@
+---
+title: "Where a 1.5-second block spends its time"
+excerpt: "Profiling Tendermint on Nibiru: the wait between heights, the cost of voting, and what a different ordering architecture might change."
+publishDate: 2026-10-19T00:00:00Z
+author: Unique Divine
+category: Nibiru
+tags:
+  - distributed-systems
+  - blockchain
+  - commonplace
+  - research
+  - nibiru-bft
+  - sai
+contentLayout: wide
+draft: false
+---
+
+import Budget from "~/components/research/block-latency/Budget.astro"
+import Figure from "~/components/research/block-latency/Figure.astro"
+import Guide from "~/components/research/block-latency/Guide.astro"
+import Legend from "~/components/research/block-latency/Legend.astro"
+import Scenario from "~/components/research/block-latency/Scenario.astro"
+import Upgrade from "~/components/research/block-latency/Upgrade.astro"
+
+<Guide>
+
+I started this investigation with a practical question: what would make a Sai
+transaction feel faster? Nibiru produces blocks roughly every 1.5 seconds, but
+that interval alone doesn't tell me whether to tune Tendermint, change the voting
+set, or replace agreement with a sequencer.
+
+Before choosing an architecture, I wanted a budget for the time we already spend.
+This note uses a 48-hour production capture, observations from a voting validator
+and two nonvoting nodes, and the histories of two chain upgrades. It describes
+measured behavior and possible experiments. It does not announce a performance
+upgrade.
+
+The headline numbers describe the voting validator. Each node observes the same
+chain, so their interval counts do not add together. The observed application
+load was about 1.33 delivered transactions per second on each observer. This is
+a low-load cadence baseline, not a measurement of maximum throughput.
+
+<h2 id="cycle">A block needs agreement, execution, and delivery.</h2>
+
+The proposer supplies a candidate block containing ordered transactions.
+Validators exchange prevotes and precommits before committing it. Each executing
+node applies the block to its application state and persists the result. RPC and
+indexer services then expose results to the application.
+
+Those are different confirmation boundaries. A transaction accepted by an RPC
+has not necessarily been ordered, executed, or finalized. For trading UX, I care
+about when the user can see and act on the executed outcome, as well as what
+guarantee backs that outcome.
+
+<Figure
+  file="block-cycle.svg"
+  badge="Schematic · not to scale"
+  alt="One successful Tendermint round, its local states, and the separate result-delivery path"
+/>
+
+The diagram shows a successful round. Invalid proposals, unavailable proposers,
+and delayed votes can cause retries. The arrows explain order; their lengths
+are not measurements of transaction latency.
+
+<h2 id="budget">The largest phase is the wait for the next height.</h2>
+
+NewHeight contributes about 61% of the validator's measured interval. Prevote
+and Precommit together contribute about 21%. Each phase contains local work and
+waiting; phase duration does not isolate networking.
+
+Select a node to compare its local view. The snapshots are nonvoting observers,
+not alternative proposers. The capture does not separate the validator's
+proposer heights from its other heights.
+
+<Budget />
+
+NewRound itself contributes only 1.68 ms per block on the validator. Propose
+contributes 187.56 ms. Those averages establish neither a 250 ms ceiling nor a
+250 ms complete agreement-and-execution path.
+
+The 96 half-hour bins partition the capture. Their means are relatively
+consistent, but their distribution is not an individual-block p50, p95, or p99.
+The available histogram buckets are too coarse to establish precise subsecond
+tail percentiles.
+
+<h2 id="timer">Commit processing uses part of the next-height schedule.</h2>
+
+CometBFT v0.37.18 schedules the next height when it enters Commit. Application
+execution and persistence consume some of that interval. NewHeight contains the
+remaining wait. The validator's Commit and NewHeight contributions total
+1,000.86 ms per block.
+
+<Legend />
+<Figure
+  file="shared-timer.svg"
+  badge="Measured means + source interpretation"
+  alt="Commit and NewHeight contributions on the validator and two observers share an approximately one-second schedule"
+/>
+
+The validator has a shorter Commit and a longer NewHeight than the observers.
+Their combined means are similar. These are pooled observations, not paired
+per-block traces or proof that a database difference explains the whole split.
+
+The [configuration source](https://github.com/cometbft/cometbft/blob/v0.37.18/config/config.go)
+describes the commit wait as time to receive additional precommits after quorum.
+Its default is one second. The
+[state implementation](https://github.com/cometbft/cometbft/blob/v0.37.18/consensus/state.go)
+sets the next start time from Commit entry plus that configured interval.
+I have not independently retrieved the live timeout setting.
+
+Reducing this wait is a candidate for shorter blocks while retaining voting.
+The version also supports `skip_timeout_commit`, which can start the next height
+early after **all** precommits arrive. That is a stronger condition than a quorum.
+Lowering failure timeouts is a separate change and does not automatically speed
+up already-successful voting phases.
+
+The wait precedes the next height. It need not delay exposing an already executed
+result from the previous block. Shorter cadence can reduce how long newly arriving
+transactions wait for their next inclusion opportunity, while repeating
+block-level work more frequently. The experiment needs to measure both effects.
+
+<h2 id="upgrades">Blocks resume before the phase budget settles.</h2>
+
+The initial upgrade interruption lasts seconds. Elevated Propose and Precommit
+contributions continue after the restart. I keep the initial gap and the recovery
+tail separate because they answer different operational questions.
+
+<Upgrade />
+
+The recovery test requires six consecutive complete five-minute bins within 10%
+of the pre-upgrade block mean, plus a complete combined window. It is confirmed
+at the end of that 30-minute sequence. It does not prove permanent recovery or
+identify the cause of the elevated phases.
+
+The v2.20.0 observation needed an extension to 24 hours after activation because
+the criterion had not been met at six hours. The v2.21.0 observation met it within
+the original capture. The detailed figures retain the longer curves rather than
+showing only selected favorable windows.
+
+<h2 id="scenario">Removing a phase gives a question to test.</h2>
+
+Prevote plus Precommit contributes 324.85 ms per block on the validator. Setting
+those contributions to zero leaves 1,190.19 ms, if everything else stays fixed.
+The longer NewHeight wait is a separate opportunity. The table extends the same
+accounting to both costs and follows the node selected above.
+
+<Scenario />
+
+The hypothetical rows retain all other contributions and the signed residual.
+They are not tested configurations, throughput predictions, or measured results
+from a replacement protocol. Removing Commit processing and the entire shared
+schedule would double-count an opportunity. Even the zero-NewHeight scenario
+assumes that the remaining work behaves the same after changing the schedule.
+
+### Why can a sequencer avoid the voting exchange?
+
+A sequencer is the service or protocol that chooses transaction order. A trusted
+single sequencer can choose that order without waiting for distributed
+Tendermint votes. The authority to choose the canonical order comes from the
+system's rules about that operator.
+
+Tendermint's proposer already supplies an order. The votes and locking rules
+establish agreement despite faulty proposals and leader changes. A sequencer
+changes who has authority and what the confirmation means. It is more than
+deleting two functions from Tendermint. A distributed sequencer can itself run
+BFT and retain quorum communication.
+
+One possible path is submission, sequencer ordering, execution and persistence,
+then result delivery. Replicas still need data and execution. The design must
+specify failover, conflicting orders, and which replication or publication steps
+finish before it acknowledges a result. An early acknowledgment does not by
+itself establish a durable executed outcome.
+
+[Evolve's single-sequencer design](https://github.com/evstack/ev-node/blob/de0c64425d12f88083b26503b8ab75efa21d2a0f/docs/learn/sequencing/single.md)
+is one concrete architecture to investigate. Its ABCI adapter does not make it
+interchangeable with the application version in this capture. Integration and
+confirmation semantics need their own investigation.
+
+A small BFT committee is another option. It changes the voting set and can still
+use CometBFT. Fewer voters and controlled connectivity may reduce coordination
+cost, but execution and persistence remain. The useful comparison is the latency
+of the guarantee the application actually needs.
+
+<h2 id="testing">
+  A one-validator run is a control, not the network benchmark.
+</h2>
+
+A single validator still performs local processing and may retain configured
+waiting. It satisfies its voting quorum locally. That makes it a useful control
+for some costs, but it cannot establish production agreement latency. Subtracting
+its result from a multi-node run would not isolate networking exactly, because
+scheduling and other work can change too.
+
+Honest nodes incur network cost even when they agree. A useful experiment suite
+would separate:
+
+- Multiple honest validators under representative application load, with realistic
+  placement, bandwidth, and latency.
+- Controlled delay, loss, outages, partitions, and restarts, followed through
+  recovery and catch-up.
+- Faulty proposers, invalid proposals, and conflicting votes, with an explicit
+  distribution of faulty voting power.
+
+Input fuzzing complements those experiments. Controlled fault injection gives us
+reproducible failures to explain. Failed application transactions, invalid blocks,
+and malformed network messages exercise different paths. A valid block can
+contain a transaction that executes unsuccessfully.
+
+The [consensus specification](https://github.com/cometbft/cometbft/blob/v0.37.18/spec/consensus/consensus.md)
+describes additional rounds for failed proposals and delayed votes. CometBFT also
+has an [end-to-end harness](https://github.com/cometbft/cometbft/blob/v0.37.18/test/e2e/README.md)
+to examine before building a new testing system. Healthy and fault-case results
+should remain separate. Continued progress is not a general expectation once
+the protocol's fault threshold is exceeded.
+
+For the application comparison, I would record admission, ordering, execution,
+durability, and result-delivery boundaries. Latency percentiles, successful
+throughput, and queue growth matter together. Faster ordering that leaves an
+ever-growing execution backlog would not meet the user-experience goal.
+
+<h2 id="evidence">Each clock answers a different question.</h2>
+
+Use counters for phase averages, event logs for local lifecycle events, and block
+headers for canonical cadence. Their clocks are not interchangeable.
+
+<Figure
+  file="evidence-map.svg"
+  badge="Method"
+  alt="What elapsed-time counters, whole-second event logs, and canonical headers can each establish"
+/>
+
+The requested baseline window runs from October 17 at 04:02 UTC through October
+19 at 04:02 UTC. Actual validator scrapes run from 04:01:17.125 UTC on the first
+day to the same time on the last day. The calculations use raw counter changes;
+they do not extrapolate to nominal boundaries. Adjacent bins share their boundary
+scrape, keeping their counts consistent with the pooled total.
+
+The phase histograms record elapsed time on state exit. Sixty-second scraping
+still supports millisecond means from duration sums and counts. It does not
+provide a millisecond trace of each block. The sampled event logs have
+whole-second precision and cannot resolve a 150 ms voting phase.
+
+A stopped process records no phase time. Restart-crossing counter pairs are
+excluded and transition tables remain incomplete. Missing series mean unavailable,
+not zero. A negative residual stays negative rather than being drawn as extra
+positive time.
+
+The inspected release tags v2.20.0, v2.21.0, and v2.21.2 pin CometBFT v0.37.18.
+Startup logs identify app 2.21.0 on the baseline validator and 2.21.2 on the
+observers. This is version evidence, not a cryptographic attestation of each
+running binary.
+
+The capture gives me a concrete baseline for deciding what to test. It leaves
+the architecture choice open. The next useful result is a measured change in
+application confirmation latency, with its workload and fault assumptions stated.
+
+</Guide>

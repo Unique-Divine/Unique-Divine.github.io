@@ -1,0 +1,370 @@
+<svg role="img" aria-labelledby="upgrade-v2.20.0-title upgrade-v2.20.0-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="700" viewBox="0 0 864 504" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="upgrade-v2.20.0-title">Upgrade phase comparison</title><desc id="upgrade-v2.20.0-desc">Measured validator phase contributions before, five to thirty minutes after, and thirty to sixty minutes after upgrades. The canonical initial gap is distinct from the longer recovery criterion. Transition counters are incomplete.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="upgrade-v2.20.0-figure_1">
+  <g id="upgrade-v2.20.0-patch_1">
+   <path d="M 0 504 
+L 864 504 
+L 864 0 
+L 0 0 
+z
+" style="fill: #f7f5ef"/>
+  </g>
+  <g id="upgrade-v2.20.0-axes_1">
+   <g id="upgrade-v2.20.0-patch_2">
+    <path d="M 190.08 322.56 
+L 768.96 322.56 
+L 768.96 171.36 
+L 190.08 171.36 
+z
+" style="fill: #f7f5ef"/>
+   </g>
+   <g id="upgrade-v2.20.0-matplotlib.axis_1">
+    <g id="upgrade-v2.20.0-xtick_1">
+     <g id="upgrade-v2.20.0-line2d_1">
+      <path d="M 190.08 322.56 
+L 190.08 171.36 
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrade-v2.20.0-line2d_2"/>
+     <g id="upgrade-v2.20.0-text_1">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="190.08" y="338.157656" transform="rotate(-0 190.08 338.157656)">0</text>
+     </g>
+    </g>
+    <g id="upgrade-v2.20.0-xtick_2">
+     <g id="upgrade-v2.20.0-line2d_3">
+      <path d="M 383.04 322.56 
+L 383.04 171.36 
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrade-v2.20.0-line2d_4"/>
+     <g id="upgrade-v2.20.0-text_2">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="383.04" y="338.157656" transform="rotate(-0 383.04 338.157656)">1000</text>
+     </g>
+    </g>
+    <g id="upgrade-v2.20.0-xtick_3">
+     <g id="upgrade-v2.20.0-line2d_5">
+      <path d="M 576 322.56 
+L 576 171.36 
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrade-v2.20.0-line2d_6"/>
+     <g id="upgrade-v2.20.0-text_3">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="576" y="338.157656" transform="rotate(-0 576 338.157656)">2000</text>
+     </g>
+    </g>
+    <g id="upgrade-v2.20.0-xtick_4">
+     <g id="upgrade-v2.20.0-line2d_7">
+      <path d="M 768.96 322.56 
+L 768.96 171.36 
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="upgrade-v2.20.0-line2d_8"/>
+     <g id="upgrade-v2.20.0-text_4">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="768.96" y="338.157656" transform="rotate(-0 768.96 338.157656)">3000</text>
+     </g>
+    </g>
+    <g id="upgrade-v2.20.0-text_5">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="190.08" y="360.158437" transform="rotate(-0 190.08 360.158437)">milliseconds per block</text>
+    </g>
+   </g>
+   <g id="upgrade-v2.20.0-matplotlib.axis_2"/>
+   <g id="upgrade-v2.20.0-patch_3">
+    <path d="M 190.08 211.05 
+L 366.094868 211.05 
+L 366.094868 188.37 
+L 190.08 188.37 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_4">
+    <path d="M 366.094868 211.05 
+L 366.439191 211.05 
+L 366.439191 188.37 
+L 366.094868 188.37 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_5">
+    <path d="M 366.439191 211.05 
+L 402.318735 211.05 
+L 402.318735 188.37 
+L 366.439191 188.37 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_6">
+    <path d="M 402.318735 211.05 
+L 436.40852 211.05 
+L 436.40852 188.37 
+L 402.318735 188.37 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_7">
+    <path d="M 436.40852 211.05 
+L 436.40852 211.05 
+L 436.40852 188.37 
+L 436.40852 188.37 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_8">
+    <path d="M 436.40852 211.05 
+L 468.775802 211.05 
+L 468.775802 188.37 
+L 436.40852 188.37 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_9">
+    <path d="M 468.775802 211.05 
+L 485.879323 211.05 
+L 485.879323 188.37 
+L 468.775802 188.37 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_10">
+    <path d="M 190.08 258.3 
+L 360.133511 258.3 
+L 360.133511 235.62 
+L 190.08 235.62 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_11">
+    <path d="M 360.133511 258.3 
+L 360.452001 258.3 
+L 360.452001 235.62 
+L 360.133511 235.62 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_12">
+    <path d="M 360.452001 258.3 
+L 532.9276 258.3 
+L 532.9276 235.62 
+L 360.452001 235.62 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_13">
+    <path d="M 532.9276 258.3 
+L 580.915905 258.3 
+L 580.915905 235.62 
+L 532.9276 235.62 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_14">
+    <path d="M 580.915905 258.3 
+L 580.915905 258.3 
+L 580.915905 235.62 
+L 580.915905 235.62 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_15">
+    <path d="M 580.915905 258.3 
+L 683.694892 258.3 
+L 683.694892 235.62 
+L 580.915905 235.62 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_16">
+    <path d="M 683.694892 258.3 
+L 706.432326 258.3 
+L 706.432326 235.62 
+L 683.694892 235.62 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_17">
+    <path d="M 190.08 305.55 
+L 364.143241 305.55 
+L 364.143241 282.87 
+L 190.08 282.87 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #84949d"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_18">
+    <path d="M 364.143241 305.55 
+L 364.475534 305.55 
+L 364.475534 282.87 
+L 364.143241 282.87 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #bac5c8"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_19">
+    <path d="M 364.475534 305.55 
+L 493.183733 305.55 
+L 493.183733 282.87 
+L 364.475534 282.87 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #c88821"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_20">
+    <path d="M 493.183733 305.55 
+L 533.443761 305.55 
+L 533.443761 282.87 
+L 493.183733 282.87 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #16857b"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_21">
+    <path d="M 533.443761 305.55 
+L 533.443761 305.55 
+L 533.443761 282.87 
+L 533.443761 282.87 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_22">
+    <path d="M 533.443761 305.55 
+L 613.28089 305.55 
+L 613.28089 282.87 
+L 533.443761 282.87 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #7865ad"/>
+   </g>
+   <g id="upgrade-v2.20.0-patch_23">
+    <path d="M 613.28089 305.55 
+L 632.551705 305.55 
+L 632.551705 282.87 
+L 613.28089 282.87 
+z
+" clip-path="url(#upgrade-v2.20.0-p19d07cd2c1)" style="fill: #3e71a3"/>
+   </g>
+   <g id="upgrade-v2.20.0-text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="202.567852" transform="rotate(-0 182.3616 202.567852)">Before</text>
+   </g>
+   <g id="upgrade-v2.20.0-text_7">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="493.597723" y="202.307656" transform="rotate(-0 493.597723 202.307656)">1,533.02</text>
+   </g>
+   <g id="upgrade-v2.20.0-text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="249.817852" transform="rotate(-0 182.3616 249.817852)">+5 to +30 min</text>
+   </g>
+   <g id="upgrade-v2.20.0-text_9">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="714.150726" y="249.557656" transform="rotate(-0 714.150726 249.557656)">2,677.78</text>
+   </g>
+   <g id="upgrade-v2.20.0-text_10">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="182.3616" y="297.067852" transform="rotate(-0 182.3616 297.067852)">+30 to +60 min</text>
+   </g>
+   <g id="upgrade-v2.20.0-text_11">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="640.270105" y="296.807656" transform="rotate(-0 640.270105 296.807656)">2,288.03</text>
+   </g>
+  </g>
+  <g id="upgrade-v2.20.0-patch_24">
+   <path d="M 34.56 105.84 
+L 41.472 105.84 
+L 41.472 99.792 
+L 34.56 99.792 
+z
+" style="fill: #84949d"/>
+  </g>
+  <g id="upgrade-v2.20.0-patch_25">
+   <path d="M 166.752 105.84 
+L 173.664 105.84 
+L 173.664 99.792 
+L 166.752 99.792 
+z
+" style="fill: #bac5c8"/>
+  </g>
+  <g id="upgrade-v2.20.0-patch_26">
+   <path d="M 298.944 105.84 
+L 305.856 105.84 
+L 305.856 99.792 
+L 298.944 99.792 
+z
+" style="fill: #c88821"/>
+  </g>
+  <g id="upgrade-v2.20.0-patch_27">
+   <path d="M 431.136 105.84 
+L 438.048 105.84 
+L 438.048 99.792 
+L 431.136 99.792 
+z
+" style="fill: #16857b"/>
+  </g>
+  <g id="upgrade-v2.20.0-patch_28">
+   <path d="M 563.328 105.84 
+L 570.24 105.84 
+L 570.24 99.792 
+L 563.328 99.792 
+z
+" style="fill: #7865ad"/>
+  </g>
+  <g id="upgrade-v2.20.0-patch_29">
+   <path d="M 695.52 105.84 
+L 702.432 105.84 
+L 702.432 99.792 
+L 695.52 99.792 
+z
+" style="fill: #3e71a3"/>
+  </g>
+  <g id="upgrade-v2.20.0-text_12">
+   <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #126f67" x="34.56" y="27.72" transform="rotate(-0 34.56 27.72)">MEASURED</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_13">
+   <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="63" transform="rotate(-0 34.56 63)">The restart gap and the recovery tail differ</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_14">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="88.2" transform="rotate(-0 34.56 88.2)">Voting validator · phase contributions in milliseconds per block</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_15">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="46.656" y="105.84" transform="rotate(-0 46.656 105.84)">NewHeight</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_16">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="178.848" y="105.84" transform="rotate(-0 178.848 105.84)">NewRound</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_17">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="311.04" y="105.84" transform="rotate(-0 311.04 105.84)">Propose</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_18">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="443.232" y="105.84" transform="rotate(-0 443.232 105.84)">Prevote</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_19">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="575.424" y="105.84" transform="rotate(-0 575.424 105.84)">Precommit</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_20">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="707.616" y="105.84" transform="rotate(-0 707.616 105.84)">Commit</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_21">
+   <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="136.08" transform="rotate(-0 34.56 136.08)">v2.20.0 · H 46,828,562 · 2026-09-26</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_22">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="388.08" transform="rotate(-0 34.56 388.08)">Canonical gap 46.14 s at H+2   ·   Stable-window criterion confirmed at +10 h 10 min</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_23">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="400.68" transform="rotate(-0 34.56 400.68)">Residuals, before / recovery / later: +0.07 / +1.83 / -5.05 ms</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_24">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="428.4" transform="rotate(-0 34.56 428.4)">Transition −5 to +5 min crosses a restart. Phase counters cannot measure the stopped process.</text>
+  </g>
+  <g id="upgrade-v2.20.0-text_25">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 467.84)">Before = −30 to −5 min. Recovery criterion = six complete 5-minute bins within 10% of the pre-upgrade mean.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 483.84)">Gap seconds and recovery hours are separate measures. Labels give block means; residuals stay signed.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="upgrade-v2.20.0-p19d07cd2c1">
+   <rect x="190.08" y="171.36" width="578.88" height="151.2"/>
+  </clipPath>
+ </defs>
+</svg>

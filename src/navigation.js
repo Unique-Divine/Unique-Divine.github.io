@@ -70,14 +70,6 @@ export const headerData = {
           href: getPermalink("coding", "category"),
         },
         {
-          text: "Coding in Python",
-          href: getPermalink("python", "tag"),
-        },
-        {
-          text: "Coding in Golang",
-          href: "/code/golang",
-        },
-        {
           text: "Contact",
           href: getPermalink("/about-unique-divine#contact"),
         },

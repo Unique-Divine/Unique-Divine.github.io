@@ -36,6 +36,9 @@ export interface Post {
   /**  */
   draft?: boolean
 
+  /** Width of the article body; ordinary posts retain the default layout. */
+  contentLayout?: "article" | "wide"
+
   /**  */
   Content?: AstroComponentFactory
   content?: string

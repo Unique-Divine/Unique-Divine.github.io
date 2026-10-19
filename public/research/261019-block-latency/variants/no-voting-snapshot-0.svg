@@ -1,0 +1,301 @@
+<svg role="img" aria-labelledby="no-voting-snapshot-0-title no-voting-snapshot-0-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="680" viewBox="0 0 864 489.6" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="no-voting-snapshot-0-title">Zero-voting arithmetic scenario</title><desc id="no-voting-snapshot-0-desc">Measured 1515.04 milliseconds minus measured Prevote and Precommit 327.76 milliseconds equals a hypothetical 1187.28 milliseconds. This is not a benchmark of a replacement protocol.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="no-voting-snapshot-0-figure_1">
+  <g id="no-voting-snapshot-0-patch_1">
+   <path d="M 0 489.6 
+L 864 489.6 
+L 864 0 
+L 0 0 
+z
+" style="fill: #f7f5ef"/>
+  </g>
+  <g id="no-voting-snapshot-0-axes_1">
+   <g id="no-voting-snapshot-0-patch_2">
+    <path d="M 190.08 269.28 
+L 812.16 269.28 
+L 812.16 122.4 
+L 190.08 122.4 
+z
+" style="fill: #f7f5ef"/>
+   </g>
+   <g id="no-voting-snapshot-0-matplotlib.axis_1">
+    <g id="no-voting-snapshot-0-xtick_1">
+     <g id="no-voting-snapshot-0-line2d_1">
+      <path d="M 190.08 269.28 
+L 190.08 122.4 
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="no-voting-snapshot-0-line2d_2"/>
+     <g id="no-voting-snapshot-0-text_1">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="190.08" y="284.877656" transform="rotate(-0 190.08 284.877656)">0</text>
+     </g>
+    </g>
+    <g id="no-voting-snapshot-0-xtick_2">
+     <g id="no-voting-snapshot-0-line2d_3">
+      <path d="M 345.6 269.28 
+L 345.6 122.4 
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="no-voting-snapshot-0-line2d_4"/>
+     <g id="no-voting-snapshot-0-text_2">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="345.6" y="284.877656" transform="rotate(-0 345.6 284.877656)">400</text>
+     </g>
+    </g>
+    <g id="no-voting-snapshot-0-xtick_3">
+     <g id="no-voting-snapshot-0-line2d_5">
+      <path d="M 501.12 269.28 
+L 501.12 122.4 
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="no-voting-snapshot-0-line2d_6"/>
+     <g id="no-voting-snapshot-0-text_3">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="501.12" y="284.877656" transform="rotate(-0 501.12 284.877656)">800</text>
+     </g>
+    </g>
+    <g id="no-voting-snapshot-0-xtick_4">
+     <g id="no-voting-snapshot-0-line2d_7">
+      <path d="M 656.64 269.28 
+L 656.64 122.4 
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="no-voting-snapshot-0-line2d_8"/>
+     <g id="no-voting-snapshot-0-text_4">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="656.64" y="284.877656" transform="rotate(-0 656.64 284.877656)">1200</text>
+     </g>
+    </g>
+    <g id="no-voting-snapshot-0-xtick_5">
+     <g id="no-voting-snapshot-0-line2d_9">
+      <path d="M 812.16 269.28 
+L 812.16 122.4 
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="no-voting-snapshot-0-line2d_10"/>
+     <g id="no-voting-snapshot-0-text_5">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="812.16" y="284.877656" transform="rotate(-0 812.16 284.877656)">1600</text>
+     </g>
+    </g>
+    <g id="no-voting-snapshot-0-text_6">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="190.08" y="306.878437" transform="rotate(-0 190.08 306.878437)">milliseconds per block</text>
+    </g>
+   </g>
+   <g id="no-voting-snapshot-0-matplotlib.axis_2"/>
+   <g id="no-voting-snapshot-0-patch_3">
+    <path d="M 190.08 179.874783 
+L 531.772261 179.874783 
+L 531.772261 147.944348 
+L 190.08 147.944348 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #84949d"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_4">
+    <path d="M 531.772261 179.874783 
+L 531.792952 179.874783 
+L 531.792952 147.944348 
+L 531.772261 147.944348 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #bac5c8"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_5">
+    <path d="M 531.792952 179.874783 
+L 603.145669 179.874783 
+L 603.145669 147.944348 
+L 531.792952 147.944348 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #c88821"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_6">
+    <path d="M 603.145669 179.874783 
+L 670.79765 179.874783 
+L 670.79765 147.944348 
+L 603.145669 147.944348 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #16857b"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_7">
+    <path d="M 670.79765 179.874783 
+L 670.79765 179.874783 
+L 670.79765 147.944348 
+L 670.79765 147.944348 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_8">
+    <path d="M 670.79765 179.874783 
+L 730.579338 179.874783 
+L 730.579338 147.944348 
+L 670.79765 147.944348 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #7865ad"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_9">
+    <path d="M 730.579338 179.874783 
+L 779.115453 179.874783 
+L 779.115453 147.944348 
+L 730.579338 147.944348 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #3e71a3"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_10">
+    <path d="M 190.08 243.735652 
+L 531.772261 243.735652 
+L 531.772261 211.805217 
+L 190.08 211.805217 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #84949d"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_11">
+    <path d="M 531.772261 243.735652 
+L 531.792952 243.735652 
+L 531.792952 211.805217 
+L 531.772261 211.805217 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #bac5c8"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_12">
+    <path d="M 531.792952 243.735652 
+L 603.145669 243.735652 
+L 603.145669 211.805217 
+L 531.792952 211.805217 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #c88821"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_13">
+    <path d="M 603.145669 243.735652 
+L 603.145669 243.735652 
+L 603.145669 211.805217 
+L 603.145669 211.805217 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #8fbfb8"/>
+   </g>
+   <g id="no-voting-snapshot-0-patch_14">
+    <path d="M 603.145669 243.735652 
+L 651.681784 243.735652 
+L 651.681784 211.805217 
+L 603.145669 211.805217 
+z
+" clip-path="url(#no-voting-snapshot-0-pb6aab86e6d)" style="fill: #3e71a3"/>
+   </g>
+   <g id="no-voting-snapshot-0-text_7">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="174.528" y="167.027221" transform="rotate(-0 174.528 167.027221)">Measured</text>
+   </g>
+   <g id="no-voting-snapshot-0-text_8">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #202f36" transform="translate(104.97675 223.68645)">Zero-voting</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #202f36" transform="translate(123.72675 238.089732)">scenario</text>
+   </g>
+   <g id="no-voting-snapshot-0-text_9">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="775.238459" y="138.365217" transform="rotate(-0 775.238459 138.365217)">1,515.04 ms</text>
+   </g>
+   <g id="no-voting-snapshot-0-text_10">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #202f36" x="651.69279" y="204.780522" transform="rotate(-0 651.69279 204.780522)">1,187.28 ms</text>
+   </g>
+  </g>
+  <g id="no-voting-snapshot-0-patch_15">
+   <path d="M 34.56 102.816 
+L 41.472 102.816 
+L 41.472 96.9408 
+L 34.56 96.9408 
+z
+" style="fill: #84949d"/>
+  </g>
+  <g id="no-voting-snapshot-0-patch_16">
+   <path d="M 166.752 102.816 
+L 173.664 102.816 
+L 173.664 96.9408 
+L 166.752 96.9408 
+z
+" style="fill: #bac5c8"/>
+  </g>
+  <g id="no-voting-snapshot-0-patch_17">
+   <path d="M 298.944 102.816 
+L 305.856 102.816 
+L 305.856 96.9408 
+L 298.944 96.9408 
+z
+" style="fill: #c88821"/>
+  </g>
+  <g id="no-voting-snapshot-0-patch_18">
+   <path d="M 431.136 102.816 
+L 438.048 102.816 
+L 438.048 96.9408 
+L 431.136 96.9408 
+z
+" style="fill: #16857b"/>
+  </g>
+  <g id="no-voting-snapshot-0-patch_19">
+   <path d="M 563.328 102.816 
+L 570.24 102.816 
+L 570.24 96.9408 
+L 563.328 96.9408 
+z
+" style="fill: #7865ad"/>
+  </g>
+  <g id="no-voting-snapshot-0-patch_20">
+   <path d="M 695.52 102.816 
+L 702.432 102.816 
+L 702.432 96.9408 
+L 695.52 96.9408 
+z
+" style="fill: #3e71a3"/>
+  </g>
+  <g id="no-voting-snapshot-0-text_11">
+   <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #126f67" x="34.56" y="26.928" transform="rotate(-0 34.56 26.928)">MEASURED + HYPOTHETICAL</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_12">
+   <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="61.2" transform="rotate(-0 34.56 61.2)">What if the two voting phases cost zero?</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_13">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="85.68" transform="rotate(-0 34.56 85.68)">Snapshot 0 · observer · same captured window · all other contributions held fixed</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_14">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="46.656" y="102.816" transform="rotate(-0 46.656 102.816)">NewHeight</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_15">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="178.848" y="102.816" transform="rotate(-0 178.848 102.816)">NewRound</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_16">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="311.04" y="102.816" transform="rotate(-0 311.04 102.816)">Propose</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_17">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="443.232" y="102.816" transform="rotate(-0 443.232 102.816)">Prevote</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_18">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="575.424" y="102.816" transform="rotate(-0 575.424 102.816)">Precommit</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_19">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="707.616" y="102.816" transform="rotate(-0 707.616 102.816)">Commit</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_20">
+   <text style="font-weight: 700; font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="352.512" transform="rotate(-0 34.56 352.512)">Subtract 327.76 ms, or 21.63% of the measured interval.</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_21">
+   <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="386.784" transform="rotate(-0 34.56 386.784)">This is arithmetic, not a safe protocol patch or a measured sequencer result.</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_22">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="416.16" transform="rotate(-0 34.56 416.16)">A sequencer chooses transaction order. It still needs a defined path for execution, replication, and confirmation.</text>
+  </g>
+  <g id="no-voting-snapshot-0-text_23">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 454.016)">Other phases, scheduling, and the signed residual +0.03 ms are held fixed. A replacement can change all of them.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 470.016)">No guaranteed speedup follows from removing steps. Snapshot 0 coverage is incomplete.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="no-voting-snapshot-0-pb6aab86e6d">
+   <rect x="190.08" y="122.4" width="622.08" height="146.88"/>
+  </clipPath>
+ </defs>
+</svg>

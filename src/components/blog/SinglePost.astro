@@ -70,7 +70,10 @@ const { Content } = post
         {post.title}
       </h1>
       <p
-        class="max-w-3xl mx-auto mt-4 mb-8 px-4 sm:px-6 text-xl md:text-2xl text-muted dark:text-slate-400 text-justify"
+        class:list={[
+          "max-w-3xl mx-auto mt-4 mb-8 px-4 sm:px-6 text-xl md:text-2xl text-muted dark:text-slate-400",
+          post.contentLayout === "wide" ? "text-left" : "text-justify",
+        ]}
       >
         {post.excerpt}
       </p>
@@ -96,7 +99,10 @@ const { Content } = post
       }
     </header>
     <div
-      class="mx-auto px-6 sm:px-6 max-w-3xl prose prose-lg lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-md prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px]"
+      class:list={[
+        post.contentLayout === "wide" ? "max-w-7xl" : "max-w-3xl",
+        "mx-auto px-6 sm:px-6 prose prose-lg lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-md prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px]",
+      ]}
     >
       {Content ? <Content /> : <Fragment set:html={post.content || ""} />}
     </div>
@@ -112,3 +118,11 @@ const { Content } = post
     </div>
   </article>
 </section>
+
+<script>
+  // Load this enhancement here because posts render MDX through a dynamic
+  // component. Ordinary posts do not import the research controller or data.
+  if (document.querySelector("[data-block-latency]")) {
+    import("~/components/research/block-latency/client")
+  }
+</script>

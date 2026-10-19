@@ -65,6 +65,7 @@ const getNormalizedPost = async (
     category: rawCategory,
     author,
     draft = false,
+    contentLayout = "article",
     metadata = {},
   } = data
 
@@ -91,6 +92,7 @@ const getNormalizedPost = async (
     author: author,
 
     draft: draft,
+    contentLayout,
 
     metadata,
 
