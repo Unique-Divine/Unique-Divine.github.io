@@ -1,0 +1,37 @@
+---
+import ProjectList from "~/components/projects/ProjectList.astro"
+import Layout from "~/layouts/PageLayout.astro"
+import { getProjects } from "~/utils/projects"
+
+const projects = await getProjects()
+const current = projects.filter(({ data }) => data.group === "current")
+const earlier = projects.filter(({ data }) => data.group === "earlier")
+const metadata = {
+  title: "Projects",
+  description:
+    "Software built and maintained by Unique Divine, with stories about the problems, decisions, and people behind the work.",
+}
+---
+
+<Layout metadata={metadata}>
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <h1 class="text-4xl sm:text-5xl font-heading font-bold tracking-tight">
+      What I've Built / Evidence
+    </h1>
+    <p class="mt-5 mb-6 max-w-3xl text-xl text-muted">
+      The software I've worked on, what went into building it, and what I
+      learned along the way.
+    </p>
+    <ProjectList projects={current} />
+    {
+      earlier.length > 0 && (
+        <section aria-labelledby="earlier-work-title" class="mt-12">
+          <h2 id="earlier-work-title" class="text-3xl font-heading font-bold">
+            Research & Earlier Work
+          </h2>
+          <ProjectList projects={earlier} />
+        </section>
+      )
+    }
+  </section>
+</Layout>

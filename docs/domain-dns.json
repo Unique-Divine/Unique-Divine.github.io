@@ -1,0 +1,39 @@
+{
+  "records": [
+    {
+      "domainName": "uniquedivine.com",
+      "type": "A",
+      "rdata": "199.36.158.100",
+      "requiredAction": "ADD"
+    },
+    {
+      "domainName": "uniquedivine.com",
+      "type": "TXT",
+      "rdata": "google-site-verification=nllJNRByggeNAEZR8HXjBnBp_mwAaZWe-Vd6xg5KTxg"
+    },
+    {
+      "domainName": "uniquedivine.com",
+      "type": "TXT",
+      "rdata": "hosting-site=uniquedivine-site",
+      "requiredAction": "ADD"
+    },
+    {
+      "domainName": "_acme-challenge.uniquedivine.com",
+      "type": "TXT",
+      "rdata": "f7Pe5V1p4jRjMyV_RqkhD5wk8iTsOpsHkM90Hbr7ZDc",
+      "requiredAction": "ADD"
+    },
+    {
+      "domainName": "www.uniquedivine.com",
+      "type": "CNAME",
+      "rdata": "uniquedivine-site.web.app",
+      "requiredAction": "ADD"
+    },
+    {
+      "domainName": "_acme-challenge.www.uniquedivine.com",
+      "type": "TXT",
+      "rdata": "YVEBV68OYIY3wMGYv1RGCxESv2tmrWGRc3WTyEi86OQ",
+      "requiredAction": "ADD"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import type { Post } from "~/types"
 import { APP_BLOG } from "~/utils/config"
 import { findImage } from "~/utils/images"
 import { getPermalink } from "~/utils/permalinks"
+import { getFormattedDate } from "~/utils/utils"
 
 export interface Props {
   post: Post
@@ -11,45 +12,126 @@ export interface Props {
 
 const { post } = Astro.props
 const image = await findImage(post.image)
+const Card = APP_BLOG.post.isEnabled ? "a" : "div"
+const href = APP_BLOG.post.isEnabled
+  ? getPermalink(post.permalink, "post")
+  : undefined
 ---
 
-<article class="mb-6 transition">
-  <div
-    class="relative md:aspect-[13/9] bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6"
+<article
+  class="post-card overflow-hidden rounded-2xl border border-slate-200/80 bg-white dark:border-slate-700/70 dark:bg-slate-900/40"
+>
+  <Card
+    href={href}
+    class="post-card-link flex h-full flex-col"
+    aria-label={href ? post.title : undefined}
   >
-    <!-- <div class="relative md:aspect-[13/9] md:h-64 bg-gray-400 dark:bg-slate-700 rounded shadow-lg mb-6 "> -->
-    {
-      image && (
-        <a href={getPermalink(post.permalink, "post")}>
+    <div
+      class="post-cover relative aspect-video overflow-hidden bg-slate-100 dark:bg-slate-800"
+    >
+      {
+        image ? (
           <Image
             src={image}
-            class="w-full md:aspect-[13/9] rounded shadow-lg bg-gray-400 dark:bg-slate-700"
-            widths={[400, 900]}
-            width={400}
-            sizes="(max-width: 900px) 400px, 900px"
-            alt={post.title}
+            class="absolute inset-0 h-full w-full object-cover"
+            widths={[400, 640, 900, 1280]}
+            width={640}
+            sizes="(min-width: 1280px) 608px, (min-width: 768px) calc((100vw - 80px) / 2), calc(100vw - 32px)"
+            alt=""
             aspectRatio="16:9"
             layout="cover"
             loading="lazy"
             decoding="async"
           />
-        </a>
-      )
-    }
-  </div>
-  <h3 class="mb-2 text-xl font-bold leading-tight sm:text-2xl font-heading">
-    {
-      !APP_BLOG?.post?.isEnabled ? (
-        post.title
-      ) : (
-        <a
-          href={getPermalink(post.permalink, "post")}
-          class="hover:text-primary dark:hover:text-blue-700  transition ease-in duration-200"
+        ) : (
+          <div
+            class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-100 to-blue-50 dark:from-slate-800 dark:to-slate-900"
+            aria-hidden="true"
+          >
+            <span class="text-sm font-medium tracking-wide text-slate-400 dark:text-slate-500">
+              {post.category?.replaceAll("-", " ") ?? "Essay"}
+            </span>
+          </div>
+        )
+      }
+    </div>
+    <div class="flex flex-1 flex-col p-5 sm:p-6">
+      <div
+        class="post-meta mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-slate-500 dark:text-slate-400"
+      >
+        {
+          post.category && (
+            <>
+              <span class="font-medium capitalize text-slate-700 dark:text-slate-300">
+                {post.category.replaceAll("-", " ")}
+              </span>
+              <span aria-hidden="true">·</span>
+            </>
+          )
+        }
+        <time datetime={post.publishDate.toISOString()}
+          >{getFormattedDate(post.publishDate)}</time
         >
-          {post.title}
-        </a>
-      )
-    }
-  </h3>
-  <p class="text-muted dark:text-slate-400 text-lg">{post.excerpt}</p>
+      </div>
+      <h3
+        class="post-title font-heading font-semibold tracking-tight text-slate-900 dark:text-slate-100"
+      >
+        {post.title}
+      </h3>
+      {
+        post.excerpt && (
+          <p class="post-excerpt mt-3 text-slate-600 dark:text-slate-400">
+            {post.excerpt}
+          </p>
+        )
+      }
+    </div>
+  </Card>
 </article>
+
+<style>
+  .post-card {
+    box-shadow: 0 2px 6px rgb(15 23 42 / 3%);
+  }
+  .post-card-link {
+    text-decoration: none;
+  }
+  .post-card-link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -3px;
+    border-radius: inherit;
+  }
+  .post-meta {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .post-title {
+    font-size: 20px;
+    line-height: 1.35;
+  }
+  .post-excerpt {
+    font-size: 14px;
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .post-card {
+      transition:
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    }
+    .post-cover :global(img) {
+      transition: transform 0.25s ease;
+    }
+    .post-card:has(a):hover {
+      box-shadow: 0 10px 28px rgb(15 23 42 / 9%);
+      border-color: rgb(148 163 184 / 70%);
+    }
+    .post-card-link:is(a):hover .post-cover :global(img) {
+      transform: scale(1.025);
+    }
+  }
+</style>

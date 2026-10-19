@@ -1,0 +1,147 @@
+.ed-diagram {
+  --ed-ink: var(--aw-color-text-default, #202f36);
+  --ed-bg: var(--aw-color-bg-page, #fff);
+  --ed-line: #d9dfda;
+  --ed-accent: #126f67;
+  display: block;
+  min-width: 0;
+  margin-block: 1.5rem;
+}
+.dark .ed-diagram {
+  --ed-line: #35424d;
+  --ed-accent: #83d5c8;
+}
+.ed-diagram .ed-figure {
+  margin: 0;
+  border: 1px solid var(--ed-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.ed-diagram .ed-preview {
+  appearance: none;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: #f7f5ef;
+  color: var(--ed-ink);
+  cursor: zoom-in;
+}
+.ed-diagram .ed-preview:disabled {
+  cursor: default;
+}
+.ed-diagram .ed-preview img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.ed-diagram .ed-expand-mark,
+.ed-diagram .ed-close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  padding: 0;
+  border: 1px solid var(--ed-line);
+  border-radius: 8px;
+  background: var(--ed-bg);
+  color: var(--ed-ink);
+}
+.ed-diagram .ed-expand-mark {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  opacity: 0;
+}
+.ed-diagram[data-ready] .ed-expand-mark {
+  opacity: 1;
+}
+.ed-diagram .ed-preview:hover .ed-expand-mark,
+.ed-diagram .ed-close:hover {
+  color: var(--ed-accent);
+  border-color: var(--ed-accent);
+}
+.ed-diagram .ed-caption {
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--ed-line);
+  background: var(--ed-bg);
+  color: var(--ed-ink);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+html:has(expandable-diagram dialog[open]) {
+  overflow: hidden;
+}
+.ed-diagram .ed-dialog {
+  width: min(96vw, 1450px);
+  max-width: none;
+  max-height: 94dvh;
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--ed-line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ed-bg);
+  color: var(--ed-ink);
+}
+.ed-diagram .ed-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.ed-diagram .ed-dialog::backdrop {
+  background: #102137b3;
+}
+.ed-diagram .ed-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 1rem;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--ed-line);
+  font-size: 0.9rem;
+}
+.ed-diagram .ed-close {
+  cursor: pointer;
+}
+.ed-diagram .ed-dialog-body {
+  min-height: 0;
+  max-height: calc(94dvh - 62px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: #f7f5ef;
+}
+.ed-diagram .ed-dialog-body img {
+  display: block;
+  width: 100%;
+  min-width: 1050px;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.ed-diagram .ed-figure .ed-preview:focus-visible,
+.ed-diagram .ed-dialog :is(button, [tabindex]):focus-visible {
+  outline: 3px solid var(--ed-accent);
+  outline-offset: -3px;
+}
+@media print {
+  .ed-diagram .ed-expand-mark,
+  .ed-diagram .ed-dialog {
+    display: none !important;
+  }
+  .ed-diagram .ed-figure {
+    break-inside: avoid;
+  }
+}

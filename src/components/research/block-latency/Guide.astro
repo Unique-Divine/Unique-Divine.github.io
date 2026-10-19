@@ -1,0 +1,57 @@
+---
+import { ASSET_BASE, data, fmt, PRIMARY } from "./model"
+import styles from "./styles.css?raw"
+---
+
+<div class="bl-guide not-prose" data-block-latency>
+  <p class="bl-scope">
+    Research note by Unique Divine · Nibiru production capture, October 17 to
+    19, 2026 · All times UTC
+  </p>
+  <div class="bl-stats" aria-label="Voting validator baseline">
+    <div>
+      <strong>{fmt(data.normal[PRIMARY].block_mean_ms)} ms</strong><span
+        >Mean canonical block interval</span
+      >
+    </div>
+    <div>
+      <strong>{fmt(data.normal[PRIMARY].voting_contribution_ms)} ms</strong
+      ><span>Prevote + Precommit per block</span>
+    </div>
+    <div>
+      <strong
+        >{
+          data.normal[PRIMARY].block_observations.delta.toLocaleString("en-US")
+        }</strong
+      ><span>Observed intervals over 48 hours</span>
+    </div>
+  </div>
+  <noscript
+    ><p class="bl-note">
+      The default validator figures and tables are available without JavaScript.
+      Enable JavaScript to select other nodes and upgrades. The measurements and
+      generated tables are linked below.
+    </p></noscript
+  >
+  <slot />
+  <footer class="bl-provenance">
+    <p>
+      Data and figures come from the fixed <code>2026-10-19-baseline-v1</code> capture.
+      The site uses a committed export and does not query live nodes.
+    </p>
+    <p>
+      <a href={`${ASSET_BASE}measurements.json`} download>Display data, JSON</a>
+      · <a href={`${ASSET_BASE}tables.md`} download>Full generated tables</a> · <a
+        href={`${ASSET_BASE}provenance.json`}
+        download>Asset hashes</a
+      > · <a
+        href="https://uniquedivine.com/f/26/sai-node-perf/261019-visual-guide.html"
+        >Original portable HTML guide</a
+      >
+    </p>
+    <p>Source report SHA-256 <code>{data.source_sha256}</code>.</p>
+  </footer>
+</div>
+
+<!-- Inline scoped rules keep this dynamically rendered MDX entry self-contained. -->
+<style is:inline set:html={styles}></style>

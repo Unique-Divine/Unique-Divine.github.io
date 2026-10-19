@@ -1,0 +1,39 @@
+---
+import Figure from "./Figure.astro"
+import Legend from "./Legend.astro"
+import { ASSET_BASE, upgradeAnchor, upgradeFacts, upgradeTable } from "./model"
+---
+
+<div class="bl-controls">
+  <label for="bl-upgrade">Upgrade</label>
+  <select id="bl-upgrade" disabled
+    ><option>v2.20.0</option><option>v2.21.0</option></select
+  >
+</div>
+<Legend />
+<Figure
+  file="variants/upgrade-v2.20.0.svg"
+  badge="Measured · voting validator"
+  view="upgrade"
+  alt="Voting-validator phase contributions before and after v2.20.0"
+/>
+<div
+  class="bl-columns"
+  data-upgrade-facts
+  aria-live="polite"
+  set:html={upgradeFacts("v2.20.0")}
+/>
+<details>
+  <summary>Upgrade table, including the incomplete transition</summary>
+  <div
+    class="bl-scroll-table"
+    data-upgrade-table
+    set:html={upgradeTable("v2.20.0")}
+  />
+  <p class="bl-scope" data-upgrade-anchor>{upgradeAnchor("v2.20.0")}</p>
+</details>
+<p class="bl-scope">
+  <a data-timeline href={`${ASSET_BASE}timeline-v2.20.0.svg`}
+    >Detailed timeline for the selected upgrade</a
+  >
+</p>

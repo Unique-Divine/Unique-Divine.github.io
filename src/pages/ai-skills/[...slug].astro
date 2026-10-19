@@ -1,0 +1,206 @@
+---
+import { getCollection } from "astro:content"
+
+import ArticleBody from "~/components/blog/ArticleBody.astro"
+import CopyCommand from "~/components/skills/CopyCommand.astro"
+import Layout from "~/layouts/PageLayout.astro"
+import {
+  getSkills,
+  skillInstallCommand,
+  SKILLS_REPOSITORY,
+} from "~/utils/skills"
+
+export async function getStaticPaths() {
+  return (await getCollection("skill")).map((entry) => ({
+    params: { slug: entry.data.route },
+    props: { entry },
+  }))
+}
+const { entry } = Astro.props
+const { data } = entry
+const { Content, headings } = await entry.render()
+const parent = (await getSkills()).find(
+  (skill) => skill.data.folder === data.folder,
+)!
+const references = (await getCollection("skill"))
+  .filter(
+    (page) =>
+      page.data.folder === data.folder && page.data.kind === "reference",
+  )
+  .sort((a, b) => a.data.title.localeCompare(b.data.title))
+---
+
+<Layout metadata={{ title: data.title, description: data.description }}>
+  <article class="skill-article">
+    <header>
+      <nav aria-label="Breadcrumb" class="skill-breadcrumb">
+        <a href="/ai-skills">Agent Skills</a><span aria-hidden="true">/</span>{
+          data.kind === "reference" ? (
+            <>
+              <>
+                <a href={`/ai-skills/${parent.data.route}`}>{data.name}</a>
+                <span aria-hidden="true">/</span>
+                <span>Reference</span>
+              </>
+            </>
+          ) : (
+            <span>{data.name}</span>
+          )
+        }
+      </nav>
+      <h1>{data.title}</h1>
+      <p class="skill-description">{data.description}</p>
+      <div class="skill-links">
+        <a href={`${SKILLS_REPOSITORY}/tree/main/ai-skills/${data.folder}`}
+          >GitHub source ↗</a
+        ><a href={`/ai-skills-source/${data.source}`} download
+          >Original Markdown ↓</a
+        >{
+          data.kind === "skill" && (
+            <a href="/category/agent-skills">Agent Skills archive →</a>
+          )
+        }
+      </div>
+      {
+        data.kind === "skill" && (
+          <div class="skill-install">
+            <>
+              <CopyCommand command={skillInstallCommand(data.folder)} />
+              <a href="/ai-skills#installation">Installation & usage</a>
+            </>
+          </div>
+        )
+      }
+    </header>
+    <div
+      class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-a:text-blue-700 dark:prose-a:text-blue-300"
+    >
+      <ArticleBody stickyToc={data.stickyToc} headings={headings}
+        ><Content /></ArticleBody
+      >
+    </div>
+    {
+      references.length > 0 && (
+        <aside class="skill-references" aria-label="Supporting references">
+          <>
+            <h2>References & examples</h2>
+            <ul>
+              {references.map((page) => (
+                <li>
+                  <a
+                    href={`/ai-skills/${page.data.route}`}
+                    aria-current={
+                      page.data.route === data.route ? "page" : undefined
+                    }
+                  >
+                    {page.data.title}
+                    <span aria-hidden="true"> →</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        </aside>
+      )
+    }
+  </article>
+</Layout>
+<style>
+  .skill-article :global(table) {
+    min-width: 36rem;
+  }
+  .skill-article {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 5rem;
+  }
+  header {
+    margin-bottom: 2.5rem;
+  }
+  .skill-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--aw-color-text-muted);
+    margin-bottom: 1.7rem;
+  }
+  .skill-breadcrumb a:hover,
+  .skill-links a:hover,
+  .skill-install > a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  h1 {
+    font-size: 2.3rem;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
+  }
+  .skill-description {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--aw-color-text-muted);
+    margin-top: 1rem;
+  }
+  .skill-links {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    margin-top: 1.2rem;
+  }
+  .skill-install {
+    margin-top: 1.7rem;
+  }
+  .skill-install > a {
+    display: inline-block;
+    font-size: 0.75rem;
+    margin-top: 0.7rem;
+    color: var(--aw-color-text-muted);
+  }
+  .skill-references {
+    border-top: 1px solid #88959940;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+  }
+  .skill-references h2 {
+    font-size: 1.1rem;
+    font-weight: 650;
+    margin-bottom: 0.8rem;
+  }
+  .skill-references ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .skill-references a {
+    display: block;
+    border: 1px solid #88959935;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+  }
+  .skill-references a:hover,
+  .skill-references a[aria-current] {
+    background: #169f9710;
+    border-color: #169f9780;
+  }
+  .skill-references span {
+    float: right;
+  }
+  a:focus-visible {
+    outline: 2px solid #169f97;
+    outline-offset: 4px;
+  }
+  @media (max-width: 600px) {
+    .skill-article {
+      padding-top: 2rem;
+    }
+    h1 {
+      font-size: 1.9rem;
+    }
+  }
+</style>

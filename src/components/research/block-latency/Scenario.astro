@@ -1,0 +1,14 @@
+---
+import Figure from "./Figure.astro"
+import Legend from "./Legend.astro"
+import { PRIMARY, scenarioText } from "./model"
+---
+
+<Legend />
+<Figure
+  file="no-voting.svg"
+  badge="Measured + hypothetical · selected node"
+  view="scenario"
+  alt="Measured validator interval compared with a hypothetical zero-voting interval"
+/>
+<p class="bl-note" data-scenario-text>{scenarioText(PRIMARY)}</p>

@@ -13,6 +13,7 @@ import {
   TAG_BASE,
   trimSlash,
 } from "./permalinks"
+import { skillArchivePost } from "./skills"
 
 const generatePermalink = async ({
   id,
@@ -53,7 +54,7 @@ const getNormalizedPost = async (
   post: CollectionEntry<"post">,
 ): Promise<Post> => {
   const { id, slug: rawSlug = "", data } = post
-  const { Content, remarkPluginFrontmatter } = await post.render()
+  const { Content, headings, remarkPluginFrontmatter } = await post.render()
 
   const {
     publishDate: rawPublishDate = new Date(),
@@ -65,6 +66,8 @@ const getNormalizedPost = async (
     category: rawCategory,
     author,
     draft = false,
+    contentLayout = "article",
+    stickyToc = false,
     metadata = {},
   } = data
 
@@ -91,6 +94,9 @@ const getNormalizedPost = async (
     author: author,
 
     draft: draft,
+    contentLayout,
+    stickyToc,
+    headings,
 
     metadata,
 
@@ -119,7 +125,10 @@ const load = async function (): Promise<Array<Post>> {
     async (post) => await getNormalizedPost(post),
   )
 
-  const results = (await Promise.all(normalizedPosts))
+  const skills = (await getCollection("skill"))
+    .filter((entry) => entry.data.kind === "skill")
+    .map(skillArchivePost)
+  const results = [...(await Promise.all(normalizedPosts)), ...skills]
     .sort((a, b) => b.publishDate.valueOf() - a.publishDate.valueOf())
     .filter((post) => !post.draft)
 
@@ -193,7 +202,9 @@ export const findLatestPosts = async ({
   const _count = count || 4
   const posts = await fetchPosts()
 
-  return posts ? posts.slice(0, _count) : []
+  return posts
+    ? posts.filter((post) => post.kind !== "skill").slice(0, _count)
+    : []
 }
 
 /** */
@@ -212,12 +223,14 @@ export const getStaticPathsBlogList = async ({
 /** */
 export const getStaticPathsBlogPost = async () => {
   if (!isBlogEnabled || !isBlogPostRouteEnabled) return []
-  return (await fetchPosts()).flatMap((post) => ({
-    params: {
-      blog: post.permalink,
-    },
-    props: { post },
-  }))
+  return (await fetchPosts())
+    .filter((post) => post.kind !== "skill")
+    .flatMap((post) => ({
+      params: {
+        blog: post.permalink,
+      },
+      props: { post },
+    }))
 }
 
 /** */

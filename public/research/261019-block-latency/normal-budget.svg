@@ -1,0 +1,258 @@
+<svg role="img" aria-labelledby="normal-budget-title normal-budget-desc" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="640" viewBox="0 0 864 460.8" xmlns="http://www.w3.org/2000/svg" version="1.1"><title id="normal-budget-title">Normal block phase budget</title><desc id="normal-budget-desc">cataclysm-1-validator. 1515.04 milliseconds per block. NewHeight contributes 922.49 milliseconds. Voting contributes 324.85 milliseconds.</desc>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="normal-budget-figure_1">
+  <g id="normal-budget-patch_1">
+   <path d="M 0 460.8 
+L 864 460.8 
+L 864 0 
+L 0 0 
+z
+" style="fill: #f7f5ef"/>
+  </g>
+  <g id="normal-budget-axes_1">
+   <g id="normal-budget-patch_2">
+    <path d="M 34.56 235.008 
+L 829.44 235.008 
+L 829.44 179.712 
+L 34.56 179.712 
+z
+" style="fill: #f7f5ef"/>
+   </g>
+   <g id="normal-budget-matplotlib.axis_1">
+    <g id="normal-budget-xtick_1">
+     <g id="normal-budget-line2d_1">
+      <path d="M 34.56 235.008 
+L 34.56 179.712 
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="normal-budget-line2d_2"/>
+     <g id="normal-budget-text_1">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="34.56" y="250.605656" transform="rotate(-0 34.56 250.605656)">0</text>
+     </g>
+    </g>
+    <g id="normal-budget-xtick_2">
+     <g id="normal-budget-line2d_3">
+      <path d="M 233.28 235.008 
+L 233.28 179.712 
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="normal-budget-line2d_4"/>
+     <g id="normal-budget-text_2">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="233.28" y="250.605656" transform="rotate(-0 233.28 250.605656)">400</text>
+     </g>
+    </g>
+    <g id="normal-budget-xtick_3">
+     <g id="normal-budget-line2d_5">
+      <path d="M 432 235.008 
+L 432 179.712 
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="normal-budget-line2d_6"/>
+     <g id="normal-budget-text_3">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="432" y="250.605656" transform="rotate(-0 432 250.605656)">800</text>
+     </g>
+    </g>
+    <g id="normal-budget-xtick_4">
+     <g id="normal-budget-line2d_7">
+      <path d="M 630.72 235.008 
+L 630.72 179.712 
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="normal-budget-line2d_8"/>
+     <g id="normal-budget-text_4">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="630.72" y="250.605656" transform="rotate(-0 630.72 250.605656)">1200</text>
+     </g>
+    </g>
+    <g id="normal-budget-xtick_5">
+     <g id="normal-budget-line2d_9">
+      <path d="M 829.44 235.008 
+L 829.44 179.712 
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: none; stroke: #d9dfda; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="normal-budget-line2d_10"/>
+     <g id="normal-budget-text_5">
+      <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #58686f" x="829.44" y="250.605656" transform="rotate(-0 829.44 250.605656)">1600</text>
+     </g>
+    </g>
+    <g id="normal-budget-text_6">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="272.606437" transform="rotate(-0 34.56 272.606437)">milliseconds per block</text>
+    </g>
+   </g>
+   <g id="normal-budget-matplotlib.axis_2"/>
+   <g id="normal-budget-patch_3">
+    <path d="M 34.56 218.88 
+L 492.85224 218.88 
+L 492.85224 195.84 
+L 34.56 195.84 
+z
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: #84949d"/>
+   </g>
+   <g id="normal-budget-patch_4">
+    <path d="M 492.85224 218.88 
+L 493.688486 218.88 
+L 493.688486 195.84 
+L 492.85224 195.84 
+z
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: #bac5c8"/>
+   </g>
+   <g id="normal-budget-patch_5">
+    <path d="M 493.688486 218.88 
+L 586.870313 218.88 
+L 586.870313 195.84 
+L 493.688486 195.84 
+z
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: #c88821"/>
+   </g>
+   <g id="normal-budget-patch_6">
+    <path d="M 586.870313 218.88 
+L 669.261806 218.88 
+L 669.261806 195.84 
+L 586.870313 195.84 
+z
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: #16857b"/>
+   </g>
+   <g id="normal-budget-patch_7">
+    <path d="M 669.261806 218.88 
+L 748.256265 218.88 
+L 748.256265 195.84 
+L 669.261806 195.84 
+z
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: #7865ad"/>
+   </g>
+   <g id="normal-budget-patch_8">
+    <path d="M 748.256265 218.88 
+L 787.191211 218.88 
+L 787.191211 195.84 
+L 748.256265 195.84 
+z
+" clip-path="url(#normal-budget-p6484cc97ab)" style="fill: #3e71a3"/>
+   </g>
+  </g>
+  <g id="normal-budget-patch_9">
+   <path d="M 34.56 319.7952 
+L 42.336 319.7952 
+L 42.336 299.0592 
+L 34.56 299.0592 
+z
+" style="fill: #84949d"/>
+  </g>
+  <g id="normal-budget-patch_10">
+   <path d="M 306.72 319.7952 
+L 314.496 319.7952 
+L 314.496 299.0592 
+L 306.72 299.0592 
+z
+" style="fill: #bac5c8"/>
+  </g>
+  <g id="normal-budget-patch_11">
+   <path d="M 578.88 319.7952 
+L 586.656 319.7952 
+L 586.656 299.0592 
+L 578.88 299.0592 
+z
+" style="fill: #c88821"/>
+  </g>
+  <g id="normal-budget-patch_12">
+   <path d="M 34.56 375.0912 
+L 42.336 375.0912 
+L 42.336 354.3552 
+L 34.56 354.3552 
+z
+" style="fill: #16857b"/>
+  </g>
+  <g id="normal-budget-patch_13">
+   <path d="M 306.72 375.0912 
+L 314.496 375.0912 
+L 314.496 354.3552 
+L 306.72 354.3552 
+z
+" style="fill: #7865ad"/>
+  </g>
+  <g id="normal-budget-patch_14">
+   <path d="M 578.88 375.0912 
+L 586.656 375.0912 
+L 586.656 354.3552 
+L 578.88 354.3552 
+z
+" style="fill: #3e71a3"/>
+  </g>
+  <g id="normal-budget-text_7">
+   <text style="font-weight: 700; font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #126f67" x="34.56" y="25.344" transform="rotate(-0 34.56 25.344)">MEASURED</text>
+  </g>
+  <g id="normal-budget-text_8">
+   <text style="font-weight: 700; font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="57.6" transform="rotate(-0 34.56 57.6)">Where the block interval goes</text>
+  </g>
+  <g id="normal-budget-text_9">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="34.56" y="80.64" transform="rotate(-0 34.56 80.64)">Voting validator · 48 hours · October 17 to 19, 2026 · contribution per block</text>
+  </g>
+  <g id="normal-budget-text_10">
+   <text style="font-weight: 700; font-size: 33px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="34.56" y="142.848" transform="rotate(-0 34.56 142.848)">1,515.04 ms</text>
+  </g>
+  <g id="normal-budget-text_11">
+   <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="457.92" y="138.24" transform="rotate(-0 457.92 138.24)">114,057 observed intervals</text>
+  </g>
+  <g id="normal-budget-text_12">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="457.92" y="161.28" transform="rotate(-0 457.92 161.28)">Complete pooled window</text>
+  </g>
+  <g id="normal-budget-text_13">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="52.704" y="309.1968" transform="rotate(-0 52.704 309.1968)">NewHeight</text>
+  </g>
+  <g id="normal-budget-text_14">
+   <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="52.704" y="325.7856" transform="rotate(-0 52.704 325.7856)">922.49 ms  ·  60.89%</text>
+  </g>
+  <g id="normal-budget-text_15">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="324.864" y="309.1968" transform="rotate(-0 324.864 309.1968)">NewRound</text>
+  </g>
+  <g id="normal-budget-text_16">
+   <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="324.864" y="325.7856" transform="rotate(-0 324.864 325.7856)">1.68 ms  ·  0.11%</text>
+  </g>
+  <g id="normal-budget-text_17">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="597.024" y="309.1968" transform="rotate(-0 597.024 309.1968)">Propose</text>
+  </g>
+  <g id="normal-budget-text_18">
+   <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="597.024" y="325.7856" transform="rotate(-0 597.024 325.7856)">187.56 ms  ·  12.38%</text>
+  </g>
+  <g id="normal-budget-text_19">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="52.704" y="364.4928" transform="rotate(-0 52.704 364.4928)">Prevote</text>
+  </g>
+  <g id="normal-budget-text_20">
+   <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="52.704" y="381.0816" transform="rotate(-0 52.704 381.0816)">165.84 ms  ·  10.95%</text>
+  </g>
+  <g id="normal-budget-text_21">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="324.864" y="364.4928" transform="rotate(-0 324.864 364.4928)">Precommit</text>
+  </g>
+  <g id="normal-budget-text_22">
+   <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="324.864" y="381.0816" transform="rotate(-0 324.864 381.0816)">159.01 ms  ·  10.50%</text>
+  </g>
+  <g id="normal-budget-text_23">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #58686f" x="597.024" y="364.4928" transform="rotate(-0 597.024 364.4928)">Commit</text>
+  </g>
+  <g id="normal-budget-text_24">
+   <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #202f36" x="597.024" y="381.0816" transform="rotate(-0 597.024 381.0816)">78.37 ms  ·  5.17%</text>
+  </g>
+  <g id="normal-budget-text_25">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 426.368)">Residual +0.08 ms is reported separately. Missing wait-state series are unavailable.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #58686f" transform="translate(34.56 442.368)">State time is local elapsed time, not pure networking. Bar widths use measured contributions.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="normal-budget-p6484cc97ab">
+   <rect x="34.56" y="179.712" width="794.88" height="55.296"/>
+  </clipPath>
+ </defs>
+</svg>

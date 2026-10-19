@@ -1,0 +1,16 @@
+---
+import { data } from "./model"
+---
+
+<div class="bl-legend" aria-label="Phase colors">
+  {
+    Object.entries(data.colors)
+      .filter(([state]) => !state.endsWith("Wait"))
+      .map(([state, color]) => (
+        <span>
+          <i style={`background:${color}`} aria-hidden="true" />
+          {state}
+        </span>
+      ))
+  }
+</div>

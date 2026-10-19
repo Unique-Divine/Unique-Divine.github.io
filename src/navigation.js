@@ -6,7 +6,43 @@ export const headerData = {
   links: [
     {
       text: "About",
-      href: getPermalink("/about-unique-divine"),
+      links: [
+        {
+          text: "About Me",
+          href: getPermalink("/about-unique-divine"),
+        },
+        {
+          text: "Nibiru, Sai, & Nibi, Inc.",
+          href: getPermalink("/web3/nibiru/nibi-inc", "post"),
+        },
+        {
+          text: "In the Media",
+          href: getPermalink("/media", "post"),
+        },
+        {
+          text: "Resume",
+          href: getPermalink("/about-unique-divine"),
+        },
+      ],
+    },
+    {
+      text: "Projects",
+      href: getPermalink("/code/projects"),
+    },
+
+    {
+      text: "Agent Skills",
+      links: [
+        { text: "All skills", href: getPermalink("/ai-skills") },
+        {
+          text: "Installation & usage",
+          href: getPermalink("/ai-skills#installation"),
+        },
+        {
+          text: "GitHub repository",
+          href: "https://github.com/Unique-Divine/jiyuu/tree/main/ai-skills",
+        },
+      ],
     },
 
     // TODO: Include in top navigation?
@@ -54,24 +90,12 @@ export const headerData = {
           href: getBlogPermalink(),
         },
         {
-          text: "Nibi Inc. & Nibiru",
-          href: getPermalink("/web3/nibiru/nibi-inc", "post"),
-        },
-        {
           text: "Self-Improvement & Productivity",
           href: getPermalink("self-improvement", "tag"),
         },
         {
           text: "Coding",
           href: getPermalink("coding", "category"),
-        },
-        {
-          text: "Coding in Python",
-          href: getPermalink("python", "tag"),
-        },
-        {
-          text: "Coding in Golang",
-          href: "/code/golang",
         },
         {
           text: "Contact",
@@ -86,6 +110,7 @@ export const headerData = {
 }
 
 export const footerData = {
+  secondaryLinks: [{ text: "Sitemap", href: getPermalink("/sitemap") }],
   links: [
     {
       title: "Socials",

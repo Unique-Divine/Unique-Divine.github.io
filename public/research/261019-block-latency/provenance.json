@@ -1,0 +1,40 @@
+{
+  "capture": "2026-10-19-baseline-v1",
+  "source_report_sha256": "f5fd6e71bb2dc647a4580c3f9c4b3bf4e2e788a856ef6cdb92dbc8eb06246d23",
+  "importer_sha256": "e25e3bc93636481bfbe2a2909058a3b6390c4672230120ba95e26c89801e8d5d",
+  "source_figure_sha256": {
+    "block-cycle.svg": "3662320d7fb8f8eaebbe7656bde8ae99408d1be4fdb7fa87b82da5f6bac96e90",
+    "evidence-map.svg": "8d92a4f8c4f4cc23794cd75799010f58d45459686bf384712b79644c7b8731d9",
+    "no-voting.svg": "350293faf436b3e407555db7c3ac44a36388983550df61278eace6581e2dcde9",
+    "normal-budget.svg": "11b7d399ae2faddd82e9bbe5caeb0fd549a8dabd07f0815ee2ceda26beb7582a",
+    "shared-timer.svg": "ce04817d2bb22ba1ac3cff04459c15e421138e7eb560efd5fd2e3de2d30db639",
+    "upgrades.svg": "897419da4b2683438252ce34440a20c57cd241e6fd73d2af5c760e32ebf9f712",
+    "variants/no-voting-snapshot-0.svg": "edee8e157eb4e2765bafd776ef54f8ff5e94f1b65a14d138bc9fd602f1e896b8",
+    "variants/no-voting-snapshot-1.svg": "a48c6fc84b6ed3e2b6abb12d70ee5e854b56e9f62a132062b8add856e8459cdb",
+    "variants/normal-snapshot-0.svg": "7ac7129f03213b6290d477f86076f49c19f54fe70644c1d8506eee4de028ba12",
+    "variants/normal-snapshot-1.svg": "2b237d7f9e168c302770d7b6bd0bf764dbe7adccaef4b259e16a6db9997029ec",
+    "variants/upgrade-v2.20.0.svg": "31f5c92e5d19ef61c8833adea6f34d48c531a5ec762135f4b08abe40a08447f2",
+    "variants/upgrade-v2.21.0.svg": "4e83509c407714c052f9829060547ea7cc99de4a6ac526070e7d79eae163aa95"
+  },
+  "presentation_edits": {
+    "block-cycle.svg": "Replace schematic scale label with successful-round flow label. Distinguish the precommit-quorum decision from local execution and persistence."
+  },
+  "artifacts": {
+    "block-cycle.svg": "2c8fbb462424952308b342494d99cbda237bfd988983ba9280b30833c4010ec6",
+    "evidence-map.svg": "8d92a4f8c4f4cc23794cd75799010f58d45459686bf384712b79644c7b8731d9",
+    "measurements.json": "8e8e219fccd456276009864e9dc9f24992df42774d18d706f3b6ebf07340ac59",
+    "no-voting.svg": "350293faf436b3e407555db7c3ac44a36388983550df61278eace6581e2dcde9",
+    "normal-budget.svg": "11b7d399ae2faddd82e9bbe5caeb0fd549a8dabd07f0815ee2ceda26beb7582a",
+    "shared-timer.svg": "ce04817d2bb22ba1ac3cff04459c15e421138e7eb560efd5fd2e3de2d30db639",
+    "tables.md": "ada5cbeb2b31f441d7fc0e534b38edfcab903a42b7417d086b1c7edd1930a821",
+    "timeline-v2.20.0.svg": "1b4352d27cd9a5cc195978d9ec2c55b4f7068e72eb57e58430387386e2a2e07a",
+    "timeline-v2.21.0.svg": "e536b90938324b3a4eb6fc86e3a22644a3bd4c13c5db520e613c4103a236e35a",
+    "upgrades.svg": "897419da4b2683438252ce34440a20c57cd241e6fd73d2af5c760e32ebf9f712",
+    "variants/no-voting-snapshot-0.svg": "edee8e157eb4e2765bafd776ef54f8ff5e94f1b65a14d138bc9fd602f1e896b8",
+    "variants/no-voting-snapshot-1.svg": "a48c6fc84b6ed3e2b6abb12d70ee5e854b56e9f62a132062b8add856e8459cdb",
+    "variants/normal-snapshot-0.svg": "7ac7129f03213b6290d477f86076f49c19f54fe70644c1d8506eee4de028ba12",
+    "variants/normal-snapshot-1.svg": "2b237d7f9e168c302770d7b6bd0bf764dbe7adccaef4b259e16a6db9997029ec",
+    "variants/upgrade-v2.20.0.svg": "31f5c92e5d19ef61c8833adea6f34d48c531a5ec762135f4b08abe40a08447f2",
+    "variants/upgrade-v2.21.0.svg": "4e83509c407714c052f9829060547ea7cc99de4a6ac526070e7d79eae163aa95"
+  }
+}

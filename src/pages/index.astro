@@ -2,6 +2,7 @@
 import GitHubActivity from "~/components/home/GitHubActivity"
 import HomePage from "~/components/home/HomePage"
 import StatusClock from "~/components/home/StatusClock"
+import FeaturedProjects from "~/components/projects/FeaturedProjects.astro"
 import BlogLatestPosts from "~/components/widgets/BlogLatestPosts.astro"
 import Layout from "~/layouts/PageLayout.astro"
 // import Note from '~/components/widgets/Note.astro';
@@ -26,6 +27,8 @@ const metadata: MetaData = {
   <HomePage>
     <StatusClock client:idle />
   </HomePage>
+
+  <FeaturedProjects />
 
   <GitHubActivity client:visible />
 

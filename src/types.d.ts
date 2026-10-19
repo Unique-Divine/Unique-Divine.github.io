@@ -1,7 +1,10 @@
+import type { MarkdownHeading } from "astro"
 import type { AstroComponentFactory } from "astro/runtime/server/index.js"
 import type { HTMLAttributes, ImageMetadata } from "astro/types"
 
 export interface Post {
+  kind?: "skill"
+
   /** A unique ID number that identifies a post. */
   id: string
 
@@ -35,6 +38,13 @@ export interface Post {
 
   /**  */
   draft?: boolean
+
+  /** Width of the article body; ordinary posts retain the default layout. */
+  contentLayout?: "article" | "wide"
+
+  /** Generate sticky navigation from the compiled Markdown headings. */
+  stickyToc?: boolean
+  headings?: MarkdownHeading[]
 
   /**  */
   Content?: AstroComponentFactory

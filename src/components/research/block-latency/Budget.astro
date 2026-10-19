@@ -1,0 +1,81 @@
+---
+import Figure from "./Figure.astro"
+import {
+  coverage,
+  data,
+  endpoints,
+  fmt,
+  normalTable,
+  phaseDetail,
+  PRIMARY,
+  type State,
+} from "./model"
+---
+
+<div class="bl-controls">
+  <label for="bl-node">Observe from</label>
+  <select id="bl-node" disabled>
+    <option value="cataclysm-1-validator">Voting validator · app 2.21.0</option>
+    <option value="cataclysm-1-snapshot-0"
+      >Snapshot 0 · observer · app 2.21.2</option
+    >
+    <option value="cataclysm-1-snapshot-1"
+      >Snapshot 1 · observer · app 2.21.2</option
+    >
+  </select>
+</div>
+<p class="bl-scope" data-coverage>{coverage(PRIMARY)}</p>
+<Figure
+  file="normal-budget.svg"
+  badge="Measured"
+  view="budget"
+  alt="Voting validator's phase budget over 48 hours, in milliseconds per block"
+  eager
+/>
+<div class="bl-phases" aria-label="Select a phase">
+  {
+    data.normal[PRIMARY].phases.map((p) => (
+      <button
+        type="button"
+        class="bl-phase"
+        style={`--phase:${data.colors[p.state as State]}`}
+        data-state={p.state}
+        aria-pressed={p.state === "NewHeight"}
+        disabled
+      >
+        <>
+          <span>{p.state}</span>
+          <strong>
+            {fmt(p.contribution_ms_per_block)}
+            {p.observed ? " ms" : ""}
+          </strong>
+          <span>
+            {p.observed
+              ? `${fmt(p.share_percent)}% of block mean`
+              : "Absent series"}
+          </span>
+        </>
+      </button>
+    ))
+  }
+</div>
+<div
+  class="bl-detail"
+  data-phase-detail
+  aria-live="polite"
+  set:html={phaseDetail(PRIMARY, "NewHeight")}
+/>
+<details>
+  <summary>Full phase table and measurement boundaries</summary>
+  <p class="bl-scope">
+    Contribution is the phase-duration counter change divided by block
+    observations. Mean visit divides by phase visits instead. Repeated rounds
+    and skipped states make these different.
+  </p>
+  <div
+    class="bl-scroll-table"
+    data-normal-table
+    set:html={normalTable(PRIMARY)}
+  />
+  <p class="bl-scope" data-endpoints>{endpoints(PRIMARY)}</p>
+</details>

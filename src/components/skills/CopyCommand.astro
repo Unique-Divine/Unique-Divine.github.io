@@ -1,0 +1,53 @@
+---
+interface Props {
+  command: string
+}
+const { command } = Astro.props
+---
+
+<div class="skill-command">
+  <code>{command}</code>
+  <button
+    type="button"
+    data-copy-command={command}
+    hidden
+    aria-label="Copy install command"
+    ><span aria-live="polite">Copy</span></button
+  >
+</div>
+<style>
+  .skill-command {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.1rem;
+    background: var(--aw-color-bg-page);
+    border: 1px solid #88959940;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+  code {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-family: "IBM Plex Mono", monospace;
+  }
+  button {
+    flex-shrink: 0;
+    padding: 0.1rem 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #88959960;
+    font-size: 0.75rem;
+  }
+  button:hover {
+    background: #8882;
+  }
+  button:focus-visible {
+    outline: 2px solid #169f97;
+    outline-offset: 3px;
+  }
+</style>
+<script>
+  import "~/components/skills/copy-command"
+</script>

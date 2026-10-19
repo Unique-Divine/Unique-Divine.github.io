@@ -3,7 +3,6 @@ import { fileURLToPath } from "url"
 import mdx from "@astrojs/mdx"
 import partytown from "@astrojs/partytown"
 import react from "@astrojs/react"
-import sitemap from "@astrojs/sitemap"
 import tailwind from "@astrojs/tailwind"
 import compress from "astro-compress"
 import icon from "astro-icon"
@@ -14,6 +13,10 @@ import {
   readingTimeRemarkPlugin,
   responsiveTablesRehypePlugin,
 } from "./src/utils/frontmatter.mjs"
+import {
+  canonicalSitemap,
+  sitemapValidation,
+} from "./src/utils/sitemap-build.mjs"
 import tasks from "./src/utils/tasks"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -41,7 +44,7 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    sitemap(),
+    canonicalSitemap(),
     mdx(),
     react(),
     icon({
@@ -72,6 +75,8 @@ export default defineConfig({
       HTML: {
         "html-minifier-terser": {
           removeAttributeQuotes: false,
+          // React's SSR text separators must survive HTML minification.
+          ignoreCustomFragments: [/<astro-island\b[\s\S]*?<\/astro-island>/g],
         },
       },
       Image: false,
@@ -81,6 +86,7 @@ export default defineConfig({
     }),
 
     tasks(),
+    sitemapValidation(),
   ],
 
   image: {
@@ -93,6 +99,16 @@ export default defineConfig({
   },
 
   vite: {
+    // A production build must not overwrite dependencies used by a live preview.
+    plugins: [
+      {
+        name: "separate-vite-caches",
+        config: (_config, { command }) => ({
+          cacheDir: path.resolve(__dirname, `node_modules/.vite-${command}`),
+        }),
+      },
+    ],
+    optimizeDeps: { include: ["react-activity-calendar"] },
     resolve: {
       alias: {
         "~": path.resolve(__dirname, "./src"),
