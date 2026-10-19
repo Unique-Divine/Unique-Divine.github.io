@@ -1,0 +1,407 @@
+---
+import CopyCommand from "~/components/skills/CopyCommand.astro"
+import Layout from "~/layouts/PageLayout.astro"
+import { getSkills, SKILLS_REPOSITORY } from "~/utils/skills"
+
+const skills = await getSkills()
+---
+
+<Layout
+  metadata={{
+    title: "Agent Skills",
+    description:
+      "My public collection of agent skills for engineering, research, chain queries, and technical writing.",
+  }}
+>
+  <main class="skills-home" data-skills-catalogue>
+    <header class="skills-intro">
+      <p class="skills-eyebrow">
+        <span aria-hidden="true">◇</span> MY PUBLIC TOOLBOX
+      </p>
+      <h1>Agent skills.<br /><span>Less repeating myself.</span></h1>
+      <p class="skills-lead">
+        The instructions and references I give AI agents for work I do often:
+        reviewing code, investigating systems, querying chains, and writing
+        clearly.
+      </p>
+      <div class="skills-actions">
+        <a href="#catalogue" class="skills-primary"
+          >Explore {skills.length} skills <span aria-hidden="true">↗</span></a
+        ><a href={`${SKILLS_REPOSITORY}/tree/main/ai-skills`}
+          >Browse on GitHub <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </header>
+    <section
+      class="skills-install"
+      id="installation"
+      aria-labelledby="install-heading"
+    >
+      <div>
+        <p class="skills-eyebrow">GET STARTED</p><h2 id="install-heading">
+          Add a skill. Give it a task.
+        </h2><p>
+          Each skill bundles a workflow with the references an agent needs. Use
+          the installer to choose your agent and the skills you want.
+        </p><p class="skills-install-note">
+          Install one from its page, or browse the collection with this command.
+          Some workflows also need their own CLI tools or service access; check
+          the skill’s instructions.
+        </p>
+      </div>
+      <div>
+        <CopyCommand command={`npx skills add ${SKILLS_REPOSITORY}`} /><a
+          class="skills-small-link"
+          href="https://github.com/vercel-labs/skills#readme"
+          >Installer documentation ↗</a
+        >
+      </div>
+    </section>
+    <section id="catalogue" aria-labelledby="catalogue-heading">
+      <div class="skills-catalogue-heading">
+        <h2 id="catalogue-heading">The collection</h2><p>
+          <span data-skills-count>{skills.length}</span> skills
+        </p>
+      </div>
+      <div class="skills-search" data-skills-search hidden>
+        <label class="sr-only" for="skill-search">Search skills</label><span
+          aria-hidden="true">⌕</span
+        ><input
+          id="skill-search"
+          type="search"
+          placeholder="Search skills, workflows, or tools…"
+          autocomplete="off"
+        /><button type="button" data-skills-clear hidden>Clear</button>
+      </div>
+      <p class="sr-only" role="status" aria-live="polite" data-skills-status>
+      </p>
+      <ul class="skills-grid">
+        {
+          skills.map(({ data }) => (
+            <li
+              data-skill-card
+              data-search={`${data.name} ${data.folder} ${data.description}`.toLowerCase()}
+            >
+              <a href={`/ai-skills/${data.route}`}>
+                <>
+                  <div class="skill-card-top">
+                    <>
+                      <span>SKILL</span>
+                      <span aria-hidden="true">↗</span>
+                    </>
+                  </div>
+                  <h3>{data.name}</h3>
+                  <p>{data.description}</p>
+                  <div class="skill-card-footer">
+                    Instructions & references <span aria-hidden="true">→</span>
+                  </div>
+                </>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="skills-empty" data-skills-empty hidden>
+        No matching skills. Try another term or clear your search.
+      </p>
+    </section>
+    <footer class="skills-outro">
+      <p>
+        These are the playbooks I use. Read the instructions, adapt them to your
+        setup, and keep the useful parts.
+      </p><a href={`${SKILLS_REPOSITORY}/tree/main/ai-skills`}
+        >Source: Unique-Divine/jiyuu ↗</a
+      >
+    </footer>
+  </main>
+</Layout>
+<style>
+  .skills-home {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 5rem;
+    color: var(--aw-color-text-default);
+  }
+  .skills-intro {
+    position: relative;
+    padding: 1rem 0 3.5rem;
+    max-width: 850px;
+  }
+  .skills-intro::before {
+    content: "";
+    position: absolute;
+    inset: -1rem 0 0;
+    z-index: -1;
+    background: radial-gradient(ellipse at 30% 20%, #14b8a612, transparent 65%);
+    pointer-events: none;
+  }
+  .skills-eyebrow {
+    font:
+      500 0.72rem/1.5 "IBM Plex Mono",
+      monospace;
+    letter-spacing: 0.13em;
+    color: var(--aw-color-text-muted);
+    margin: 0 0 1rem;
+  }
+  .skills-eyebrow span {
+    color: #169f97;
+    font-size: 1.3rem;
+    margin-right: 0.5rem;
+  }
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 1.12;
+    margin: 0 0 1.5rem;
+  }
+  h1 span {
+    color: var(--aw-color-text-muted);
+    font-weight: 450;
+  }
+  .skills-lead {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 660px;
+    color: var(--aw-color-text-muted);
+  }
+  .skills-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    font-size: 0.9rem;
+    margin-top: 1.8rem;
+  }
+  .skills-primary {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: var(--aw-color-text-default);
+    color: var(--aw-color-bg-page);
+    font-weight: 550;
+  }
+  .skills-actions a:hover,
+  .skills-small-link:hover,
+  .skills-outro a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .skills-install {
+    border: 1px solid #88959940;
+    border-radius: 16px;
+    padding: 1.8rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 4rem;
+    background: #88959906;
+    scroll-margin-top: 110px;
+  }
+  .skills-install .skills-eyebrow {
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+  }
+  .skills-install p:not(.skills-eyebrow) {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--aw-color-text-muted);
+    margin-top: 0.7rem;
+  }
+  .skills-install-note {
+    font-size: 0.8rem !important;
+  }
+  .skills-small-link {
+    display: inline-block;
+    font-size: 0.75rem;
+    margin-top: 0.8rem;
+    color: var(--aw-color-text-muted);
+  }
+  #catalogue {
+    scroll-margin-top: 110px;
+  }
+  .skills-catalogue-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .skills-catalogue-heading p {
+    font:
+      400 0.8rem "IBM Plex Mono",
+      monospace;
+    color: var(--aw-color-text-muted);
+  }
+  .skills-search {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid #88959950;
+    background: #88959908;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .skills-search[hidden] {
+    display: none;
+  }
+  .skills-search:focus-within {
+    outline: 2px solid #169f97;
+    outline-offset: 2px;
+  }
+  .skills-search > span {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--aw-color-text-muted);
+  }
+  input {
+    width: 100%;
+    min-width: 0;
+    background: transparent;
+    outline: none;
+    font-size: 0.95rem;
+  }
+  input::placeholder {
+    color: var(--aw-color-text-muted);
+  }
+  .skills-search button {
+    font-size: 0.8rem;
+    text-decoration: underline;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .skills-grid li[hidden] {
+    display: none;
+  }
+  .skills-grid li {
+    min-width: 0;
+  }
+  .skills-grid a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.4rem;
+    border: 1px solid #88959935;
+    border-radius: 14px;
+    background: #88959906;
+    transition:
+      border-color 0.15s,
+      background 0.15s;
+  }
+  .skills-grid a:hover {
+    border-color: #169f9790;
+    background: #169f9709;
+  }
+  .skills-grid a:focus-visible,
+  .skills-home a:focus-visible {
+    outline: 2px solid #169f97;
+    outline-offset: 4px;
+  }
+  .skill-card-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+    font:
+      500 0.65rem "IBM Plex Mono",
+      monospace;
+    letter-spacing: 0.09em;
+    color: var(--aw-color-text-muted);
+  }
+  .skill-card-top span:last-child {
+    font-size: 1rem;
+    color: #169f97;
+  }
+  .skills-grid h3 {
+    font:
+      600 1rem/1.5 "IBM Plex Mono",
+      monospace;
+    overflow-wrap: anywhere;
+    margin: 0 0 0.7rem;
+  }
+  .skills-grid p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--aw-color-text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0 0 1.8rem;
+  }
+  .skill-card-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    border-top: 1px solid #88959925;
+    padding-top: 1rem;
+    font-size: 0.72rem;
+    color: var(--aw-color-text-muted);
+  }
+  .skills-empty {
+    padding: 3rem 0;
+    color: var(--aw-color-text-muted);
+  }
+  .skills-outro {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid #88959935;
+    color: var(--aw-color-text-muted);
+    font-size: 0.8rem;
+    line-height: 1.8;
+  }
+  .skills-outro p {
+    max-width: 520px;
+  }
+  .skills-outro a {
+    flex-shrink: 0;
+  }
+  @media (max-width: 950px) {
+    .skills-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .skills-install {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+    }
+  }
+  @media (max-width: 600px) {
+    .skills-home {
+      padding-top: 2.5rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+    .skills-install {
+      padding: 1.2rem;
+    }
+    .skills-outro {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .skills-intro::before {
+      inset: 0;
+    }
+  }
+</style>
+<script>
+  import "~/components/skills/catalogue"
+</script>

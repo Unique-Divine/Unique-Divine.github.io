@@ -111,6 +111,14 @@ export function scenarioText(pod: Pod) {
   return `${fmt(p.block_mean_ms)} − ${fmt(p.voting_contribution_ms)} = ${fmt(p.zero_voting_scenario_ms)} ms in the zero-voting scenario. That subtracts ${fmt((100 * p.voting_contribution_ms) / p.block_mean_ms)}% of the measured interval. Other contributions and the signed residual stay fixed.`
 }
 
+export function opportunityText(pod: Pod) {
+  const p = data.normal[pod]
+  const wait = p.phases.find(
+    (phase) => phase.state === "NewHeight",
+  )!.contribution_ms_per_block!
+  return `${fmt(p.block_mean_ms)} − ${fmt(wait)} − ${fmt(p.voting_contribution_ms)} ≈ ${fmt(scenarios(pod)[3].value)} ms remaining. Measured phase costs; hypothetical removal. All other contributions and the signed residual stay fixed.`
+}
+
 export function recoveryDuration(version: Version) {
   const minutes = data.upgrades[version].recovery.seconds_from_anchor / 60
   return minutes >= 60

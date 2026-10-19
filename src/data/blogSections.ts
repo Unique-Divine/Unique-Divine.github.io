@@ -3,8 +3,12 @@ export const SECTION_TITLES: Record<
   "category" | "tag",
   Partial<Record<string, string>>
 > = {
-  category: { nibiru: "On Nibiru and Sai" },
-  tag: { "self-improvement": "On Self-Improvement and Productivity" },
+  category: { nibiru: "On Nibiru and Sai", "agent-skills": "Agent Skills" },
+  tag: {
+    "self-improvement": "On Self-Improvement and Productivity",
+    "agent-skills": "Agent Skills",
+    ai: "AI",
+  },
 }
 
 export function getSectionTitleOverride(

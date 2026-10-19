@@ -1,4 +1,6 @@
 ---
+import ExpandableDiagram from "~/components/common/ExpandableDiagram.astro"
+
 import { ASSET_BASE, data } from "./model"
 
 interface Props {
@@ -12,33 +14,20 @@ const { file, alt, badge, view, eager = false } = Astro.props
 const size = data.figures[file]
 ---
 
-<figure class="bl-figure" data-view={view}>
-  <div
-    class="bl-canvas"
-    tabindex="0"
-    role="region"
-    aria-label={`${alt}. Scroll horizontally on small screens.`}
+<div class="bl-figure" data-view={view}>
+  <ExpandableDiagram
+    src={`${ASSET_BASE}${file}`}
+    alt={alt}
+    width={size.width}
+    height={size.height}
+    loading={eager ? "eager" : "lazy"}
   >
-    <img
-      src={`${ASSET_BASE}${file}`}
-      width={size.width}
-      height={size.height}
-      alt={alt}
-      loading={eager ? "eager" : "lazy"}
-      decoding="async"
-    />
-  </div>
-  <figcaption class="bl-figurebar">
     <span
+      slot="caption"
       class:list={[
         "bl-badge",
         { "bl-hypothesis": badge.includes("Hypothetical") },
       ]}>{badge}</span
     >
-    <a href={`${ASSET_BASE}${file}`} download>Download SVG ↓</a>
-  </figcaption>
-</figure>
-<p class="bl-mobile-hint">
-  Swipe the diagram horizontally. The surrounding text and tables provide its
-  values.
-</p>
+  </ExpandableDiagram>
+</div>

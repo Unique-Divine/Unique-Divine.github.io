@@ -75,6 +75,8 @@ export default defineConfig({
       HTML: {
         "html-minifier-terser": {
           removeAttributeQuotes: false,
+          // React's SSR text separators must survive HTML minification.
+          ignoreCustomFragments: [/<astro-island\b[\s\S]*?<\/astro-island>/g],
         },
       },
       Image: false,
@@ -97,6 +99,16 @@ export default defineConfig({
   },
 
   vite: {
+    // A production build must not overwrite dependencies used by a live preview.
+    plugins: [
+      {
+        name: "separate-vite-caches",
+        config: (_config, { command }) => ({
+          cacheDir: path.resolve(__dirname, `node_modules/.vite-${command}`),
+        }),
+      },
+    ],
+    optimizeDeps: { include: ["react-activity-calendar"] },
     resolve: {
       alias: {
         "~": path.resolve(__dirname, "./src"),

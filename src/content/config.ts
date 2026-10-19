@@ -51,6 +51,7 @@ const postCollection = defineCollection({
     updateDate: z.date().optional(),
     draft: z.boolean().optional(),
     contentLayout: z.enum(["article", "wide"]).default("article"),
+    stickyToc: z.boolean().default(false),
 
     title: z.string(),
     excerpt: z.string().optional(),
@@ -66,12 +67,39 @@ const postCollection = defineCollection({
 
 export const collections = {
   post: postCollection,
+  skill: defineCollection({
+    type: "content",
+    schema: z.object({
+      title: z.string(),
+      description: z.string(),
+      name: z.string(),
+      folder: z.string(),
+      source: z.string(),
+      route: z.string(),
+      kind: z.enum(["skill", "reference"]),
+      stickyToc: z.literal(true),
+      publishDate: z.coerce.date(),
+    }),
+  }),
   project: defineCollection({
     type: "content",
     schema: z.object({
       title: z.string(),
       summary: z.string(),
       role: z.string(),
+      icon: z
+        .enum([
+          "code",
+          "nibiru",
+          "typescript",
+          "rust",
+          "computer",
+          "dna",
+          "school",
+          "database",
+          "notes",
+        ])
+        .default("code"),
       group: z.enum(["current", "earlier"]).default("current"),
       featured: z.boolean().default(false),
       order: z.number().default(0),

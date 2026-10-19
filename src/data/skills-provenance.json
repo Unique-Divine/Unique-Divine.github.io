@@ -1,0 +1,252 @@
+{
+  "repository": "https://github.com/Unique-Divine/jiyuu",
+  "revision": "b31eb6e727f7c4b3275093c7dc8deee90e51bcf3",
+  "dirty": false,
+  "pages": {
+    "bash-defensive-patterns": {
+      "source": "bash-defensive-patterns/SKILL.md",
+      "sha256": "f47bd7979a065f340c14bf410f390fdbceabe93f40ddedc908b8d8bc877aa8c9",
+      "publishDate": "2026-10-19"
+    },
+    "drill-spec": {
+      "source": "drill-spec/SKILL.md",
+      "sha256": "8311a8469f5022739a3602bd4243ef6fd1dbf080bb0662ace755aa6bfba702ec",
+      "publishDate": "2026-10-19"
+    },
+    "evm-rpc": {
+      "source": "evm-rpc/SKILL.md",
+      "sha256": "d4f1bfdb2605bf1ca7574bcc76ee375a661143a02a5598767884ac93cbfa7157",
+      "publishDate": "2026-10-19"
+    },
+    "gh-actionlint": {
+      "source": "gh-actionlint/SKILL.md",
+      "sha256": "2eaf46f901b8e83813e3687a118703c32f8742bccd7fc471fcd07c80d74807e3",
+      "publishDate": "2026-10-19"
+    },
+    "gh-ci-watch": {
+      "source": "gh-ci-watch/SKILL.md",
+      "sha256": "88b1afd65b910fad9c58d24bbda2d1a4b83eea7de55ea060e4abe362748cb842",
+      "publishDate": "2026-10-19"
+    },
+    "gh-labels": {
+      "source": "gh-labels/SKILL.md",
+      "sha256": "37887d19e380a08527459dd450327d42f6864b3b949cf410864f0485a7b989e9",
+      "publishDate": "2026-10-19"
+    },
+    "gh-pr-review": {
+      "source": "gh-pr-review/SKILL.md",
+      "sha256": "a2adcb4a2d6828744a4e194b4c14ca10ff24596a203c1b5d0d137c5de7384105",
+      "publishDate": "2026-10-19"
+    },
+    "gh-pr": {
+      "source": "gh-pr/SKILL.md",
+      "sha256": "fd6b190c3ad91b07d5b3bc18c669d66f2e7319b8c7d603e9fce45a956dd8f0be",
+      "publishDate": "2026-10-19"
+    },
+    "gh-rev/cli": {
+      "source": "gh-rev/references/cli.md",
+      "sha256": "77dec65e0405556696b1484e9fd33a9c2105acbd19ca18391bc99891d2049a54",
+      "publishDate": "2026-10-19"
+    },
+    "gh-rev/implement-review-feedback": {
+      "source": "gh-rev/references/implement-review-feedback.md",
+      "sha256": "2f710b4be5a73620de1bd7fc1f677d772344afd651624821430affdc4d4e0fc8",
+      "publishDate": "2026-10-19"
+    },
+    "gh-rev/review-local-branch": {
+      "source": "gh-rev/references/review-local-branch.md",
+      "sha256": "814101b16a2714503af8a74ea7edc194be0a78e6b972a3c0eb853f2e98435e55",
+      "publishDate": "2026-10-19"
+    },
+    "gh-rev/review-pull-request": {
+      "source": "gh-rev/references/review-pull-request.md",
+      "sha256": "75d72081c99b0156115fc0c8124081e5f977cc5bb81311fb7dca3973489b7aaf",
+      "publishDate": "2026-10-19"
+    },
+    "gh-rev/work-revisions": {
+      "source": "gh-rev/references/work-revisions.md",
+      "sha256": "a58d71e0876a07697656017b610fd297c0434915030f5908c638586e06a048bf",
+      "publishDate": "2026-10-19"
+    },
+    "gh-rev": {
+      "source": "gh-rev/SKILL.md",
+      "sha256": "b281fcda4977c891610ee0ebec2a91999f1f0d487171f8382c017a6736d591b3",
+      "publishDate": "2026-10-19"
+    },
+    "herdr/local-machine": {
+      "source": "herdr/local-machine.md",
+      "sha256": "499a6d5b1913be860aa3ea158921fc2cf1cdb538002fa9f746834cc23b9e5ec9",
+      "publishDate": "2026-10-19"
+    },
+    "herdr": {
+      "source": "herdr/SKILL.md",
+      "sha256": "7d46c8d452ce75e433ea28f29d8052b89af7adb2e5de6a00f155899483913966",
+      "publishDate": "2026-10-19"
+    },
+    "justfile/justfile-patterns": {
+      "source": "justfile/references/justfile-patterns.md",
+      "sha256": "c9c00a49b58e1354e1d91cf55a59547911414432ef0c400b76a3fb726b0aa369",
+      "publishDate": "2026-10-19"
+    },
+    "justfile/make-migration": {
+      "source": "justfile/references/make-migration.md",
+      "sha256": "c82f589f04e8ce25e033459e238cc5f9bc7bd14d9f4fcff3d6b8d3146159a898",
+      "publishDate": "2026-10-19"
+    },
+    "justfile": {
+      "source": "justfile/SKILL.md",
+      "sha256": "1e480806f014e1e4cad475f7f5bda81158f2a50eb446150e4da7b0f7231857e0",
+      "publishDate": "2026-10-19"
+    },
+    "md-tasks": {
+      "source": "md-tasks/SKILL.md",
+      "sha256": "d632d3375012b23b79ae22d6a41e405ef5b2f396b4494077bf7dc2a4218b49a6",
+      "publishDate": "2026-10-19"
+    },
+    "new-chat-prompt": {
+      "source": "new-chat-prompt/SKILL.md",
+      "sha256": "5250df1e31bfa9439215aaf9f5a572b604312ad24576e7fea65117fe477e0f2f",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-cli/examples": {
+      "source": "nibiru-cli/examples.md",
+      "sha256": "a5612ed1c134b99cd3848faef169fedf16c9bb1198e82973a294c5b52a750595",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-cli/reference": {
+      "source": "nibiru-cli/reference.md",
+      "sha256": "0636ddcaf432beab25eb998b654cfab4fc7313f3ca729f4530e543feb96ff3c6",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-cli": {
+      "source": "nibiru-cli/SKILL.md",
+      "sha256": "6d89208b3022c6305b2ffd6cc49c463247c0b7562e2f4b039df6bd936da2b4c3",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-gov-upgrade/reference": {
+      "source": "nibiru-gov-upgrade/reference.md",
+      "sha256": "162079302b9e8bd5ede90c31d7d3587775b58e29611d98a76e0a13f4efa01ba1",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-gov-upgrade": {
+      "source": "nibiru-gov-upgrade/SKILL.md",
+      "sha256": "bea9529dc9f33d9ae7ea5f211a982c4459e73417f6ce12106b5df44d6eebe3c0",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-gql/db-events": {
+      "source": "nibiru-gql/db-events.md",
+      "sha256": "246fcb48c8e51cc3d9df571d1a7be7fe120760db3ed8ee9c7772b612344c9dc7",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-gql/db-staking": {
+      "source": "nibiru-gql/db-staking.md",
+      "sha256": "d939d91219b2f9a777e3c3ff4fd633ddf7eba0023134b256f41e89c1f152a370",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-gql/db-user-balances": {
+      "source": "nibiru-gql/db-user-balances.md",
+      "sha256": "b6d576031dbc7b5b6ae7c7379de6f4f8b0ef0f904b9e51f7526fc3c28dd4901b",
+      "publishDate": "2026-10-19"
+    },
+    "nibiru-gql": {
+      "source": "nibiru-gql/SKILL.md",
+      "sha256": "f6773ee5f1ed28e7b823d541347cb0bb951b736b3a9a5176abffceedacabd2c1",
+      "publishDate": "2026-10-19"
+    },
+    "postgresql-psql/reference": {
+      "source": "postgresql-psql/reference.md",
+      "sha256": "706a5366515bc7113d0cc0bbe7053e86e3c9ec8064634f50c313694d0d1fa51b",
+      "publishDate": "2026-10-19"
+    },
+    "postgresql-psql": {
+      "source": "postgresql-psql/SKILL.md",
+      "sha256": "d7724b8c506743c561cefe08bac3a9f707b3eb85e1c66e0d547da3eec1ecaf2d",
+      "publishDate": "2026-10-19"
+    },
+    "repo-map/cloning": {
+      "source": "repo-map/cloning.md",
+      "sha256": "5cfdc2ef7532f72418acb0487a0d8fde72e449fe88c0b13cc585e04067c05b8b",
+      "publishDate": "2026-10-19"
+    },
+    "repo-map/reference": {
+      "source": "repo-map/REFERENCE.md",
+      "sha256": "5583adeddb0db3de606a676c3754915a07df79e03ef54ca63fabbb1026e52c81",
+      "publishDate": "2026-10-19"
+    },
+    "repo-map": {
+      "source": "repo-map/SKILL.md",
+      "sha256": "ef49c26740a76317448160dc0545f4cbe8cbf7dee4760c9c54355b87acffd798",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps/examples/sai-perps-prompts": {
+      "source": "sai-perps/examples/sai-perps-prompts.md",
+      "sha256": "b55681049135b7f08d803cf7c487cf381110f25202cb983ccb43cf9a555ec273",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps/sai-contracts": {
+      "source": "sai-perps/references/sai-contracts.md",
+      "sha256": "378340f533da2dceeeaaf4fe5e0b831f972137c8f235cfd965fb68bda71b9e25",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps/sai-db": {
+      "source": "sai-perps/references/sai-db.md",
+      "sha256": "e63212b1c8670a6fb1c6858c0f057c35623cdbfc4d350339954968a918560fbc",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps/sai-graphql": {
+      "source": "sai-perps/references/sai-graphql.md",
+      "sha256": "6979fa244ef00a96549abd517dc63beaa155f72f4ee947cb5d824e66592e8753",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps/sai-reconciliation": {
+      "source": "sai-perps/references/sai-reconciliation.md",
+      "sha256": "63fe53e491e25b074677b8a9a256ef2eb4ca94af8f1c50a3fbc0a634794ac3ee",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps/sai-referrals": {
+      "source": "sai-perps/references/sai-referrals.md",
+      "sha256": "aa71ed129238c29750f6a815882c456a42b26c78d979af44d7c335be8d046dbd",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps/sai-rest": {
+      "source": "sai-perps/references/sai-rest.md",
+      "sha256": "e76fd3bbdea10d099578b086c5a3877c85fc4ef00058d6fda798163efe49434c",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps/sai-vaults": {
+      "source": "sai-perps/references/sai-vaults.md",
+      "sha256": "1438403ddb0171f098f20ce127ebf610de9566afa73e171f05d0533c89315e4d",
+      "publishDate": "2026-10-19"
+    },
+    "sai-perps": {
+      "source": "sai-perps/SKILL.md",
+      "sha256": "ae1fa94f5b021cfe59c23e146bf01f4867446baf0f84bf729b243c8fe61e0913",
+      "publishDate": "2026-10-19"
+    },
+    "tailscale-serve": {
+      "source": "tailscale-serve/SKILL.md",
+      "sha256": "a3341976fd387edf9adf6db2c70c101c97907a81a8cee8a1819222e7f7949de6",
+      "publishDate": "2026-10-19"
+    },
+    "tailscale-serve/test-prompts": {
+      "source": "tailscale-serve/test-prompts.md",
+      "sha256": "137868ff34f7b22fee9fec38427c34a20b5b67868162289f80bc593c006c3332",
+      "publishDate": "2026-10-19"
+    },
+    "ud-writing-tech/resources": {
+      "source": "ud-writing-tech/resources.md",
+      "sha256": "223c1688b56b4f48901fc41e2227964a5020da931c1a6d345d09f99c0ea9f63f",
+      "publishDate": "2026-10-19"
+    },
+    "ud-writing-tech": {
+      "source": "ud-writing-tech/SKILL.md",
+      "sha256": "19410c8e85501556a52b730f138a83fa15bb8e51db5475e414274b28da0ba729",
+      "publishDate": "2026-10-19"
+    },
+    "unslop": {
+      "source": "unslop/SKILL.md",
+      "sha256": "181883e539caec8258ec9129e3ba5f133409144a2cbf2aa361158ab94cfc3441",
+      "publishDate": "2026-10-19"
+    }
+  }
+}

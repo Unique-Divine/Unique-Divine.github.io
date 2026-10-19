@@ -12,7 +12,8 @@ tags:
   - research
   - nibiru-bft
   - sai
-contentLayout: wide
+contentLayout: article
+stickyToc: true
 draft: false
 ---
 
@@ -20,28 +21,41 @@ import Budget from "~/components/research/block-latency/Budget.astro"
 import Figure from "~/components/research/block-latency/Figure.astro"
 import Guide from "~/components/research/block-latency/Guide.astro"
 import Legend from "~/components/research/block-latency/Legend.astro"
+import Opportunity from "~/components/research/block-latency/Opportunity.astro"
 import Scenario from "~/components/research/block-latency/Scenario.astro"
 import Upgrade from "~/components/research/block-latency/Upgrade.astro"
 
 <Guide>
 
 I started this investigation with a practical question: what would make a Sai
-transaction feel faster? Nibiru produces blocks roughly every 1.5 seconds, but
-that interval alone doesn't tell me whether to tune Tendermint, change the voting
-set, or replace agreement with a sequencer.
+transaction feel faster? Nibiru produces blocks roughly every 1.5 seconds, and
+its committed blocks carry Byzantine fault tolerant, or BFT, finality. I want the
+application to feel responsive while making clear what each response guarantees.
+
+That 1.5 seconds is the measured mean interval between blocks. It is not a
+submission-to-finality measurement. A transaction can wait for inclusion, and
+RPC, indexing, or application updates can add delay after consensus has decided
+its block.
 
 Before choosing an architecture, I wanted a budget for the time we already spend.
 This note uses a 48-hour production capture, observations from a voting validator
 and two nonvoting nodes, and the histories of two chain upgrades. It describes
-measured behavior and possible experiments. It does not announce a performance
-upgrade.
+measured behavior and possible experiments.
+
+The promising result is how much of that interval sits in two places. Removing
+the measured NewHeight interval and both voting intervals, while holding
+everything else fixed, leaves **267.70 ms**, roughly a quarter of a second.
+The [four-scenario table](#what-would-remain-if-we-removed-the-wait-and-voting) shows the arithmetic. That gives me a
+concrete reason to test shorter scheduling and a different ordering architecture.
+It is a calculation from real phase measurements, not an achieved confirmation
+time or proof that every subtracted cost can disappear.
 
 The headline numbers describe the voting validator. Each node observes the same
 chain, so their interval counts do not add together. The observed application
 load was about 1.33 delivered transactions per second on each observer. This is
 a low-load cadence baseline, not a measurement of maximum throughput.
 
-<h2 id="cycle">A block needs agreement, execution, and delivery.</h2>
+## A block needs agreement, execution, and delivery.
 
 The proposer supplies a candidate block containing ordered transactions.
 Validators exchange prevotes and precommits before committing it. Each executing
@@ -55,15 +69,51 @@ guarantee backs that outcome.
 
 <Figure
   file="block-cycle.svg"
-  badge="Schematic · not to scale"
+  badge="Successful-round flow"
   alt="One successful Tendermint round, its local states, and the separate result-delivery path"
 />
 
-The diagram shows a successful round. Invalid proposals, unavailable proposers,
-and delayed votes can cause retries. The arrows explain order; their lengths
-are not measurements of transaction latency.
+### What the phases mean
 
-<h2 id="budget">The largest phase is the wait for the next height.</h2>
+A height identifies one block's place in the chain. A round is an attempt to
+agree on a block at that height. An unsuccessful attempt leads to another round.
+Quorums count voting power, rather than a simple count of machines.
+
+<div class="bl-phase-glossary">
+
+| Phase     | What the node is doing                                                                                                                                                 |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NewHeight | Waiting for the scheduled start of the next height. This can include the remaining commit-timer wait.                                                                  |
+| NewRound  | Preparing a round and its proposer. Configuration can also make this state wait for transactions.                                                                      |
+| Propose   | Distributing, receiving, and checking a candidate block with an ordered transaction list.                                                                              |
+| Prevote   | Validators vote for a block or nil, following proposal validity and any existing lock. Nil means they do not support a block in that vote.                             |
+| Precommit | After seeing more than two-thirds of voting power prevote a block, validators lock and precommit it. Without that evidence they can precommit nil.                     |
+| Commit    | Matching precommits from more than two-thirds of voting power establish the consensus decision. The node obtains the block, executes it, and persists its local state. |
+
+</div>
+
+Locks restrict which block a validator can support in later rounds. Together
+with intersecting quorums, they prevent conflicting decisions while less than
+one-third of voting power is Byzantine. That is the fault assumption behind BFT
+finality. Execution and persistence still take time after the quorum decision.
+
+The diagram shows a successful round. Invalid proposals, unavailable proposers,
+and delayed votes can cause retries. Conditional wait states are omitted, and
+arrow lengths do not measure transaction latency.
+
+### Which nodes I measured
+
+The capture samples one voting validator, rather than the whole voting set. It
+participates in agreement and can take a turn as proposer. The two nodes labelled snapshot are nonvoting full-node observers. They verify
+and execute the same chain without adding voting power. The label does not
+make their measurements a benchmark of snapshot restoration.
+
+Their comparison shows how one chain's cadence appears from different nodes,
+and how local processing and observation differ. An observer can receive enough
+later-stage evidence to advance without visiting every earlier state. Fewer
+recorded prevotes on an observer do not mean the validator network skipped them.
+
+## The largest phase is the wait for the next height.
 
 NewHeight contributes about 61% of the validator's measured interval. Prevote
 and Precommit together contribute about 21%. Each phase contains local work and
@@ -77,14 +127,38 @@ proposer heights from its other heights.
 
 NewRound itself contributes only 1.68 ms per block on the validator. Propose
 contributes 187.56 ms. Those averages establish neither a 250 ms ceiling nor a
-250 ms complete agreement-and-execution path.
+complete agreement-and-execution path. The roughly 268 ms figure below comes
+from a different calculation across the entire phase budget.
 
 The 96 half-hour bins partition the capture. Their means are relatively
 consistent, but their distribution is not an individual-block p50, p95, or p99.
 The available histogram buckets are too coarse to establish precise subsecond
 tail percentiles.
 
-<h2 id="timer">Commit processing uses part of the next-height schedule.</h2>
+## What would remain if we removed the wait and voting?
+
+The validator averages 1,515.04 ms per block. NewHeight contributes 922.49 ms,
+and Prevote plus Precommit contributes 324.85 ms. Subtracting both leaves
+**267.70 ms**, about an 82% reduction in this fixed-cost model.
+
+<Opportunity />
+
+The first row is measured. Each other row sets the named phase contributions
+to zero and keeps everything else, including Commit processing and the signed
+residual. The table follows the node selected above.
+
+This separates two experiments. Reducing the next-height schedule could shorten
+cadence while retaining voting. A trusted sequencer could change the agreement
+path and remove its distributed voting exchange. The combined row asks what
+would remain if both changes removed their measured intervals completely.
+
+The remaining work may change under either experiment. Validation, replication,
+signing, and persistence can retain or replace part of the subtracted costs.
+The table is an opportunity estimate, not a throughput forecast or an end-to-end
+transaction latency benchmark. It makes the potential large enough to test
+against representative application load and an explicit confirmation guarantee.
+
+## Commit processing uses part of the next-height schedule.
 
 CometBFT v0.37.18 schedules the next height when it enters Commit. Application
 execution and persistence consume some of that interval. NewHeight contains the
@@ -120,7 +194,7 @@ result from the previous block. Shorter cadence can reduce how long newly arrivi
 transactions wait for their next inclusion opportunity, while repeating
 block-level work more frequently. The experiment needs to measure both effects.
 
-<h2 id="upgrades">Blocks resume before the phase budget settles.</h2>
+## Blocks resume before the phase budget settles.
 
 The initial upgrade interruption lasts seconds. Elevated Propose and Precommit
 contributions continue after the restart. I keep the initial gap and the recovery
@@ -138,39 +212,53 @@ the criterion had not been met at six hours. The v2.21.0 observation met it with
 the original capture. The detailed figures retain the longer curves rather than
 showing only selected favorable windows.
 
-<h2 id="scenario">Removing a phase gives a question to test.</h2>
+## A different ordering architecture changes the voting path.
 
 Prevote plus Precommit contributes 324.85 ms per block on the validator. Setting
 those contributions to zero leaves 1,190.19 ms, if everything else stays fixed.
-The longer NewHeight wait is a separate opportunity. The table extends the same
-accounting to both costs and follows the node selected above.
+The [earlier opportunity table](#what-would-remain-if-we-removed-the-wait-and-voting) includes the separate NewHeight
+opportunity and the combined roughly 268 ms scenario.
 
 <Scenario />
 
-The hypothetical rows retain all other contributions and the signed residual.
-They are not tested configurations, throughput predictions, or measured results
-from a replacement protocol. Removing Commit processing and the entire shared
-schedule would double-count an opportunity. Even the zero-NewHeight scenario
-assumes that the remaining work behaves the same after changing the schedule.
+The hypothetical rows retain other work and the signed residual. Removing both
+Commit processing and the entire shared schedule would double-count an opportunity.
 
 ### Why can a sequencer avoid the voting exchange?
 
-A sequencer is the service or protocol that chooses transaction order. A trusted
-single sequencer can choose that order without waiting for distributed
-Tendermint votes. The authority to choose the canonical order comes from the
-system's rules about that operator.
+A sequencer chooses transaction order. Tendermint's proposer already does that:
+it supplies a candidate ordered block. The other validators still need to agree
+which proposal becomes history.
 
-Tendermint's proposer already supplies an order. The votes and locking rules
-establish agreement despite faulty proposals and leader changes. A sequencer
-changes who has authority and what the confirmation means. It is more than
-deleting two functions from Tendermint. A distributed sequencer can itself run
-BFT and retain quorum communication.
+Suppose two transactions compete for the same remaining liquidity. Their order
+can change the result. A faulty proposer could send different orders to different
+peers, or disappear before the next leader takes over. Prevotes, precommits, and
+locks let validators agree on one history through those failures. Knowing an
+order is not the same as knowing that the other nodes will honor it.
 
-One possible path is submission, sequencer ordering, execution and persistence,
-then result delivery. Replicas still need data and execution. The design must
-specify failover, conflicting orders, and which replication or publication steps
-finish before it acknowledges a result. An early acknowledgment does not by
-itself establish a durable executed outcome.
+A trusted single-sequencer design changes the authority. Its rules accept one
+operator's stream as the canonical order. Replicas follow and verify that stream;
+the operator does not need a Tendermint quorum to choose each next order. A fast
+response can therefore skip those voting exchanges because the client trusts the
+operator, with whatever signing, persistence, or replication the design requires.
+That response does not carry Tendermint's quorum guarantee.
+
+There are two different experiments:
+
+- **Keep Tendermint and stream provisional results.** An ordering service could
+  return an early result while validators still vote on the eventual block.
+  This can improve feedback time without removing the chain's voting cost.
+  The design must explain how proposals honor that order and how conflicts
+  or rollbacks reach the application.
+- **Replace the agreement path with trusted sequencing.** The operator chooses
+  the accepted order without those validator votes. This can remove voting from
+  the response path, but changes the fault model. Replicas still need data and
+  execution; failover and any later publication or settlement need explicit rules.
+
+A sequencer receipt can acknowledge an order before execution finishes. An
+executed provisional result says more, but may still precede network finality.
+A distributed sequencer can itself run BFT and retain quorum communication.
+The word sequencer alone promises neither fewer messages nor a particular latency.
 
 [Evolve's single-sequencer design](https://github.com/evstack/ev-node/blob/de0c64425d12f88083b26503b8ab75efa21d2a0f/docs/learn/sequencing/single.md)
 is one concrete architecture to investigate. Its ABCI adapter does not make it
@@ -182,15 +270,12 @@ use CometBFT. Fewer voters and controlled connectivity may reduce coordination
 cost, but execution and persistence remain. The useful comparison is the latency
 of the guarantee the application actually needs.
 
-<h2 id="testing">
-  A one-validator run is a control, not the network benchmark.
-</h2>
+## A one-validator run is a control, not the network benchmark.
 
-A single validator still performs local processing and may retain configured
-waiting. It satisfies its voting quorum locally. That makes it a useful control
-for some costs, but it cannot establish production agreement latency. Subtracting
-its result from a multi-node run would not isolate networking exactly, because
-scheduling and other work can change too.
+A single validator satisfies its quorum locally. It still performs local work
+and may retain configured waiting, but it cannot establish production agreement
+latency. Comparing it with multiple voters is useful; subtracting the results
+does not isolate networking exactly because scheduling and other costs can change.
 
 Honest nodes incur network cost even when they agree. A useful experiment suite
 would separate:
@@ -202,10 +287,9 @@ would separate:
 - Faulty proposers, invalid proposals, and conflicting votes, with an explicit
   distribution of faulty voting power.
 
-Input fuzzing complements those experiments. Controlled fault injection gives us
-reproducible failures to explain. Failed application transactions, invalid blocks,
-and malformed network messages exercise different paths. A valid block can
-contain a transaction that executes unsuccessfully.
+Input fuzzing complements controlled fault injection. Failed transactions,
+invalid blocks, and malformed messages exercise different paths. A valid block
+can contain a transaction that executes unsuccessfully.
 
 The [consensus specification](https://github.com/cometbft/cometbft/blob/v0.37.18/spec/consensus/consensus.md)
 describes additional rounds for failed proposals and delayed votes. CometBFT also
@@ -219,7 +303,7 @@ durability, and result-delivery boundaries. Latency percentiles, successful
 throughput, and queue growth matter together. Faster ordering that leaves an
 ever-growing execution backlog would not meet the user-experience goal.
 
-<h2 id="evidence">Each clock answers a different question.</h2>
+## Each clock answers a different question.
 
 Use counters for phase averages, event logs for local lifecycle events, and block
 headers for canonical cadence. Their clocks are not interchangeable.
@@ -251,8 +335,63 @@ Startup logs identify app 2.21.0 on the baseline validator and 2.21.2 on the
 observers. This is version evidence, not a cryptographic attestation of each
 running binary.
 
-The capture gives me a concrete baseline for deciding what to test. It leaves
-the architecture choice open. The next useful result is a measured change in
-application confirmation latency, with its workload and fault assumptions stated.
+## Fast blocks and finality measure different things.
+
+Block cadence is how often blocks appear. Confirmation is a protocol or
+application's chosen confidence level. Finality prevents reversal under the
+protocol's security assumptions. Verified execution and external settlement can
+add further boundaries. These background examples were checked October 19, 2026;
+the Nibiru capture does not measure them.
+
+- **Monad** documents 300 ms blocks, 300 ms speculative finality, and 600 ms
+  consensus finality. Its later `Verified` stage confirms the execution state root
+  at `T+5`, about 1.5 seconds after proposal at that cadence. Its guidance asks
+  exchanges and bridges to wait for that stage. Consensus finality itself is
+  faster than Nibiru's measured block interval. [1](#background-reading)
+- **Solana** distinguishes block production from TowerBFT finalization across
+  subsequent slots. Its Alpenglow page describes a roughly 150 ms finality target,
+  with mainnet activation still pending as of this review. That target is not a
+  measured current-mainnet result. [2](#background-reading)
+- **Hyperliquid** says order-response latency includes API transport, mempool
+  inclusion, and commitment, usually across two pipelined HyperBFT blocks. Its
+  input-streaming option exposes transactions before execution results exist.
+  Earlier information and a committed outcome are distinct products.
+  [3](#background-reading)
+- **OP Stack rollups** distinguish sequencer-backed feedback from Ethereum-backed
+  finality. OP Mainnet's guide describes soft confirmation around two seconds,
+  while hard finality typically takes 15 to 30 minutes after submission.
+  Rollups do not share one universal finality delay. [4](#background-reading)
+
+Pipelining lets work on successive blocks overlap. A short interval between
+blocks can coexist with several voting stages for each block. Each comparison
+needs a start event, an end event, and the guarantee that end event provides.
+
+## Make the result arrive when it is useful.
+
+For Sai, I would first measure the path from submission to inclusion, consensus
+decision, execution, and the visible application update. The phase budget does
+not tell me how much time RPC polling, indexing, or rendering adds.
+
+A finalized, executed result should reach the user promptly. It does not need to
+wait for the next-height timer to expire. Shorter scheduling can reduce inclusion
+waits. An ordering service could offer earlier provisional feedback, provided
+that the interface distinguishes receipt, promised order, provisional execution,
+and final confirmation. A received transaction has not yet established a trade.
+
+That gives the roughly 268 ms opportunity a practical purpose. I want to test
+which costs can shrink, which guarantee a response carries, and when the user
+can act on it. If provisional state changes, the application needs to reconcile
+it visibly rather than presenting an early estimate as a finalized position.
+
+## Background reading
+
+1. [Monad developer summary](https://docs.monad.xyz/developer-essentials/summary),
+   especially Timing considerations and Asynchronous Execution.
+2. [Solana Alpenglow overview](https://solana.com/upgrades/alpenglow), including
+   the dated activation status and distinction between block time and finality.
+3. [Hyperliquid latency guide](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/optimizing-latency),
+   especially pipelined commitment and streaming inputs before execution.
+4. [OP Stack transaction finality](https://docs.optimism.io/op-stack/transactions/transaction-finality),
+   covering sequencer trust, data publication, and Ethereum finality.
 
 </Guide>
