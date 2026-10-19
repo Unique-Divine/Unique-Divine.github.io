@@ -224,7 +224,7 @@ async function handle(
       errorResponse(res, 416, "Range not satisfiable")
       return
     }
-    ;[start, end] = range
+    [start, end] = range
     status = 206
     res.setHeader("Content-Range", `bytes ${start}-${end}/${meta.size}`)
   }
