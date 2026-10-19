@@ -1,0 +1,20 @@
+---
+import type { MarkdownHeading } from "astro"
+
+import { getArticleContents } from "~/utils/article-contents"
+
+import ArticleContents from "./ArticleContents.astro"
+
+interface Props {
+  stickyToc?: boolean
+  headings?: MarkdownHeading[]
+}
+
+const { stickyToc = false, headings = [] } = Astro.props
+const { items, overviewId } = getArticleContents(headings, stickyToc)
+---
+
+<div class="relative" data-article-body id={overviewId}>
+  {items.length > 0 && <ArticleContents items={items} />}
+  <slot />
+</div>

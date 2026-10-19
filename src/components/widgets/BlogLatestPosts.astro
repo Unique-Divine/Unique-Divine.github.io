@@ -6,8 +6,6 @@ import { findLatestPosts } from "~/utils/blog"
 import { APP_BLOG } from "~/utils/config"
 import { getBlogPermalink } from "~/utils/permalinks"
 
-import Button from "../ui/Button.astro"
-
 export interface Props extends Widget {
   title?: string
   linkText?: string
@@ -18,7 +16,7 @@ export interface Props extends Widget {
 
 const {
   title = await Astro.slots.render("title"),
-  linkText = "View all",
+  linkText = "View all posts",
   linkUrl = getBlogPermalink(),
   information = await Astro.slots.render("information"),
   count = 4,
@@ -40,26 +38,29 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : []
       containerClass={classes?.container}
       bg={bg}
     >
-      <div class="flex flex-col lg:justify-between mb-8">
-        {title && (
-          <div class="md:max-w-sm">
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          {title && (
             <h2
-              class="text-3xl font-bold tracking-tight sm:text-4xl sm:leading-none group font-heading mb-2"
+              class="text-3xl font-semibold tracking-tight sm:text-4xl font-heading"
               set:html={title}
             />
-            {APP_BLOG.list.isEnabled && linkText && linkUrl && (
-              <Button variant="link" href={linkUrl}>
-                {linkText} »
-              </Button>
-            )}
-          </div>
-        )}
-
-        {information && (
-          <p
-            class="text-muted dark:text-slate-400 lg:text-sm lg:max-w-md"
-            set:html={information}
-          />
+          )}
+          {information && (
+            <p
+              class="mt-3 text-[14px] leading-relaxed text-muted dark:text-slate-400"
+              set:html={information}
+            />
+          )}
+        </div>
+        {APP_BLOG.list.isEnabled && linkText && linkUrl && (
+          <a
+            class="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-slate-200 px-4 py-2 text-[13px] font-medium transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 dark:border-slate-700 dark:hover:bg-slate-800 sm:self-auto"
+            href={linkUrl}
+          >
+            {linkText}
+            <span aria-hidden="true">→</span>
+          </a>
         )}
       </div>
 

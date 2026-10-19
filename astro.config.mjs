@@ -3,7 +3,6 @@ import { fileURLToPath } from "url"
 import mdx from "@astrojs/mdx"
 import partytown from "@astrojs/partytown"
 import react from "@astrojs/react"
-import sitemap from "@astrojs/sitemap"
 import tailwind from "@astrojs/tailwind"
 import compress from "astro-compress"
 import icon from "astro-icon"
@@ -14,6 +13,10 @@ import {
   readingTimeRemarkPlugin,
   responsiveTablesRehypePlugin,
 } from "./src/utils/frontmatter.mjs"
+import {
+  canonicalSitemap,
+  sitemapValidation,
+} from "./src/utils/sitemap-build.mjs"
 import tasks from "./src/utils/tasks"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -41,7 +44,7 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    sitemap(),
+    canonicalSitemap(),
     mdx(),
     react(),
     icon({
@@ -81,6 +84,7 @@ export default defineConfig({
     }),
 
     tasks(),
+    sitemapValidation(),
   ],
 
   image: {

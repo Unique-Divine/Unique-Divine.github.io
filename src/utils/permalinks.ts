@@ -1,7 +1,9 @@
-import slugify from "limax"
-
 import { APP_BLOG, SITE } from "~/utils/config"
 import { trim } from "~/utils/utils"
+
+import { cleanSlug } from "./slugs"
+
+export { cleanSlug } from "./slugs"
 
 export const trimSlash = (s: string) => trim(trim(s, "/"))
 const createPath = (...params: string[]) => {
@@ -13,12 +15,6 @@ const createPath = (...params: string[]) => {
 }
 
 const BASE_PATHNAME = SITE.base || "/"
-
-export const cleanSlug = (text = "") =>
-  trimSlash(text)
-    .split("/")
-    .map((slug) => slugify(slug))
-    .join("/")
 
 export const BLOG_BASE = cleanSlug(APP_BLOG?.list?.pathname)
 export const CATEGORY_BASE = cleanSlug(APP_BLOG?.category?.pathname)
