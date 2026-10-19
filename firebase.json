@@ -1,0 +1,15 @@
+{
+  "hosting": {
+    "site": "uniquedivine-site",
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+      {
+        "source": "/f/**",
+        "run": { "serviceId": "personal-files", "region": "us-central1" }
+      }
+    ]
+  }
+}

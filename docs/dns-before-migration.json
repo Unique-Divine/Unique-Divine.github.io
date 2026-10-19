@@ -1,0 +1,46 @@
+{
+  "source": "Squarespace DNS screenshots supplied by user on 2026-10-12",
+  "nameservers": [
+    "ns-cloud-b1.googledomains.com.",
+    "ns-cloud-b2.googledomains.com.",
+    "ns-cloud-b3.googledomains.com.",
+    "ns-cloud-b4.googledomains.com."
+  ],
+  "records": [
+    {
+      "name": "uniquedivine.com.",
+      "type": "A",
+      "ttl": 3600,
+      "rrdatas": [
+        "185.199.108.153",
+        "185.199.109.153",
+        "185.199.110.153",
+        "185.199.111.153"
+      ]
+    },
+    {
+      "name": "www.uniquedivine.com.",
+      "type": "CNAME",
+      "ttl": 3600,
+      "rrdatas": [
+        "unique-divine.github.io."
+      ]
+    },
+    {
+      "name": "uniquedivine.com.",
+      "type": "TXT",
+      "ttl": 14400,
+      "rrdatas": [
+        "\"google-site-verification=nllJNRByggeNAEZR8HXjBnBp_mwAaZWe-Vd6xg5KTxg\""
+      ]
+    },
+    {
+      "name": "_domainconnect.uniquedivine.com.",
+      "type": "CNAME",
+      "ttl": 3600,
+      "rrdatas": [
+        "_domainconnect.domains.squarespace.com."
+      ]
+    }
+  ]
+}
