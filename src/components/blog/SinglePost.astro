@@ -21,49 +21,39 @@ const { Content } = post
 <section class="py-8 sm:py-16 lg:py-20 mx-auto">
   <article>
     <header class={post.image ? "" : ""}>
-      <div
-        class="flex justify-between flex-col sm:flex-row max-w-3xl mx-auto mt-0 mb-2 px-4 sm:px-6 sm:items-center"
-      >
-        <p>
-          <Icon
-            name="tabler:clock"
-            class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400"
-          />
-          <time datetime={String(post.publishDate)} class="inline-block"
-            >{getFormattedDate(post.publishDate)}</time
-          >
-          <!-- { -->
-          <!--   post.author && ( -->
-          <!--     <> -->
-          <!--       {' '} -->
-          <!--       · <Icon name="tabler:user" class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400" /> -->
-          <!--       <span class="inline-block">{post.author}</span> -->
-          <!--     </> -->
-          <!--   ) -->
-          <!-- } -->
-          {
-            post.category && (
-              <>
-                {" "}
-                ·{" "}
-                <a
-                  class="capitalize hover:underline inline-block"
-                  href={getPermalink(post.category, "category")}
-                >
-                  {post.category.replaceAll("-", " ")}
-                </a>
-              </>
-            )
-          }
-          {
-            post.readingTime && (
-              <>
-                &nbsp;· <span>{post.readingTime}</span> min read
-              </>
-            )
-          }
-        </p>
-      </div>
+      {
+        post.kind !== "page" && (
+          <div class="flex justify-between flex-col sm:flex-row max-w-3xl mx-auto mt-0 mb-2 px-4 sm:px-6 sm:items-center">
+            <p>
+              <Icon
+                name="tabler:clock"
+                class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400"
+              />
+              <time datetime={String(post.publishDate)} class="inline-block">
+                {getFormattedDate(post.publishDate)}
+              </time>
+
+              {post.category && (
+                <>
+                  {" "}
+                  ·{" "}
+                  <a
+                    class="capitalize hover:underline inline-block"
+                    href={getPermalink(post.category, "category")}
+                  >
+                    {post.category.replaceAll("-", " ")}
+                  </a>
+                </>
+              )}
+              {post.readingTime && (
+                <>
+                  &nbsp;· <span>{post.readingTime}</span> min read
+                </>
+              )}
+            </p>
+          </div>
+        )
+      }
 
       <h1
         class="px-4 sm:px-6 max-w-3xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading"
@@ -114,7 +104,11 @@ const { Content } = post
     <div
       class="mx-auto px-6 sm:px-6 max-w-3xl mt-8 flex justify-between flex-col sm:flex-row"
     >
-      <PostTags tags={post.tags} class="mr-5 rtl:mr-0 rtl:ml-5" />
+      {
+        post.kind !== "page" && (
+          <PostTags tags={post.tags} class="mr-5 rtl:mr-0 rtl:ml-5" />
+        )
+      }
       <SocialShare
         url={url}
         text={post.title}

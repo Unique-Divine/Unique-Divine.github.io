@@ -47,7 +47,12 @@ const metadataDefinition = () =>
 
 const postCollection = defineCollection({
   schema: z.object({
-    publishDate: z.date().optional(),
+    publishDate: z.date(),
+    kind: z.enum(["article", "page"]).default("article"),
+    permalink: z
+      .string()
+      .regex(/^\/[a-z0-9/-]+$/)
+      .optional(),
     updateDate: z.date().optional(),
     draft: z.boolean().optional(),
     contentLayout: z.enum(["article", "wide"]).default("article"),

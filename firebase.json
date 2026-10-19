@@ -2,13 +2,232 @@
   "hosting": {
     "site": "uniquedivine-site",
     "public": "dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "cleanUrls": true,
     "trailingSlash": false,
     "rewrites": [
       {
         "source": "/f/**",
-        "run": { "serviceId": "personal-files", "region": "us-central1" }
+        "run": {
+          "serviceId": "personal-files",
+          "region": "us-central1"
+        }
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/web3/nibiru/nibi-inc",
+        "destination": "/about/nibiru",
+        "type": 301
+      },
+      {
+        "source": "/web3/nibiru/nibi-inc/",
+        "destination": "/about/nibiru",
+        "type": 301
+      },
+      {
+        "source": "/books/00-keep-going",
+        "destination": "/blog/21-07-20-keep-going",
+        "type": 301
+      },
+      {
+        "source": "/books/00-keep-going/",
+        "destination": "/blog/21-07-20-keep-going",
+        "type": 301
+      },
+      {
+        "source": "/books/01-if-i-understood-you",
+        "destination": "/blog/21-07-28-if-i-understood-you",
+        "type": 301
+      },
+      {
+        "source": "/books/01-if-i-understood-you/",
+        "destination": "/blog/21-07-28-if-i-understood-you",
+        "type": 301
+      },
+      {
+        "source": "/about-unique-divine",
+        "destination": "/about",
+        "type": 301
+      },
+      {
+        "source": "/about-unique-divine/",
+        "destination": "/about",
+        "type": 301
+      },
+      {
+        "source": "/261019-block-latency",
+        "destination": "/blog/26-10-19-block-latency",
+        "type": 301
+      },
+      {
+        "source": "/261019-block-latency/",
+        "destination": "/blog/26-10-19-block-latency",
+        "type": 301
+      },
+      {
+        "source": "/code/projects/rats-gans-disease",
+        "destination": "/blog/20-11-15-rats-gans-disease",
+        "type": 301
+      },
+      {
+        "source": "/code/projects/rats-gans-disease/",
+        "destination": "/blog/20-11-15-rats-gans-disease",
+        "type": 301
+      },
+      {
+        "source": "/code/python/dataclass-abc-oop",
+        "destination": "/blog/21-07-10-dataclass-abc-oop",
+        "type": 301
+      },
+      {
+        "source": "/code/python/dataclass-abc-oop/",
+        "destination": "/blog/21-07-10-dataclass-abc-oop",
+        "type": 301
+      },
+      {
+        "source": "/code/python/env-vars",
+        "destination": "/blog/23-08-12-env-vars",
+        "type": 301
+      },
+      {
+        "source": "/code/python/env-vars/",
+        "destination": "/blog/23-08-12-env-vars",
+        "type": 301
+      },
+      {
+        "source": "/code/python/setup-dev",
+        "destination": "/blog/23-08-12-setup-dev",
+        "type": 301
+      },
+      {
+        "source": "/code/python/setup-dev/",
+        "destination": "/blog/23-08-12-setup-dev",
+        "type": 301
+      },
+      {
+        "source": "/code/python",
+        "destination": "/blog/23-08-12-python",
+        "type": 301
+      },
+      {
+        "source": "/code/python/",
+        "destination": "/blog/23-08-12-python",
+        "type": 301
+      },
+      {
+        "source": "/code/golang",
+        "destination": "/blog/24-06-08-golang",
+        "type": 301
+      },
+      {
+        "source": "/code/golang/",
+        "destination": "/blog/24-06-08-golang",
+        "type": 301
+      },
+      {
+        "source": "/code/github-git-gh",
+        "destination": "/blog/23-08-12-github-git-gh",
+        "type": 301
+      },
+      {
+        "source": "/code/github-git-gh/",
+        "destination": "/blog/23-08-12-github-git-gh",
+        "type": 301
+      },
+      {
+        "source": "/code/22-01-discord-token",
+        "destination": "/blog/22-01-10-discord-token",
+        "type": 301
+      },
+      {
+        "source": "/code/22-01-discord-token/",
+        "destination": "/blog/22-01-10-discord-token",
+        "type": 301
+      },
+      {
+        "source": "/media",
+        "destination": "/about/media",
+        "type": 301
+      },
+      {
+        "source": "/media/",
+        "destination": "/about/media",
+        "type": 301
+      },
+      {
+        "source": "/winning/00-reflection-logging-planning",
+        "destination": "/blog/25-01-08-reflection-logging-planning",
+        "type": 301
+      },
+      {
+        "source": "/winning/00-reflection-logging-planning/",
+        "destination": "/blog/25-01-08-reflection-logging-planning",
+        "type": 301
+      },
+      {
+        "source": "/winning/01-structured-freedom",
+        "destination": "/blog/25-01-08-structured-freedom",
+        "type": 301
+      },
+      {
+        "source": "/winning/01-structured-freedom/",
+        "destination": "/blog/25-01-08-structured-freedom",
+        "type": 301
+      },
+      {
+        "source": "/winning/04-advice-how-to-take-advice",
+        "destination": "/blog/25-01-10-advice-how-to-take-advice",
+        "type": 301
+      },
+      {
+        "source": "/winning/04-advice-how-to-take-advice/",
+        "destination": "/blog/25-01-10-advice-how-to-take-advice",
+        "type": 301
+      },
+      {
+        "source": "/winning/03-brain-optimization-nootropics",
+        "destination": "/blog/26-02-16-brain-optimization-nootropics",
+        "type": 301
+      },
+      {
+        "source": "/winning/03-brain-optimization-nootropics/",
+        "destination": "/blog/26-02-16-brain-optimization-nootropics",
+        "type": 301
+      },
+      {
+        "source": "/japanese/01-why-learn-japanese",
+        "destination": "/blog/20-09-02-why-learn-japanese",
+        "type": 301
+      },
+      {
+        "source": "/japanese/01-why-learn-japanese/",
+        "destination": "/blog/20-09-02-why-learn-japanese",
+        "type": 301
+      },
+      {
+        "source": "/tag/about",
+        "destination": "/about",
+        "type": 301
+      },
+      {
+        "source": "/tag/about/",
+        "destination": "/about",
+        "type": 301
+      },
+      {
+        "source": "/tag/nibiru",
+        "destination": "/about/nibiru",
+        "type": 301
+      },
+      {
+        "source": "/tag/nibiru/",
+        "destination": "/about/nibiru",
+        "type": 301
       }
     ]
   }

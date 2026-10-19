@@ -1,6 +1,6 @@
 # Block-latency article
 
-The normal blog entry is `/261019-block-latency`, in category `Nibiru` with the
+The normal blog entry is `/blog/26-10-19-block-latency`, in category `Nibiru` with the
 six research tags in its frontmatter. It uses the normal article content layout.
 The MDX entry owns the prose; Astro components own the figures and interactive
 tables. The site builds from committed data and assets, with no telemetry access.

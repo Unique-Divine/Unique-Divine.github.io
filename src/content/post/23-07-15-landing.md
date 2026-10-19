@@ -76,7 +76,7 @@ Presented below are several prevalent types of Landing Pages. Each link offers a
 
 This approach ensures that you observe the best practices in action. Also, it enables you to acquire a step-by-step understanding of how to skillfully create each type.
 
-### [Lead Generation Landing Page](landing/lead-generation)
+### [Lead Generation Landing Page](/landing/lead-generation)
 
 **Purpose**: Designed primarily to capture user data, such as email addresses or contact details.
 
@@ -88,7 +88,7 @@ This approach ensures that you observe the best practices in action. Also, it en
 
 **Example**: A digital marketing agency offering a free SEO audit in exchange for business contact details.
 
-### [Long-form Sales Landing Page](landing/sales)
+### [Long-form Sales Landing Page](/landing/sales)
 
 **Purpose**: Primarily designed to sell, aiming to persuade and convert visitors into customers.
 
@@ -100,7 +100,7 @@ This approach ensures that you observe the best practices in action. Also, it en
 
 **Example**: A weight loss program detailing a person's journey and the challenges they've faced. It also highlights how the program assisted them and why it's an ideal solution for others.
 
-### [Click-through Landing Page](landing/click-through)
+### [Click-through Landing Page](/landing/click-through)
 
 **Purpose**: Acts as a middle step, warming up visitors for a bigger commitment.
 
@@ -112,7 +112,7 @@ This approach ensures that you observe the best practices in action. Also, it en
 
 **Example**: An online store showcasing a new product's benefits, leading visitors to the purchase page.
 
-### [Product Details Landing Page](landing/product)
+### [Product Details Landing Page](/landing/product)
 
 **Purpose**: Designed to inform by providing specific details about a product or service.
 
@@ -124,7 +124,7 @@ This approach ensures that you observe the best practices in action. Also, it en
 
 **Example**: A tech website detailing a new laptop's specifications, unique features, comparisons with previous models, and user reviews.
 
-### [Coming Soon or Pre-Launch Landing Page](landing/pre-launch)
+### [Coming Soon or Pre-Launch Landing Page](/landing/pre-launch)
 
 **Purpose**: Creates excitement for an upcoming product, service, or event.
 
@@ -136,7 +136,7 @@ This approach ensures that you observe the best practices in action. Also, it en
 
 **Example**: A game developer teasing their upcoming game release with sneak peeks and an option for early access.
 
-### [Subscription Landing Page](landing/subscription)
+### [Subscription Landing Page](/landing/subscription)
 
 **Purpose**: Encourages visitors to subscribe to a service, newsletter, or recurring product.
 

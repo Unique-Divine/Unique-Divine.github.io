@@ -10,6 +10,8 @@ tags:
   - 'Nibiru'
 # metadata:
 #   canonical: https://astrowind.vercel.app/get-started-website-with-astro-tailwind-css
+kind: page
+permalink: /about/nibiru
 ---
 
 Nibi Inc. is the startup I pour most of time into. And Nibiru is the product we
@@ -65,5 +67,5 @@ design space of useful applications for consumers and institutions.
 
 ## More
 
-- [About Me (Unique Divine)](/about-unique-divine)
-- Looking to get in contact? Feel free to [message me directly](/about-unique-divine#contact).
+- [About Me (Unique Divine)](/about)
+- Looking to get in contact? Feel free to [message me directly](/about#contact).

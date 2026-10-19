@@ -35,7 +35,7 @@ export const earlierProjectReferences: ProjectReference[] = [
   },
   {
     title: "GANs for Genomics",
-    href: "/code/projects/rats-gans-disease",
+    href: "/blog/20-11-15-rats-gans-disease",
     sourceHref: "https://github.com/Unique-Divine/GANs-for-Genomics",
     summary:
       "Computational genomics research using deep learning to generate and learn from synthetic DNA samples.",

@@ -12,7 +12,7 @@ describe("public sitemap publication policy", () => {
       "/sitemap",
       "/tag/japanese",
       "/category/coding",
-      "/code/python",
+      "/blog/23-08-12-python",
       "/code/projects/nibiru-typescript-sdk",
       "/discord-mcp/terms",
     ]) {
@@ -43,9 +43,9 @@ describe("public sitemap publication policy", () => {
   })
 
   test("respects draft, robots, redirects, and canonical overrides", () => {
-    expect(isDiscoverablePage("/code/python", { site, draft: true })).toBe(
-      false,
-    )
+    expect(
+      isDiscoverablePage("/blog/23-08-12-python", { site, draft: true }),
+    ).toBe(false)
     expect(isDiscoverablePage("/tag/coding/2", { site, index: false })).toBe(
       false,
     )
@@ -55,18 +55,21 @@ describe("public sitemap publication policy", () => {
     expect(isDiscoverablePage("/blog/2", { site, index: false })).toBe(false)
     expect(isDiscoverablePage("/old", { site, redirect: true })).toBe(false)
     expect(
-      isDiscoverablePage("/code/python", {
+      isDiscoverablePage("/blog/23-08-12-python", {
         site,
         canonical: "https://example.com/python",
       }),
     ).toBe(false)
     expect(
-      isDiscoverablePage("/code/python", { site, canonical: "/code/golang" }),
+      isDiscoverablePage("/blog/23-08-12-python", {
+        site,
+        canonical: "/blog/24-06-08-golang",
+      }),
     ).toBe(false)
     expect(
-      isDiscoverablePage("/code/python", {
+      isDiscoverablePage("/blog/23-08-12-python", {
         site,
-        canonical: `${site}/code/python`,
+        canonical: `${site}/blog/23-08-12-python`,
       }),
     ).toBe(true)
     expect(isDiscoverablePage("/", { site, canonical: site })).toBe(true)

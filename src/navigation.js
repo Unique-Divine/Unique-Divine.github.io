@@ -9,19 +9,19 @@ export const headerData = {
       links: [
         {
           text: "About Me",
-          href: getPermalink("/about-unique-divine"),
+          href: getPermalink("/about"),
         },
         {
           text: "Nibiru, Sai, & Nibi, Inc.",
-          href: getPermalink("/web3/nibiru/nibi-inc", "post"),
+          href: getPermalink("/about/nibiru", "post"),
         },
         {
           text: "In the Media",
-          href: getPermalink("/media", "post"),
+          href: getPermalink("/about/media", "post"),
         },
         {
           text: "Resume",
-          href: getPermalink("/about-unique-divine"),
+          href: getPermalink("/about"),
         },
       ],
     },
@@ -99,7 +99,7 @@ export const headerData = {
         },
         {
           text: "Contact",
-          href: getPermalink("/about-unique-divine#contact"),
+          href: getPermalink("/about#contact"),
         },
       ],
     },

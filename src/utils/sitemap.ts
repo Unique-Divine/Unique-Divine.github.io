@@ -3,7 +3,7 @@ import { getCollection } from "astro:content"
 
 import { getSectionTitleOverride } from "../data/blogSections"
 import { SITE_PAGES } from "../data/sitePages"
-import { fetchPosts } from "./blog"
+import { fetchPosts, fetchStandingPages } from "./blog"
 import { APP_BLOG, METADATA, SITE } from "./config"
 import {
   getAsset,
@@ -47,6 +47,7 @@ export function getSitemapHeadings(
 
 export async function getSitemapSections(): Promise<SitemapSection[]> {
   const posts = await fetchPosts()
+  const standingPages = await fetchStandingPages()
   const projects = await getProjects()
   const skillReferences = (await getCollection("skill"))
     .filter(({ data }) => data.kind === "reference")
@@ -139,7 +140,13 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
     {
       id: "site",
       title: "Site pages",
-      pages: SITE_PAGES.map((page) => ({
+      pages: [
+        ...SITE_PAGES,
+        ...standingPages.map((page) => ({
+          href: page.permalink,
+          label: page.title,
+        })),
+      ].map((page) => ({
         ...page,
         href: getPermalink(page.href),
       })),
