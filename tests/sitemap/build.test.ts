@@ -48,6 +48,9 @@ test("HTML, XML, canonical pages, resources, and footers agree after the real bu
   const sitemap = readFileSync(new URL("sitemap/index.html", built), "utf8")
   expect(sitemap).toContain('data-sitemap-section="tags"')
   expect(sitemap).toContain('href="/tag/japanese"')
+  expect(sitemap).toContain('href="/ai-skills"')
+  expect(sitemap).toContain('href="/ai-skills/repo-map"')
+  expect(sitemap).toContain('href="/ai-skills/repo-map/reference"')
   expect(sitemap).toContain("Self-Improvement and Productivity")
   for (const path of ["tag/coding", "category/coding", "blog"]) {
     expect(
@@ -71,6 +74,7 @@ test("blog entries are grouped under category headings and the TOC targets real 
     "h3",
   )
   expect(groups.map((node) => node.attributes.id)).toEqual([
+    "sitemap-blog-category-agent-skills",
     "sitemap-blog-category-coding",
     "sitemap-blog-category-nibiru",
     "sitemap-blog-category-self-improvement",

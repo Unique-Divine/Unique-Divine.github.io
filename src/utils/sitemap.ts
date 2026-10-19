@@ -1,4 +1,5 @@
 import type { MarkdownHeading } from "astro"
+import { getCollection } from "astro:content"
 
 import { getSectionTitleOverride } from "../data/blogSections"
 import { SITE_PAGES } from "../data/sitePages"
@@ -47,6 +48,9 @@ export function getSitemapHeadings(
 export async function getSitemapSections(): Promise<SitemapSection[]> {
   const posts = await fetchPosts()
   const projects = await getProjects()
+  const skillReferences = (await getCollection("skill"))
+    .filter(({ data }) => data.kind === "reference")
+    .sort((a, b) => a.data.route.localeCompare(b.data.route, "en"))
   const enabled = (kind: "post" | "list" | "category" | "tag") =>
     APP_BLOG.isEnabled &&
     APP_BLOG[kind].isEnabled &&
@@ -162,6 +166,14 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
       groups,
     },
     { id: "tags", title: "Tags", pages: archives("tag") },
+    {
+      id: "skill-references",
+      title: "Agent skill references",
+      pages: skillReferences.map(({ data }) => ({
+        href: getPermalink(`/ai-skills/${data.route}`),
+        label: data.title,
+      })),
+    },
     {
       id: "resources",
       title: "Crawler resources",
