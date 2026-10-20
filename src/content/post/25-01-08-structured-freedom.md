@@ -64,20 +64,22 @@ resulting in missed sleep and general... unhappiness.
 Even if I stayed diligent about putting in time on my goals, I'd regularly fail
 to reach these benchmarks after a while. The quantity of work would be there,
 but the balance would be off. For example, I might spend 6 hours on one course
-and no time on my research. Sometimes, I'd do 12+ hours of research in one area
-and then go to dinner or watch Netflix with my girlfriend. And there's nothing
-wrong with that; that day sounds like an absolute win. However, when reviewing
-my task list at the end of such a day, I'd see that I'm failing to reach many
-of my daily goals—according to my checklist.
+and no time on my research.
+
+Sometimes, I'd do 12+ hours of research in one area and then go to dinner or
+watch Netflix with my girlfriend. And there's nothing wrong with that; that day
+sounds like an absolute win. However, when reviewing my task list at the end of
+such a day, I'd see that I'm failing to reach many of my daily goals according to
+my checklist.
 
 Guilt builds up from constantly missing days and, before you know it, one
 missed day turns into a few missed days. A few missed days turns into a few
 missed weeks, and the whole system falls apart.
 
-So, what's the fix? How can we make a checklist that urges healthy habit
-formation without becoming too stressful to adhere to? Is this simply a
-discipline problem? How can todo-lists be more flexible? I'm honestly surprised
-I didn't think of this solution sooner.
+So, what's the fix? How can we build enough structure to support healthy habits
+without making the system too demanding? Is this simply a discipline problem?
+How can to-do lists be more flexible? I'm honestly surprised I didn't think of
+this solution sooner.
 
 All I had to do was lower my minimum daily requirements. Simple as that. We
 know this from world class athletes and musicians: **Consistency gives more
@@ -109,7 +111,7 @@ with people that nourish you, flex time can give you the freedom to do so
 without feeling like your actions and aspirations are misaligned.
 
 If your to-do objectives make you sad, stop setting them. It's easier to "walk
-the talk" if you just make "the talk" shorter; you won't have to walk as far.
+the talk" if you make "the talk" shorter. You won't have to walk as far.
 
 [🔮 Docs](https://docs.nibiru.fi) | [👾 Discord](https://discord.gg/nibirufi) | [🐦 Twitter](https://twitter.com/NibiruChain) | 🔥 [Web App](https://app.nibiru.fi)  
 [⛓️ ️Explorer](https://explorer.testnet.nibiru.fi) | 🌴 [Link Tree](https://linktr.ee/nibiruchain) | 👨‍💻 [Code](https://github.com/NibiruChain) | [🎥 YouTube](https://www.youtube.com/@nibiruchain)
