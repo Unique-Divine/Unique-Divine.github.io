@@ -41,6 +41,11 @@ jobs:
         run: |
           just b # build
 
+      # The build already ran astro sync, so this skips just typecheck's sync.
+      - name: 'Typecheck (bun check)'
+        run: |
+          bun check -p tsconfig.check.json && bun check -p services/files
+
       - name: 'Test (bun)'
         run: |
           just t # test, including build-output checks
