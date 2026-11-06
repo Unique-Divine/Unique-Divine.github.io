@@ -269,10 +269,9 @@ export default function SkillSession({ skills }: { skills: FeaturedSkill[] }) {
                 <span className="ss-text">
                   {done ? (
                     <span className="ss-tone-dim">
-                      {script.finalState === "blocked"
-                        ? "Waiting for your answers"
-                        : "Worked"}{" "}
-                      for {formatElapsed(agentSeconds * TIMER_SPEED)}
+                      Worked for {formatElapsed(agentSeconds * TIMER_SPEED)}
+                      {script.finalState === "blocked" &&
+                        " · waiting on your answers"}
                     </span>
                   ) : (
                     <>
