@@ -2,7 +2,7 @@ import type { ReactNode } from "react"
 
 type TerminalSection = {
   label: string
-  href?: string
+  href: string
   description?: string
   actionLabel?: string
   items: Array<{
