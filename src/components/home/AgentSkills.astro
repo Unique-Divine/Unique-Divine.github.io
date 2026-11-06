@@ -3,6 +3,7 @@ import { pickFeaturedSkills } from "~/utils/featured-skills"
 import { getSkills, SKILLS_REPOSITORY } from "~/utils/skills"
 
 import { SKILL_AGENTS, type SkillAgent } from "./agents"
+import SkillSession from "./SkillSession"
 
 const skills = await getSkills()
 const featured = pickFeaturedSkills(skills.map(({ data }) => data))
@@ -28,7 +29,11 @@ const agentStyle = (agent: SkillAgent) =>
     </p>
   </div>
 
-  <div class="agent-strip" role="region" aria-label="Agents that load these skills">
+  <div
+    class="agent-strip"
+    role="region"
+    aria-label="Agents that load these skills"
+  >
     {
       [0, 1].map((copy) => (
         <ul class="agent-track" aria-hidden={copy === 1 ? "true" : undefined}>
@@ -44,18 +49,9 @@ const agentStyle = (agent: SkillAgent) =>
   </div>
 
   <div class="agent-skills-body">
-    <ul class="skill-rows">
-      {
-        featured.map((skill) => (
-          <li>
-            <a href={skill.href}>
-              <span class="skill-name">{skill.name}</span>
-              <span class="skill-summary">{skill.summary}</span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="skill-session-slot">
+      <SkillSession client:visible skills={featured} />
+    </div>
 
     <p class="skill-install">
       <span>Install any of them:</span>
@@ -137,8 +133,7 @@ const agentStyle = (agent: SkillAgent) =>
     overflow: hidden;
     margin: 2.25rem 0 0;
     border-block: 1px solid var(--strip-line);
-    background-image:
-      linear-gradient(var(--strip-grid) 1px, transparent 1px),
+    background-image: linear-gradient(var(--strip-grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--strip-grid) 1px, transparent 1px);
     background-size: 32px 32px;
     background-position: center;
@@ -217,53 +212,8 @@ const agentStyle = (agent: SkillAgent) =>
     filter: drop-shadow(0 0 10px var(--agent-color));
   }
 
-  /* Featured skills: a two-column index, not a card grid. */
-  .skill-rows {
-    display: grid;
-    margin: 2.5rem 0 0;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--strip-line);
-  }
-  @media (min-width: 768px) {
-    .skill-rows {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: 3rem;
-    }
-  }
-  .skill-rows li {
-    border-bottom: 1px solid var(--strip-line);
-  }
-  .skill-rows a {
-    display: grid;
-    gap: 0.3rem;
-    padding: 1.15rem 0;
-  }
-  .skill-name {
-    font-family: var(--strip-mono);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--skill-accent);
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-underline-offset: 5px;
-    transition: text-decoration-color 0.2s ease;
-  }
-  .skill-summary {
-    color: var(--aw-color-text-muted);
-    line-height: 1.6;
-  }
-  .skill-rows a:hover .skill-name,
-  .skill-rows a:focus-visible .skill-name {
-    text-decoration-color: currentColor;
-  }
-  .skill-rows a:hover .skill-summary {
-    color: var(--aw-color-text-default);
-  }
-  .skill-rows a:focus-visible {
-    outline: 2px solid var(--skill-accent);
-    outline-offset: 4px;
-    border-radius: 2px;
+  .skill-session-slot {
+    margin-top: 2.5rem;
   }
 
   .skill-install {
