@@ -78,62 +78,46 @@ const terminalSections: TerminalSection[] = [
 
 const focusAreas = ["software", "productivity", "language", "music", "fitness"]
 
-/** Classes for the block cursor the type-in script creates. */
+/** Classes for the block cursor the tagline type-in script creates. */
 const heroCursorClass =
-  "ml-px inline-block h-[1.1em] w-[0.6em] bg-cyan-300 align-text-bottom"
+  "ml-1 inline-block h-[1em] w-[0.5em] translate-y-[0.12em] bg-cyan-500 dark:bg-cyan-300"
 
 /**
- * Types the hero terminal tree in once on page load. The tree is rendered in
- * full, so it reads normally without JavaScript; this inline script blanks
- * each text node and refills them a few characters per frame, leaving a
- * blinking block cursor after the last line. Links stay real links throughout.
+ * Types the hero tagline in once on page load at a human pace, then leaves a
+ * blinking block cursor after it. The tagline is rendered in full, so it
+ * reads normally without JavaScript; this inline script blanks it and types
+ * it back in.
  */
 const heroTypeScript = `(() => {
-  const root = document.currentScript && document.currentScript.previousElementSibling
-  if (!root) return
+  const line = document.currentScript && document.currentScript.previousElementSibling
+  if (!line) return
+  const text = line.textContent || ""
   // Hold the finished height so the hero does not shift while typing.
-  root.style.minHeight = root.offsetHeight + "px"
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
-  const nodes = []
-  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
-    if (!n.nodeValue) continue
-    nodes.push([n, n.nodeValue])
-    n.nodeValue = ""
-  }
-  if (!nodes.length) return
+  line.style.minHeight = line.offsetHeight + "px"
+  line.setAttribute("aria-label", text)
+  const typed = document.createElement("span")
+  typed.setAttribute("aria-hidden", "true")
   const cursor = document.createElement("span")
   cursor.className = ${JSON.stringify(heroCursorClass)}
   cursor.setAttribute("aria-hidden", "true")
-  root.setAttribute("aria-busy", "true")
+  line.replaceChildren(typed, cursor)
   let i = 0
-  let j = 0
   const step = () => {
-    let budget = 6 + Math.floor(Math.random() * 4)
-    while (budget-- > 0 && i < nodes.length) {
-      const [node, text] = nodes[i]
-      j += 1
-      node.nodeValue = text.slice(0, j)
-      if (j >= text.length) {
-        i += 1
-        j = 0
-      }
-    }
-    if (i < nodes.length) {
-      const current = nodes[i][0]
-      current.parentNode.insertBefore(cursor, current.nextSibling)
-      requestAnimationFrame(step)
+    i += 1
+    typed.textContent = text.slice(0, i)
+    if (i < text.length) {
+      const prev = text[i - 1]
+      const pause = prev === "," ? 260 : prev === " " ? 70 : 0
+      setTimeout(step, 45 + Math.random() * 45 + pause)
       return
     }
-    root.removeAttribute("aria-busy")
-    root.style.minHeight = ""
-    const lines = root.querySelectorAll("p")
-    lines[lines.length - 1].appendChild(cursor)
+    line.style.minHeight = ""
     cursor.animate(
       [{ opacity: 1 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.5 }, { opacity: 0 }],
       { duration: 1050, iterations: Infinity },
     )
   }
-  requestAnimationFrame(step)
+  setTimeout(step, 450)
 })()`
 
 function TerminalLink({
@@ -206,6 +190,8 @@ export default function HomePage({ children }: { children?: ReactNode }) {
           <p className="mt-5 text-xl leading-8 text-slate-700 dark:text-slate-300">
             Software engineer, creative, and lifelong autodidact.
           </p>
+          {/* Runs as soon as the tagline is parsed, before first paint. */}
+          <script dangerouslySetInnerHTML={{ __html: heroTypeScript }} />
           {/* <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 dark:text-slate-400"> */}
           {/*   This site is my public notebook. A place for essays, guides, and reflections from the work of deliberate */}
           {/*   practice and solving complex problems. */}
@@ -304,8 +290,6 @@ export default function HomePage({ children }: { children?: ReactNode }) {
               </div>
             ))}
           </div>
-          {/* Runs as soon as the tree is parsed, before first paint. */}
-          <script dangerouslySetInnerHTML={{ __html: heroTypeScript }} />
 
           <div
             className="flex min-w-0 items-center justify-between border-t border-white/10 bg-slate-900 font-mono text-[11px] leading-none text-slate-300 dark:bg-[#17202d]"
