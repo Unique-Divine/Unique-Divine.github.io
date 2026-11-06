@@ -91,6 +91,8 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       summary: z.string(),
+      /** One short line for compact listings; falls back to `summary`. */
+      tagline: z.string().optional(),
       role: z.string(),
       icon: z
         .enum([

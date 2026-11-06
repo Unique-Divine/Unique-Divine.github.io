@@ -1,6 +1,7 @@
 ---
 title: "Dotfiles: How I Work"
 summary: "My development environment connects Neovim, coding agents, a Rust clipboard bridge, and persistent terminal sessions across my laptop, phone, and remote machines. I maintain the setup in code so I can inspect it, repair it, and carry it to another machine."
+tagline: "Neovim, agents, and terminals, synced across every machine I use."
 role: "Design, Development, and Daily Maintenance"
 icon: neovim
 group: current
