@@ -43,7 +43,7 @@ const terminalSections: TerminalSection[] = [
         label: "Unique-Divine/jiyuu",
         href: "https://github.com/Unique-Divine/jiyuu",
         notes: [
-          "My monorepo of tools I use daily, including gh-rev and my agent skills.",
+          "Monorepo of tools I use daily; custom MCPs and agent skills.",
           "Also devlogs and implementations of core data structures and algorithms.",
         ],
       },
