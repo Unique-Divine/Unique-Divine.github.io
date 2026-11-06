@@ -29,25 +29,6 @@ const agentStyle = (agent: SkillAgent) =>
     </p>
   </div>
 
-  <div
-    class="agent-strip"
-    role="region"
-    aria-label="Agents that load these skills"
-  >
-    {
-      [0, 1].map((copy) => (
-        <ul class="agent-track" aria-hidden={copy === 1 ? "true" : undefined}>
-          {SKILL_AGENTS.map((agent) => (
-            <li class="agent" style={agentStyle(agent)}>
-              <span class="agent-icon" aria-hidden="true" />
-              <span class="agent-name">{agent.name}</span>
-            </li>
-          ))}
-        </ul>
-      ))
-    }
-  </div>
-
   <div class="agent-skills-body">
     <div class="skill-session-slot">
       <SkillSession client:visible skills={featured} />
@@ -58,14 +39,38 @@ const agentStyle = (agent: SkillAgent) =>
       <code>npx skills add {installSource}</code>
       <a href="/ai-skills">Browse all {skills.length} skills</a>
     </p>
+
+    <div class="agent-works">
+      <p class="agent-works-label" id="agent-works-label">Works with</p>
+      <div
+        class="agent-strip"
+        role="region"
+        aria-labelledby="agent-works-label"
+      >
+        {
+          [0, 1].map((copy) => (
+            <ul
+              class="agent-track"
+              aria-hidden={copy === 1 ? "true" : undefined}
+            >
+              {SKILL_AGENTS.map((agent) => (
+                <li class="agent" style={agentStyle(agent)}>
+                  <span class="agent-icon" aria-hidden="true" />
+                  <span class="agent-name">{agent.name}</span>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
   .agent-skills {
-    --strip-ink: rgb(100 116 139);
-    --strip-line: rgb(15 23 42 / 0.08);
-    --strip-grid: rgb(15 23 42 / 0.035);
+    --strip-ink: rgb(71 85 105);
+    --strip-line: rgb(15 23 42 / 0.1);
     --skill-accent: rgb(8 145 178);
     --strip-mono: var(--aw-font-mono), monospace;
     position: relative;
@@ -74,7 +79,6 @@ const agentStyle = (agent: SkillAgent) =>
   :global(.dark) .agent-skills {
     --strip-ink: rgb(148 163 184 / 0.75);
     --strip-line: rgb(226 232 240 / 0.08);
-    --strip-grid: rgb(226 232 240 / 0.035);
     --skill-accent: rgb(103 232 249);
   }
 
@@ -126,38 +130,53 @@ const agentStyle = (agent: SkillAgent) =>
     font-size: 0.88em;
   }
 
+  /* "Works with" row: a quiet label beside a content-width logo marquee. */
+  .agent-works {
+    display: grid;
+    gap: 0.5rem 1.5rem;
+    align-items: center;
+    margin-top: 2.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--strip-line);
+  }
+  @media (min-width: 768px) {
+    .agent-works {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+  }
+  .agent-works-label {
+    color: var(--aw-color-text-muted);
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
   /* Logo marquee: two identical tracks slide left by one track width. */
   .agent-strip {
     position: relative;
     display: flex;
+    min-width: 0;
     overflow: hidden;
-    margin: 2.25rem 0 0;
-    border-block: 1px solid var(--strip-line);
-    background-image: linear-gradient(var(--strip-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--strip-grid) 1px, transparent 1px);
-    background-size: 32px 32px;
-    background-position: center;
     -webkit-mask-image: linear-gradient(
       to right,
       transparent,
-      black 12%,
-      black 88%,
+      black 8%,
+      black 92%,
       transparent
     );
     mask-image: linear-gradient(
       to right,
       transparent,
-      black 12%,
-      black 88%,
+      black 8%,
+      black 92%,
       transparent
     );
   }
   .agent-track {
     display: flex;
     flex: none;
-    gap: 3.25rem;
+    gap: 2.5rem;
     margin: 0;
-    padding: 1.6rem 1.625rem;
+    padding: 0.75rem 1.25rem;
     list-style: none;
     animation: agent-marquee 48s linear infinite;
   }
@@ -185,8 +204,8 @@ const agentStyle = (agent: SkillAgent) =>
     opacity: 0.4;
   }
   .agent-icon {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.4rem;
+    height: 1.4rem;
     flex: none;
     background-color: var(--agent-color);
     -webkit-mask: var(--agent-icon) center / var(--agent-scale, contain)
@@ -199,7 +218,7 @@ const agentStyle = (agent: SkillAgent) =>
       filter 0.25s ease;
   }
   .agent-name {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
