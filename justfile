@@ -83,6 +83,15 @@ test:
 
 alias t := test
 
+# Type-check the site, scripts, and file service with Bun's checker.
+# tsconfig.check.json stands apart from tsconfig.json because Astro 4
+# tooling wants baseUrl, which Bun's TypeScript 7 checker rejects.
+# tsconfig.test.ts keeps the two configs' aliases in step.
+typecheck:
+  bun run typecheck
+
+alias tc := typecheck
+
 preview:
   bun run astro preview
 
