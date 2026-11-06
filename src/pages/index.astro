@@ -1,6 +1,5 @@
 ---
 import AgentSkills from "~/components/home/AgentSkills.astro"
-import GitHubActivity from "~/components/home/GitHubActivity"
 import HomePage from "~/components/home/HomePage"
 import StatusClock from "~/components/home/StatusClock"
 import FeaturedProjects from "~/components/projects/FeaturedProjects.astro"
@@ -32,8 +31,6 @@ const metadata: MetaData = {
   <AgentSkills />
 
   <FeaturedProjects />
-
-  <GitHubActivity client:visible />
 
   <BlogLatestPosts
     id="blog"
