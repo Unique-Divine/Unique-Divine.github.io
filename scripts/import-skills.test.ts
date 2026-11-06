@@ -27,7 +27,8 @@ describe("public skills import", () => {
       })),
     )
     const pages = prepareSkills(files)
-    const rendered = new Map(
+    type Rendered = Awaited<ReturnType<typeof compiler.render>>
+    const rendered = new Map<string, Rendered>(
       await Promise.all(
         pages.map(async (page) => {
           const result = await compiler.render(page.content)
