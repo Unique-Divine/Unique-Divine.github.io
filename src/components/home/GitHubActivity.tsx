@@ -75,7 +75,7 @@ export default function GitHubActivity() {
           <div
             role="status"
             aria-label="Loading GitHub activity"
-            className="h-24 rounded bg-slate-100 motion-safe:animate-pulse dark:bg-slate-800"
+            className="h-[7.25rem] w-[45rem] max-w-full rounded bg-slate-100 motion-safe:animate-pulse dark:bg-slate-800"
           />
         ) : unavailable ? (
           <p role="status" className="text-sm">
