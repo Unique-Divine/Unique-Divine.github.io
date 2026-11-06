@@ -21,8 +21,7 @@ is liquidated are largely my design and my code. I also run the company.
 
 Sai has handled over $225 million in trading volume, most of it since
 mid-2026. It runs on [Nibiru](/about/nibiru), the blockchain I founded before
-it, which let us add chain features the exchange needed through Nibiru's
-governance.
+it, which let us add the chain features the exchange needed.
 
 <!-- TODO(Unique): One or two sentences on why you started Sai. -->
 
@@ -59,14 +58,17 @@ Sai's core is a set of Rust smart contracts: the perp engine, the SLP vault,
 the oracle, and a few smaller contracts around them. The first version came
 from an earlier codebase that Oak Security audited in 2024. I took it over and
 rebuilt most of it, with a large test suite and a written design for every
-major change. I've authored 425 of the contract repository's 668 commits and
-93 of its 292 merged pull requests, and nearly 300 merged pull requests across
-Sai's three codebases.
+major change. In the contract repository alone, I've authored 425 of 668
+commits.
 
-The perp engine alone is about 93,000 lines of Rust, more than a third of it
-tests. I also brought a habit I care about into the repository: any change big
-enough to argue about gets a numbered design spec before it gets code. More
-than a dozen of those specs sit next to the contracts.
+Across the five codebases behind Sai and Nibiru, from the contracts and the
+trading engine to the web apps and the chain, I've authored over 2,200 commits
+and more than 800 merged pull requests, in a stack that runs to millions of
+lines of code.
+
+More than a third of the perp engine's code is tests. Any change big enough
+to argue about gets a numbered design spec before it gets code, and more than
+a dozen of those specs sit next to the contracts.
 
 Three pieces show how I think about this code:
 
@@ -171,8 +173,8 @@ building and rolling out a new runtime, which takes weeks. We didn't wait. We
 hardened the node binaries first, then restricted who could deploy contracts,
 and I shipped the repaired runtime last, each layer as soon as it was ready.
 
-The chain work I find most interesting is block lanes, which I'm building now.
-With lanes, each block is built in a fixed order, with Sai's oracle price
+The chain work I find most interesting is block lanes. Each block is built in
+a fixed order, with Sai's oracle price
 updates first and its keeper and liquidation calls next. When a block contains a new price, every trade after
 it executes against that price. The fast lanes are capped at a quarter of the
 block so they can't crowd anyone out, and they never reorder one account's
