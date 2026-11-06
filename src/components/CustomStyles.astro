@@ -2,7 +2,6 @@
 import "@fontsource-variable/archivo"
 import "@fontsource-variable/jetbrains-mono"
 import "@fontsource-variable/geist"
-import "@fontsource-variable/geist-mono"
 
 // 'DM Sans'
 // Nunito
@@ -21,9 +20,6 @@ import "@fontsource-variable/geist-mono"
 // 'Space Grotesk'
 // Urbanist
 
-// Temporary font comparison: PUBLIC_FONT_VARIANT=geist swaps in Geist and
-// Geist Mono, so two dev servers on one checkout differ only in fonts.
-const fontVariant = import.meta.env.PUBLIC_FONT_VARIANT ?? "herdr"
 ---
 
 <style is:inline is:global>
@@ -83,14 +79,3 @@ const fontVariant = import.meta.env.PUBLIC_FONT_VARIANT ?? "herdr"
   }
 </style>
 
-{
-  fontVariant === "geist" && (
-    <style is:inline is:global>
-      :root {
-        --aw-font-sans: "Geist Variable";
-        --aw-font-heading: "Geist Variable";
-        --aw-font-mono: "Geist Mono Variable";
-      }
-    </style>
-  )
-}
