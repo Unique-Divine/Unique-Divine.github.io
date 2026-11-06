@@ -1,5 +1,4 @@
 ---
-import "@fontsource-variable/inter"
 import "@fontsource-variable/archivo"
 import "@fontsource-variable/jetbrains-mono"
 import "@fontsource-variable/geist"
@@ -29,9 +28,9 @@ const fontVariant = import.meta.env.PUBLIC_FONT_VARIANT ?? "herdr"
 
 <style is:inline is:global>
   :root {
-    --aw-font-sans: "Inter Variable";
+    --aw-font-sans: "Geist Variable";
     --aw-font-serif: var(--aw-font-sans);
-    /* Herdr stack: Archivo headings, Inter body, JetBrains Mono for code. */
+    /* Geist body, Archivo headings, JetBrains Mono for code. */
     --aw-font-heading: "Archivo Variable";
     --aw-font-mono: "JetBrains Mono Variable";
 
@@ -54,9 +53,7 @@ const fontVariant = import.meta.env.PUBLIC_FONT_VARIANT ?? "herdr"
   }
 
   .dark {
-    --aw-font-sans: "Inter Variable";
-    --aw-font-serif: var(--aw-font-sans);
-    --aw-font-heading: var(--aw-font-sans);
+    /* Fonts come from :root; the dark theme changes colors only. */
 
     --aw-color-primary: rgb(1 97 239);
     --aw-color-secondary: rgb(1 84 207);
