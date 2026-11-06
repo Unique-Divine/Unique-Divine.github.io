@@ -33,7 +33,7 @@ function StatusRightSegment({
 }
 
 /** How often the decorative CPU reading updates. */
-const CPU_TICK_MS = 300
+const CPU_TICK_MS = 500
 const CPU_MIN = 0.2
 const CPU_MAX = 10
 /** Largest change per tick, in percentage points. */
