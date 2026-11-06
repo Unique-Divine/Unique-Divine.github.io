@@ -1,4 +1,4 @@
-import type { OpenGraph } from "@astrolib/seo"
+import type { OpenGraph } from "@astrolib/seo/types"
 import type { ImageMetadata } from "astro"
 import { getImage } from "astro:assets"
 
