@@ -15,6 +15,12 @@ import { getProjects } from "./projects"
 import { isDiscoverablePage } from "./sitemap-policy.mjs"
 import { getSitemapTagLabel } from "./tags"
 
+/** Sitemap URLs are absolute, so the site origin must be configured. */
+function siteOrigin(): string {
+  if (!SITE.site) throw new Error("src/config.yaml must set site.site")
+  return SITE.site
+}
+
 export interface SitemapLink {
   href: string
   label: string
@@ -61,7 +67,7 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
       isDiscoverablePage(
         String(getCanonical(getPermalink(post.permalink, "post"))),
         {
-          site: SITE.site,
+          site: siteOrigin(),
           draft: post.draft,
           index:
             post.metadata?.robots?.index ??
@@ -196,7 +202,7 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
     if (
       !resource &&
       !isDiscoverablePage(String(getCanonical(page.href)), {
-        site: SITE.site,
+        site: siteOrigin(),
         index: METADATA.robots?.index,
       })
     )
