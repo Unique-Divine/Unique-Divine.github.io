@@ -8,7 +8,7 @@ import {
 } from "node:fs"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
-import { pathToFileURL } from "node:url"
+import { fileURLToPath, pathToFileURL } from "node:url"
 import { parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 import { hasBuild, repoUrl } from "~/utils/repo-paths"
@@ -33,7 +33,7 @@ const config = (outDir = built) => ({
 function fixture() {
   const dir = mkdtempSync(join(tmpdir(), "ud-sitemap-test-"))
   copies.push(dir)
-  cpSync(built, dir, {
+  cpSync(fileURLToPath(built), dir, {
     recursive: true,
     filter: (source) =>
       !/\.(?:css|js|png|jpg|jpeg|webp|svg|woff2?|json|md|txt)$/.test(source) ||
