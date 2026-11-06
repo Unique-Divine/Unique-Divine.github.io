@@ -78,6 +78,64 @@ const terminalSections: TerminalSection[] = [
 
 const focusAreas = ["software", "productivity", "language", "music", "fitness"]
 
+/** Classes for the block cursor the type-in script creates. */
+const heroCursorClass =
+  "ml-px inline-block h-[1.1em] w-[0.6em] bg-cyan-300 align-text-bottom"
+
+/**
+ * Types the hero terminal tree in once on page load. The tree is rendered in
+ * full, so it reads normally without JavaScript; this inline script blanks
+ * each text node and refills them a few characters per frame, leaving a
+ * blinking block cursor after the last line. Links stay real links throughout.
+ */
+const heroTypeScript = `(() => {
+  const root = document.currentScript && document.currentScript.previousElementSibling
+  if (!root) return
+  // Hold the finished height so the hero does not shift while typing.
+  root.style.minHeight = root.offsetHeight + "px"
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+  const nodes = []
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    if (!n.nodeValue) continue
+    nodes.push([n, n.nodeValue])
+    n.nodeValue = ""
+  }
+  if (!nodes.length) return
+  const cursor = document.createElement("span")
+  cursor.className = ${JSON.stringify(heroCursorClass)}
+  cursor.setAttribute("aria-hidden", "true")
+  root.setAttribute("aria-busy", "true")
+  let i = 0
+  let j = 0
+  const step = () => {
+    let budget = 6 + Math.floor(Math.random() * 4)
+    while (budget-- > 0 && i < nodes.length) {
+      const [node, text] = nodes[i]
+      j += 1
+      node.nodeValue = text.slice(0, j)
+      if (j >= text.length) {
+        i += 1
+        j = 0
+      }
+    }
+    if (i < nodes.length) {
+      const current = nodes[i][0]
+      current.parentNode.insertBefore(cursor, current.nextSibling)
+      requestAnimationFrame(step)
+      return
+    }
+    root.removeAttribute("aria-busy")
+    root.style.minHeight = ""
+    const lines = root.querySelectorAll("p")
+    lines[lines.length - 1].appendChild(cursor)
+    cursor.animate(
+      [{ opacity: 1 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.5 }, { opacity: 0 }],
+      { duration: 1050, iterations: Infinity },
+    )
+  }
+  requestAnimationFrame(step)
+})()`
+
 function TerminalLink({
   href,
   children,
@@ -246,6 +304,8 @@ export default function HomePage({ children }: { children?: ReactNode }) {
               </div>
             ))}
           </div>
+          {/* Runs as soon as the tree is parsed, before first paint. */}
+          <script dangerouslySetInnerHTML={{ __html: heroTypeScript }} />
 
           <div
             className="flex min-w-0 items-center justify-between border-t border-white/10 bg-slate-900 font-mono text-[11px] leading-none text-slate-300 dark:bg-[#17202d]"
