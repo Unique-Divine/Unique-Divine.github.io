@@ -99,6 +99,7 @@ export const collections = {
           "typescript",
           "rust",
           "computer",
+          "neovim",
           "dna",
           "school",
           "database",
