@@ -37,7 +37,7 @@ const terminalSections: TerminalSection[] = [
       {
         label: "Unique-Divine/Dotfiles",
         href: "https://github.com/Unique-Divine/dotfiles",
-        description: "How I work: Neovim, agents, and terminals.",
+        description: "My full dev environment, kept in code.",
       },
       {
         label: "Unique-Divine/jiyuu",
