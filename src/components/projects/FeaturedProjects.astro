@@ -34,9 +34,9 @@ const projects = (await getProjects())
         <GitHubActivity client:visible />
       </div>
 
-      <ul class="mt-8 grid divide-y divide-slate-200 dark:divide-slate-800 md:grid-cols-3 md:divide-x md:divide-y-0">
+      <ul class="mt-8 grid divide-y divide-slate-200 dark:divide-slate-800 md:grid-cols-2 md:divide-y-0 lg:grid-cols-4 lg:divide-x">
         {projects.map(({ slug, data }) => (
-          <li class="py-6 first:pt-0 last:pb-0 md:px-8 md:py-1 md:first:pl-0 md:last:pr-0">
+          <li class="py-6 first:pt-0 last:pb-0 md:py-4 lg:px-6 lg:py-1 lg:first:pl-0 lg:last:pr-0">
             <h3 class="font-heading text-xl font-bold leading-snug tracking-tight">
               <a
                 class="group inline-flex items-start gap-3 hover:text-blue-600 focus-visible:underline dark:hover:text-cyan-300"

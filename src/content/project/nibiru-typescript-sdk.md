@@ -3,7 +3,7 @@ title: "Nibiru TypeScript SDK"
 summary: "I built much of the initial SDK and maintained it over several years, giving our frontend teams and other developers the tools to build applications on Nibiru."
 tagline: "The SDK frontend teams use to build on Nibiru."
 role: "Initial development and ongoing maintenance with the Nibiru team"
-featured: true
+featured: false
 icon: typescript
 order: 1
 links:
