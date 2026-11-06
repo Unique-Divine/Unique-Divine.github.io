@@ -9,9 +9,15 @@ interface Props {
 
 const { name = "code" } = Astro.props
 
-/** Official marks, drawn bare at tile size instead of inside a tile. */
+/**
+ * Official marks, drawn bare at tile size instead of inside a tile. Local
+ * names resolve to `src/icons/*.svg`: `jiyuu` is the Bun mascot with a
+ * TypeScript badge, and `sai` is the flame from the Sai mark in teal.
+ */
 const brandIcons: Partial<Record<ProjectIconName, string>> = {
   typescript: "devicon:typescript",
+  jiyuu: "jiyuu",
+  sai: "sai",
   rust: "devicon:rust",
   neovim: "devicon:neovim",
 }

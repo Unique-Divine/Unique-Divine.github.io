@@ -3,6 +3,8 @@ export type ProjectIconName =
   | "nibiru"
   | "typescript"
   | "rust"
+  | "jiyuu"
+  | "sai"
   | "computer"
   | "neovim"
   | "dna"

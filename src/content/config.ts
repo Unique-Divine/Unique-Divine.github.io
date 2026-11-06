@@ -100,6 +100,8 @@ export const collections = {
           "nibiru",
           "typescript",
           "rust",
+          "jiyuu",
+          "sai",
           "computer",
           "neovim",
           "dna",
