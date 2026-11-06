@@ -193,13 +193,11 @@
   align-items: center;
   gap: 0.9rem;
 }
+/* Sized in em so one cell is 0.6em × 1em, like a terminal character. */
 .ss-logo {
-  margin: 0;
-  color: var(--ss-coral);
-  font-family: var(--ss-mono);
+  display: block;
+  flex: none;
   font-size: 0.8rem;
-  line-height: 1;
-  white-space: pre;
 }
 .ss-header-text {
   min-width: 0;

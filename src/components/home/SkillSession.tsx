@@ -4,6 +4,7 @@ import type { FeaturedSkill } from "~/utils/featured-skills"
 
 import "./SkillSession.css"
 
+import { blockArtToRects, CLAUDE_CODE_MARK } from "./blockArt"
 import {
   buildTimeline,
   fallbackScript,
@@ -17,6 +18,9 @@ import {
   type SkillSessionScript,
   type Span,
 } from "./skillSessions"
+
+/** The Claude Code mark as quadrant rects, independent of the mono font. */
+const mark = blockArtToRects(CLAUDE_CODE_MARK)
 
 /** How long a finished transcript stays on screen before auto-play moves on. */
 const HOLD_MS = 3400
@@ -223,9 +227,28 @@ export default function SkillSession({ skills }: { skills: FeaturedSkill[] }) {
 
         <div className="ss-pane">
           <div className="ss-header">
-            <pre className="ss-logo" aria-hidden="true">
-              {" ▐▛███▜▌\n▝▜█████▛▘\n  ▘▘ ▝▝"}
-            </pre>
+            <svg
+              className="ss-logo"
+              aria-hidden="true"
+              viewBox={`0 0 ${mark.cols * 2} ${mark.rows * 2}`}
+              preserveAspectRatio="none"
+              shapeRendering="crispEdges"
+              style={{
+                width: `${mark.cols * 0.6}em`,
+                height: `${mark.rows}em`,
+              }}
+            >
+              {mark.rects.map(({ x, y }) => (
+                <rect
+                  key={`${x},${y}`}
+                  x={x}
+                  y={y}
+                  width={1}
+                  height={1}
+                  fill="#d97757"
+                />
+              ))}
+            </svg>
             <div className="ss-header-text">
               <div>
                 <b>Claude Code</b> <span className="ss-tone-dim">v2.1</span>
