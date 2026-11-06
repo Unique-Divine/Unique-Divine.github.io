@@ -1,6 +1,6 @@
 ---
 title: "Sai: Derivatives Exchange"
-summary: "I founded Sai and lead its engineering. I write much of the exchange's core contract logic, from the trading engine and liquidations to the fees that keep its liquidity vault healthy, and I work on the chain underneath it. Sai has handled over $225 million in trading volume."
+summary: "I founded Sai and built most of its core. I designed and wrote most of the exchange's trading engine and the contracts around it, and I run the company. Sai has handled over $225 million in trading volume."
 tagline: "The perpetual futures exchange I founded. Over $225M traded."
 role: "Founder and CEO; engineering lead"
 featured: true
@@ -15,226 +15,186 @@ links:
     href: https://sai.fun/blog
 ---
 
-Sai is a perpetual futures exchange. Traders go long or short with leverage on
-crypto, stocks, and commodities. They keep custody of their funds, and every
-trade settles at an oracle price that tracks the global market. As of November
-6, 2026, Sai's public stats API reports $225.9 million in all-time trading
-volume across 29,738 trades from 363 traders.
+I founded Sai, a perpetual futures exchange, and I built most of its core. The
+trading engine, the liquidity vault, and the rules that decide when a position
+is liquidated are largely my design and my code. I also run the company.
 
-I founded Sai and lead its engineering. I write a large share of the contract
-code myself, and I work across the trading app, the services behind it, and
-the chain it runs on, alongside product and running the company.
+Sai has handled over $225 million in trading volume, most of it since
+mid-2026. It runs on [Nibiru](/about/nibiru), the blockchain I founded before
+it, which let us add chain features the exchange needed through Nibiru's
+governance.
+
+<!-- TODO(Unique): One or two sentences on why you started Sai. -->
 
 ![The Sai trading app on BTC: a 61x short submitted with one click and awaiting onchain execution](../../assets/images/projects/sai/trading-app.png)
 
-## What Sai Is For
+## What Sai Is
 
-Perpetual futures are most of crypto trading now, and traders still have to
-choose between two bad options. A centralized exchange is fast and familiar,
-but it holds your money, its liquidation logic is a black box, and it can stop
-withdrawals. A decentralized exchange keeps your money in your hands, but it's
-usually slower, harder to use, and full of mechanics a trader has to learn
-before placing a first order.
+A perpetual future lets a trader bet on a price going up or down, with
+leverage, and hold the position as long as they want. On Sai a trader can go
+long or short on crypto, stocks, and commodities with up to 100x leverage,
+while keeping custody of their own funds.
 
-Sai's bet is that you don't have to give up either side. A handful of design
-choices carry most of the weight:
+Traders usually choose between a centralized exchange that is fast and
+familiar but holds their money, and a decentralized one that keeps their money
+in their hands but is slower and harder to use. Sai is my attempt to remove
+that choice:
 
-- **Oracle-settled pricing.** Fills and liquidations use a market-wide price,
-  not a thin local order book. A single large order on one venue can't print a
-  wick that liquidates people who were never wrong about the market.
-- **A continuous borrow fee.** Many perps platforms charge funding in fixed
-  windows, which turns funding into a timing game. On Sai, the cost of holding
-  a position updates every block based on open interest, so traders pay a
-  clear, predictable rate.
-- **Single-asset liquidity vaults.** Liquidity providers deposit USDC into the
-  SLP vault and earn from real trading activity without managing token pairs.
-  The vault is the counterparty to every trade.
-- **Any market with a good price feed.** Because pricing comes from an oracle
-  and liquidity is pooled, Sai can list a stock, a commodity, or an index as
-  soon as a reliable feed and enough demand exist. Stock perps went live in
-  April 2026.
+- **Oracle-settled prices.** Fills and liquidations use a market-wide price,
+  not a thin local order book. One large order on one venue can't print a
+  wick that liquidates people who were right about the market.
+- **One vault on the other side.** Liquidity providers deposit USDC into a
+  single vault, the SLP vault, and it takes the other side of every trade. No
+  order book needs to be deep before a market can open, so Sai can list a
+  stock or a commodity once a reliable price feed exists.
+- **Simple costs.** Instead of funding payments in fixed windows, which turn
+  funding into a timing game, holding a position costs a small fee that
+  updates every block.
+- **Speed that feels like a centralized exchange.** One-click trading,
+  described below, removed the wallet popup from every trade.
 
-## The Contracts
+## Building the Core
 
 Sai's core is a set of Rust smart contracts: the perp engine, the SLP vault,
-the oracle, and several smaller contracts around them. The first version came
-from an earlier codebase that Oak Security audited in October 2024. I've
-written most of what's there now: about two thirds of all commits, and roughly
-the same share of the contract code. The perp crate alone is about 93,000
-lines of Rust, more than a third of it tests, with over 900 test functions.
-More than a dozen numbered design specs live next to the code, one for each
-change big enough to need a written argument first.
+the oracle, and a few smaller contracts around them. The first version came
+from an earlier codebase that Oak Security audited in 2024. I took it over and
+rebuilt most of it, with a large test suite and a written design for every
+major change. I've authored 425 of the contract repository's 668 commits and
+93 of its 292 merged pull requests, and nearly 300 merged pull requests across
+Sai's three codebases.
 
-Some of the pieces I'm proudest of:
+The perp engine alone is about 93,000 lines of Rust, more than a third of it
+tests. I also brought a habit I care about into the repository: any change big
+enough to argue about gets a numbered design spec before it gets code. More
+than a dozen of those specs sit next to the contracts.
 
-**One place that writes trades.** Every open, close, and partial close now
-goes through a single write path. Before that, several code paths each
-updated a trade and the market totals derived from it, and keeping them in
-agreement relied on every author remembering every place. With one boundary,
-per-market position totals can't drift away from the positions they
-summarize, and new features get the bookkeeping for free.
+Three pieces show how I think about this code:
 
-**Liquidations as a last resort.** A position is liquidated only after losses
-and fees have consumed about 90% of its collateral. The liquidation price is
-deterministic and includes fees, so a trader can see exactly where it is.
-Stop-loss orders are checked so they can't be set to trigger only after
-liquidation, and anyone can trigger an eligible liquidation, so execution
-doesn't depend on a single bot staying online. When markets move fast, the
-keeper executes triggers in batches.
+**Positions and totals can't disagree.** An exchange keeps both individual
+positions and running totals for each market, and the vault's risk
+calculations depend on those totals. Several code paths used to update both,
+so they could quietly drift apart whenever someone forgot one place. I moved
+every open, close, and partial close behind a single write path. Now the
+totals can't drift, and every new feature gets correct bookkeeping without
+having to remember it.
 
-**USDC trading credits.** Some deals give a trader real USDC as trading
-capital. The contracts track that capital separately from the trader's own
-deposits, so it trades like any other balance but only becomes withdrawable
-once the deal's conditions are met.
+**Liquidation is a last resort.** A position is liquidated only after losses
+and fees have used up about 90% of its collateral. The liquidation price is
+deterministic and includes fees, so a trader can see exactly where it is. The
+contracts reject stop-losses that could only fire after liquidation, and anyone
+can trigger an eligible liquidation, so the exchange doesn't depend on one bot
+staying online.
 
-**Referrals.** Referral fees are keyed by the referral code, not by the wallet
-that happens to own it, so a code can change hands without stranding what it
-earned. Lifetime accounting and events let the indexer and the app show every
-referrer exactly what they've earned.
+**Stocks close; crypto doesn't.** When a stock's home market is closed, Sai
+tightens the leverage a position can effectively use. That limits how much a
+weekend price gap can cost traders and the vault when the market reopens.
 
-**Stock markets after hours.** Crypto never closes, but the stock market does.
-When an underlying market is closed, Sai tightens effective leverage, which
-limits how much a weekend price gap can cost traders and the vault when
-trading reopens.
+Smaller systems I designed around the engine include USDC trading credits,
+which let us give a trader real capital that only becomes withdrawable once
+the terms of their deal are met, and a referral system whose earnings follow
+the referral code rather than the wallet that owns it.
 
-## Paying for the Other Side of Every Trade
+## Keeping the Vault Healthy
 
-The SLP vault is the counterparty to every trade on Sai. When traders win, the
-vault pays. If the fees it collects don't cover what it pays out over time,
-liquidity providers lose money and leave, and without liquidity there is no
-exchange.
+Because the SLP vault takes the other side of every trade, it pays when
+traders win. Its fees have to cover that over time, or liquidity providers
+leave and the exchange can't function.
 
-In late October 2026 I went deep on this question. I built a research harness
-in Python that replays real trading history from Sai's indexer against
-candidate fee designs and compares what each design would have collected with
-what the vault actually paid. I ran it across calm stretches and our worst
-historical windows, then swept the main parameters to see which designs held
-up and which only looked good on one period.
+So I treated fee design as a research problem. I built a tool that replays
+Sai's real trading history against candidate fee designs and compares what
+each one would have collected with what the vault actually paid out. I ran it
+across calm periods and our most stressful ones, then swept the parameters to
+find a design that held up everywhere rather than one that looked good on a
+single window.
 
-The design that came out of it, and that I then implemented in the contracts,
-has two parts:
-
-- **An exposure fee.** Positions pay in proportion to how much one-sided risk
-  they place on the vault, measured against a fixed reference size. Large,
-  crowded positions pay the most, and small ones pay little.
-- **A share of profits after costs.** When a trade closes in profit, a small
-  share of that profit goes to the vault. It costs nothing on losing trades,
-  and it scales with exactly the outcome that drains the vault.
-
-Fees also used to sit in the contract until someone moved them. They now flow
-into the vault automatically every ten blocks, using block hooks I added to
-the chain (more on those below). The release went live on mainnet on November
-2, 2026.
+The result has two parts, both of which I implemented in the contracts. An
+exposure fee charges positions in proportion to the one-sided risk they place
+on the vault, so large crowded positions pay the most and small ones pay
+little. A profit share takes a small cut when a trade closes in profit, costs
+nothing on a losing trade, and scales with exactly the outcome that drains
+the vault. Fees also used to sit in the contract until someone moved them.
+They now flow into the vault on their own every ten blocks, using block hooks
+I added to the chain.
 
 ## One-Click Trading
 
-We talk to Sai traders constantly, and the feedback that comes up most is
-speed. Some actions used to take more than ten seconds before the result
-appeared in the app. Nibiru executes transactions quickly, but a trader
-experiences the whole trip: click, approve in the wallet, wait for the wallet
-to submit, wait for execution, wait for the app to catch up. The wallet popup
+The feedback we hear most from traders is about speed. Nibiru executes
+transactions quickly, but a trader experiences the whole trip: click, approve
+in the wallet, wait for the wallet to submit, wait for execution, wait for the
+app to catch up. Some actions took more than ten seconds, and the wallet popup
 sat in the middle of every trade.
 
 ![What happens after you click Trade, before and after one-click trading](../../assets/images/projects/sai/one-click-before-after.png)
 
-So we changed how trades move through Sai. Now a trader signs one
-[EIP-712](https://eips.ethereum.org/EIPS/eip-712) message, titled **Enable Sai
-trading**, the first time they trade. It isn't a transaction, costs no gas,
-and approves no token spending. After that, each click sends a signed request
-to the Sai Trading Engine. The engine checks the request, tests it against the
-contract, and a dedicated Sai account submits it and pays the gas. The
-contract executes the trade on the trader's own account, with their own
-balance.
+I led the redesign, which touched all three Sai codebases. A trader now signs
+one message, titled **Enable Sai trading**, the first time they trade. It
+isn't a transaction, costs no gas, and approves no token spending. After that,
+each click sends a signed request to Sai's trading engine, which checks it,
+simulates it against the contract, and submits it, paying the gas itself. The
+contract still executes the trade on the trader's own account, with their own
+balance. I wrote much of this myself, including the signed trade requests in
+the trading engine and the web app's rebuilt trading module, which shrank from
+2,672 lines to 352. The rest of the engineering team built out the engine's
+services with me.
 
-![One-click trading architecture: the wallet signs once, then the Sai app, the Sai Trading Engine, and Nibiru handle each trade](../../assets/images/projects/sai/one-click-architecture.png)
-
-This touched all three Sai codebases: the contracts, the keeper services, and
-the web app. Rebuilding the app's trading module around intents let me cut it
-from 2,672 lines to 352. Traders noticed. A week after it reached mainnet, one
-told us trades had been smooth ever since.
+![One-click trading architecture: the wallet signs once, then the Sai app, the trading engine, and Nibiru handle each trade](../../assets/images/projects/sai/one-click-architecture.png)
 
 ## Funding From Any Chain
 
-Trading is only the second step. The first is getting money onto the
-exchange, and that is where people quit. I remember someone who wanted to try
-Sai, moved their funds, and gave up because there were still too many steps
-between them and their first trade.
+Trading is the second step. The first is getting money onto the exchange, and
+that is where many people quit. I remember someone who moved their funds to
+try Sai and then gave up, because there were still too many steps between them
+and a first trade.
 
-Sai Teller brings the cross-chain transfer into Sai's own funding flow, the
-way a centralized exchange lets you pick a network and deposit. Base is the
-hub. Other chains send USDC to Base through Circle's Cross-Chain Transfer
-Protocol, which burns USDC on one chain and mints it on the other, and Teller
-connects Base to Nibiru. A deposit can go straight into a trader's Sai
-balance, ready to trade, or arrive as USDC in their own wallet on Nibiru.
+Sai Teller is our answer, and I designed its contract side. A trader picks the chain their USDC is on and
+deposits, the way they would on a centralized exchange. Base is the hub.
+Other chains send USDC to Base through Circle's Cross-Chain Transfer Protocol,
+and Teller connects Base to Nibiru. A deposit can go straight into a trader's
+Sai balance, and the contracts let them start trading before the cross-chain
+transfer fully settles while holding back withdrawal until it does.
 
 ![Sai Teller hub and spoke: other chains send USDC to the Base hub through CCTP, and Teller connects Base to Nibiru](../../assets/images/projects/sai/teller-hub-and-spoke.png)
 
-Cross-chain transfers take time to settle. The contract design lets a trader
-start trading with a verified deposit before settlement finishes, while
-holding back withdrawal of that amount until settlement completes.
+## The Chain Underneath
 
-## The Chain Under Sai
+Owning the chain under an exchange is unusual, and it changed what we could
+build. When Sai needed something the chain didn't offer, I could add it.
+Block hooks are a good example. I made it possible for a governed contract to
+run at the start and end of every block, and Sai's vault snapshots and fee
+settlement run on them with no bot to keep alive. My
+[Rust and WebAssembly work](/code/projects/nibiru-rust) covers more of that
+foundation.
 
-I also founded Nibiru, the blockchain Sai runs on, and many of Sai's hardest
-problems were really chain problems. In 2026 we shipped nine mainnet releases
-between April and October, most of them shaped by what Sai needed. I write the
-[Nibiru Advancement Notes](https://nibiru.fi/docs/ecosystem/updates/nan-007)
-that explain each one.
+Owning the chain also means owning its emergencies. When a vulnerability in
+the WebAssembly runtime was disclosed to us privately, a real fix meant
+building and rolling out a new runtime, which takes weeks. We didn't wait. We
+hardened the node binaries first, then restricted who could deploy contracts,
+and I shipped the repaired runtime last, each layer as soon as it was ready.
 
-![Nibiru mainnet upgrades in 2026: nine releases from April to October](../../assets/images/projects/sai/nibiru-2026-upgrades.png)
-
-A few that mattered most for the exchange:
-
-- **Retiring the chain's built-in oracle.** Validators used to vote on prices
-  and get slashed for missing votes. We moved price feeds to Sai's oracle and
-  took validators out of the price business entirely.
-- **Owning our dependencies.** The Cosmos SDK, IBC, the Wasm module, and the
-  Wasm VM now live as first-party source in the Nibiru repository, so one pull
-  request can fix a bug that spans all of them. We also published our first
-  fork of the Wasm runtime to fix an ARM64 crash that blocked Sai's largest
-  contracts.
-- **Block hooks.** A governed contract can schedule privileged calls at the
-  start and end of every block. Sai's vault snapshots and automatic fee
-  settlement run on them, with no bot to keep alive.
-- **A month spent on speed.** In August 2026, making trading feel instant was
-  engineering's only priority. Sai got much faster on return visits, trades
-  show up the moment you click, and mainnet blocks came back to about 1.5
-  seconds from 2.66 in July.
-
-In September, a vulnerability in the compiler behind CosmWasm's Wasm runtime
-was disclosed to us privately. A crafted contract could escape the sandbox and
-run native code inside a node. A real fix meant a new runtime, which takes
-time to build, test, and roll out to every validator, so we didn't wait for
-it. We shipped three layers, each as soon as it was ready: harder node
-binaries, then restricted contract deployment, then the repaired runtime in
-October.
-
-![Three layers of Wasm defense: harden the binary, restrict deployment, repair the runtime](../../assets/images/projects/sai/wasm-defense-layers.png)
-
-The work I'm deepest in right now is block lanes. A proposer builds every
-block in a fixed order, with Sai oracle price updates first and Sai's keeper
-and liquidation calls next, ahead of everything else. When a block contains a
-price update, every trade after it executes against the new price. The fast
-lanes are capped at a quarter of each block so they can't crowd anyone out,
-and lanes never reorder one account's own transactions.
+The chain work I find most interesting is block lanes, which I'm building now.
+With lanes, each block is built in a fixed order, with Sai's oracle price
+updates first and its keeper and liquidation calls next. When a block contains a new price, every trade after
+it executes against that price. The fast lanes are capped at a quarter of the
+block so they can't crowd anyone out, and they never reorder one account's
+own transactions.
 
 ![Block lanes: Sai Oracle Fast Lane, Sai Infra Fast Lane, EVM Lane, and Default Lane, in fixed execution order](../../assets/images/projects/sai/block-lanes.png)
 
-## Growing the Exchange
+## Running the Company
 
-An exchange is only as good as the people trading on it, so a lot of my time
-also goes into growth. We ran trading competitions: Let's Go Saicho, with a
-$25,500 prize pool, the Sai Cookout across crypto, stocks, and commodities,
-and the Sai Grand Cup, where traders competed for their region. We started
-the SaiClone ambassador program, and in August 2026 we launched Sai Points,
-which rewards every trade.
+I run Sai. I lead the engineers and the sales team, hire and
+let people go, manage the company's money, and decide what we build next.
 
-![Sai Points Season 1 at a glance: 21.3M points earned, $18.3M traded, 96 traders funded](../../assets/images/projects/sai/points-season-1.png)
+Our sales team closes deals with traders, and those deals carry real terms,
+such as trading credits, fee discounts, and referral arrangements. I built Sai
+Deal Desk, the system the team uses to
+record those terms, track payments, and keep evidence for every action an
+admin takes, so a deal agreed in a chat ends up as exact, auditable state.
 
-Season 1 ran from August 24 to October 4, 2026. Traders earned 21.3 million
-points on $18.3 million in volume, and 96 of them received rewards. I built
-the payout tooling, which unlocks each reward as the trader keeps trading
-instead of paying it all out at once.
+Initiatives I led to grow the exchange include trading competitions, an
+ambassador program, and Sai Points, a rewards program for every trade. For
+Points I built the payout tooling, which unlocks each reward gradually as the
+trader keeps trading instead of paying it out at once.
 
 ## Source Code
 
