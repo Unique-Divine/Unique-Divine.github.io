@@ -32,6 +32,24 @@ function StatusRightSegment({
   )
 }
 
+/** How often the decorative CPU reading updates. */
+const CPU_TICK_MS = 300
+const CPU_MIN = 0.2
+const CPU_MAX = 10
+/** Largest change per tick, in percentage points. */
+const CPU_MAX_STEP = 0.6
+
+/**
+ * Moves the decorative CPU reading a small random step from its last value,
+ * reflecting off the range edges so it stays between CPU_MIN and CPU_MAX.
+ */
+export function driftCpu(prev: number, random: () => number = Math.random) {
+  let next = prev + (random() * 2 - 1) * CPU_MAX_STEP
+  if (next < CPU_MIN) next = CPU_MIN + (CPU_MIN - next)
+  if (next > CPU_MAX) next = CPU_MAX - (next - CPU_MAX)
+  return Math.min(CPU_MAX, Math.max(CPU_MIN, next))
+}
+
 export default function StatusClock() {
   const [date, setDate] = useState("----/--/--")
   const [time, setTime] = useState("--:--:--")
@@ -55,8 +73,8 @@ export default function StatusClock() {
     let timeoutId = 0
 
     const tick = () => {
-      setCpu(0.2 + Math.random() * 9.8)
-      timeoutId = window.setTimeout(tick, 3000 + Math.random() * 1000)
+      setCpu(driftCpu)
+      timeoutId = window.setTimeout(tick, CPU_TICK_MS)
     }
 
     tick()
