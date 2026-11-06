@@ -27,12 +27,24 @@ const fontVariant = import.meta.env.PUBLIC_FONT_VARIANT ?? "herdr"
 ---
 
 <style is:inline is:global>
+  /* JetBrains Mono (OFL-1.1) subset from herdr.dev via sai-web docs-app. Unlike
+     the fontsource build, it includes the block and box-drawing glyphs the
+     terminal mocks use (for example ▐▛███▜▌ and ├──). Characters it lacks fall
+     back to the fontsource build listed next in --aw-font-mono. */
+  @font-face {
+    font-family: "JetBrains Mono Herdr";
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url("/fonts/jetbrains-mono-herdr.woff2") format("woff2");
+  }
+
   :root {
     --aw-font-sans: "Geist Variable";
     --aw-font-serif: var(--aw-font-sans);
     /* Geist body, Archivo headings, JetBrains Mono for code. */
     --aw-font-heading: "Archivo Variable";
-    --aw-font-mono: "JetBrains Mono Variable";
+    --aw-font-mono: "JetBrains Mono Herdr", "JetBrains Mono Variable";
 
     --aw-color-primary: rgb(1 97 239);
     --aw-color-secondary: rgb(1 84 207);
