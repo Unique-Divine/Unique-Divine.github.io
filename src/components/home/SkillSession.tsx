@@ -80,6 +80,7 @@ export default function SkillSession({ skills }: { skills: FeaturedSkill[] }) {
   const [paused, setPaused] = useState(false)
   const startRef = useRef(0)
   const hoverTimer = useRef<number>()
+  const transcriptRef = useRef<HTMLDivElement>(null)
 
   const session = sessions[active]
   const { timeline, script } = session
@@ -150,6 +151,12 @@ export default function SkillSession({ skills }: { skills: FeaturedSkill[] }) {
   const draft = promptSent
     ? []
     : sliceSpans(timeline.lines[0].spans, visible[0])
+
+  // Keep the newest line in view, like a terminal, when a pane is short.
+  useEffect(() => {
+    const el = transcriptRef.current
+    if (el) el.scrollTop = el.scrollHeight
+  }, [typedChars, active])
 
   return (
     <div
@@ -228,7 +235,7 @@ export default function SkillSession({ skills }: { skills: FeaturedSkill[] }) {
             </div>
           </div>
 
-          <div className="ss-transcript" key={script.name}>
+          <div className="ss-transcript" key={script.name} ref={transcriptRef}>
             {timeline.lines.map((line, i) => {
               const count = visible[i]
               if (line.kind === "prompt" ? !promptSent : count === 0)

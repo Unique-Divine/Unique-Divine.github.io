@@ -145,6 +145,7 @@
 /* Main pane */
 .ss-main {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
   min-width: 0;
 }
@@ -408,7 +409,7 @@
     transform: scaleX(1);
   }
   .ss-main {
-    height: 27rem;
+    height: 30rem;
   }
   .ss-pane {
     padding: 0.75rem 0.8rem 0.6rem;
