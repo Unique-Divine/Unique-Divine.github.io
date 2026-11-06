@@ -34,23 +34,23 @@ const terminalSections: TerminalSection[] = [
     href: "/code",
     description: "Tools, notes, and larger software engineering projects.",
     items: [
-      { label: "Golang Coding Guides", href: "/blog/24-06-08-golang" },
       {
         label: "Unique-Divine/Dotfiles",
         href: "https://github.com/Unique-Divine/dotfiles",
+        description: "How I work: Neovim, agents, and terminals.",
       },
       {
         label: "Unique-Divine/jiyuu",
         href: "https://github.com/Unique-Divine/jiyuu",
         notes: [
-          "Jiyuu contains my devlogs and implementations for core algorithms.",
-          "It's also a monorepo of tools I built and use regularly.",
+          "My monorepo of tools I use daily, including gh-rev and my agent skills.",
+          "Also devlogs and implementations of core data structures and algorithms.",
         ],
       },
       {
         label: "Nibiru",
         href: "https://github.com/NibiruChain/nibiru/",
-        description: "Go source code for the Nibiru blockchain.",
+        description: "The chain in Go, plus its Rust contracts and Wasm tooling.",
       },
       {
         label: "GitHub and Git",
