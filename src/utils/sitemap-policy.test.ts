@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 
-import { readPageMetadata } from "../../src/utils/sitemap-build.mjs"
-import { isDiscoverablePage } from "../../src/utils/sitemap-policy.mjs"
+import { readPageMetadata } from "~/utils/sitemap-build.mjs"
+import { isDiscoverablePage } from "~/utils/sitemap-policy.mjs"
 
 const site = "https://uniquedivine.com"
 

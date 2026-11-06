@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import { createMarkdownProcessor } from "@astrojs/markdown-remark"
 
-import { getArticleContents } from "../../src/utils/article-contents"
+import { getArticleContents } from "~/utils/article-contents"
 
 describe("compiler-generated article contents", () => {
   test("links to actual Markdown IDs, including duplicates and Unicode", async () => {

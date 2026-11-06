@@ -1,13 +1,13 @@
 import { describe, expect, test } from "bun:test"
 import { readdir, readFile } from "node:fs/promises"
-import { fileURLToPath } from "node:url"
 import yaml from "js-yaml"
+import { repoPath } from "~/utils/repo-paths"
 
 import {
   HOME_SKILL_PICKS,
   pickFeaturedSkills,
   type SkillSummarySource,
-} from "../../src/utils/featured-skills"
+} from "~/utils/featured-skills"
 
 const skill = (
   name: string,
@@ -42,9 +42,7 @@ describe("home page featured skills", () => {
   })
 
   test("every home page pick exists in the published collection", async () => {
-    const dir = fileURLToPath(
-      new URL("../../src/content/skill/", import.meta.url),
-    )
+    const dir = repoPath("src/content/skill/")
     const files = (await readdir(dir)).filter((file) => file.endsWith(".md"))
     const skills = await Promise.all(
       files.map(async (file) => {

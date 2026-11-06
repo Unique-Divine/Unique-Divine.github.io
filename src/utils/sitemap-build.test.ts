@@ -11,14 +11,17 @@ import { join } from "node:path"
 import { pathToFileURL } from "node:url"
 import { parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
+import { hasBuild, repoUrl } from "~/utils/repo-paths"
 
-import { SITE } from "../../src/utils/config"
+import { SITE } from "~/utils/config"
 import {
   readPageMetadata,
   validateBuiltSitemap,
-} from "../../src/utils/sitemap-build.mjs"
+} from "~/utils/sitemap-build.mjs"
 
-const built = new URL("../../dist/", import.meta.url)
+// Reads the site build; skipped until `just b` has run.
+const buildTest = test.skipIf(!hasBuild)
+const built = repoUrl("dist/")
 const copies: string[] = []
 const config = (outDir = built) => ({
   site: SITE.site,
@@ -43,7 +46,7 @@ afterEach(() => {
     rmSync(dir, { recursive: true, force: true })
 })
 
-test("HTML, XML, canonical pages, resources, and footers agree after the real build", () => {
+buildTest("HTML, XML, canonical pages, resources, and footers agree after the real build", () => {
   expect(validateBuiltSitemap(config()).pages).toBeGreaterThan(20)
   const sitemap = readFileSync(new URL("sitemap/index.html", built), "utf8")
   expect(sitemap).toContain('data-sitemap-section="tags"')
@@ -66,7 +69,7 @@ test("HTML, XML, canonical pages, resources, and footers agree after the real bu
   }
 })
 
-test("blog entries are grouped under category headings and the TOC targets real headings", () => {
+buildTest("blog entries are grouped under category headings and the TOC targets real headings", () => {
   const sitemap = readFileSync(new URL("sitemap/index.html", built), "utf8")
   const document = parse(sitemap)
   const groups = querySelectorAll(
@@ -134,13 +137,13 @@ test("blog entries are grouped under category headings and the TOC targets real 
   }
 })
 
-test("validation rejects a missing target", () => {
+buildTest("validation rejects a missing target", () => {
   const dir = fixture()
   rmSync(new URL("sai-calc/index.html", dir))
   expect(() => validateBuiltSitemap(config(dir))).toThrow("mismatch")
 })
 
-test("validation rejects duplicate HTML entries", () => {
+buildTest("validation rejects duplicate HTML entries", () => {
   const dir = fixture()
   const file = new URL("sitemap/index.html", dir)
   writeFileSync(
@@ -153,7 +156,7 @@ test("validation rejects duplicate HTML entries", () => {
   expect(() => validateBuiltSitemap(config(dir))).toThrow("duplicate")
 })
 
-test("validation rejects XML inventory drift", () => {
+buildTest("validation rejects XML inventory drift", () => {
   const dir = fixture()
   const file = new URL("sitemap-0.xml", dir)
   writeFileSync(file, readFileSync(file, "utf8").replace(/<url>.*?<\/url>/, ""))
@@ -162,7 +165,7 @@ test("validation rejects XML inventory drift", () => {
   )
 })
 
-test("validation rejects a page that becomes noindex", () => {
+buildTest("validation rejects a page that becomes noindex", () => {
   const dir = fixture()
   const file = new URL("sai-calc/index.html", dir)
   writeFileSync(

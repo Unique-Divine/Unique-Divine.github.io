@@ -1,11 +1,11 @@
 import { expect, test } from "bun:test"
 
-import { cleanSlug } from "../../src/utils/slugs"
+import { cleanSlug } from "~/utils/slugs"
 import {
   getSitemapTagLabel,
   getTagInventory,
   getTagTitle,
-} from "../../src/utils/tags"
+} from "~/utils/tags"
 
 test("sitemap labels use sentence case and preserve manual names without the On prefix", () => {
   expect(getSitemapTagLabel("meta-learning")).toBe("Meta-learning")

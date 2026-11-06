@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 
-import type { CalculatorRecord } from "../../src/components/sai-calc/model.ts"
+import type { CalculatorRecord } from "~/components/sai-calc/model.ts"
 import {
   buildSharedCalculationsUrl,
   decodeSharedCalculations,
@@ -8,7 +8,7 @@ import {
   mergeSharedCalculations,
   readSharedCalculationsUrl,
   removeSharedCalculationsFromUrl,
-} from "../../src/components/sai-calc/shareState.ts"
+} from "~/components/sai-calc/shareState.ts"
 
 const record = (
   id: string,

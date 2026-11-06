@@ -2,15 +2,18 @@ import { expect, test } from "bun:test"
 import { readdirSync, readFileSync } from "node:fs"
 import { parse } from "ultrahtml"
 import { querySelector } from "ultrahtml/selector"
+import { hasBuild, repoUrl } from "~/utils/repo-paths"
 
-import hosting from "../../firebase.json"
+import hosting from "@/firebase.json"
 
-const dist = new URL("../../dist/", import.meta.url)
+// Reads the site build; skipped until `just b` has run.
+const buildTest = test.skipIf(!hasBuild)
+const dist = repoUrl("dist/")
 const html = (route: string) =>
   readFileSync(new URL(`${route.replace(/^\//, "")}/index.html`, dist), "utf8")
 const standing = ["/about", "/about/media", "/about/nibiru", "/code"]
 
-test("legacy Firebase redirects land directly on built canonical pages", () => {
+buildTest("legacy Firebase redirects land directly on built canonical pages", () => {
   const sources = new Set(hosting.hosting.redirects.map((r) => r.source))
   expect(sources.has("/winning/01-structured-freedom")).toBe(true)
   expect(sources.has("/261019-block-latency")).toBe(true)
@@ -31,7 +34,7 @@ test("legacy Firebase redirects land directly on built canonical pages", () => {
   }
 })
 
-test("standing pages remain in the sitemap but outside blog archives and RSS", () => {
+buildTest("standing pages remain in the sitemap but outside blog archives and RSS", () => {
   const sitemap = parse(html("/sitemap"))
   const site = querySelector(sitemap, '[data-sitemap-section="site"]')!
   const articles = querySelector(sitemap, '[data-sitemap-section="blog"]')!

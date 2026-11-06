@@ -40,3 +40,7 @@ jobs:
       - name: 'Build (bun)'
         run: |
           just b # build
+
+      - name: 'Test (bun)'
+        run: |
+          just t # test, including build-output checks

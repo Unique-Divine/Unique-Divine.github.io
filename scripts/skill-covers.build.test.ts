@@ -2,12 +2,15 @@ import { expect, test } from "bun:test"
 import { existsSync, readFileSync } from "node:fs"
 import { parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
+import { hasBuild, repoUrl } from "~/utils/repo-paths"
 
-const dist = new URL("../../dist/", import.meta.url)
+// Reads the site build; skipped until `just b` has run.
+const buildTest = test.skipIf(!hasBuild)
+const dist = repoUrl("dist/")
 const html = (route: string) =>
   readFileSync(new URL(`${route.replace(/^\//, "")}/index.html`, dist), "utf8")
 
-test("skill images are shared between archive covers and social metadata", () => {
+buildTest("skill images are shared between archive covers and social metadata", () => {
   for (const route of [
     "/ai-skills",
     "/ai-skills/repo-map",

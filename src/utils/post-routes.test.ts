@@ -3,7 +3,7 @@ import { expect, test } from "bun:test"
 import {
   assertUniquePermalinks,
   postPermalink,
-} from "../../src/utils/post-routes"
+} from "~/utils/post-routes"
 
 test("dated article URLs use UTC publication dates and reject folder-based slugs", () => {
   const publishDate = new Date("2026-10-18T20:00:00-04:00")

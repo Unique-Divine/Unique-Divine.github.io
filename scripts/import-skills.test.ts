@@ -1,12 +1,12 @@
 import { describe, expect, test } from "bun:test"
 import { createHash } from "node:crypto"
 import { readFile } from "node:fs/promises"
-import { fileURLToPath } from "node:url"
 import { createMarkdownProcessor } from "@astrojs/markdown-remark"
 import yaml from "js-yaml"
+import { repoPath } from "~/utils/repo-paths"
 
-import { prepareSkills } from "../../scripts/import-skills"
-import manifest from "../../src/data/skills-provenance.json"
+import { prepareSkills } from "./import-skills"
+import manifest from "~/data/skills-provenance.json"
 
 const entry = (folder: string, body = "## Usage\n\nHello.", extra = "") => ({
   source: `${folder}/SKILL.md`,
@@ -15,7 +15,7 @@ const entry = (folder: string, body = "## Usage\n\nHello.", extra = "") => ({
 
 describe("public skills import", () => {
   test("all snapshot page links resolve to Astro's rendered heading IDs", async () => {
-    const root = fileURLToPath(new URL("../../", import.meta.url))
+    const root = repoPath("")
     const compiler = await createMarkdownProcessor()
     const files = await Promise.all(
       Object.values(manifest.pages).map(async (page) => ({
@@ -114,7 +114,7 @@ describe("public skills import", () => {
   })
 
   test("every imported page and raw Markdown file agrees with the manifest", async () => {
-    const root = fileURLToPath(new URL("../../", import.meta.url))
+    const root = repoPath("")
     let skills = 0
     for (const [route, page] of Object.entries(manifest.pages)) {
       const raw = await readFile(
