@@ -1,0 +1,285 @@
+---
+import { pickFeaturedSkills } from "~/utils/featured-skills"
+import { getSkills, SKILLS_REPOSITORY } from "~/utils/skills"
+
+import { SKILL_AGENTS, type SkillAgent } from "./agents"
+
+const skills = await getSkills()
+const featured = pickFeaturedSkills(skills.map(({ data }) => data))
+
+const agentStyle = (agent: SkillAgent) =>
+  [
+    `--agent-icon: url("${agent.icon}")`,
+    agent.brand ? `--agent-brand: ${agent.brand}` : "",
+    agent.scale ? `--agent-scale: ${agent.scale * 100}%` : "",
+    agent.luminance ? "--agent-mask-mode: luminance" : "",
+  ]
+    .filter(Boolean)
+    .join("; ")
+---
+
+<section class="agent-skills" aria-labelledby="agent-skills-title">
+  <div class="agent-skills-intro">
+    <h2 id="agent-skills-title">Agent Skills</h2>
+    <p>
+      Playbooks I give coding agents for work I repeat. Each one is a plain
+      <code>SKILL.md</code>, so it loads in any agent that reads the format.
+    </p>
+  </div>
+
+  <div class="agent-strip" role="region" aria-label="Agents that load these skills">
+    {
+      [0, 1].map((copy) => (
+        <ul class="agent-track" aria-hidden={copy === 1 ? "true" : undefined}>
+          {SKILL_AGENTS.map((agent) => (
+            <li class="agent" style={agentStyle(agent)}>
+              <span class="agent-icon" aria-hidden="true" />
+              <span class="agent-name">{agent.name}</span>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+
+  <div class="agent-skills-body">
+    <ul class="skill-rows">
+      {
+        featured.map((skill) => (
+          <li>
+            <a href={skill.href}>
+              <span class="skill-name">{skill.name}</span>
+              <span class="skill-summary">{skill.summary}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="skill-install">
+      <span>Install any of them:</span>
+      <code>npx skills add {SKILLS_REPOSITORY}</code>
+      <a href="/ai-skills">Browse all {skills.length} skills</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .agent-skills {
+    --strip-ink: rgb(100 116 139);
+    --strip-line: rgb(15 23 42 / 0.08);
+    --strip-grid: rgb(15 23 42 / 0.035);
+    --skill-accent: rgb(8 145 178);
+    --strip-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      monospace;
+    position: relative;
+    padding: 3.5rem 0 1rem;
+  }
+  :global(.dark) .agent-skills {
+    --strip-ink: rgb(148 163 184 / 0.75);
+    --strip-line: rgb(226 232 240 / 0.08);
+    --strip-grid: rgb(226 232 240 / 0.035);
+    --skill-accent: rgb(103 232 249);
+  }
+
+  .agent-skills-intro,
+  .agent-skills-body {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  @media (min-width: 640px) {
+    .agent-skills-intro,
+    .agent-skills-body {
+      padding: 0 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .agent-skills-intro,
+    .agent-skills-body {
+      padding: 0 2rem;
+    }
+  }
+
+  .agent-skills-intro {
+    display: grid;
+    gap: 0.75rem 3rem;
+    align-items: end;
+  }
+  @media (min-width: 1024px) {
+    .agent-skills-intro {
+      grid-template-columns: auto minmax(0, 36rem);
+      justify-content: space-between;
+    }
+  }
+  h2 {
+    font-family: var(--aw-font-heading);
+    font-size: clamp(1.875rem, 4vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .agent-skills-intro p {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--aw-color-text-muted);
+  }
+  .agent-skills-intro code,
+  .skill-install code {
+    font-family: var(--strip-mono);
+    font-size: 0.88em;
+  }
+
+  /* Logo marquee: two identical tracks slide left by one track width. */
+  .agent-strip {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    margin: 2.25rem 0 0;
+    border-block: 1px solid var(--strip-line);
+    background-image:
+      linear-gradient(var(--strip-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--strip-grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: center;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+  }
+  .agent-track {
+    display: flex;
+    flex: none;
+    gap: 3.25rem;
+    margin: 0;
+    padding: 1.6rem 1.625rem;
+    list-style: none;
+    animation: agent-marquee 48s linear infinite;
+  }
+  .agent-strip:hover .agent-track {
+    animation-play-state: paused;
+  }
+  @keyframes agent-marquee {
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  .agent {
+    --agent-color: var(--strip-ink);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--strip-ink);
+    white-space: nowrap;
+    transition: color 0.25s ease;
+  }
+  .agent-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    flex: none;
+    background-color: var(--agent-color);
+    -webkit-mask: var(--agent-icon) center / var(--agent-scale, contain)
+      no-repeat;
+    mask: var(--agent-icon) center / var(--agent-scale, contain) no-repeat;
+    mask-mode: var(--agent-mask-mode, alpha);
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease,
+      filter 0.25s ease;
+  }
+  .agent-name {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .agent:hover {
+    --agent-color: var(--agent-brand, var(--aw-color-text-default));
+    color: var(--aw-color-text-default);
+  }
+  .agent:hover .agent-icon {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 10px var(--agent-color));
+  }
+
+  /* Featured skills: a two-column index, not a card grid. */
+  .skill-rows {
+    display: grid;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--strip-line);
+  }
+  @media (min-width: 768px) {
+    .skill-rows {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 3rem;
+    }
+  }
+  .skill-rows li {
+    border-bottom: 1px solid var(--strip-line);
+  }
+  .skill-rows a {
+    display: grid;
+    gap: 0.3rem;
+    padding: 1.15rem 0;
+  }
+  .skill-name {
+    font-family: var(--strip-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--skill-accent);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 5px;
+    transition: text-decoration-color 0.2s ease;
+  }
+  .skill-summary {
+    color: var(--aw-color-text-muted);
+    line-height: 1.6;
+  }
+  .skill-rows a:hover .skill-name,
+  .skill-rows a:focus-visible .skill-name {
+    text-decoration-color: currentColor;
+  }
+  .skill-rows a:hover .skill-summary {
+    color: var(--aw-color-text-default);
+  }
+  .skill-rows a:focus-visible {
+    outline: 2px solid var(--skill-accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .skill-install {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.9rem;
+    margin-top: 1.5rem;
+    color: var(--aw-color-text-muted);
+    font-size: 0.95rem;
+  }
+  .skill-install code {
+    color: var(--aw-color-text-default);
+    overflow-wrap: anywhere;
+  }
+  .skill-install a {
+    font-weight: 600;
+    color: var(--skill-accent);
+  }
+  .skill-install a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>
