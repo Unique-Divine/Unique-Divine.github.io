@@ -34,23 +34,23 @@ const terminalSections: TerminalSection[] = [
     href: "/code",
     description: "Tools, notes, and larger software engineering projects.",
     items: [
-      { label: "Golang Coding Guides", href: "/blog/24-06-08-golang" },
       {
         label: "Unique-Divine/Dotfiles",
         href: "https://github.com/Unique-Divine/dotfiles",
+        description: "My full dev environment, kept in code.",
       },
       {
         label: "Unique-Divine/jiyuu",
         href: "https://github.com/Unique-Divine/jiyuu",
         notes: [
-          "Jiyuu contains my devlogs and implementations for core algorithms.",
-          "It's also a monorepo of tools I built and use regularly.",
+          "Monorepo of tools I use daily; custom MCPs and agent skills.",
+          "Also devlogs and implementations of core data structures and algorithms.",
         ],
       },
       {
         label: "Nibiru",
         href: "https://github.com/NibiruChain/nibiru/",
-        description: "Go source code for the Nibiru blockchain.",
+        description: "The chain in Go, plus its Rust contracts and Wasm tooling.",
       },
       {
         label: "GitHub and Git",
@@ -77,6 +77,48 @@ const terminalSections: TerminalSection[] = [
 ]
 
 const focusAreas = ["software", "productivity", "language", "music", "fitness"]
+
+/** Classes for the block cursor the tagline type-in script creates. */
+const heroCursorClass =
+  "ml-1 inline-block h-[1em] w-[0.5em] translate-y-[0.12em] bg-cyan-500 dark:bg-cyan-300"
+
+/**
+ * Types the hero tagline in once on page load at a human pace, then leaves a
+ * blinking block cursor after it. The tagline is rendered in full, so it
+ * reads normally without JavaScript; this inline script blanks it and types
+ * it back in.
+ */
+const heroTypeScript = `(() => {
+  const line = document.currentScript && document.currentScript.previousElementSibling
+  if (!line) return
+  const text = line.textContent || ""
+  // Hold the finished height so the hero does not shift while typing.
+  line.style.minHeight = line.offsetHeight + "px"
+  line.setAttribute("aria-label", text)
+  const typed = document.createElement("span")
+  typed.setAttribute("aria-hidden", "true")
+  const cursor = document.createElement("span")
+  cursor.className = ${JSON.stringify(heroCursorClass)}
+  cursor.setAttribute("aria-hidden", "true")
+  line.replaceChildren(typed, cursor)
+  let i = 0
+  const step = () => {
+    i += 1
+    typed.textContent = text.slice(0, i)
+    if (i < text.length) {
+      const prev = text[i - 1]
+      const pause = prev === "," ? 260 : prev === " " ? 70 : 0
+      setTimeout(step, 45 + Math.random() * 45 + pause)
+      return
+    }
+    line.style.minHeight = ""
+    cursor.animate(
+      [{ opacity: 1 }, { opacity: 1, offset: 0.5 }, { opacity: 0, offset: 0.5 }, { opacity: 0 }],
+      { duration: 1050, iterations: Infinity },
+    )
+  }
+  setTimeout(step, 450)
+})()`
 
 function TerminalLink({
   href,
@@ -148,6 +190,8 @@ export default function HomePage({ children }: { children?: ReactNode }) {
           <p className="mt-5 text-xl leading-8 text-slate-700 dark:text-slate-300">
             Software engineer, creative, and lifelong autodidact.
           </p>
+          {/* Runs as soon as the tagline is parsed, before first paint. */}
+          <script dangerouslySetInnerHTML={{ __html: heroTypeScript }} />
           {/* <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 dark:text-slate-400"> */}
           {/*   This site is my public notebook. A place for essays, guides, and reflections from the work of deliberate */}
           {/*   practice and solving complex problems. */}

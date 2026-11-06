@@ -1,6 +1,7 @@
 ---
 title: "Nibiru Rust and WebAssembly"
 summary: "I built and maintain Rust contracts, WebAssembly tooling, and libraries used for Nibiru's multisig infrastructure, token vesting, and application development, including the foundations for Sai."
+tagline: "Contracts and tooling behind Nibiru's multisig, vesting, and Sai."
 role: "Primary development and maintenance of Nibiru's Rust contracts and tooling"
 featured: true
 icon: rust
