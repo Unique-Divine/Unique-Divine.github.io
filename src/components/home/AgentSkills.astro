@@ -6,6 +6,7 @@ import { SKILL_AGENTS, type SkillAgent } from "./agents"
 
 const skills = await getSkills()
 const featured = pickFeaturedSkills(skills.map(({ data }) => data))
+const installSource = SKILLS_REPOSITORY.replace("https://github.com/", "")
 
 const agentStyle = (agent: SkillAgent) =>
   [
@@ -58,7 +59,7 @@ const agentStyle = (agent: SkillAgent) =>
 
     <p class="skill-install">
       <span>Install any of them:</span>
-      <code>npx skills add {SKILLS_REPOSITORY}</code>
+      <code>npx skills add {installSource}</code>
       <a href="/ai-skills">Browse all {skills.length} skills</a>
     </p>
   </div>
@@ -182,7 +183,12 @@ const agentStyle = (agent: SkillAgent) =>
     gap: 0.7rem;
     color: var(--strip-ink);
     white-space: nowrap;
-    transition: color 0.25s ease;
+    transition:
+      color 0.25s ease,
+      opacity 0.25s ease;
+  }
+  .agent-strip:hover .agent:not(:hover) {
+    opacity: 0.4;
   }
   .agent-icon {
     width: 1.75rem;
