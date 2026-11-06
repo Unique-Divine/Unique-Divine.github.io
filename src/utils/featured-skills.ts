@@ -22,13 +22,13 @@ export interface FeaturedSkill {
 /** Skills shown on the home page, in display order. */
 export const HOME_SKILL_PICKS: FeaturedSkillPick[] = [
   {
-    name: "drill-spec",
-    summary: "Questions your plan until every open decision has an answer.",
+    name: "gh-rev",
+    summary:
+      "Keeps a running review ledger for a branch or pull request across passes.",
   },
   {
-    name: "gh-pr-review",
-    summary:
-      "Reviews a pull request for bugs, design, tests, security, and speed.",
+    name: "drill-spec",
+    summary: "Questions your plan until every open decision has an answer.",
   },
   {
     name: "unslop",
@@ -43,8 +43,8 @@ export const HOME_SKILL_PICKS: FeaturedSkillPick[] = [
     summary: "Puts a local dev server on HTTPS so you can open it on a phone.",
   },
   {
-    name: "nibiru-cli",
-    summary: "Queries Nibiru chain state and sends transactions from a shell.",
+    name: "sai-perps",
+    summary: "Looks up Sai markets, trades, vaults, and balances from live data.",
   },
 ]
 
