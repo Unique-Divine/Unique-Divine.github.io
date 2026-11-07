@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import { readdir, readFile } from "node:fs/promises"
-import { fileURLToPath } from "node:url"
 import yaml from "js-yaml"
+import { repoPath } from "~/utils/repo-paths"
 
 import {
   buildTimeline,
@@ -13,8 +13,8 @@ import {
   SKILL_SESSION_SCRIPTS,
   sliceSpans,
   visibleCount,
-} from "../../src/components/home/skillSessions"
-import { HOME_SKILL_PICKS } from "../../src/utils/featured-skills"
+} from "~/components/home/skillSessions"
+import { HOME_SKILL_PICKS } from "~/utils/featured-skills"
 
 const script = fallbackScript("demo", "Does the thing.")
 
@@ -85,9 +85,7 @@ describe("skill session scripts", () => {
   })
 
   test("every transcript names a published skill", async () => {
-    const dir = fileURLToPath(
-      new URL("../../src/content/skill/", import.meta.url),
-    )
+    const dir = repoPath("src/content/skill/")
     const files = (await readdir(dir)).filter((file) => file.endsWith(".md"))
     const names = await Promise.all(
       files.map(async (file) => {

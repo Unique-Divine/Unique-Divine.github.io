@@ -41,7 +41,12 @@ beforeAll(async () => {
 afterAll(async () => {
   server.closeAllConnections()
   await new Promise<void>((resolve, reject) =>
-    server.close((error) => (error ? reject(error) : resolve())),
+    // Older Bun stops the server inside closeAllConnections().
+    server.close((error) =>
+      error && (error as NodeJS.ErrnoException).code !== "ERR_SERVER_NOT_RUNNING"
+        ? reject(error)
+        : resolve(),
+    ),
   )
   await fs.rm(directory, { recursive: true, force: true })
 })

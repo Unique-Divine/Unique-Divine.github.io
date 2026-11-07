@@ -1,15 +1,15 @@
 import { describe, expect, test } from "bun:test"
 import { createHash } from "node:crypto"
 import { readFileSync } from "node:fs"
-import { fileURLToPath } from "node:url"
+import { repoPath } from "~/utils/repo-paths"
 
 import {
   data,
   PRIMARY,
   scenarios,
   upgradeTable,
-} from "../../src/components/research/block-latency/model"
-import { getSectionTitleOverride } from "../../src/data/blogSections"
+} from "~/components/research/block-latency/model"
+import { getSectionTitleOverride } from "~/data/blogSections"
 
 describe("fixed production capture", () => {
   test("retains the accounting baseline and separate opportunity calculations", () => {
@@ -63,9 +63,7 @@ describe("fixed production capture", () => {
   })
 
   test("downloadable and build-time data match, and every asset matches its hash", () => {
-    const root = fileURLToPath(
-      new URL("../../public/research/261019-block-latency/", import.meta.url),
-    )
+    const root = repoPath("public/research/261019-block-latency/")
     expect(
       JSON.parse(readFileSync(`${root}measurements.json`, "utf8")),
     ).toEqual(data)

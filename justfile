@@ -65,8 +65,9 @@ files-smoke origin image:
   python3 scripts/files-smoke.py {{quote(origin)}} {{quote(image)}}
 
 # Install dependencies
-install: 
+install:
   bun install
+  bun install --cwd services/files
 
 alias i := install
 
@@ -75,6 +76,12 @@ build:
   bun run astro build
 
 alias b := build
+
+# Run every test. Tests that read dist/ skip until `just b` has run.
+test:
+  bun test
+
+alias t := test
 
 preview:
   bun run astro preview
@@ -91,7 +98,7 @@ tags:
 
 # Test sitemap publication rules, tag inventories, and generated output validation.
 sitemap-test: build
-  bun test tests/sitemap
+  bun test src/utils/sitemap src/utils/tags
 
 # Refresh the block-latency article assets from the saved boku profiling directory.
 research-import profiling:
@@ -99,11 +106,11 @@ research-import profiling:
 
 # Verify the block-latency accounting, section titles, and imported asset hashes.
 research-test:
-    bun test tests/research
+    bun test src/components/research
 
 # Verify contents links against Astro-generated Markdown IDs.
 contents-test:
-    bun test tests/blog
+    bun test src/utils/article-contents src/utils/post-routes
 
 # Preview the article alongside the current website work without deploying.
 research-preview:
@@ -115,7 +122,7 @@ skills-import source:
 
 # Verify skill import, route mapping, and snapshot integrity.
 skills-test:
-    bun test tests/skills
+    bun test scripts/import-skills scripts/skill-covers src/utils/featured-skills
 
 # Generate skill cover PNGs and a local contact sheet from the shared template.
 covers-generate:

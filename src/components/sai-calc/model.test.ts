@@ -5,8 +5,8 @@ import {
   createBlankCalculation,
   readCalculatorState,
   type CalculatorRecord,
-} from "../../src/components/sai-calc/model.ts"
-import { formatUsd } from "../../src/components/sai-calc/volumeCalc.ts"
+} from "~/components/sai-calc/model.ts"
+import { formatUsd } from "~/components/sai-calc/volumeCalc.ts"
 
 const completeRecord = (
   overrides: Partial<CalculatorRecord> = {},

@@ -8,7 +8,7 @@ import {
   formatFeeCoverageSummary,
   formatUsd,
   type FeeCoverageInput,
-} from "../../src/components/sai-calc/volumeCalc.ts"
+} from "~/components/sai-calc/volumeCalc.ts"
 
 function expectUsd(actual: BigNumber, expected: string): void {
   expect(formatUsd(actual)).toBe(expected)

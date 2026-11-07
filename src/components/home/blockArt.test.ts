@@ -3,7 +3,7 @@ import { describe, expect, test } from "bun:test"
 import {
   blockArtToRects,
   CLAUDE_CODE_MARK,
-} from "../../src/components/home/blockArt"
+} from "~/components/home/blockArt"
 
 const key = ({ x, y }: { x: number; y: number }) => `${x},${y}`
 

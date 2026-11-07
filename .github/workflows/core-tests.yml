@@ -23,11 +23,11 @@ jobs:
         with:
           node-version: 'lts/jod' # jod=22, iron=20, gallium=18
 
-      - name: 'oven-sh/setup-bun@v1'
+      - name: 'Setup Bun'
         # See https://bun.sh/guides/runtime/cicd
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
-          bun-version: '1.3.4'
+          bun-version-file: .bun-version
 
       - name: 'Install just'
         # casey/just: https://just.systems/man/en/chapter_6.html
@@ -40,3 +40,7 @@ jobs:
       - name: 'Build (bun)'
         run: |
           just b # build
+
+      - name: 'Test (bun)'
+        run: |
+          just t # test, including build-output checks
