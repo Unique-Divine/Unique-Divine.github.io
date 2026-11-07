@@ -41,10 +41,9 @@ jobs:
         run: |
           just b # build
 
-      # The build already ran astro sync, so skip the sync in just typecheck.
       - name: 'Typecheck (bun check)'
         run: |
-          bun run typecheck:check
+          just typecheck-nosync # the build already ran astro sync
 
       - name: 'Test (bun)'
         run: |
