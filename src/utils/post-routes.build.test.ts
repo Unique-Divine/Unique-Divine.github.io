@@ -2,12 +2,10 @@ import { expect, test } from "bun:test"
 import { readdirSync, readFileSync } from "node:fs"
 import { parse } from "ultrahtml"
 import { querySelector } from "ultrahtml/selector"
-import { hasBuild, repoUrl } from "~/utils/repo-paths"
+import { buildTest, repoUrl } from "~/utils/repo-paths"
 
 import hosting from "@/firebase.json"
 
-// Reads the site build; skipped until `just b` has run.
-const buildTest = test.skipIf(!hasBuild)
 const dist = repoUrl("dist/")
 const html = (route: string) =>
   readFileSync(new URL(`${route.replace(/^\//, "")}/index.html`, dist), "utf8")

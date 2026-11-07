@@ -11,7 +11,7 @@ import { join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 import { parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
-import { hasBuild, repoUrl } from "~/utils/repo-paths"
+import { buildTest, repoUrl } from "~/utils/repo-paths"
 
 import { SITE } from "~/utils/config"
 import {
@@ -19,8 +19,6 @@ import {
   validateBuiltSitemap,
 } from "~/utils/sitemap-build.mjs"
 
-// Reads the site build; skipped until `just b` has run.
-const buildTest = test.skipIf(!hasBuild)
 const built = repoUrl("dist/")
 const copies: string[] = []
 const config = (outDir = built) => ({
