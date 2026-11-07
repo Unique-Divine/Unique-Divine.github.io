@@ -9,7 +9,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint:eslint": "eslint . --ext .js,.ts,.astro"
+    "lint:eslint": "eslint . --ext .js,.ts,.astro",
+    "typecheck": "astro sync && bun run typecheck:check",
+    "typecheck:check": "bun check -p tsconfig.check.json && bun check -p services/files"
   },
   "dependencies": {
     "@astrojs/react": "^3.1.0",
@@ -39,8 +41,10 @@
     "@iconify-json/flat-color-icons": "^1.1.10",
     "@iconify-json/tabler": "^1.1.106",
     "@tailwindcss/typography": "^0.5.10",
+    "@types/bun": "1.4.3",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash.merge": "^4.6.9",
+    "@types/node": "^22",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "astro-compress": "2.2.11",

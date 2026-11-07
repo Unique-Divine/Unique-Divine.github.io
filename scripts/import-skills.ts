@@ -121,7 +121,9 @@ export function prepareSkills(files: SourceFile[]): SkillPage[] {
       const heading = tree.children.find(
         (node) => node.type === "heading" && node.depth === 1,
       )
-      const kind = source.endsWith("/SKILL.md") ? "skill" : "reference"
+      const kind: SkillPage["kind"] = source.endsWith("/SKILL.md")
+        ? "skill"
+        : "reference"
       const title = heading
         ? toString(heading)
         : kind === "skill"

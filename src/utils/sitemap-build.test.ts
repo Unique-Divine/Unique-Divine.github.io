@@ -9,7 +9,7 @@ import {
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
-import { parse } from "ultrahtml"
+import { type Node, parse } from "ultrahtml"
 import { querySelector, querySelectorAll } from "ultrahtml/selector"
 import { buildTest, repoUrl } from "~/utils/repo-paths"
 
@@ -37,7 +37,7 @@ function fixture() {
       !/\.(?:css|js|png|jpg|jpeg|webp|svg|woff2?|json|md|txt)$/.test(source) ||
       source.endsWith("robots.txt"),
   })
-  return pathToFileURL(`${dir}/`)
+  return new URL(pathToFileURL(`${dir}/`).href)
 }
 afterEach(() => {
   for (const dir of copies.splice(0))
@@ -127,7 +127,7 @@ buildTest("blog entries are grouped under category headings and the TOC targets 
   )
   for (const link of tagLinks) {
     const label = link.children
-      .map((node) => node.value ?? "")
+      .map((node: Node) => node.value ?? "")
       .join("")
       .trim()
     expect(label.startsWith("On ")).toBe(false)

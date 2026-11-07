@@ -14,6 +14,12 @@ export const EXCLUDED_PAGES = new Set([
   "/discord-mcp/intent-review",
 ])
 
+/**
+ * Whether a page belongs in the public sitemap.
+ * @param {string | URL} href
+ * @param {{ site: string, index?: boolean, canonical?: string, draft?: boolean, redirect?: boolean }} page
+ * @returns {boolean}
+ */
 export function isDiscoverablePage(
   href,
   { site, index = true, canonical, draft = false, redirect = false },
