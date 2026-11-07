@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint:eslint": "eslint . --ext .js,.ts,.astro",
-    "typecheck": "astro sync && bun check -p tsconfig.check.json && bun check -p services/files"
+    "typecheck": "astro sync && bun run typecheck:check",
+    "typecheck:check": "bun check -p tsconfig.check.json && bun check -p services/files"
   },
   "dependencies": {
     "@astrojs/react": "^3.1.0",
