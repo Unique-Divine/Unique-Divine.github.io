@@ -90,9 +90,16 @@ alias t := test
 # Not checked: .astro files (need astro check) and the bodies of .mjs/.js
 # helpers such as src/utils/sitemap-build.mjs (no checkJs yet).
 typecheck:
-  bun run typecheck
+  bun run astro sync
+  just typecheck-nosync
 
 alias tc := typecheck
+
+# Type-check without astro sync. CI runs this right after just b, which has
+# already generated .astro/types.d.ts.
+typecheck-nosync:
+  bun check -p tsconfig.check.json
+  bun check -p services/files
 
 preview:
   bun run astro preview
