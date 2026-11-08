@@ -16,7 +16,7 @@ const metadataDefinition = () =>
       title: z.string().optional(),
       ignoreTitleTemplate: z.boolean().optional(),
 
-      canonical: z.string().url().optional(),
+      canonical: z.url().optional(),
 
       robots: z
         .object({
@@ -125,7 +125,7 @@ export const collections = {
       featured: z.boolean().default(false),
       order: z.number().default(0),
       draft: z.boolean().default(false),
-      links: z.array(z.object({ label: z.string(), href: z.string().url() })),
+      links: z.array(z.object({ label: z.string(), href: z.url() })),
     }),
   }),
 }

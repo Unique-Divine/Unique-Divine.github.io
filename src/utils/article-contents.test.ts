@@ -2,10 +2,11 @@ import { describe, expect, test } from "bun:test"
 import { createMarkdownProcessor } from "@astrojs/markdown-remark"
 
 import { getArticleContents } from "~/utils/article-contents"
+import { markdownPlugins } from "~/utils/frontmatter.mjs"
 
 describe("compiler-generated article contents", () => {
   test("links to actual Markdown IDs, including duplicates and Unicode", async () => {
-    const processor = await createMarkdownProcessor()
+    const processor = await createMarkdownProcessor(markdownPlugins)
     const { code, metadata } = await processor.render(
       [
         "# Page title",
@@ -27,6 +28,15 @@ describe("compiler-generated article contents", () => {
     expect(items[2].label).toBe("Using code and emphasis")
     expect(items[2].depth).toBe(3)
     for (const { id } of items.slice(1)) expect(code).toContain(`id="${id}"`)
+  })
+
+  test("keeps Astro 4 IDs for headings whose slug ends in a hyphen", async () => {
+    const processor = await createMarkdownProcessor(markdownPlugins)
+    const { code, metadata } = await processor.render(
+      ["## GET /", "## GET /"].join("\n\n"),
+    )
+    expect(metadata.headings.map(({ slug }) => slug)).toEqual(["get", "get--1"])
+    expect(code).toContain('id="get"')
   })
 
   test("is opt-in and omits navigation when there are no section headings", () => {

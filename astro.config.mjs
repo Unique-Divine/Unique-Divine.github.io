@@ -11,10 +11,7 @@ import { defineConfig } from "astro/config"
 
 import { skillCoverValidation } from "./scripts/skill-covers.mjs"
 import { ANALYTICS, SITE } from "./src/utils/config.ts"
-import {
-  readingTimeRemarkPlugin,
-  responsiveTablesRehypePlugin,
-} from "./src/utils/frontmatter.mjs"
+import { markdownPlugins } from "./src/utils/frontmatter.mjs"
 import {
   canonicalSitemap,
   sitemapValidation,
@@ -81,7 +78,10 @@ export default defineConfig({
     ),
 
     compress({
-      CSS: true,
+      // Vite already minifies CSS for the browsers set in vite.build.
+      // astro-compress 2.4 would run Lightning CSS again for recent browsers
+      // only, which strips prefixes and rewrites media queries.
+      CSS: false,
       HTML: {
         "html-minifier-terser": {
           removeAttributeQuotes: false,
@@ -103,10 +103,7 @@ export default defineConfig({
   markdown: {
     // Sätteri is Astro 7's default processor. The unified processor keeps the
     // remark and rehype pipeline the site's plugins and tests target.
-    processor: unified({
-      remarkPlugins: [readingTimeRemarkPlugin],
-      rehypePlugins: [responsiveTablesRehypePlugin],
-    }),
+    processor: unified(markdownPlugins),
   },
 
   vite: {
@@ -119,6 +116,13 @@ export default defineConfig({
         }),
       },
     ],
+    // Vite 8 minifies CSS with Lightning CSS, which drops prefixes and
+    // rewrites media queries for the browsers it targets. Astro builds client
+    // code for esnext, so name Vite 5's default browsers to keep prefixes
+    // such as -webkit-backdrop-filter that older Safari needs.
+    build: {
+      cssTarget: ["edge88", "firefox78", "chrome87", "safari14"],
+    },
     optimizeDeps: { include: ["react-activity-calendar"] },
     resolve: {
       alias: {
