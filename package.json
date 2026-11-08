@@ -29,7 +29,6 @@
     "react": "^18.3.1",
     "react-activity-calendar": "3.2.1",
     "react-dom": "^18.3.1",
-    "typescript-esbuild": "^0.3.10",
     "unpic": "^3.17.0"
   },
   "devDependencies": {
@@ -51,6 +50,7 @@
     "@typescript-eslint/parser": "^7.1.0",
     "astro-compress": "2.4.3",
     "autoprefixer": "^10.4.17",
+    "esbuild": "0.28.2",
     "eslint": "^8.57.0",
     "eslint-plugin-astro": "^0.31.4",
     "eslint-plugin-jsx-a11y": "^6.8.0",

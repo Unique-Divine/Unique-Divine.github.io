@@ -120,7 +120,9 @@ export default defineConfig({
     // CSS, rounds numbers to six significant digits: Tailwind Typography's
     // 1.3333333em becomes 1.33333em, which shifts prose layout by a fraction
     // of a pixel per paragraph. Prefixes come from autoprefixer and media
-    // queries from postcss.config.cjs, not from the minifier.
+    // queries from postcss.config.cjs, not from the minifier. esbuild is an
+    // optional Vite peer, so package.json pins it (0.28.2, in Vite's range);
+    // a different version can change the minified CSS.
     build: {
       cssMinify: "esbuild",
     },
