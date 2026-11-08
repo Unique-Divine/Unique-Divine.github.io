@@ -1,6 +1,8 @@
 import type { MarkdownHeading } from "astro"
 import { getCollection } from "astro:content"
 
+import type { Post } from "~/types"
+
 import { getSectionTitleOverride } from "../data/blogSections"
 import { SITE_PAGES } from "../data/sitePages"
 import { fetchPosts, fetchStandingPages } from "./blog"
@@ -20,6 +22,34 @@ import { getSitemapTagLabel } from "./tags"
 function siteOrigin(): string {
   if (!SITE.site) throw new Error("src/config.yaml must set site.site")
   return SITE.site
+}
+
+/**
+ * Whether a post, standing page, or skill belongs in the sitemap: not a
+ * draft, not noindex, and canonical to its own URL. llms.txt uses the same
+ * rule.
+ */
+export function isPublicPost(post: Post): boolean {
+  return isDiscoverablePage(
+    String(getCanonical(getPermalink(post.permalink, "post"))),
+    {
+      site: siteOrigin(),
+      draft: post.draft,
+      index:
+        post.metadata?.robots?.index ??
+        APP_BLOG.post.robots.index ??
+        METADATA.robots?.index,
+      canonical: post.metadata?.canonical,
+    },
+  )
+}
+
+/** Whether a site-relative page path belongs in the sitemap. */
+export function isPublicPage(href: string): boolean {
+  return isDiscoverablePage(String(getCanonical(href)), {
+    site: siteOrigin(),
+    index: METADATA.robots?.index,
+  })
 }
 
 export interface SitemapLink {
@@ -63,22 +93,7 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
     APP_BLOG.isEnabled &&
     APP_BLOG[kind].isEnabled &&
     (APP_BLOG[kind].robots.index ?? METADATA.robots?.index) !== false
-  const publicPosts = posts
-    .filter((post) =>
-      isDiscoverablePage(
-        String(getCanonical(getPermalink(post.permalink, "post"))),
-        {
-          site: siteOrigin(),
-          draft: post.draft,
-          index:
-            post.metadata?.robots?.index ??
-            APP_BLOG.post.robots.index ??
-            METADATA.robots?.index,
-          canonical: post.metadata?.canonical,
-        },
-      ),
-    )
-    .sort(newestFirst)
+  const publicPosts = posts.filter(isPublicPost).sort(newestFirst)
   const archives = (kind: "category" | "tag") => {
     if (!enabled(kind)) return []
     const slugs = new Set(
@@ -196,14 +211,7 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
   const seen = new Set<string>()
   const include = (page: SitemapLink, resource = false) => {
     if (seen.has(page.href)) return false
-    if (
-      !resource &&
-      !isDiscoverablePage(String(getCanonical(page.href)), {
-        site: siteOrigin(),
-        index: METADATA.robots?.index,
-      })
-    )
-      return false
+    if (!resource && !isPublicPage(page.href)) return false
     seen.add(page.href)
     return true
   }
