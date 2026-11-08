@@ -12,13 +12,13 @@ const { projects } = Astro.props
 
 <ul class="divide-y divide-slate-200 dark:divide-slate-700">
   {
-    projects.map(({ slug, data }) => (
+    projects.map(({ id, data }) => (
       <li class="py-6 sm:py-8">
         <p class="text-sm text-muted mb-2">{data.role}</p>
         <h3 class="text-2xl sm:text-3xl font-heading font-bold tracking-tight">
           <a
             class="inline-flex items-center gap-3 hover:text-blue-600 dark:hover:text-cyan-300 focus-visible:underline"
-            href={`/code/projects/${slug}`}
+            href={`/code/projects/${id}`}
           >
             <ProjectIcon name={data.icon} />
             <span>{data.title}</span>
@@ -28,7 +28,7 @@ const { projects } = Astro.props
         <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
           <a
             class="font-medium text-blue-600 dark:text-cyan-300 hover:underline"
-            href={`/code/projects/${slug}`}
+            href={`/code/projects/${id}`}
           >
             Read the Story <span aria-hidden="true">→</span>
           </a>

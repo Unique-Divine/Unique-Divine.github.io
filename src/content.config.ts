@@ -1,4 +1,14 @@
-import { defineCollection, z } from "astro:content"
+import { defineCollection } from "astro:content"
+import { glob } from "astro/loaders"
+import { z } from "astro/zod"
+
+// Markdown and MDX entries, skipping underscore-prefixed files the way legacy
+// collections did. Entry ids match the legacy slugs.
+const markdownIn = (collection: string) =>
+  glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: `./src/content/${collection}`,
+  })
 
 const metadataDefinition = () =>
   z
@@ -46,6 +56,7 @@ const metadataDefinition = () =>
     .optional()
 
 const postCollection = defineCollection({
+  loader: markdownIn("post"),
   schema: z.object({
     publishDate: z.date(),
     kind: z.enum(["article", "page"]).default("article"),
@@ -73,7 +84,7 @@ const postCollection = defineCollection({
 export const collections = {
   post: postCollection,
   skill: defineCollection({
-    type: "content",
+    loader: markdownIn("skill"),
     schema: z.object({
       title: z.string(),
       description: z.string(),
@@ -87,7 +98,7 @@ export const collections = {
     }),
   }),
   project: defineCollection({
-    type: "content",
+    loader: markdownIn("project"),
     schema: z.object({
       title: z.string(),
       summary: z.string(),

@@ -163,7 +163,7 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
       pages: [
         { href: getPermalink("/code/projects"), label: "All projects" },
         ...projects.map((project) => ({
-          href: getPermalink(`/code/projects/${project.slug}`),
+          href: getPermalink(`/code/projects/${project.id}`),
           label: project.data.title,
         })),
       ],

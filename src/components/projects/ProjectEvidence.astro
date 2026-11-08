@@ -19,11 +19,11 @@ const { id = "code-projects-title", variant = "compact" } = Astro.props
 const detailed = variant === "detailed"
 const projects = await getProjects()
 const toReference = ({
-  slug,
+  id,
   data,
 }: (typeof projects)[number]): ProjectReference => ({
   title: data.title,
-  href: `/code/projects/${slug}`,
+  href: `/code/projects/${id}`,
   summary: data.summary,
   icon: data.icon,
   sourceHref: data.links.find(
@@ -36,15 +36,15 @@ const current = projects
 if (detailed) current.push(chainReference)
 const research = await getCollection(
   "post",
-  ({ slug, data }) => slug.startsWith("code/projects/") && !data.draft,
+  ({ id, data }) => id.startsWith("code/projects/") && !data.draft,
 )
 research.sort((a, b) => a.data.title.localeCompare(b.data.title))
 const earlier = [
   ...projects.filter(({ data }) => data.group === "earlier").map(toReference),
   ...research.map(
-    ({ slug, data }): ProjectReference => ({
+    ({ id, data }): ProjectReference => ({
       title: data.title,
-      href: `/${slug}`,
+      href: `/${id}`,
       summary: data.excerpt ?? "",
       icon: "code",
     }),
