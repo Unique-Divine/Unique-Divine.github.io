@@ -84,11 +84,9 @@ test:
 alias t := test
 
 # Type-check the site, scripts, and file service with Bun's checker.
-# tsconfig.check.json stands apart from tsconfig.json because Astro 4
-# tooling wants baseUrl, which Bun's TypeScript 7 checker rejects.
-# tsconfig.test.ts keeps the two configs' aliases in step.
-# Not checked: .astro files (need astro check) and the bodies of .mjs/.js
-# helpers such as src/utils/sitemap-build.mjs (no checkJs yet).
+# astro sync first writes .astro/types.d.ts, which tsconfig.json includes.
+# Not checked: .astro files (run `bun run astro check`) and the bodies of
+# .mjs/.js helpers such as src/utils/sitemap-build.mjs (no checkJs yet).
 typecheck:
   bun run astro sync
   just typecheck-nosync
@@ -98,7 +96,7 @@ alias tc := typecheck
 # Type-check without astro sync. CI runs this right after just b, which has
 # already generated .astro/types.d.ts.
 typecheck-nosync:
-  bun check -p tsconfig.check.json
+  bun check
   bun check -p services/files
 
 preview:
