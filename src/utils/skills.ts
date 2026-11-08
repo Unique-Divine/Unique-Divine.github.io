@@ -15,6 +15,7 @@ export async function getSkills() {
 export function skillArchivePost(entry: CollectionEntry<"skill">): Post {
   return {
     id: `skill:${entry.id}`,
+    filePath: entry.filePath,
     slug: `ai-skills/${entry.data.route}`,
     permalink: `ai-skills/${entry.data.route}`,
     title: entry.data.title,

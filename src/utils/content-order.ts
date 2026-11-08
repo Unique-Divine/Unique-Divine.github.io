@@ -10,3 +10,10 @@ export const byFilePath = <T extends { filePath?: string }>(
   const [x, y] = [a.filePath ?? "", b.filePath ?? ""]
   return x < y ? -1 : x > y ? 1 : 0
 }
+
+/** Newest first; posts that share a publish date keep source-path order. */
+export const newestFirst = <T extends { publishDate: Date; filePath?: string }>(
+  a: T,
+  b: T,
+): number =>
+  b.publishDate.valueOf() - a.publishDate.valueOf() || byFilePath(a, b)

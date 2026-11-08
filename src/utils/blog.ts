@@ -42,6 +42,7 @@ const getNormalizedPost = async (
 
   return {
     id: id,
+    filePath: post.filePath,
     slug: slug,
     kind,
     permalink: postPermalink({
