@@ -85,6 +85,8 @@ All commands are run from the root of the project using `just`:
 | `just dev`    | Starts local dev server at `localhost:3000`   |
 | `just b`      | Build your production site to `./dist/`       |
 | `just preview`| Preview your build locally                    |
+| `just typecheck` | Type-check with `bun check` and `astro check` |
+| `just t`      | Run tests                                     |
 | `just fmt`    | Format codes with Prettier                    |
 | `just lint`   | Run ESLint                                    |
 | `just deploy` | Build and deploy to GitHub Pages              |

@@ -1,4 +1,4 @@
-import { afterEach, expect, test } from "bun:test"
+import { afterEach, expect } from "bun:test"
 import {
   cpSync,
   mkdtempSync,
