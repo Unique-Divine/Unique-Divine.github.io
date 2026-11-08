@@ -158,6 +158,54 @@ test("childless components become a note, a mapped text, or an image", async () 
   expect(mdxLeftovers(out)).toEqual([])
 })
 
+test("removed blocks keep list items and blockquotes intact", async () => {
+  const list = "- item\n\n  {/* note */}\n\n  more text\n\n- next\n"
+  expect(await reduceMarkdown(list, mdx)).toBe(
+    "- item\n\n  more text\n\n- next\n",
+  )
+  const quote = "> a\n>\n> {/* note */}\n>\n> b\n\nAfter.\n"
+  expect(await reduceMarkdown(quote, mdx)).toBe("> a\n>\n> b\n\nAfter.\n")
+})
+
+test("multi-line replacements keep their container prefix", async () => {
+  const source = [
+    'import Box from "~/components/Box.astro"',
+    "",
+    "> a",
+    ">",
+    "> <Box />",
+    ">",
+    "> b",
+    "",
+    "- item",
+    "",
+    "  <Box />",
+    "",
+  ].join("\n")
+  const out = await reduceMarkdown(source, {
+    ...mdx,
+    components: { "~/components/Box.astro": () => "X\n\nY" },
+  })
+  expect(out).toBe(
+    [
+      "> a",
+      ">",
+      "> X",
+      ">",
+      "> Y",
+      ">",
+      "> b",
+      "",
+      "- item",
+      "",
+      "  X",
+      "",
+      "  Y",
+      "",
+    ].join("\n"),
+  )
+})
+
 test("mapped wrappers keep text around their unwrapped content", async () => {
   const out = await reduceMarkdown(
     [

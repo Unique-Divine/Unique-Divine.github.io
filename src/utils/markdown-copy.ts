@@ -182,12 +182,53 @@ export async function reduceMarkdown(
   const modules = new Map<string, string>()
   const edits: Edit[] = []
 
-  /** Removes a block, with the blank lines after it. */
+  /** Index just past the end of the line that holds `index`. */
+  const lineEnd = (index: number) => {
+    const newline = source.indexOf("\n", index)
+    return newline < 0 ? source.length : newline + 1
+  }
+  /** A line with only container markup: list indentation or `>` markers. */
+  const isPrefix = (text: string) => /^[ \t>]*$/.test(text)
+
+  /**
+   * Replaces a block with `text`, or removes it. Inside a list item or
+   * blockquote, replacement lines get the block's own prefix, and a removal
+   * takes the block's whole lines plus the blank lines after it, so the
+   * following line keeps its indentation and the container stays intact.
+   */
   const removeFlow = (node: Nodes, text = "") => {
-    let stop = end(node)
-    while (/[ \t\n\r]/.test(source[stop] ?? "")) stop++
-    const tail = stop < source.length ? "\n\n" : "\n"
-    edits.push({ start: start(node), end: stop, text: text ? text + tail : "" })
+    const from = start(node)
+    const to = end(node)
+    const lineStart = source.lastIndexOf("\n", from - 1) + 1
+    const prefix = source.slice(lineStart, from)
+    const contained = isPrefix(prefix)
+    if (text) {
+      const lines = text.split("\n")
+      edits.push({
+        start: from,
+        end: to,
+        text: contained
+          ? lines
+              .map((line, i) =>
+                i === 0 ? line : line ? prefix + line : prefix.trimEnd(),
+              )
+              .join("\n")
+          : text,
+      })
+      return
+    }
+    const rest = lineEnd(to)
+    if (!contained || !/^[ \t]*\r?\n?$/.test(source.slice(to, rest))) {
+      edits.push({ start: from, end: to, text: "" })
+      return
+    }
+    let stop = rest
+    while (stop < source.length) {
+      const next = lineEnd(stop)
+      if (!isPrefix(source.slice(stop, next).replace(/\r?\n$/, ""))) break
+      stop = next
+    }
+    edits.push({ start: lineStart, end: stop, text: "" })
   }
 
   const resolveImage = async (url: string): Promise<string | undefined> => {
