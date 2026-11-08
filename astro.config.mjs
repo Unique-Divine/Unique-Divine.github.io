@@ -1,13 +1,13 @@
 import { readFileSync } from "node:fs"
 import path from "path"
 import { fileURLToPath } from "url"
+import { unified } from "@astrojs/markdown-remark"
 import mdx from "@astrojs/mdx"
 import partytown from "@astrojs/partytown"
 import react from "@astrojs/react"
-import tailwind from "@astrojs/tailwind"
 import compress from "astro-compress"
 import icon from "astro-icon"
-import { defineConfig, squooshImageService } from "astro/config"
+import { defineConfig } from "astro/config"
 
 import { skillCoverValidation } from "./scripts/skill-covers.mjs"
 import { ANALYTICS, SITE } from "./src/utils/config.ts"
@@ -38,6 +38,10 @@ export default defineConfig({
 
   output: "static",
 
+  // astro-compress minifies HTML below. Astro's own compressor would run first
+  // and change what astro-compress receives.
+  compressHTML: false,
+
   redirects: {
     ...Object.fromEntries(
       JSON.parse(
@@ -50,9 +54,6 @@ export default defineConfig({
   },
 
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
     canonicalSitemap(),
     mdx(),
     react(),
@@ -99,13 +100,13 @@ export default defineConfig({
     skillCoverValidation(),
   ],
 
-  image: {
-    service: squooshImageService(),
-  },
-
   markdown: {
-    remarkPlugins: [readingTimeRemarkPlugin],
-    rehypePlugins: [responsiveTablesRehypePlugin],
+    // Sätteri is Astro 7's default processor. The unified processor keeps the
+    // remark and rehype pipeline the site's plugins and tests target.
+    processor: unified({
+      remarkPlugins: [readingTimeRemarkPlugin],
+      rehypePlugins: [responsiveTablesRehypePlugin],
+    }),
   },
 
   vite: {
