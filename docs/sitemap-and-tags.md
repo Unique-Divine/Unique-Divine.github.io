@@ -80,10 +80,14 @@ Markdown stays as written except for these changes:
 - MDX `import`/`export` lines and `{expressions}` are removed.
 - JSX elements with children, such as `<Guide>` or a `<div>`, unwrap to
   their content.
-- Childless components become text. The `COMPONENTS` map in
-  `markdown-copies.ts`, keyed by import path, turns the block-latency
-  `Figure` into a Markdown image of its SVG and drops its color `Legend`.
-  Other components become a note that links to the web page.
+- `markdownComponents` in `src/utils/markdown-components.ts`, keyed by
+  import path, maps components to Markdown. The block-latency entries in
+  `src/components/research/block-latency/markdown.ts` render each widget's
+  default view, the voting validator, from the same model as the web page:
+  its figure, its phase, scenario, or upgrade table, and its summary text.
+  `Guide` keeps its stat line and a `Data:` line of absolute links to the
+  measurement files, and `Legend`, a color key, is dropped. Other childless
+  components become a note that links to the web page.
 - Images under `src/assets/images` resolve through `getImage` to the
   optimized `/_astro/` file the HTML page uses. Root-relative images and
   links, `#fragment` links, and raw HTML `src`/`href` become absolute. An

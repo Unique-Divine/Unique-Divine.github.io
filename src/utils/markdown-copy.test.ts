@@ -8,6 +8,7 @@ import {
   interactiveNote,
   markdownCopyHref,
   markdownCopyParam,
+  markdownTable,
   mdxLeftovers,
   proseLines,
   reduceMarkdown,
@@ -155,6 +156,37 @@ test("childless components become a note, a mapped text, or an image", async () 
     ].join("\n"),
   )
   expect(mdxLeftovers(out)).toEqual([])
+})
+
+test("mapped wrappers keep text around their unwrapped content", async () => {
+  const out = await reduceMarkdown(
+    [
+      'import Guide from "~/components/Guide.astro"',
+      "",
+      "<Guide>",
+      "",
+      "Body.",
+      "",
+      "</Guide>",
+      "",
+    ].join("\n"),
+    {
+      ...mdx,
+      components: {
+        "~/components/Guide.astro": () => ({
+          before: "Stats.",
+          after: "Data: [JSON](https://x.test/m.json)",
+        }),
+      },
+    },
+  )
+  expect(out).toBe("Stats.\n\nBody.\n\nData: [JSON](https://x.test/m.json)\n")
+})
+
+test("markdownTable escapes pipes and collapses whitespace", () => {
+  expect(markdownTable(["A", "B|C"], [["x\ny", 1.5]])).toBe(
+    "| A | B\\|C |\n| --- | --- |\n| x y | 1.5 |",
+  )
 })
 
 test("images resolve to absolute URLs or fall back to alt text", async () => {

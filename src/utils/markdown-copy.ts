@@ -33,13 +33,37 @@ export function markdownCopyParam(page: string): string {
 export type JsxAttributes = Record<string, string | true>
 
 /**
- * Replacement text for a childless JSX component, keyed by the module it is
- * imported from. Return `undefined` to fall back to the default note.
+ * Replacement for a JSX component, keyed by the module it is imported from.
+ * A childless component returns its text; return `undefined` to fall back to
+ * the default note. A component with children returns a `ComponentWrap` to
+ * keep text from its own markup around the unwrapped content.
  */
 export type ComponentText = (
   attributes: JsxAttributes,
   context: { page: string },
-) => string | undefined
+) => string | ComponentWrap | undefined
+
+/** Markdown placed before and after a wrapper component's content. */
+export interface ComponentWrap {
+  before?: string
+  after?: string
+}
+
+/** Markdown table with escaped cells; numbers are written as given. */
+export function markdownTable(
+  headers: string[],
+  rows: (string | number)[][],
+): string {
+  const cell = (value: string | number) =>
+    String(value)
+      .replace(/\s+/g, " ")
+      .replace(/([\\|])/g, "\\$1")
+  return [
+    `| ${headers.map(cell).join(" | ")} |`,
+    `| ${headers.map(() => "---").join(" | ")} |`,
+    ...rows.map((row) => `| ${row.map(cell).join(" | ")} |`),
+  ].join("\n")
+}
 
 export interface ReduceOptions {
   /** Parse as MDX. Plain Markdown keeps raw HTML; MDX turns it into JSX. */
@@ -127,7 +151,11 @@ export function cleanHtml(html: string, site: string): string {
 }
 
 const escapeAlt = (alt: string) => alt.replace(/([\\[\]])/g, "\\$1")
-const imageMarkdown = (alt: string, url: string, title?: string | null) =>
+export const imageMarkdown = (
+  alt: string,
+  url: string,
+  title?: string | null,
+) =>
   `![${escapeAlt(alt)}](${url}${
     title ? ` "${title.replace(/"/g, '\\"')}"` : ""
   })`
@@ -177,19 +205,30 @@ export async function reduceMarkdown(
   const jsx = async (node: MdxJsxFlowElement | MdxJsxTextElement) => {
     const flow = node.type === "mdxJsxFlowElement"
     const children = node.children as Nodes[]
-    if (children.length) {
-      // Unwrap: drop the opening and closing tags, keep the content.
-      edits.push({ start: start(node), end: start(children[0]), text: "" })
-      edits.push({ start: end(children.at(-1)!), end: end(node), text: "" })
-      for (const child of children) await visit(child, node as Parent)
-      return
-    }
     const attributes = jsxAttributes(node)
     const name = node.name ?? ""
     const module = modules.get(name.split(".")[0])
-    let text = module
+    const mapped = module
       ? options.components?.[module]?.(attributes, { page })
       : undefined
+    if (children.length) {
+      // Unwrap: replace the opening and closing tags, keep the content.
+      const wrap = typeof mapped === "object" ? mapped : {}
+      const gap = flow ? "\n\n" : ""
+      edits.push({
+        start: start(node),
+        end: start(children[0]),
+        text: wrap.before ? wrap.before + gap : "",
+      })
+      edits.push({
+        start: end(children.at(-1)!),
+        end: end(node),
+        text: wrap.after ? gap + wrap.after : "",
+      })
+      for (const child of children) await visit(child, node as Parent)
+      return
+    }
+    let text = typeof mapped === "string" ? mapped : undefined
     if (text === undefined) {
       const { alt, src } = attributes
       if (typeof alt === "string")

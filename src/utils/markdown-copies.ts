@@ -3,16 +3,14 @@ import type { ImageMetadata } from "astro"
 import { getImage } from "astro:assets"
 import { getCollection } from "astro:content"
 
-import { ASSET_BASE } from "~/components/research/block-latency/model"
-
 import { fetchPosts } from "./blog"
 import { SITE } from "./config"
 import { fetchLocalImages } from "./images"
 import { absoluteUrl } from "./llms"
+import { markdownComponents } from "./markdown-components"
 import {
   markdownCopyHref,
   reduceMarkdown,
-  type ComponentText,
   type MarkdownCopy,
 } from "./markdown-copy"
 import { getPermalink } from "./permalinks"
@@ -85,22 +83,6 @@ export async function getMarkdownSources(): Promise<MarkdownSource[]> {
 }
 
 /**
- * Components whose props carry content worth keeping, keyed by the module an
- * MDX file imports them from. Other childless components become a note.
- */
-const COMPONENTS: Record<string, ComponentText> = {
-  "~/components/research/block-latency/Figure.astro": ({ file, alt }) =>
-    typeof file === "string" && typeof alt === "string"
-      ? `![${alt.replace(/([\\[\]])/g, "\\$1")}](${absoluteUrl(
-          ASSET_BASE + file,
-          siteOrigin(),
-        )})`
-      : undefined,
-  // A color key for the figure that follows it; the copy has no colors.
-  "~/components/research/block-latency/Legend.astro": () => "",
-}
-
-/**
  * Absolute URL of an optimized image under `src/assets/images`, given its
  * path relative to the entry file. `getImage` with no options emits the same
  * file as Astro's Markdown image pipeline, so the copy links to the image the
@@ -136,7 +118,7 @@ export async function buildMarkdownCopy(
       page,
       site,
       resolveImage: (url) => optimizedImage(url, source.filePath),
-      components: COMPONENTS,
+      components: markdownComponents(site),
     }),
   }
 }
