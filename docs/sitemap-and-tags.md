@@ -52,10 +52,60 @@ first. The pure section builder and renderer live in `src/utils/llms.ts`.
 Descriptions come from each entry's excerpt, SEO description, project
 tagline, or skill description, collapsed to one line.
 
-`src/utils/llms.test.ts` covers the format with test data.
-`src/utils/llms.build.test.ts` checks the built `dist/llms.txt`: one H1, a
-summary, no duplicate links, and every page link built and in the XML
-sitemap. Like the other dist tests, it skips until `just b` has run.
+Links point to Markdown where the site has it:
+
+- **Posts and projects** link to a generated copy at the canonical path plus
+  `.md`, such as `/blog/26-10-19-block-latency.md`.
+- **Agent skills** link to `/ai-skills-source/<source>`, the `SKILL.md` that
+  `just skills-import` copies into `public/`.
+- **Standing pages and indexes**, such as `/about` and `/blog`, keep their
+  HTML links.
+
+### Markdown Copies
+
+`src/pages/[...path].md.ts` writes one copy per post and project that
+llms.txt lists. `getMarkdownSources` in `src/utils/markdown-copies.ts`
+chooses them with the same filters, and llms.txt links to exactly that set.
+A new post gets a copy on the next build. The `.md` suffix keeps these
+routes apart from the HTML routes under `[...blog]` and `code/projects`.
+Firebase's `cleanUrls` only touches `.html`, so it serves each copy as a
+file, by extension, as `text/markdown; charset=utf-8`, like `SKILL.md`.
+
+Each copy has an H1 title, a `Web page:` line with the canonical HTML URL
+and dates, a blank line, then the entry body. `reduceMarkdown` in
+`src/utils/markdown-copy.ts` parses the body with remark, adding
+`remark-mdx` for `.mdx`, and edits the source by offset, so the author's
+Markdown stays as written except for these changes:
+
+- MDX `import`/`export` lines and `{expressions}` are removed.
+- JSX elements with children, such as `<Guide>` or a `<div>`, unwrap to
+  their content.
+- `markdownComponents` in `src/utils/markdown-components.ts`, keyed by
+  import path, maps components to Markdown. The block-latency entries in
+  `src/components/research/block-latency/markdown.ts` render each widget's
+  default view, the voting validator, from the same model as the web page:
+  its figure, its phase, scenario, or upgrade table, and its summary text.
+  `Guide` keeps its stat line and a `Data:` line of absolute links to the
+  measurement files, and `Legend`, a color key, is dropped. Other childless
+  components become a note that links to the web page.
+- Images under `src/assets/images` resolve through `getImage` to the
+  optimized `/_astro/` file the HTML page uses. Root-relative images and
+  links, `#fragment` links, and raw HTML `src`/`href` become absolute. An
+  image that can't be resolved is reduced to its alt text.
+- HTML comments are dropped.
+
+Code blocks and inline code are never changed.
+
+### Tests
+
+`src/utils/llms.test.ts` covers the format with test data, and
+`src/utils/markdown-copy.test.ts` covers the MDX reduction and path
+mapping. `src/utils/llms.build.test.ts` checks the built `dist/llms.txt`:
+one H1, a summary, no duplicate links, every link built, and every page
+link (or a copy's HTML page) in the XML sitemap. It also checks that each
+copy holds no MDX imports, exports, or JSX tags outside code, and that
+the built copies match the listed set. Like the other dist tests, it skips
+until `just b` has run.
 
 ## Choosing tags
 

@@ -24,6 +24,12 @@ export const escapeText = (value: string | number) =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
 
+/** Header and body rows that render as an HTML or a Markdown table. */
+export interface TableData {
+  headers: string[]
+  rows: (string | number)[][]
+}
+
 export function table(headers: string[], rows: (string | number)[][]) {
   return `<table><thead><tr>${headers.map((s) => `<th scope="col">${escapeText(s)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((v, i) => (i === 0 ? `<th scope="row">${escapeText(v)}</th>` : `<td>${escapeText(v)}</td>`)).join("")}</tr>`).join("")}</tbody></table>`
 }
@@ -40,8 +46,13 @@ export function endpoints(pod: Pod) {
 }
 
 export function normalTable(pod: Pod) {
-  return table(
-    [
+  const { headers, rows } = normalRows(pod)
+  return table(headers, rows)
+}
+
+export function normalRows(pod: Pod): TableData {
+  return {
+    headers: [
       "Phase",
       "Mean visit, ms",
       "Per block, ms",
@@ -49,7 +60,7 @@ export function normalTable(pod: Pod) {
       "Share",
       "Coverage",
     ],
-    data.normal[pod].phases.map((p) => [
+    rows: data.normal[pod].phases.map((p) => [
       p.state,
       fmt(p.mean_visit_ms),
       fmt(p.contribution_ms_per_block),
@@ -63,7 +74,7 @@ export function normalTable(pod: Pod) {
           ? `Missing ${p.missing_count_samples_vs_block} scrape(s)`
           : "Observed",
     ]),
-  )
+  }
 }
 
 export function phaseDetail(pod: Pod, state: State) {
@@ -100,10 +111,15 @@ export function scenarios(pod: Pod) {
 }
 
 export function scenarioTable(pod: Pod) {
-  return table(
-    ["Scenario", "Interval, ms", "Evidence status"],
-    scenarios(pod).map((s) => [s.label, fmt(s.value), s.status]),
-  )
+  const { headers, rows } = scenarioRows(pod)
+  return table(headers, rows)
+}
+
+export function scenarioRows(pod: Pod): TableData {
+  return {
+    headers: ["Scenario", "Interval, ms", "Evidence status"],
+    rows: scenarios(pod).map((s) => [s.label, fmt(s.value), s.status]),
+  }
 }
 
 export function scenarioText(pod: Pod) {
@@ -126,12 +142,38 @@ export function recoveryDuration(version: Version) {
     : `${minutes} min`
 }
 
-export function upgradeFacts(version: Version) {
+/** The two headline facts for an upgrade: interruption and recovery. */
+export function upgradeFactList(version: Version) {
   const u = data.upgrades[version]
-  return `<div class="bl-card"><span class="bl-badge">Initial interruption</span><h3>${fmt(u.gap.interval_seconds)} seconds</h3><p>Largest canonical header interval, at H+2. Header time derives from previous-height commit votes, so this is not a local halt stopwatch.</p></div><div class="bl-card"><span class="bl-badge">Recovery criterion</span><h3>Confirmed at +${recoveryDuration(version)}</h3><p>The qualifying 30-minute sequence runs from ${u.recovery.stable_start_utc.slice(11, 19)} to ${u.recovery.confirmed_utc.slice(11, 19)} UTC on ${u.recovery.confirmed_utc.slice(0, 10)}.</p></div>`
+  return [
+    {
+      badge: "Initial interruption",
+      title: `${fmt(u.gap.interval_seconds)} seconds`,
+      body: "Largest canonical header interval, at H+2. Header time derives from previous-height commit votes, so this is not a local halt stopwatch.",
+    },
+    {
+      badge: "Recovery criterion",
+      title: `Confirmed at +${recoveryDuration(version)}`,
+      body: `The qualifying 30-minute sequence runs from ${u.recovery.stable_start_utc.slice(11, 19)} to ${u.recovery.confirmed_utc.slice(11, 19)} UTC on ${u.recovery.confirmed_utc.slice(0, 10)}.`,
+    },
+  ]
+}
+
+export function upgradeFacts(version: Version) {
+  return upgradeFactList(version)
+    .map(
+      (fact) =>
+        `<div class="bl-card"><span class="bl-badge">${fact.badge}</span><h3>${fact.title}</h3><p>${fact.body}</p></div>`,
+    )
+    .join("")
 }
 
 export function upgradeTable(version: Version) {
+  const { headers, rows } = upgradeRows(version)
+  return table(headers, rows)
+}
+
+export function upgradeRows(version: Version): TableData {
   const u = data.upgrades[version]
   const order = ["before", "transition", "recovery", "later"] as const
   const rows: string[][] = [
@@ -158,8 +200,8 @@ export function upgradeTable(version: Version) {
       u.tables[key].complete ? "Complete" : "INCOMPLETE · reset crossing",
     ),
   ])
-  return table(
-    [
+  return {
+    headers: [
       "Milliseconds per block",
       "Before −30 to −5 min",
       "Transition −5 to +5 min",
@@ -167,7 +209,7 @@ export function upgradeTable(version: Version) {
       "Later +30 to +60 min",
     ],
     rows,
-  )
+  }
 }
 
 export function upgradeAnchor(version: Version) {

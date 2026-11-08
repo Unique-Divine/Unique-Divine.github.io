@@ -201,3 +201,34 @@ test("llmsLinks reads every link target", () => {
     llmsLinks("- [A](https://x.test/a): d\n- [B \\[c\\]](https://x.test/b)"),
   ).toEqual(["https://x.test/a", "https://x.test/b"])
 })
+
+test("pages with a Markdown alternate link to it; others keep HTML", () => {
+  const markdown = new Map([
+    ["/blog/26-10-19-block-latency", "/blog/26-10-19-block-latency.md"],
+    ["/code/projects/jiyuu", "/code/projects/jiyuu.md"],
+    ["/ai-skills/drill-spec", "/ai-skills-source/drill-spec/SKILL.md"],
+  ])
+  const links = llmsLinks(
+    renderLlmsTxt(buildLlmsIndex(source({ markdown })), site),
+  )
+  expect(links).toContain(
+    "https://uniquedivine.com/blog/26-10-19-block-latency.md",
+  )
+  expect(links).toContain("https://uniquedivine.com/code/projects/jiyuu.md")
+  expect(links).toContain(
+    "https://uniquedivine.com/ai-skills-source/drill-spec/SKILL.md",
+  )
+  // No alternate: the post, standing pages, and indexes keep HTML links.
+  for (const page of [
+    "/blog/20-09-02-why-learn-japanese",
+    "/about",
+    "/code",
+    "/blog",
+    "/code/projects",
+    "/ai-skills",
+  ])
+    expect(links).toContain(new URL(page, site).href)
+  expect(links).not.toContain(
+    "https://uniquedivine.com/blog/26-10-19-block-latency",
+  )
+})
