@@ -1,6 +1,7 @@
 import { expect, test } from "bun:test"
 import { readFileSync } from "node:fs"
 
+import { markdownComponents } from "~/utils/markdown-components"
 import {
   absoluteLink,
   cleanHtml,
@@ -350,11 +351,26 @@ test("the block-latency MDX reduces to plain Markdown", async () => {
     repoUrl("src/content/post/26-10-19-block-latency.mdx"),
     "utf8",
   ).replace(/^---\n[\s\S]*?\n---\n/, "")
-  const out = await reduceMarkdown(source, mdx)
+  const out = await reduceMarkdown(source, {
+    ...mdx,
+    components: markdownComponents(site),
+  })
   expect(mdxLeftovers(out)).toEqual([])
   expect(out).not.toMatch(/<\/?(Guide|div)\b/)
-  expect(out).toContain("## A block needs agreement, execution, and delivery.")
-  expect(out).toContain("| NewHeight |")
-  expect(out).toContain(`](${page}#what-would-remain-if-we-removed-the-wait`)
-  expect(out).toContain(interactiveNote(page))
+  // Every heading and fragment link in the source survives, with fragments
+  // resolved against the web page.
+  for (const heading of source.match(/^#{2,3} .+$/gm) ?? [])
+    expect(out).toContain(heading)
+  const fragments = [...source.matchAll(/\]\((#[^)\s]+)\)/g)].map((m) => m[1])
+  expect(fragments.length).toBeGreaterThan(0)
+  for (const fragment of fragments)
+    expect(out).toContain(`](${page}${fragment})`)
+  // Each component the post imports is mapped, so none becomes the note.
+  expect(out).not.toContain(interactiveNote(page))
+  // Every Figure in the source becomes an image of its file.
+  for (const [, file] of source.matchAll(/<Figure[^>]*?file="([^"]+)"/g))
+    expect(out).toContain(`(${site}/research/261019-block-latency/${file})`)
+  // The widgets render Markdown tables, and Guide keeps its data links.
+  expect(out.match(/^\| --- \|/gm)?.length).toBeGreaterThan(2)
+  expect(out).toMatch(/^Data: .*\/tables\.md\)/m)
 })
