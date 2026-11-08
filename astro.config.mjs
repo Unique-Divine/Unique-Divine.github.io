@@ -78,9 +78,9 @@ export default defineConfig({
     ),
 
     compress({
-      // Vite already minifies CSS for the browsers set in vite.build.
-      // astro-compress 2.4 would run Lightning CSS again for recent browsers
-      // only, which strips prefixes and rewrites media queries.
+      // Vite already minifies CSS (see vite.build.cssMinify). astro-compress
+      // 2.4 would run Lightning CSS again for recent browsers only, which
+      // strips prefixes and rewrites media queries.
       CSS: false,
       HTML: {
         "html-minifier-terser": {
@@ -116,12 +116,13 @@ export default defineConfig({
         }),
       },
     ],
-    // Vite 8 minifies CSS with Lightning CSS, which drops prefixes and
-    // rewrites media queries for the browsers it targets. Astro builds client
-    // code for esnext, so name Vite 5's default browsers to keep prefixes
-    // such as -webkit-backdrop-filter that older Safari needs.
+    // Minify CSS with esbuild, as Astro 4 did. Vite 8's default, Lightning
+    // CSS, rounds numbers to six significant digits: Tailwind Typography's
+    // 1.3333333em becomes 1.33333em, which shifts prose layout by a fraction
+    // of a pixel per paragraph. Prefixes come from autoprefixer and media
+    // queries from postcss.config.cjs, not from the minifier.
     build: {
-      cssTarget: ["edge88", "firefox78", "chrome87", "safari14"],
+      cssMinify: "esbuild",
     },
     optimizeDeps: { include: ["react-activity-calendar"] },
     resolve: {
