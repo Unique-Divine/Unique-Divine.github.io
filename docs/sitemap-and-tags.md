@@ -36,6 +36,27 @@ publishing builds.
 Run `just sitemap-test` to build and test publication rules, tag inventories,
 and failure detection against copies of the generated output.
 
+## llms.txt
+
+`/llms.txt` follows the [llmstxt.org](https://llmstxt.org) layout: one H1,
+a blockquote summary, then `##` sections of
+`- [Title](absolute-url): description` links. The static endpoint
+`src/pages/llms.txt.ts` builds it during every build, so a published post
+appears without hand edits. Don't add a `public/llms.txt`.
+
+The endpoint loads posts, standing pages, projects, and skills with the
+same helpers as the sitemap and filters them with `isPublicPost` and
+`isPublicPage` from `src/utils/sitemap.ts`. Drafts, `noindex` pages, and
+pages canonicalized elsewhere stay out of both. Posts are listed newest
+first. The pure section builder and renderer live in `src/utils/llms.ts`.
+Descriptions come from each entry's excerpt, SEO description, project
+tagline, or skill description, collapsed to one line.
+
+`src/utils/llms.test.ts` covers the format with test data.
+`src/utils/llms.build.test.ts` checks the built `dist/llms.txt`: one H1, a
+summary, no duplicate links, and every page link built and in the XML
+sitemap. Like the other dist tests, it skips until `just b` has run.
+
 ## Choosing tags
 
 Categories organize the broad sections of the blog. Tags connect articles
