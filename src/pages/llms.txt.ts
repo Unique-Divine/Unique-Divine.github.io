@@ -31,7 +31,7 @@ export const GET: APIRoute = async () => {
     posts: (await fetchPosts()).filter(isPublicPost).sort(newestFirst),
     projects,
   })
-  return new Response(renderLlmsTxt(index, SITE.site), {
-    headers: { "Content-Type": "text/markdown; charset=utf-8" },
-  })
+  // No Content-Type: the static build writes only dist/llms.txt, which
+  // Firebase serves by extension as text/plain, so dev matches production.
+  return new Response(renderLlmsTxt(index, SITE.site))
 }
