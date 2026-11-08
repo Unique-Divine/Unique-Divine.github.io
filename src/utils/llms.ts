@@ -46,6 +46,11 @@ export interface LlmsSource {
   /** Published articles and skills, newest first. */
   posts: LlmsPost[]
   projects: LlmsProject[]
+  /**
+   * Markdown alternates by HTML page path, such as `/blog/x` to
+   * `/blog/x.md`. A listed page with an alternate links to it instead.
+   */
+  markdown?: ReadonlyMap<string, string>
 }
 
 const MAX_DESCRIPTION = 200
@@ -116,16 +121,37 @@ export function projectLink(project: LlmsProject): LlmsLink {
   }
 }
 
-/** Groups the site's public content into llms.txt sections. */
+/**
+ * Groups the site's public content into llms.txt sections, linking each page
+ * to its Markdown alternate when `source.markdown` has one.
+ */
 export function buildLlmsIndex(source: LlmsSource): LlmsIndex {
+  const index = buildPageIndex(source)
+  const markdown = source.markdown
+  if (!markdown?.size) return index
+  return {
+    ...index,
+    sections: index.sections.map((section) => ({
+      ...section,
+      links: section.links.map((link) => ({
+        ...link,
+        href: markdown.get(link.href) ?? link.href,
+      })),
+    })),
+  }
+}
+
+function buildPageIndex(source: LlmsSource): LlmsIndex {
   const articles = source.posts.filter((post) => post.kind !== "skill")
   const skills = source.posts.filter((post) => post.kind === "skill")
   return {
     title: source.name,
     summary: oneLine(source.description),
     details:
-      "Links point to canonical pages. Writing is listed newest first; " +
-      "new posts appear here when the site is rebuilt.",
+      "Posts and projects link to Markdown copies; drop the .md suffix " +
+      "for the web page. Agent skills link to their SKILL.md source. " +
+      "Writing is listed newest first; new posts appear here when the " +
+      "site is rebuilt.",
     sections: [
       {
         title: "Site",
