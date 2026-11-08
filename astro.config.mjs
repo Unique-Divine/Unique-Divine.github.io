@@ -1,20 +1,17 @@
 import { readFileSync } from "node:fs"
 import path from "path"
 import { fileURLToPath } from "url"
+import { unified } from "@astrojs/markdown-remark"
 import mdx from "@astrojs/mdx"
 import partytown from "@astrojs/partytown"
 import react from "@astrojs/react"
-import tailwind from "@astrojs/tailwind"
 import compress from "astro-compress"
 import icon from "astro-icon"
-import { defineConfig, squooshImageService } from "astro/config"
+import { defineConfig } from "astro/config"
 
 import { skillCoverValidation } from "./scripts/skill-covers.mjs"
 import { ANALYTICS, SITE } from "./src/utils/config.ts"
-import {
-  readingTimeRemarkPlugin,
-  responsiveTablesRehypePlugin,
-} from "./src/utils/frontmatter.mjs"
+import { markdownPlugins } from "./src/utils/frontmatter.mjs"
 import {
   canonicalSitemap,
   sitemapValidation,
@@ -38,6 +35,10 @@ export default defineConfig({
 
   output: "static",
 
+  // astro-compress minifies HTML below. Astro's own compressor would run first
+  // and change what astro-compress receives.
+  compressHTML: false,
+
   redirects: {
     ...Object.fromEntries(
       JSON.parse(
@@ -50,9 +51,6 @@ export default defineConfig({
   },
 
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
     canonicalSitemap(),
     mdx(),
     react(),
@@ -80,7 +78,10 @@ export default defineConfig({
     ),
 
     compress({
-      CSS: true,
+      // Vite already minifies CSS (see vite.build.cssMinify). astro-compress
+      // 2.4 would run Lightning CSS again for recent browsers only, which
+      // strips prefixes and rewrites media queries.
+      CSS: false,
       HTML: {
         "html-minifier-terser": {
           removeAttributeQuotes: false,
@@ -99,13 +100,10 @@ export default defineConfig({
     skillCoverValidation(),
   ],
 
-  image: {
-    service: squooshImageService(),
-  },
-
   markdown: {
-    remarkPlugins: [readingTimeRemarkPlugin],
-    rehypePlugins: [responsiveTablesRehypePlugin],
+    // Sätteri is Astro 7's default processor. The unified processor keeps the
+    // remark and rehype pipeline the site's plugins and tests target.
+    processor: unified(markdownPlugins),
   },
 
   vite: {
@@ -118,6 +116,16 @@ export default defineConfig({
         }),
       },
     ],
+    // Minify CSS with esbuild, as Astro 4 did. Vite 8's default, Lightning
+    // CSS, rounds numbers to six significant digits: Tailwind Typography's
+    // 1.3333333em becomes 1.33333em, which shifts prose layout by a fraction
+    // of a pixel per paragraph. Prefixes come from autoprefixer and media
+    // queries from postcss.config.cjs, not from the minifier. esbuild is an
+    // optional Vite peer, so package.json pins it (0.28.2, in Vite's range);
+    // a different version can change the minified CSS.
+    build: {
+      cssMinify: "esbuild",
+    },
     optimizeDeps: { include: ["react-activity-calendar"] },
     resolve: {
       alias: {

@@ -41,7 +41,7 @@ jobs:
         run: |
           just b # build
 
-      - name: 'Typecheck (bun check)'
+      - name: 'Typecheck (bun check, astro check)'
         run: |
           just typecheck-nosync # the build already ran astro sync
 

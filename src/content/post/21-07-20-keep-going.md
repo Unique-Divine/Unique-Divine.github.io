@@ -3,8 +3,8 @@ publishDate: 2021-07-20T00:00:00Z
 author: Unique Divine
 title: "\"Keep Going\" by Austin Kleon"
 excerpt: "Keep Going is a book about how to stay in love with your craft. The focus is on
-creative work, however many of the ideas in the book are applicable to a variety
-of domains."
+  creative work, however many of the ideas in the book are applicable to a variety
+  of domains."
 image: "/glitch-girl.jpg"
 category: Self-Improvement
 tags:

@@ -5,6 +5,7 @@ import { getSectionTitleOverride } from "../data/blogSections"
 import { SITE_PAGES } from "../data/sitePages"
 import { fetchPosts, fetchStandingPages } from "./blog"
 import { APP_BLOG, METADATA, SITE } from "./config"
+import { newestFirst } from "./content-order"
 import {
   getAsset,
   getBlogPermalink,
@@ -77,11 +78,7 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
         },
       ),
     )
-    .sort(
-      (a, b) =>
-        b.publishDate.valueOf() - a.publishDate.valueOf() ||
-        a.id.localeCompare(b.id, "en"),
-    )
+    .sort(newestFirst)
   const archives = (kind: "category" | "tag") => {
     if (!enabled(kind)) return []
     const slugs = new Set(
@@ -163,7 +160,7 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
       pages: [
         { href: getPermalink("/code/projects"), label: "All projects" },
         ...projects.map((project) => ({
-          href: getPermalink(`/code/projects/${project.slug}`),
+          href: getPermalink(`/code/projects/${project.id}`),
           label: project.data.title,
         })),
       ],

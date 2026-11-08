@@ -1,4 +1,4 @@
-import { expect, test } from "bun:test"
+import { expect } from "bun:test"
 import { readdirSync, readFileSync } from "node:fs"
 import { parse } from "ultrahtml"
 import { querySelector } from "ultrahtml/selector"

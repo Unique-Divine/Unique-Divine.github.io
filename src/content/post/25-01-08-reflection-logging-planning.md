@@ -3,8 +3,8 @@ publishDate: 2025-01-08T00:00:00Z
 author: Unique Divine
 title: Reflection and Logging Outshines Planning
 excerpt: "What if the key to achieving your goals wasn’t planning ahead, but looking back?
-This was the lesson I learned through years of tracking progress in fitness and
-productivity."
+  This was the lesson I learned through years of tracking progress in fitness and
+  productivity."
 image: "/glitch-girl.jpg"
 category: Self-Improvement
 tags:

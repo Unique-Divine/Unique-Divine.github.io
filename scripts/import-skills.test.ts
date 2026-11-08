@@ -3,6 +3,7 @@ import { createHash } from "node:crypto"
 import { readFile } from "node:fs/promises"
 import { createMarkdownProcessor } from "@astrojs/markdown-remark"
 import yaml from "js-yaml"
+import { markdownPlugins } from "~/utils/frontmatter.mjs"
 import { repoPath } from "~/utils/repo-paths"
 
 import { prepareSkills } from "./import-skills"
@@ -16,7 +17,7 @@ const entry = (folder: string, body = "## Usage\n\nHello.", extra = "") => ({
 describe("public skills import", () => {
   test("all snapshot page links resolve to Astro's rendered heading IDs", async () => {
     const root = repoPath("")
-    const compiler = await createMarkdownProcessor()
+    const compiler = await createMarkdownProcessor(markdownPlugins)
     const files = await Promise.all(
       Object.values(manifest.pages).map(async (page) => ({
         source: page.source,
@@ -74,7 +75,7 @@ describe("public skills import", () => {
     expect(skill.raw).toBe(main.raw)
     expect(skill.content).not.toContain("# Title")
     const rendered = await (
-      await createMarkdownProcessor()
+      await createMarkdownProcessor(markdownPlugins)
     ).render(reference.content)
     expect(rendered.metadata.headings).toContainEqual({
       depth: 2,

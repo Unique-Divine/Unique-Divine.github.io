@@ -42,8 +42,9 @@ are disabled until initialized, and the icon is hidden. Printing includes the
 inline figure and caption and hides viewer controls and dialogs.
 
 The component carries its styles and a client module. The blog renderer also
-loads that module when it finds a diagram, supporting the site's Astro 4 dynamic
-MDX rendering path. It does not require the research data, a particular asset
+loads that module when it finds a diagram, a fallback for Astro 4's dynamic
+MDX rendering path. Astro 7 also emits the component's own script on those
+pages; the module loads once either way. It does not require the research data, a particular asset
 directory, or the research guide wrapper.
 
 The interaction follows the Sai docs-app Teller component. The next mobile

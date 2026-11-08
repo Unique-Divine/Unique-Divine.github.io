@@ -1,10 +1,11 @@
 import type { PaginateFunction } from "astro"
-import { getCollection } from "astro:content"
+import { getCollection, render } from "astro:content"
 import type { CollectionEntry } from "astro:content"
 
 import type { Post } from "~/types"
 import { APP_BLOG } from "~/utils/config"
 
+import { byFilePath } from "./content-order"
 import { BLOG_BASE, CATEGORY_BASE, cleanSlug, TAG_BASE } from "./permalinks"
 import { assertUniquePermalinks, postPermalink } from "./post-routes"
 import { skillArchivePost } from "./skills"
@@ -12,8 +13,9 @@ import { skillArchivePost } from "./skills"
 const getNormalizedPost = async (
   post: CollectionEntry<"post">,
 ): Promise<Post> => {
-  const { id, slug: rawSlug = "", data } = post
-  const { Content, headings, remarkPluginFrontmatter } = await post.render()
+  // Loader ids are the legacy slugs: the path without its extension.
+  const { id, data } = post
+  const { Content, headings, remarkPluginFrontmatter } = await render(post)
 
   const {
     publishDate: rawPublishDate,
@@ -32,7 +34,7 @@ const getNormalizedPost = async (
     permalink: pagePermalink,
   } = data
 
-  const slug = cleanSlug(rawSlug)
+  const slug = cleanSlug(id)
   const publishDate = new Date(rawPublishDate)
   const updateDate = rawUpdateDate ? new Date(rawUpdateDate) : undefined
   const category = rawCategory ? cleanSlug(rawCategory) : undefined
@@ -40,6 +42,7 @@ const getNormalizedPost = async (
 
   return {
     id: id,
+    filePath: post.filePath,
     slug: slug,
     kind,
     permalink: postPermalink({
@@ -87,12 +90,13 @@ const getRandomizedPosts = (array: Post[], num: number) => {
 }
 
 const load = async function (): Promise<Array<Post>> {
-  const posts = await getCollection("post")
+  const posts = (await getCollection("post")).sort(byFilePath)
   const normalizedPosts = posts.map(
     async (post) => await getNormalizedPost(post),
   )
 
   const skills = (await getCollection("skill"))
+    .sort(byFilePath)
     .filter((entry) => entry.data.kind === "skill")
     .map(skillArchivePost)
   const results = [...(await Promise.all(normalizedPosts)), ...skills]
