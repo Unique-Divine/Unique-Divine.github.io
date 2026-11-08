@@ -20,7 +20,8 @@ Then write ordinary Markdown headings:
 ```
 
 Astro generates each heading's ID and passes the same IDs to the contents menu.
-Repeated headings receive distinct IDs. Inline formatting becomes readable link
+Repeated headings receive distinct IDs. A site rehype plugin drops one trailing
+hyphen, as Astro 4 did, so `GET /` keeps the ID `get`. Inline formatting becomes readable link
 text; Unicode headings work too. You do not need to import a component, supply
 IDs, or maintain a separate list.
 

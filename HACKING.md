@@ -1,6 +1,7 @@
 # HACKING.md
 
-Personal website built with **[Astro 4.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/)**.
+Personal website built with **[Astro 7](https://astro.build/) + [Tailwind CSS 3](https://tailwindcss.com/)**.
+Tailwind runs as a PostCSS plugin (`postcss.config.cjs`).
 
 - ✅ **Production-ready** scores in **PageSpeed Insights** reports
 - ✅ Integration with **Tailwind CSS** supporting **Dark mode**
@@ -36,11 +37,11 @@ Personal website built with **[Astro 4.0](https://astro.build/) + [Tailwind CSS]
 │   │   ├── Favicons.astro
 │   │   └── Logo.astro
 │   ├── content/
-│   │   ├── post/
-│   │   │   ├── post-slug-1.md
-│   │   │   ├── post-slug-2.mdx
-│   │   │   └── ...
-│   │   └-- config.ts
+│   │   └── post/
+│   │       ├── post-slug-1.md
+│   │       ├── post-slug-2.mdx
+│   │       └── ...
+│   ├── content.config.ts
 │   ├── layouts/
 │   │   ├── Layout.astro
 │   │   ├── MarkdownLayout.astro
@@ -148,7 +149,7 @@ The deployment targets `Unique-Divine.github.io` repository.
 
 ## Technologies
 
-- **Astro 4.0** - Web framework
+- **Astro 7** - Web framework
 - **Tailwind CSS** - Styling
 - **Bun** - Package manager and runtime
 - **TypeScript** - Type safety
