@@ -5,8 +5,8 @@ site:
   base: "/"
   trailingSlash: false
 
-  # TODO: replace with actual ID for Google site verification.
-  # googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+  # Google Search Console verifies uniquedivine.com as a Domain property
+  # through a DNS TXT record, so no googleSiteVerificationId meta tag is set.
 
 # Default SEO metadata
 metadata:
