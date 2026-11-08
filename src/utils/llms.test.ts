@@ -171,6 +171,31 @@ test("renderLlmsTxt skips repeated URLs and drops empty sections", () => {
   expect(new Set(links).size).toBe(links.length)
 })
 
+test("llmsLinks ignores links inside descriptions", () => {
+  const text = renderLlmsTxt(
+    buildLlmsIndex(
+      source({
+        posts: [
+          article(
+            "26-10-19-block-latency",
+            "Follows [the Go post](https://uniquedivine.com/blog/24-06-08-golang).",
+          ),
+        ],
+      }),
+    ),
+    site,
+  )
+  expect(text).toContain("[the Go post](https://uniquedivine.com/blog/")
+  const links = llmsLinks(text)
+  expect(links).toContain(
+    "https://uniquedivine.com/blog/26-10-19-block-latency",
+  )
+  expect(links).not.toContain("https://uniquedivine.com/blog/24-06-08-golang")
+  expect(
+    llmsLinks("text [x](https://x.test/x)\n- [A](https://x.test/a)"),
+  ).toEqual(["https://x.test/a"])
+})
+
 test("llmsLinks reads every link target", () => {
   expect(
     llmsLinks("- [A](https://x.test/a): d\n- [B \\[c\\]](https://x.test/b)"),

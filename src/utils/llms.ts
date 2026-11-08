@@ -213,7 +213,12 @@ export function renderLlmsTxt(index: LlmsIndex, site: string): string {
   ].join("\n")
 }
 
-/** Every Markdown link target in an llms.txt document. */
+/**
+ * The entry link target of each `- [Title](url)` list line. Links inside a
+ * description are not entries, so they are ignored.
+ */
 export function llmsLinks(text: string): string[] {
-  return [...text.matchAll(/\]\(([^)\s]+)\)/g)].map((match) => match[1])
+  return [...text.matchAll(/^- \[(?:\\.|[^\]\\])*\]\(([^)\s]+)\)/gm)].map(
+    (match) => match[1],
+  )
 }
