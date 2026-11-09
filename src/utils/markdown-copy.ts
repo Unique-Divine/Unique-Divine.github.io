@@ -210,6 +210,9 @@ export async function reduceMarkdown(
   /** A line with only container markup: list indentation or `>` markers. */
   const isPrefix = (text: string) => /^[ \t>]*$/.test(text)
 
+  /** Whether a blank line separates two sibling nodes. */
+  const blankBetween = (a: Nodes, b: Nodes) =>
+    /\n[ \t>]*\n/.test(source.slice(end(a), start(b)))
   /** Text between the start of a node's first line and the node. */
   const linePrefix = (node: Nodes) => {
     const from = start(node)
@@ -293,13 +296,17 @@ export async function reduceMarkdown(
     const lowercase = /^[a-z]/.test(name)
     const href = typeof attributes.href === "string" ? attributes.href : ""
     // A link becomes a Markdown link around its content when that content is
-    // inline, one paragraph, or one childless element such as an image;
-    // other content unwraps like any element.
-    const only = children.length === 1 ? children[0] : undefined
+    // inline, or paragraphs and childless elements such as images with no
+    // blank line between them, which read as one paragraph; other content
+    // unwraps like any element.
     const linkable =
       !flow ||
-      only?.type === "paragraph" ||
-      (only?.type === "mdxJsxFlowElement" && !only.children.length)
+      children.every(
+        (child, i) =>
+          (child.type === "paragraph" ||
+            (child.type === "mdxJsxFlowElement" && !child.children.length)) &&
+          (i === 0 || !blankBetween(children[i - 1], child)),
+      )
     if (name === "a" && href && children.length && linkable) {
       const url = linkDestination(absoluteLink(href, page, site))
       edits.push({ start: start(node), end: start(children[0]), text: "[" })

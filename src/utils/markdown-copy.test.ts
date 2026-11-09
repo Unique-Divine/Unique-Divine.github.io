@@ -377,6 +377,11 @@ test("a linked image keeps both its image and its link", async () => {
       "",
       'Inline <a href="/z"><img src="/z.png" alt="z" /></a>.',
       "",
+      '<a href="/c">',
+      '  <img src="/c.png" alt="c" />',
+      "  <span>Caption</span>",
+      "</a>",
+      "",
     ].join("\n"),
     mdx,
   )
@@ -387,6 +392,9 @@ test("a linked image keeps both its image and its link", async () => {
       `[![](${site}/ci.svg)](${site}/ci)`,
       "",
       `Inline [![z](${site}/z.png)](${site}/z).`,
+      "",
+      `[![c](${site}/c.png)`,
+      `  Caption](${site}/c)`,
       "",
     ].join("\n"),
   )
