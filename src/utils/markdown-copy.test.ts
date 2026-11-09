@@ -311,6 +311,10 @@ test("MDX <a href> becomes a Markdown link with an absolute URL", async () => {
       "",
       '## <a name="anchor"></a>Heading',
       "",
+      '## <a href="#x" id="x"></a>Linked heading',
+      "",
+      '<a href="#y" id="y" />',
+      "",
     ].join("\n"),
     mdx,
   )
@@ -326,6 +330,8 @@ test("MDX <a href> becomes a Markdown link with an absolute URL", async () => {
       "Two.",
       "",
       "## Heading",
+      "",
+      "## Linked heading",
       "",
     ].join("\n"),
   )
@@ -344,7 +350,7 @@ test("childless HTML elements link to their source or become a note", async () =
       "",
       "<hr />",
       "",
-      'Inline <img src="/i.png" /> and <a href="/x" /> end.',
+      'Inline <img src="/i.png" /> and <a href="/x" title="X" /> end.',
       "",
     ].join("\n"),
     mdx,
@@ -359,7 +365,7 @@ test("childless HTML elements link to their source or become a note", async () =
       "",
       interactiveNote(page),
       "",
-      `Inline [Embedded img](${site}/i.png) and [${site}/x](${site}/x) end.`,
+      `Inline [Embedded img](${site}/i.png) and [X](${site}/x) end.`,
       "",
     ].join("\n"),
   )

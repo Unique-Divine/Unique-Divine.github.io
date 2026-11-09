@@ -170,8 +170,8 @@ export const linkDestination = (url: string) =>
     : url
 
 /**
- * Childless elements a copy drops: breaks and rules, and `<a>` without an
- * `href`, which only marks a fragment target.
+ * Childless elements a copy drops: breaks and rules, and `<a>` without a
+ * `title`, which only marks a fragment target and shows nothing.
  */
 const droppedElements = new Set(["a", "br", "hr", "wbr"])
 
@@ -317,18 +317,14 @@ export async function reduceMarkdown(
     if (text === undefined) {
       const { alt, src } = attributes
       const target = typeof src === "string" ? src : href
+      const title =
+        typeof attributes.title === "string" ? attributes.title.trim() : ""
       if (typeof alt === "string")
         text = await image(alt, typeof src === "string" ? src : "")
-      else if (lowercase && target) {
+      else if (lowercase && target && (name !== "a" || title)) {
         // An embed such as `<iframe>` or `<video>` links to its source.
-        const { title } = attributes
         const url = absoluteLink(target, page, site)
-        const label =
-          typeof title === "string" && title.trim()
-            ? title.trim()
-            : name === "a"
-              ? url
-              : `Embedded ${name}`
+        const label = title || `Embedded ${name}`
         text = `[${escapeAlt(label)}](${linkDestination(url)})`
       } else if (flow && !droppedElements.has(name))
         text = interactiveNote(page)
