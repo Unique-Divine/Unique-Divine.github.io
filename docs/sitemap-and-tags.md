@@ -79,7 +79,11 @@ Markdown stays as written except for these changes:
 
 - MDX `import`/`export` lines and `{expressions}` are removed.
 - JSX elements with children, such as `<Guide>` or a `<div>`, unwrap to
-  their content.
+  their content. An `<a href>` becomes a Markdown link to its absolute URL.
+- A childless lowercase element with a `src` or `href`, such as `<iframe>`
+  or `<video>`, becomes a link to it, labeled by its `title` when it has one.
+  Other childless lowercase elements become the web-page note, except `<br>`,
+  `<hr>`, `<wbr>`, and `<a>` without an `href`, which are dropped.
 - `markdownComponents` in `src/utils/markdown-components.ts`, keyed by
   import path, maps components to Markdown. The block-latency entries in
   `src/components/research/block-latency/markdown.ts` render each widget's
@@ -87,7 +91,9 @@ Markdown stays as written except for these changes:
   its figure, its phase, scenario, or upgrade table, and its summary text.
   `Guide` keeps its stat line and a `Data:` line of absolute links to the
   measurement files, and `Legend`, a color key, is dropped. Other childless
-  components become a note that links to the web page.
+  components become a note that links to the web page. Text a wrapper adds
+  before or after its content keeps the list indentation or `>` prefix of
+  the line it sits on.
 - Images under `src/assets/images` resolve through `getImage` to the
   optimized `/_astro/` file the HTML page uses. Root-relative images and
   links, `#fragment` links, and raw HTML `src`/`href` become absolute. An

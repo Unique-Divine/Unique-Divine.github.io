@@ -7,6 +7,7 @@ import {
   cleanHtml,
   importedModules,
   interactiveNote,
+  linkDestination,
   markdownCopyHref,
   markdownCopyParam,
   markdownTable,
@@ -288,6 +289,81 @@ test("multi-line wrapper text keeps its container prefix", async () => {
       "",
     ].join("\n"),
   )
+})
+
+test("MDX <a href> becomes a Markdown link with an absolute URL", async () => {
+  const out = await reduceMarkdown(
+    [
+      'See <a href="/about">the **about** page</a> and',
+      '<a href="#data" target="_blank">the data</a>.',
+      "",
+      '<a href="https://x.test/a b">',
+      "Block link.",
+      "</a>",
+      "",
+      '<a href="https://x.test/d">',
+      "",
+      "One.",
+      "",
+      "Two.",
+      "",
+      "</a>",
+      "",
+      '## <a name="anchor"></a>Heading',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      `See [the **about** page](${site}/about) and`,
+      `[the data](${page}#data).`,
+      "",
+      "[Block link.](<https://x.test/a b>)",
+      "",
+      "One.",
+      "",
+      "Two.",
+      "",
+      "## Heading",
+      "",
+    ].join("\n"),
+  )
+})
+
+test("childless HTML elements link to their source or become a note", async () => {
+  const out = await reduceMarkdown(
+    [
+      "- item",
+      "",
+      '  <iframe src="https://www.youtube.com/embed/x" title="Demo talk" />',
+      "",
+      '<video src="/media/clip.mp4" controls />',
+      "",
+      '<canvas id="chart" />',
+      "",
+      "<hr />",
+      "",
+      'Inline <img src="/i.png" /> and <a href="/x" /> end.',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      "- item",
+      "",
+      "  [Demo talk](https://www.youtube.com/embed/x)",
+      "",
+      `[Embedded video](${site}/media/clip.mp4)`,
+      "",
+      interactiveNote(page),
+      "",
+      `Inline [Embedded img](${site}/i.png) and [${site}/x](${site}/x) end.`,
+      "",
+    ].join("\n"),
+  )
+  expect(linkDestination("https://x.test/a(b)")).toBe("<https://x.test/a(b)>")
 })
 
 test("markdownTable escapes pipes and collapses whitespace", () => {

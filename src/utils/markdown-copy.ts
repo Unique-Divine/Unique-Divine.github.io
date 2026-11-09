@@ -160,6 +160,21 @@ export const imageMarkdown = (
     title ? ` "${title.replace(/"/g, '\\"')}"` : ""
   })`
 
+/**
+ * Link destination for `url`, in angle brackets when it holds whitespace or
+ * parentheses that would end a bare destination.
+ */
+export const linkDestination = (url: string) =>
+  /[\s()<>]/.test(url)
+    ? `<${url.replace(/</g, "%3C").replace(/>/g, "%3E")}>`
+    : url
+
+/**
+ * Childless elements a copy drops: breaks and rules, and `<a>` without an
+ * `href`, which only marks a fragment target.
+ */
+const droppedElements = new Set(["a", "br", "hr", "wbr"])
+
 interface Edit {
   start: number
   end: number
@@ -258,6 +273,26 @@ export async function reduceMarkdown(
     const mapped = module
       ? options.components?.[module]?.(attributes, { page })
       : undefined
+    const lowercase = /^[a-z]/.test(name)
+    const href = typeof attributes.href === "string" ? attributes.href : ""
+    // A link becomes a Markdown link around its content when that content is
+    // inline or one paragraph; other content unwraps like any element.
+    if (
+      name === "a" &&
+      href &&
+      children.length &&
+      (!flow || (children.length === 1 && children[0].type === "paragraph"))
+    ) {
+      const url = linkDestination(absoluteLink(href, page, site))
+      edits.push({ start: start(node), end: start(children[0]), text: "[" })
+      edits.push({
+        start: end(children.at(-1)!),
+        end: end(node),
+        text: `](${url})`,
+      })
+      for (const child of children) await visit(child, node as Parent)
+      return
+    }
     if (children.length) {
       // Unwrap: replace the opening and closing tags, keep the content.
       // In a flow wrapper inside a list item or blockquote, the added lines
@@ -281,9 +316,22 @@ export async function reduceMarkdown(
     let text = typeof mapped === "string" ? mapped : undefined
     if (text === undefined) {
       const { alt, src } = attributes
+      const target = typeof src === "string" ? src : href
       if (typeof alt === "string")
         text = await image(alt, typeof src === "string" ? src : "")
-      else if (flow && /^[A-Z]/.test(name)) text = interactiveNote(page)
+      else if (lowercase && target) {
+        // An embed such as `<iframe>` or `<video>` links to its source.
+        const { title } = attributes
+        const url = absoluteLink(target, page, site)
+        const label =
+          typeof title === "string" && title.trim()
+            ? title.trim()
+            : name === "a"
+              ? url
+              : `Embedded ${name}`
+        text = `[${escapeAlt(label)}](${linkDestination(url)})`
+      } else if (flow && !droppedElements.has(name))
+        text = interactiveNote(page)
       else text = ""
     }
     if (flow) removeFlow(node, text)
