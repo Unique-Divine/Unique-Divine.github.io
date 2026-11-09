@@ -183,7 +183,7 @@ an end-to-end historical read succeeds.
 
 I operate the tool personally as Unique Divine from the United States of America.
 For support, privacy questions, deletion requests, or reports of misuse, email
-[realuniquedivine@gmail.com](mailto:realuniquedivine@gmail.com).
+[ud@uniquedivine.com](mailto:ud@uniquedivine.com).
 
 Server administrators can request that I stop accessing their server and can
 also remove the bot or revoke its channel permissions through Discord.

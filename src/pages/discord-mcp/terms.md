@@ -7,7 +7,7 @@ Effective date: July 1, 2026
 
 Operator: Unique Divine, an individual operating from the United States of America.
 
-Contact: [realuniquedivine@gmail.com](mailto:realuniquedivine@gmail.com)
+Contact: [ud@uniquedivine.com](mailto:ud@uniquedivine.com)
 
 Application ID: `1041378802477051977`
 
@@ -102,7 +102,7 @@ requirements.
 
 ## Support, reports, and termination of access
 
-Contact [realuniquedivine@gmail.com](mailto:realuniquedivine@gmail.com) for questions, privacy concerns,
+Contact [ud@uniquedivine.com](mailto:ud@uniquedivine.com) for questions, privacy concerns,
 or reports of misuse. The operator may revoke access or disable features when
 needed to address misuse, security issues, or platform requirements.
 
