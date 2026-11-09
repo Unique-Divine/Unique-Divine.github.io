@@ -232,6 +232,64 @@ test("mapped wrappers keep text around their unwrapped content", async () => {
   expect(out).toBe("Stats.\n\nBody.\n\nData: [JSON](https://x.test/m.json)\n")
 })
 
+test("multi-line wrapper text keeps its container prefix", async () => {
+  const source = [
+    'import Guide from "~/components/Guide.astro"',
+    "",
+    "- item",
+    "",
+    "  <Guide>",
+    "",
+    "  Body.",
+    "",
+    "  </Guide>",
+    "",
+    "- next",
+    "",
+    "> <Guide>",
+    ">",
+    "> Quoted.",
+    ">",
+    "> </Guide>",
+    "",
+  ].join("\n")
+  const out = await reduceMarkdown(source, {
+    ...mdx,
+    components: {
+      "~/components/Guide.astro": () => ({
+        before: "Stats.\n\nMore stats.",
+        after: "Data:\n[JSON](https://x.test/m.json)",
+      }),
+    },
+  })
+  expect(out).toBe(
+    [
+      "- item",
+      "",
+      "  Stats.",
+      "",
+      "  More stats.",
+      "",
+      "  Body.",
+      "",
+      "  Data:",
+      "  [JSON](https://x.test/m.json)",
+      "",
+      "- next",
+      "",
+      "> Stats.",
+      ">",
+      "> More stats.",
+      ">",
+      "> Quoted.",
+      ">",
+      "> Data:",
+      "> [JSON](https://x.test/m.json)",
+      "",
+    ].join("\n"),
+  )
+})
+
 test("markdownTable escapes pipes and collapses whitespace", () => {
   expect(markdownTable(["A", "B|C"], [["x\ny", 1.5]])).toBe(
     "| A | B\\|C |\n| --- | --- |\n| x y | 1.5 |",

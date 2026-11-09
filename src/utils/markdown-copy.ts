@@ -191,6 +191,24 @@ export async function reduceMarkdown(
   const isPrefix = (text: string) => /^[ \t>]*$/.test(text)
 
   /**
+   * The list indentation or `>` markers before a block on its first line, or
+   * `undefined` when the line holds other text before it.
+   */
+  const containerPrefix = (node: Nodes): string | undefined => {
+    const from = start(node)
+    const prefix = source.slice(source.lastIndexOf("\n", from - 1) + 1, from)
+    return isPrefix(prefix) ? prefix : undefined
+  }
+  /** Puts `prefix` before each line of `text` after the first. */
+  const withPrefix = (text: string, prefix = "") =>
+    text
+      .split("\n")
+      .map((line, i) =>
+        i === 0 ? line : line ? prefix + line : prefix.trimEnd(),
+      )
+      .join("\n")
+
+  /**
    * Replaces a block with `text`, or removes it. Inside a list item or
    * blockquote, replacement lines get the block's own prefix, and a removal
    * takes the block's whole lines plus the blank lines after it, so the
@@ -200,25 +218,13 @@ export async function reduceMarkdown(
     const from = start(node)
     const to = end(node)
     const lineStart = source.lastIndexOf("\n", from - 1) + 1
-    const prefix = source.slice(lineStart, from)
-    const contained = isPrefix(prefix)
+    const prefix = containerPrefix(node)
     if (text) {
-      const lines = text.split("\n")
-      edits.push({
-        start: from,
-        end: to,
-        text: contained
-          ? lines
-              .map((line, i) =>
-                i === 0 ? line : line ? prefix + line : prefix.trimEnd(),
-              )
-              .join("\n")
-          : text,
-      })
+      edits.push({ start: from, end: to, text: withPrefix(text, prefix) })
       return
     }
     const rest = lineEnd(to)
-    if (!contained || !/^[ \t]*\r?\n?$/.test(source.slice(to, rest))) {
+    if (prefix === undefined || !/^[ \t]*\r?\n?$/.test(source.slice(to, rest))) {
       edits.push({ start: from, end: to, text: "" })
       return
     }
@@ -254,17 +260,20 @@ export async function reduceMarkdown(
       : undefined
     if (children.length) {
       // Unwrap: replace the opening and closing tags, keep the content.
+      // In a flow wrapper inside a list item or blockquote, the added lines
+      // and the blank line between them and the content keep its prefix.
       const wrap = typeof mapped === "object" ? mapped : {}
-      const gap = flow ? "\n\n" : ""
+      const prefix = flow ? containerPrefix(node) : undefined
+      const gap = flow ? `\n${(prefix ?? "").trimEnd()}\n${prefix ?? ""}` : ""
       edits.push({
         start: start(node),
         end: start(children[0]),
-        text: wrap.before ? wrap.before + gap : "",
+        text: wrap.before ? withPrefix(wrap.before, prefix) + gap : "",
       })
       edits.push({
         start: end(children.at(-1)!),
         end: end(node),
-        text: wrap.after ? gap + wrap.after : "",
+        text: wrap.after ? gap + withPrefix(wrap.after, prefix) : "",
       })
       for (const child of children) await visit(child, node as Parent)
       return
