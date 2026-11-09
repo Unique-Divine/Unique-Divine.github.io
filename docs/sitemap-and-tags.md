@@ -85,10 +85,11 @@ Markdown stays as written except for these changes:
   or `<video>`, becomes a link to it, labeled by its `title` when it has one.
   An `<img>` without `alt` becomes an image with empty alt text. Other
   childless lowercase elements become the web-page note, except `<br>`,
-  `<hr>`, `<wbr>`, and `<a>` without a `title`, which are dropped. An
-  element whose children are all childless, such as an `<svg>` of shapes or
-  a `<video>` of `<source>`s, counts as one childless element and takes the
-  first child's `src`.
+  `<hr>`, `<wbr>`, and `<a>` without a `title`, which are dropped. A media
+  element (`<svg>`, `<video>`, `<audio>`, `<picture>`, or `<object>`) whose
+  children are all childless counts as one childless element. It takes the
+  first child's `src`, or becomes the image of an `<img>` child. Other
+  wrappers, such as a `<p>` or `<div>` around an image, unwrap as before.
 - `markdownComponents` in `src/utils/markdown-components.ts`, keyed by
   import path, maps components to Markdown. The block-latency entries in
   `src/components/research/block-latency/markdown.ts` render each widget's
