@@ -160,6 +160,36 @@ export const imageMarkdown = (
     title ? ` "${title.replace(/"/g, '\\"')}"` : ""
   })`
 
+/** Whether Markdown holds a link of its own; a bare image doesn't count. */
+const hasLink = (markdown: string) =>
+  /(^|[^!\\])\[[^\]]*\]\(|<https?:\/\//.test(markdown)
+
+/**
+ * Applies edits to `source` from the end, keeping only the parts that fall
+ * between `from` and `to`. A block removal may extend over blank lines that a
+ * later edit, such as a closing tag, also removes; it is clamped to that edit.
+ */
+function applyEdits(
+  source: string,
+  edits: Edit[],
+  from = 0,
+  to = source.length,
+): string {
+  let out = source.slice(0, to)
+  let limit = to
+  for (const edit of [...edits].sort(
+    (a, b) => b.start - a.start || b.end - a.end,
+  )) {
+    const editStart = Math.max(edit.start, from)
+    const stop = Math.min(edit.end, limit)
+    if (editStart > limit || stop < from) continue
+    const rest = out.slice(Math.max(stop, editStart))
+    out = out.slice(0, editStart) + edit.text + rest
+    limit = editStart
+  }
+  return out.slice(from)
+}
+
 /**
  * Link destination for `url`, in angle brackets when it holds whitespace or
  * parentheses that would end a bare destination.
@@ -169,11 +199,22 @@ export const linkDestination = (url: string) =>
     ? `<${url.replace(/</g, "%3C").replace(/>/g, "%3E")}>`
     : url
 
+/** Embedded media that a copy links to by its `src`, or `data` for objects. */
+const embedElements = new Set([
+  "audio",
+  "embed",
+  "iframe",
+  "object",
+  "source",
+  "track",
+  "video",
+])
+
 /**
- * Childless elements a copy drops: breaks and rules, and `<a>` without a
- * `title`, which only marks a fragment target and shows nothing.
+ * Elements that draw on the web page, which a copy replaces with the note.
+ * An `<iframe>` gets the note only when it has no source to link to.
  */
-const droppedElements = new Set(["a", "br", "hr", "wbr"])
+const drawingElements = new Set(["canvas", "iframe", "math", "svg"])
 
 /** Elements whose childless children make up one piece of media. */
 const mediaElements = new Set(["audio", "object", "picture", "svg", "video"])
@@ -296,29 +337,46 @@ export async function reduceMarkdown(
     const mapped = module
       ? options.components?.[module]?.(attributes, { page })
       : undefined
-    const lowercase = /^[a-z]/.test(name)
     const href = typeof attributes.href === "string" ? attributes.href : ""
-    // A link becomes a Markdown link around its content when that content is
-    // inline, or paragraphs and childless elements such as images with no
-    // blank line between them, which read as one paragraph; other content
-    // unwraps like any element.
-    const linkable =
-      !flow ||
-      children.every(
-        (child, i) =>
-          (child.type === "paragraph" ||
-            (child.type === "mdxJsxFlowElement" && !child.children.length)) &&
-          (i === 0 || !blankBetween(children[i - 1], child)),
+    // A link becomes a Markdown link around its content when the content
+    // reduces to text with no link of its own, such as words or an image, and
+    // reads as one paragraph: inline, or paragraphs and childless elements
+    // with no blank line between them. Otherwise it unwraps like any element.
+    if (name === "a" && href && children.length) {
+      const oneParagraph =
+        !flow ||
+        children.every(
+          (child, i) =>
+            (child.type === "paragraph" ||
+              (child.type === "mdxJsxFlowElement" &&
+                !child.children.length)) &&
+            (i === 0 || !blankBetween(children[i - 1], child)),
+        )
+      const mark = edits.length
+      for (const child of children) await visit(child, node as Parent)
+      const content = applyEdits(
+        source,
+        edits.slice(mark),
+        start(children[0]),
+        end(children.at(-1)!),
       )
-    if (name === "a" && href && children.length && linkable) {
+      if (flow && !content.trim()) {
+        // Nothing to show: remove the whole block instead of its parts.
+        edits.splice(mark)
+        return removeFlow(node)
+      }
+      const linked = oneParagraph && content.trim() && !hasLink(content)
       const url = linkDestination(absoluteLink(href, page, site))
-      edits.push({ start: start(node), end: start(children[0]), text: "[" })
+      edits.push({
+        start: start(node),
+        end: start(children[0]),
+        text: linked ? "[" : "",
+      })
       edits.push({
         start: end(children.at(-1)!),
         end: end(node),
-        text: `](${url})`,
+        text: linked ? `](${url})` : "",
       })
-      for (const child of children) await visit(child, node as Parent)
       return
     }
     // A media element whose children are all childless, such as an `<svg>`
@@ -373,7 +431,13 @@ export async function reduceMarkdown(
     let text = typeof mapped === "string" ? mapped : undefined
     if (text === undefined) {
       const { alt, src } = attributes
-      const target = typeof src === "string" ? src : href
+      const { data } = attributes
+      const target =
+        typeof src === "string"
+          ? src
+          : name === "object" && typeof data === "string"
+            ? data
+            : href
       const title =
         typeof attributes.title === "string" ? attributes.title.trim() : ""
       if (typeof alt === "string" || (name === "img" && src))
@@ -381,13 +445,18 @@ export async function reduceMarkdown(
           typeof alt === "string" ? alt : "",
           typeof src === "string" ? src : "",
         )
-      else if (lowercase && target && (name !== "a" || title)) {
+      else if (
+        target &&
+        (embedElements.has(name) || (name === "a" && href && title))
+      ) {
         // An embed such as `<iframe>` or `<video>` links to its source.
         const url = absoluteLink(target, page, site)
         const label = title || `Embedded ${name}`
         text = `[${escapeAlt(label)}](${linkDestination(url)})`
-      } else if (flow && !droppedElements.has(name))
+      } else if (flow && (/^[A-Z]/.test(name) || drawingElements.has(name)))
         text = interactiveNote(page)
+      // Other lowercase elements, such as `<script>`, `<link>`, or an empty
+      // `<span id>` or `<div>`, render no content and are dropped.
       else text = ""
     }
     if (flow) removeFlow(node, text)
@@ -470,16 +539,7 @@ export async function reduceMarkdown(
         modules.set(name, module)
   for (const node of tree.children) await visit(node)
 
-  // Apply from the end. A block removal may extend over blank lines that a
-  // later edit, such as a closing tag, also removes; clamp it to that edit.
-  let out = source
-  let limit = source.length
-  for (const edit of edits.sort((a, b) => b.start - a.start || b.end - a.end)) {
-    const stop = Math.min(edit.end, limit)
-    out = out.slice(0, edit.start) + edit.text + out.slice(stop)
-    limit = edit.start
-  }
-  return out.trim() + "\n"
+  return applyEdits(source, edits).trim() + "\n"
 }
 
 export interface MarkdownCopy {

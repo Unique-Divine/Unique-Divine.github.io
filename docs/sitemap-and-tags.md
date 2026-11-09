@@ -79,17 +79,22 @@ Markdown stays as written except for these changes:
 
 - MDX `import`/`export` lines and `{expressions}` are removed.
 - JSX elements with children, such as `<Guide>` or a `<div>`, unwrap to
-  their content. An `<a href>` around inline content, one paragraph, or one
-  image becomes a Markdown link to its absolute URL.
-- A childless lowercase element with a `src` or `href`, such as `<iframe>`
-  or `<video>`, becomes a link to it, labeled by its `title` when it has one.
-  An `<img>` without `alt` becomes an image with empty alt text. Other
-  childless lowercase elements become the web-page note, except `<br>`,
-  `<hr>`, `<wbr>`, and `<a>` without a `title`, which are dropped. A media
-  element (`<svg>`, `<video>`, `<audio>`, `<picture>`, or `<object>`) whose
-  children are all childless counts as one childless element. It takes the
-  first child's `src`, or becomes the image of an `<img>` child. Other
-  wrappers, such as a `<p>` or `<div>` around an image, unwrap as before.
+  their content. An `<a href>` becomes a Markdown link to its absolute URL
+  when its content reduces to text with no link of its own, such as words
+  or an image, and reads as one paragraph. Otherwise it unwraps.
+- Childless lowercase elements follow an allow-list. Embeds (`<iframe>`,
+  `<embed>`, `<video>`, `<audio>`, `<object>`, `<source>`, `<track>`) with
+  a source become a link to it, labeled by its `title` when it has one. An
+  `<img>` becomes an image, with empty alt text if it has no `alt`.
+  Elements that draw (`<canvas>`, `<svg>`, `<math>`, and an `<iframe>`
+  without a source) become the web-page note. Everything else, such as
+  `<script>`, `<link>`, `<br>`, or an empty `<span id>` or `<div>`, renders
+  no content and is dropped.
+- A media element (`<svg>`, `<video>`, `<audio>`, `<picture>`, or
+  `<object>`) whose children are all childless counts as one childless
+  element. It takes the first child's `src`, or becomes the image of an
+  `<img>` child. Other wrappers, such as a `<p>` or `<div>` around an
+  image, unwrap.
 - `markdownComponents` in `src/utils/markdown-components.ts`, keyed by
   import path, maps components to Markdown. The block-latency entries in
   `src/components/research/block-latency/markdown.ts` render each widget's

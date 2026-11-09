@@ -405,6 +405,71 @@ test("layout wrappers unwrap so each child reduces on its own", async () => {
   )
 })
 
+test("childless elements that render nothing are dropped", async () => {
+  const out = await reduceMarkdown(
+    [
+      "Tweet:",
+      "",
+      '<script async src="https://platform.twitter.com/widgets.js"></script>',
+      "",
+      '<link rel="stylesheet" href="/x.css" />',
+      "",
+      '<span id="x"></span>',
+      "",
+      "## Heading",
+      "",
+      'A <div style={{ clear: "both" }} />',
+      "",
+      '<div style={{ clear: "both" }} />',
+      "",
+      "<p></p>",
+      "",
+      "<video />",
+      "",
+      "B",
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe("Tweet:\n\n## Heading\n\nA \n\nB\n")
+})
+
+test("a link that reduces to nothing or a link unwraps", async () => {
+  const out = await reduceMarkdown(
+    [
+      'import Icon from "~/components/Icon.astro"',
+      "",
+      '<a href="https://github.com/x">',
+      "  <Icon />",
+      "</a>",
+      "",
+      '<a href="/x">',
+      "  <br />",
+      "</a>",
+      "",
+      '<a href="/x">',
+      "  <div />",
+      "</a>",
+      "",
+      'See <a href="/x"><Icon /></a> here.',
+      "",
+      '<a href="/x"><iframe src="/e" title="T" /></a>',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      interactiveNote(page),
+      "",
+      "See  here.",
+      "",
+      `[T](${site}/e)`,
+      "",
+    ].join("\n"),
+  )
+})
+
 test("a linked image keeps both its image and its link", async () => {
   const out = await reduceMarkdown(
     [
