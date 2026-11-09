@@ -364,6 +364,47 @@ test("MDX <a href> becomes a Markdown link with an absolute URL", async () => {
   )
 })
 
+test("layout wrappers unwrap so each child reduces on its own", async () => {
+  const out = await reduceMarkdown(
+    [
+      'import Box from "~/components/Box.astro"',
+      "",
+      '<p align="center"><img src="/b.png" alt="Logo" /></p>',
+      "",
+      "<div>",
+      '  <img src="/one.png" alt="One" />',
+      '  <img src="/two.png" alt="Two" />',
+      "</div>",
+      "",
+      "<div><Box /></div>",
+      "",
+      '<figure><iframe src="https://y.test/e" title="Talk" /></figure>',
+      "",
+      "<picture>",
+      '  <source srcset="/p.avif" type="image/avif" />',
+      '  <img src="/p.png" alt="Photo" />',
+      "</picture>",
+      "",
+    ].join("\n"),
+    { ...mdx, components: { "~/components/Box.astro": () => "Boxed." } },
+  )
+  expect(out).toBe(
+    [
+      `![Logo](${site}/b.png)`,
+      "",
+      `![One](${site}/one.png)`,
+      `  ![Two](${site}/two.png)`,
+      "",
+      "Boxed.",
+      "",
+      "[Talk](https://y.test/e)",
+      "",
+      `![Photo](${site}/p.png)`,
+      "",
+    ].join("\n"),
+  )
+})
+
 test("a linked image keeps both its image and its link", async () => {
   const out = await reduceMarkdown(
     [

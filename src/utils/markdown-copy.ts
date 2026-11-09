@@ -175,6 +175,9 @@ export const linkDestination = (url: string) =>
  */
 const droppedElements = new Set(["a", "br", "hr", "wbr"])
 
+/** Elements whose childless children make up one piece of media. */
+const mediaElements = new Set(["audio", "object", "picture", "svg", "video"])
+
 type JsxElement = MdxJsxFlowElement | MdxJsxTextElement
 const isJsx = (node: Nodes): node is JsxElement =>
   node.type === "mdxJsxFlowElement" || node.type === "mdxJsxTextElement"
@@ -318,23 +321,34 @@ export async function reduceMarkdown(
       for (const child of children) await visit(child, node as Parent)
       return
     }
-    // An element whose children are all childless elements, such as an
-    // `<svg>` of shapes or a `<video>` of `<source>`s, is reduced once as a
-    // whole, taking its source from the first child that has one.
+    // A media element whose children are all childless, such as an `<svg>`
+    // of shapes or a `<video>` of `<source>`s, is reduced once as a whole.
+    // It takes its source from the first child that has one, or becomes the
+    // image of an `<img>` child, as in `<picture>`. Other wrappers unwrap, so
+    // each child reduces on its own.
     const parts = children.filter(
       (child) => child.type !== "text" || child.value.trim(),
     )
     const embed =
-      lowercase &&
-      name !== "a" &&
+      mediaElements.has(name) &&
       parts.length > 0 &&
-      parts.every((child) => isJsx(child) && !child.children.length) &&
-      parts.some((child) => !droppedElements.has(jsxName(child)))
+      parts.every((child) => isJsx(child) && !child.children.length)
     if (embed && typeof attributes.src !== "string") {
-      const source = parts
-        .map((child) => jsxAttributes(child as JsxElement).src)
-        .find((src) => typeof src === "string")
-      if (source) attributes.src = source
+      const childAttributes = parts.map((child) =>
+        jsxAttributes(child as JsxElement),
+      )
+      const img = parts.findIndex((child) => jsxName(child) === "img")
+      const source =
+        img >= 0
+          ? childAttributes[img].src
+          : childAttributes
+              .map((child) => child.src)
+              .find((src) => typeof src === "string")
+      if (typeof source === "string") attributes.src = source
+      if (img >= 0) {
+        const { alt } = childAttributes[img]
+        attributes.alt = typeof alt === "string" ? alt : ""
+      }
     }
     if (children.length && !embed) {
       // Unwrap: replace the opening and closing tags, keep the content.
