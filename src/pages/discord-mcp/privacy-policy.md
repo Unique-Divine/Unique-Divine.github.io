@@ -7,7 +7,7 @@ Effective date: July 1, 2026
 
 Operator: Unique Divine, an individual operating from the United States of America.
 
-Privacy and support contact: [realuniquedivine@gmail.com](mailto:realuniquedivine@gmail.com)
+Privacy and support contact: [ud@uniquedivine.com](mailto:ud@uniquedivine.com)
 
 Application ID: `1041378802477051977`
 
@@ -160,7 +160,7 @@ applicable law.
 
 ## Requests, questions, and complaints
 
-Contact [realuniquedivine@gmail.com](mailto:realuniquedivine@gmail.com) to ask about information the integration
+Contact [ud@uniquedivine.com](mailto:ud@uniquedivine.com) to ask about information the integration
 processes, request correction or deletion, or report a concern. Where possible,
 include the relevant message link or message ID and server/channel context.
 Do not send passwords, bot tokens, or other credentials.
