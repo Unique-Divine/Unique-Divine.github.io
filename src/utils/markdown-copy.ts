@@ -276,13 +276,14 @@ export async function reduceMarkdown(
     const lowercase = /^[a-z]/.test(name)
     const href = typeof attributes.href === "string" ? attributes.href : ""
     // A link becomes a Markdown link around its content when that content is
-    // inline or one paragraph; other content unwraps like any element.
-    if (
-      name === "a" &&
-      href &&
-      children.length &&
-      (!flow || (children.length === 1 && children[0].type === "paragraph"))
-    ) {
+    // inline, one paragraph, or one childless element such as an image;
+    // other content unwraps like any element.
+    const only = children.length === 1 ? children[0] : undefined
+    const linkable =
+      !flow ||
+      only?.type === "paragraph" ||
+      (only?.type === "mdxJsxFlowElement" && !only.children.length)
+    if (name === "a" && href && children.length && linkable) {
       const url = linkDestination(absoluteLink(href, page, site))
       edits.push({ start: start(node), end: start(children[0]), text: "[" })
       edits.push({
@@ -319,8 +320,11 @@ export async function reduceMarkdown(
       const target = typeof src === "string" ? src : href
       const title =
         typeof attributes.title === "string" ? attributes.title.trim() : ""
-      if (typeof alt === "string")
-        text = await image(alt, typeof src === "string" ? src : "")
+      if (typeof alt === "string" || (name === "img" && src))
+        text = await image(
+          typeof alt === "string" ? alt : "",
+          typeof src === "string" ? src : "",
+        )
       else if (lowercase && target && (name !== "a" || title)) {
         // An embed such as `<iframe>` or `<video>` links to its source.
         const url = absoluteLink(target, page, site)

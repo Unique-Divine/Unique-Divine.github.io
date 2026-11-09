@@ -337,6 +337,34 @@ test("MDX <a href> becomes a Markdown link with an absolute URL", async () => {
   )
 })
 
+test("a linked image keeps both its image and its link", async () => {
+  const out = await reduceMarkdown(
+    [
+      '<a href="https://x.test/pkg">',
+      '  <img src="https://x.test/b.svg" alt="badge" />',
+      "</a>",
+      "",
+      '<a href="/ci">',
+      '  <img src="/ci.svg" />',
+      "</a>",
+      "",
+      'Inline <a href="/z"><img src="/z.png" alt="z" /></a>.',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      "[![badge](https://x.test/b.svg)](https://x.test/pkg)",
+      "",
+      `[![](${site}/ci.svg)](${site}/ci)`,
+      "",
+      `Inline [![z](${site}/z.png)](${site}/z).`,
+      "",
+    ].join("\n"),
+  )
+})
+
 test("childless HTML elements link to their source or become a note", async () => {
   const out = await reduceMarkdown(
     [
@@ -365,7 +393,7 @@ test("childless HTML elements link to their source or become a note", async () =
       "",
       interactiveNote(page),
       "",
-      `Inline [Embedded img](${site}/i.png) and [X](${site}/x) end.`,
+      `Inline ![](${site}/i.png) and [X](${site}/x) end.`,
       "",
     ].join("\n"),
   )
