@@ -175,6 +175,11 @@ export const linkDestination = (url: string) =>
  */
 const droppedElements = new Set(["a", "br", "hr", "wbr"])
 
+type JsxElement = MdxJsxFlowElement | MdxJsxTextElement
+const isJsx = (node: Nodes): node is JsxElement =>
+  node.type === "mdxJsxFlowElement" || node.type === "mdxJsxTextElement"
+const jsxName = (node: Nodes) => (isJsx(node) ? (node.name ?? "") : "")
+
 interface Edit {
   start: number
   end: number
@@ -306,7 +311,25 @@ export async function reduceMarkdown(
       for (const child of children) await visit(child, node as Parent)
       return
     }
-    if (children.length) {
+    // An element whose children are all childless elements, such as an
+    // `<svg>` of shapes or a `<video>` of `<source>`s, is reduced once as a
+    // whole, taking its source from the first child that has one.
+    const parts = children.filter(
+      (child) => child.type !== "text" || child.value.trim(),
+    )
+    const embed =
+      lowercase &&
+      name !== "a" &&
+      parts.length > 0 &&
+      parts.every((child) => isJsx(child) && !child.children.length) &&
+      parts.some((child) => !droppedElements.has(jsxName(child)))
+    if (embed && typeof attributes.src !== "string") {
+      const source = parts
+        .map((child) => jsxAttributes(child as JsxElement).src)
+        .find((src) => typeof src === "string")
+      if (source) attributes.src = source
+    }
+    if (children.length && !embed) {
       // Unwrap: replace the opening and closing tags, keep the content.
       // In a flow wrapper inside a list item or blockquote, the added lines
       // and the blank line between them and the content keep its prefix.
