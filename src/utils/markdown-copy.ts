@@ -205,13 +205,22 @@ export async function reduceMarkdown(
   /** A line with only container markup: list indentation or `>` markers. */
   const isPrefix = (text: string) => /^[ \t>]*$/.test(text)
 
+  /** Text between the start of a node's first line and the node. */
+  const linePrefix = (node: Nodes) => {
+    const from = start(node)
+    return source.slice(source.lastIndexOf("\n", from - 1) + 1, from)
+  }
   /**
-   * The list indentation or `>` markers before a block on its first line, or
-   * `undefined` when the line holds other text before it.
+   * Prefix for the lines a block continues onto: the list indentation and
+   * `>` markers before it, with any list marker on its first line, such as
+   * `- ` or `1. `, turned into spaces. `undefined` when the line holds other
+   * text before the block.
    */
   const containerPrefix = (node: Nodes): string | undefined => {
-    const from = start(node)
-    const prefix = source.slice(source.lastIndexOf("\n", from - 1) + 1, from)
+    const prefix = linePrefix(node).replace(
+      /(^|[ \t>])([-*+]|\d{1,9}[.)])(?=[ \t])/g,
+      (_, before: string, marker: string) => before + " ".repeat(marker.length),
+    )
     return isPrefix(prefix) ? prefix : undefined
   }
   /** Puts `prefix` before each line of `text` after the first. */
@@ -233,13 +242,16 @@ export async function reduceMarkdown(
     const from = start(node)
     const to = end(node)
     const lineStart = source.lastIndexOf("\n", from - 1) + 1
-    const prefix = containerPrefix(node)
     if (text) {
+      const prefix = containerPrefix(node)
       edits.push({ start: from, end: to, text: withPrefix(text, prefix) })
       return
     }
+    // A removal takes whole lines only when no list marker or text precedes
+    // the block on its line, so a list item's marker is never removed.
     const rest = lineEnd(to)
-    if (prefix === undefined || !/^[ \t]*\r?\n?$/.test(source.slice(to, rest))) {
+    const ownLine = isPrefix(linePrefix(node))
+    if (!ownLine || !/^[ \t]*\r?\n?$/.test(source.slice(to, rest))) {
       edits.push({ start: from, end: to, text: "" })
       return
     }
