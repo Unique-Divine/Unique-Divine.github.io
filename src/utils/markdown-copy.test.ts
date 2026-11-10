@@ -7,6 +7,7 @@ import {
   cleanHtml,
   importedModules,
   interactiveNote,
+  linkDestination,
   markdownCopyHref,
   markdownCopyParam,
   markdownTable,
@@ -182,6 +183,10 @@ test("multi-line replacements keep their container prefix", async () => {
     "",
     "  <Box />",
     "",
+    "- <Box />",
+    "",
+    "> - <Box />",
+    "",
   ].join("\n")
   const out = await reduceMarkdown(source, {
     ...mdx,
@@ -202,6 +207,14 @@ test("multi-line replacements keep their container prefix", async () => {
       "  X",
       "",
       "  Y",
+      "",
+      "- X",
+      "",
+      "  Y",
+      "",
+      "> - X",
+      ">",
+      ">   Y",
       "",
     ].join("\n"),
   )
@@ -230,6 +243,317 @@ test("mapped wrappers keep text around their unwrapped content", async () => {
     },
   )
   expect(out).toBe("Stats.\n\nBody.\n\nData: [JSON](https://x.test/m.json)\n")
+})
+
+test("multi-line wrapper text keeps its container prefix", async () => {
+  const source = [
+    'import Guide from "~/components/Guide.astro"',
+    "",
+    "- item",
+    "",
+    "  <Guide>",
+    "",
+    "  Body.",
+    "",
+    "  </Guide>",
+    "",
+    "- next",
+    "",
+    "> <Guide>",
+    ">",
+    "> Quoted.",
+    ">",
+    "> </Guide>",
+    "",
+    "1. <Guide>",
+    "",
+    "   On the marker line.",
+    "",
+    "   </Guide>",
+    "",
+  ].join("\n")
+  const out = await reduceMarkdown(source, {
+    ...mdx,
+    components: {
+      "~/components/Guide.astro": () => ({
+        before: "Stats.\n\nMore stats.",
+        after: "Data:\n[JSON](https://x.test/m.json)",
+      }),
+    },
+  })
+  expect(out).toBe(
+    [
+      "- item",
+      "",
+      "  Stats.",
+      "",
+      "  More stats.",
+      "",
+      "  Body.",
+      "",
+      "  Data:",
+      "  [JSON](https://x.test/m.json)",
+      "",
+      "- next",
+      "",
+      "> Stats.",
+      ">",
+      "> More stats.",
+      ">",
+      "> Quoted.",
+      ">",
+      "> Data:",
+      "> [JSON](https://x.test/m.json)",
+      "",
+      "1. Stats.",
+      "",
+      "   More stats.",
+      "",
+      "   On the marker line.",
+      "",
+      "   Data:",
+      "   [JSON](https://x.test/m.json)",
+      "",
+    ].join("\n"),
+  )
+})
+
+test("MDX <a href> becomes a Markdown link with an absolute URL", async () => {
+  const out = await reduceMarkdown(
+    [
+      'See <a href="/about">the **about** page</a> and',
+      '<a href="#data" target="_blank">the data</a>.',
+      "",
+      '<a href="https://x.test/a b">',
+      "Block link.",
+      "</a>",
+      "",
+      '<a href="https://x.test/d">',
+      "",
+      "One.",
+      "",
+      "Two.",
+      "",
+      "</a>",
+      "",
+      '## <a name="anchor"></a>Heading',
+      "",
+      '## <a href="#x" id="x"></a>Linked heading',
+      "",
+      '<a href="#y" id="y" />',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      `See [the **about** page](${site}/about) and`,
+      `[the data](${page}#data).`,
+      "",
+      "[Block link.](<https://x.test/a b>)",
+      "",
+      "One.",
+      "",
+      "Two.",
+      "",
+      "## Heading",
+      "",
+      "## Linked heading",
+      "",
+    ].join("\n"),
+  )
+})
+
+test("layout wrappers unwrap so each child reduces on its own", async () => {
+  const out = await reduceMarkdown(
+    [
+      'import Box from "~/components/Box.astro"',
+      "",
+      '<p align="center"><img src="/b.png" alt="Logo" /></p>',
+      "",
+      "<div>",
+      '  <img src="/one.png" alt="One" />',
+      '  <img src="/two.png" alt="Two" />',
+      "</div>",
+      "",
+      "<div><Box /></div>",
+      "",
+      '<figure><iframe src="https://y.test/e" title="Talk" /></figure>',
+      "",
+      "<picture>",
+      '  <source srcset="/p.avif" type="image/avif" />',
+      '  <img src="/p.png" alt="Photo" />',
+      "</picture>",
+      "",
+    ].join("\n"),
+    { ...mdx, components: { "~/components/Box.astro": () => "Boxed." } },
+  )
+  expect(out).toBe(
+    [
+      `![Logo](${site}/b.png)`,
+      "",
+      `![One](${site}/one.png)`,
+      `  ![Two](${site}/two.png)`,
+      "",
+      "Boxed.",
+      "",
+      "[Talk](https://y.test/e)",
+      "",
+      `![Photo](${site}/p.png)`,
+      "",
+    ].join("\n"),
+  )
+})
+
+test("childless elements that render nothing are dropped", async () => {
+  const out = await reduceMarkdown(
+    [
+      "Tweet:",
+      "",
+      '<script async src="https://platform.twitter.com/widgets.js"></script>',
+      "",
+      '<link rel="stylesheet" href="/x.css" />',
+      "",
+      '<span id="x"></span>',
+      "",
+      "## Heading",
+      "",
+      'A <div style={{ clear: "both" }} />',
+      "",
+      '<div style={{ clear: "both" }} />',
+      "",
+      "<p></p>",
+      "",
+      "<video />",
+      "",
+      "B",
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe("Tweet:\n\n## Heading\n\nA \n\nB\n")
+})
+
+test("a link that reduces to nothing or a link unwraps", async () => {
+  const out = await reduceMarkdown(
+    [
+      'import Icon from "~/components/Icon.astro"',
+      "",
+      '<a href="https://github.com/x">',
+      "  <Icon />",
+      "</a>",
+      "",
+      '<a href="/x">',
+      "  <br />",
+      "</a>",
+      "",
+      '<a href="/x">',
+      "  <div />",
+      "</a>",
+      "",
+      'See <a href="/x"><Icon /></a> here.',
+      "",
+      '<a href="/x"><iframe src="/e" title="T" /></a>',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      interactiveNote(page),
+      "",
+      "See  here.",
+      "",
+      `[T](${site}/e)`,
+      "",
+    ].join("\n"),
+  )
+})
+
+test("a linked image keeps both its image and its link", async () => {
+  const out = await reduceMarkdown(
+    [
+      '<a href="https://x.test/pkg">',
+      '  <img src="https://x.test/b.svg" alt="badge" />',
+      "</a>",
+      "",
+      '<a href="/ci">',
+      '  <img src="/ci.svg" />',
+      "</a>",
+      "",
+      'Inline <a href="/z"><img src="/z.png" alt="z" /></a>.',
+      "",
+      '<a href="/c">',
+      '  <img src="/c.png" alt="c" />',
+      "  <span>Caption</span>",
+      "</a>",
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      "[![badge](https://x.test/b.svg)](https://x.test/pkg)",
+      "",
+      `[![](${site}/ci.svg)](${site}/ci)`,
+      "",
+      `Inline [![z](${site}/z.png)](${site}/z).`,
+      "",
+      `[![c](${site}/c.png)`,
+      `  Caption](${site}/c)`,
+      "",
+    ].join("\n"),
+  )
+})
+
+test("childless HTML elements link to their source or become a note", async () => {
+  const out = await reduceMarkdown(
+    [
+      "- item",
+      "",
+      '  <iframe src="https://www.youtube.com/embed/x" title="Demo talk" />',
+      "",
+      '<video src="/media/clip.mp4" controls />',
+      "",
+      '<canvas id="chart" />',
+      "",
+      '<svg viewBox="0 0 10 10">',
+      '  <path d="M0 0" />',
+      '  <circle cx="5" />',
+      "</svg>",
+      "",
+      "<video controls>",
+      '  <source src="/m.webm" type="video/webm" />',
+      '  <source src="/m.mp4" type="video/mp4" />',
+      "</video>",
+      "",
+      "<hr />",
+      "",
+      'Inline <img src="/i.png" /> and <a href="/x" title="X" /> end' +
+        ' <svg><path d="M0 0" /></svg>.',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      "- item",
+      "",
+      "  [Demo talk](https://www.youtube.com/embed/x)",
+      "",
+      `[Embedded video](${site}/media/clip.mp4)`,
+      "",
+      interactiveNote(page),
+      "",
+      interactiveNote(page),
+      "",
+      `[Embedded video](${site}/m.webm)`,
+      "",
+      `Inline ![](${site}/i.png) and [X](${site}/x) end .`,
+      "",
+    ].join("\n"),
+  )
+  expect(linkDestination("https://x.test/a(b)")).toBe("<https://x.test/a(b)>")
 })
 
 test("markdownTable escapes pipes and collapses whitespace", () => {

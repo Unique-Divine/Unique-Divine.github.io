@@ -160,6 +160,70 @@ export const imageMarkdown = (
     title ? ` "${title.replace(/"/g, '\\"')}"` : ""
   })`
 
+/** Whether Markdown holds a link of its own; a bare image doesn't count. */
+const hasLink = (markdown: string) =>
+  /(^|[^!\\])\[[^\]]*\]\(|<https?:\/\//.test(markdown)
+
+/**
+ * Applies edits to `source` from the end, keeping only the parts that fall
+ * between `from` and `to`. A block removal may extend over blank lines that a
+ * later edit, such as a closing tag, also removes; it is clamped to that edit.
+ */
+function applyEdits(
+  source: string,
+  edits: Edit[],
+  from = 0,
+  to = source.length,
+): string {
+  let out = source.slice(0, to)
+  let limit = to
+  for (const edit of [...edits].sort(
+    (a, b) => b.start - a.start || b.end - a.end,
+  )) {
+    const editStart = Math.max(edit.start, from)
+    const stop = Math.min(edit.end, limit)
+    if (editStart > limit || stop < from) continue
+    const rest = out.slice(Math.max(stop, editStart))
+    out = out.slice(0, editStart) + edit.text + rest
+    limit = editStart
+  }
+  return out.slice(from)
+}
+
+/**
+ * Link destination for `url`, in angle brackets when it holds whitespace or
+ * parentheses that would end a bare destination.
+ */
+export const linkDestination = (url: string) =>
+  /[\s()<>]/.test(url)
+    ? `<${url.replace(/</g, "%3C").replace(/>/g, "%3E")}>`
+    : url
+
+/** Embedded media that a copy links to by its `src`, or `data` for objects. */
+const embedElements = new Set([
+  "audio",
+  "embed",
+  "iframe",
+  "object",
+  "source",
+  "track",
+  "video",
+])
+
+/**
+ * Elements that draw on the web page, which a copy replaces with the note.
+ * An `<iframe>` gets the note only when it has no source to link to.
+ */
+const drawingElements = new Set(["canvas", "iframe", "math", "svg"])
+
+/** Elements whose childless children make up one piece of media. */
+const mediaElements = new Set(["audio", "object", "picture", "svg", "video"])
+
+type JsxElement = MdxJsxFlowElement | MdxJsxTextElement
+const isJsx = (node: Nodes): node is JsxElement =>
+  node.type === "mdxJsxFlowElement" || node.type === "mdxJsxTextElement"
+const jsxName = (node: Nodes) => (isJsx(node) ? (node.name ?? "") : "")
+
 interface Edit {
   start: number
   end: number
@@ -190,6 +254,36 @@ export async function reduceMarkdown(
   /** A line with only container markup: list indentation or `>` markers. */
   const isPrefix = (text: string) => /^[ \t>]*$/.test(text)
 
+  /** Whether a blank line separates two sibling nodes. */
+  const blankBetween = (a: Nodes, b: Nodes) =>
+    /\n[ \t>]*\n/.test(source.slice(end(a), start(b)))
+  /** Text between the start of a node's first line and the node. */
+  const linePrefix = (node: Nodes) => {
+    const from = start(node)
+    return source.slice(source.lastIndexOf("\n", from - 1) + 1, from)
+  }
+  /**
+   * Prefix for the lines a block continues onto: the list indentation and
+   * `>` markers before it, with any list marker on its first line, such as
+   * `- ` or `1. `, turned into spaces. `undefined` when the line holds other
+   * text before the block.
+   */
+  const containerPrefix = (node: Nodes): string | undefined => {
+    const prefix = linePrefix(node).replace(
+      /(^|[ \t>])([-*+]|\d{1,9}[.)])(?=[ \t])/g,
+      (_, before: string, marker: string) => before + " ".repeat(marker.length),
+    )
+    return isPrefix(prefix) ? prefix : undefined
+  }
+  /** Puts `prefix` before each line of `text` after the first. */
+  const withPrefix = (text: string, prefix = "") =>
+    text
+      .split("\n")
+      .map((line, i) =>
+        i === 0 ? line : line ? prefix + line : prefix.trimEnd(),
+      )
+      .join("\n")
+
   /**
    * Replaces a block with `text`, or removes it. Inside a list item or
    * blockquote, replacement lines get the block's own prefix, and a removal
@@ -200,25 +294,16 @@ export async function reduceMarkdown(
     const from = start(node)
     const to = end(node)
     const lineStart = source.lastIndexOf("\n", from - 1) + 1
-    const prefix = source.slice(lineStart, from)
-    const contained = isPrefix(prefix)
     if (text) {
-      const lines = text.split("\n")
-      edits.push({
-        start: from,
-        end: to,
-        text: contained
-          ? lines
-              .map((line, i) =>
-                i === 0 ? line : line ? prefix + line : prefix.trimEnd(),
-              )
-              .join("\n")
-          : text,
-      })
+      const prefix = containerPrefix(node)
+      edits.push({ start: from, end: to, text: withPrefix(text, prefix) })
       return
     }
+    // A removal takes whole lines only when no list marker or text precedes
+    // the block on its line, so a list item's marker is never removed.
     const rest = lineEnd(to)
-    if (!contained || !/^[ \t]*\r?\n?$/.test(source.slice(to, rest))) {
+    const ownLine = isPrefix(linePrefix(node))
+    if (!ownLine || !/^[ \t]*\r?\n?$/.test(source.slice(to, rest))) {
       edits.push({ start: from, end: to, text: "" })
       return
     }
@@ -252,19 +337,93 @@ export async function reduceMarkdown(
     const mapped = module
       ? options.components?.[module]?.(attributes, { page })
       : undefined
-    if (children.length) {
-      // Unwrap: replace the opening and closing tags, keep the content.
-      const wrap = typeof mapped === "object" ? mapped : {}
-      const gap = flow ? "\n\n" : ""
+    const href = typeof attributes.href === "string" ? attributes.href : ""
+    // A link becomes a Markdown link around its content when the content
+    // reduces to text with no link of its own, such as words or an image, and
+    // reads as one paragraph: inline, or paragraphs and childless elements
+    // with no blank line between them. Otherwise it unwraps like any element.
+    if (name === "a" && href && children.length) {
+      const oneParagraph =
+        !flow ||
+        children.every(
+          (child, i) =>
+            (child.type === "paragraph" ||
+              (child.type === "mdxJsxFlowElement" &&
+                !child.children.length)) &&
+            (i === 0 || !blankBetween(children[i - 1], child)),
+        )
+      const mark = edits.length
+      for (const child of children) await visit(child, node as Parent)
+      const content = applyEdits(
+        source,
+        edits.slice(mark),
+        start(children[0]),
+        end(children.at(-1)!),
+      )
+      if (flow && !content.trim()) {
+        // Nothing to show: remove the whole block instead of its parts.
+        edits.splice(mark)
+        return removeFlow(node)
+      }
+      const linked = oneParagraph && content.trim() && !hasLink(content)
+      const url = linkDestination(absoluteLink(href, page, site))
       edits.push({
         start: start(node),
         end: start(children[0]),
-        text: wrap.before ? wrap.before + gap : "",
+        text: linked ? "[" : "",
       })
       edits.push({
         start: end(children.at(-1)!),
         end: end(node),
-        text: wrap.after ? gap + wrap.after : "",
+        text: linked ? `](${url})` : "",
+      })
+      return
+    }
+    // A media element whose children are all childless, such as an `<svg>`
+    // of shapes or a `<video>` of `<source>`s, is reduced once as a whole.
+    // It takes its source from the first child that has one, or becomes the
+    // image of an `<img>` child, as in `<picture>`. Other wrappers unwrap, so
+    // each child reduces on its own.
+    const parts = children.filter(
+      (child) => child.type !== "text" || child.value.trim(),
+    )
+    const embed =
+      mediaElements.has(name) &&
+      parts.length > 0 &&
+      parts.every((child) => isJsx(child) && !child.children.length)
+    if (embed && typeof attributes.src !== "string") {
+      const childAttributes = parts.map((child) =>
+        jsxAttributes(child as JsxElement),
+      )
+      const img = parts.findIndex((child) => jsxName(child) === "img")
+      const source =
+        img >= 0
+          ? childAttributes[img].src
+          : childAttributes
+              .map((child) => child.src)
+              .find((src) => typeof src === "string")
+      if (typeof source === "string") attributes.src = source
+      if (img >= 0) {
+        const { alt } = childAttributes[img]
+        attributes.alt = typeof alt === "string" ? alt : ""
+      }
+    }
+    if (children.length && !embed) {
+      // Unwrap: replace the opening and closing tags, keep the content.
+      // In a flow wrapper inside a list item or blockquote, the added lines
+      // and the blank line between them and the content keep its prefix.
+      const wrap = typeof mapped === "object" ? mapped : {}
+      const prefix = flow ? containerPrefix(node) : undefined
+      const gap = flow ? `\n${(prefix ?? "").trimEnd()}\n${prefix ?? ""}` : ""
+      edits.push({
+        start: start(node),
+        end: start(children[0]),
+        text: wrap.before ? withPrefix(wrap.before, prefix) + gap : "",
+      })
+      edits.push({
+        start: end(children.at(-1)!),
+        end: end(node),
+        text: wrap.after ? gap + withPrefix(wrap.after, prefix) : "",
       })
       for (const child of children) await visit(child, node as Parent)
       return
@@ -272,9 +431,32 @@ export async function reduceMarkdown(
     let text = typeof mapped === "string" ? mapped : undefined
     if (text === undefined) {
       const { alt, src } = attributes
-      if (typeof alt === "string")
-        text = await image(alt, typeof src === "string" ? src : "")
-      else if (flow && /^[A-Z]/.test(name)) text = interactiveNote(page)
+      const { data } = attributes
+      const target =
+        typeof src === "string"
+          ? src
+          : name === "object" && typeof data === "string"
+            ? data
+            : href
+      const title =
+        typeof attributes.title === "string" ? attributes.title.trim() : ""
+      if (typeof alt === "string" || (name === "img" && src))
+        text = await image(
+          typeof alt === "string" ? alt : "",
+          typeof src === "string" ? src : "",
+        )
+      else if (
+        target &&
+        (embedElements.has(name) || (name === "a" && href && title))
+      ) {
+        // An embed such as `<iframe>` or `<video>` links to its source.
+        const url = absoluteLink(target, page, site)
+        const label = title || `Embedded ${name}`
+        text = `[${escapeAlt(label)}](${linkDestination(url)})`
+      } else if (flow && (/^[A-Z]/.test(name) || drawingElements.has(name)))
+        text = interactiveNote(page)
+      // Other lowercase elements, such as `<script>`, `<link>`, or an empty
+      // `<span id>` or `<div>`, render no content and are dropped.
       else text = ""
     }
     if (flow) removeFlow(node, text)
@@ -357,16 +539,7 @@ export async function reduceMarkdown(
         modules.set(name, module)
   for (const node of tree.children) await visit(node)
 
-  // Apply from the end. A block removal may extend over blank lines that a
-  // later edit, such as a closing tag, also removes; clamp it to that edit.
-  let out = source
-  let limit = source.length
-  for (const edit of edits.sort((a, b) => b.start - a.start || b.end - a.end)) {
-    const stop = Math.min(edit.end, limit)
-    out = out.slice(0, edit.start) + edit.text + out.slice(stop)
-    limit = edit.start
-  }
-  return out.trim() + "\n"
+  return applyEdits(source, edits).trim() + "\n"
 }
 
 export interface MarkdownCopy {

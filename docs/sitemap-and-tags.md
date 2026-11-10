@@ -79,7 +79,22 @@ Markdown stays as written except for these changes:
 
 - MDX `import`/`export` lines and `{expressions}` are removed.
 - JSX elements with children, such as `<Guide>` or a `<div>`, unwrap to
-  their content.
+  their content. An `<a href>` becomes a Markdown link to its absolute URL
+  when its content reduces to text with no link of its own, such as words
+  or an image, and reads as one paragraph. Otherwise it unwraps.
+- Childless lowercase elements follow an allow-list. Embeds (`<iframe>`,
+  `<embed>`, `<video>`, `<audio>`, `<object>`, `<source>`, `<track>`) with
+  a source become a link to it, labeled by its `title` when it has one. An
+  `<img>` becomes an image, with empty alt text if it has no `alt`.
+  Elements that draw (`<canvas>`, `<svg>`, `<math>`, and an `<iframe>`
+  without a source) become the web-page note. Everything else, such as
+  `<script>`, `<link>`, `<br>`, or an empty `<span id>` or `<div>`, renders
+  no content and is dropped.
+- A media element (`<svg>`, `<video>`, `<audio>`, `<picture>`, or
+  `<object>`) whose children are all childless counts as one childless
+  element. It takes the first child's `src`, or becomes the image of an
+  `<img>` child. Other wrappers, such as a `<p>` or `<div>` around an
+  image, unwrap.
 - `markdownComponents` in `src/utils/markdown-components.ts`, keyed by
   import path, maps components to Markdown. The block-latency entries in
   `src/components/research/block-latency/markdown.ts` render each widget's
@@ -87,7 +102,9 @@ Markdown stays as written except for these changes:
   its figure, its phase, scenario, or upgrade table, and its summary text.
   `Guide` keeps its stat line and a `Data:` line of absolute links to the
   measurement files, and `Legend`, a color key, is dropped. Other childless
-  components become a note that links to the web page.
+  components become a note that links to the web page. Text a wrapper adds
+  before or after its content keeps the list indentation or `>` prefix of
+  the line it sits on, with a list marker on that line turned into spaces.
 - Images under `src/assets/images` resolve through `getImage` to the
   optimized `/_astro/` file the HTML page uses. Root-relative images and
   links, `#fragment` links, and raw HTML `src`/`href` become absolute. An
