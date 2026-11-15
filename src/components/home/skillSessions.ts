@@ -55,7 +55,7 @@ const detail = (...spans: Span[]): SessionLine => ({ kind: "detail", spans })
 export const SKILL_SESSION_SCRIPTS: SkillSessionScript[] = [
   {
     name: "gh-rev",
-    cwd: "~/ki/sai-web",
+    cwd: "~/sai-web",
     branch: "ud/vault-cap",
     verb: "Reviewing",
     finalState: "done",
@@ -85,7 +85,7 @@ export const SKILL_SESSION_SCRIPTS: SkillSessionScript[] = [
   },
   {
     name: "drill-spec",
-    cwd: "~/ki/boku/epics",
+    cwd: "~/boku/epics",
     branch: "main",
     verb: "Drilling",
     finalState: "blocked",
@@ -117,7 +117,7 @@ export const SKILL_SESSION_SCRIPTS: SkillSessionScript[] = [
   },
   {
     name: "unslop",
-    cwd: "~/ki/gh-io-ud",
+    cwd: "~/gh-io-ud",
     branch: "ud/about-rewrite",
     verb: "Unslopping",
     finalState: "done",
@@ -142,7 +142,7 @@ export const SKILL_SESSION_SCRIPTS: SkillSessionScript[] = [
   },
   {
     name: "herdr",
-    cwd: "~/ki/sai-web",
+    cwd: "~/sai-web",
     branch: "ud/vault-cap",
     verb: "Herding",
     finalState: "done",
@@ -170,7 +170,7 @@ export const SKILL_SESSION_SCRIPTS: SkillSessionScript[] = [
   },
   {
     name: "tailscale-serve",
-    cwd: "~/ki/gh-io-ud",
+    cwd: "~/gh-io-ud",
     branch: "ud/agent-logo-strip",
     verb: "Serving",
     finalState: "done",
@@ -193,7 +193,7 @@ export const SKILL_SESSION_SCRIPTS: SkillSessionScript[] = [
   },
   {
     name: "sai-perps",
-    cwd: "~/ki/sai-perps",
+    cwd: "~/sai-perps",
     branch: "main",
     verb: "Querying",
     finalState: "done",
