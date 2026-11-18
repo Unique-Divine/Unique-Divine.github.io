@@ -1,22 +1,27 @@
 {
   "repository": "https://github.com/Unique-Divine/jiyuu",
-  "revision": "b31eb6e727f7c4b3275093c7dc8deee90e51bcf3",
+  "revision": "15cfec642501a6fd4ff18b7e7c306686a82d5da0",
   "dirty": false,
   "pages": {
-    "bash-defensive-patterns": {
-      "source": "bash-defensive-patterns/SKILL.md",
-      "sha256": "f47bd7979a065f340c14bf410f390fdbceabe93f40ddedc908b8d8bc877aa8c9",
-      "publishDate": "2026-10-19"
-    },
     "drill-spec": {
       "source": "drill-spec/SKILL.md",
-      "sha256": "8311a8469f5022739a3602bd4243ef6fd1dbf080bb0662ace755aa6bfba702ec",
+      "sha256": "f89e13df1627498f2b43bad23c09b6d3d85cf2d2d1c6eaa75f4e036fc88a9d25",
       "publishDate": "2026-10-19"
+    },
+    "evm-rpc/nibiru-multicall": {
+      "source": "evm-rpc/nibiru-multicall.md",
+      "sha256": "48376e77e90f29dd76afce78750843e4cbc2c314109250d309656206236cd139",
+      "publishDate": "2026-11-18"
     },
     "evm-rpc": {
       "source": "evm-rpc/SKILL.md",
-      "sha256": "7da4963da8d367dc83b43861ab78f03cbec53893c66bededcbde4259bb2c8010",
+      "sha256": "a7b9f2df16d681b0ae8387531f02896f27b14335a5ec1c223da6c7d3a5b0ba1e",
       "publishDate": "2026-10-19"
+    },
+    "frontend-design": {
+      "source": "frontend-design/SKILL.md",
+      "sha256": "d022b4f145574ead2e4d4fe106ebf2dedf4204c26f0d1da37460e946a0c35e1d",
+      "publishDate": "2026-11-18"
     },
     "gh-actionlint": {
       "source": "gh-actionlint/SKILL.md",
@@ -30,7 +35,7 @@
     },
     "gh-labels": {
       "source": "gh-labels/SKILL.md",
-      "sha256": "37887d19e380a08527459dd450327d42f6864b3b949cf410864f0485a7b989e9",
+      "sha256": "b16335b3f72346a82628e2c142f4f8923ed224c914aef6d4f351753c35baf724",
       "publishDate": "2026-10-19"
     },
     "gh-pr-review": {
@@ -40,7 +45,7 @@
     },
     "gh-pr": {
       "source": "gh-pr/SKILL.md",
-      "sha256": "fd6b190c3ad91b07d5b3bc18c669d66f2e7319b8c7d603e9fce45a956dd8f0be",
+      "sha256": "ecdead4955ed0cff374bf3dd1f2edb159eee04349044341201ea5c8f92c5f792",
       "publishDate": "2026-10-19"
     },
     "gh-rev/cli": {
@@ -100,7 +105,7 @@
     },
     "md-tasks": {
       "source": "md-tasks/SKILL.md",
-      "sha256": "d632d3375012b23b79ae22d6a41e405ef5b2f396b4494077bf7dc2a4218b49a6",
+      "sha256": "76d623c42f445f61b0b6848b664007aa50526f5afb8823c1de6f5a462403404e",
       "publishDate": "2026-10-19"
     },
     "new-chat-prompt": {
@@ -113,24 +118,19 @@
       "sha256": "a5612ed1c134b99cd3848faef169fedf16c9bb1198e82973a294c5b52a750595",
       "publishDate": "2026-10-19"
     },
+    "nibiru-cli/governance": {
+      "source": "nibiru-cli/governance.md",
+      "sha256": "bdeeb559eac4fa4eb086eff1ca68ceb362a977794ce2b012cc83b0290c4ea9fa",
+      "publishDate": "2026-11-18"
+    },
     "nibiru-cli/reference": {
       "source": "nibiru-cli/reference.md",
-      "sha256": "0636ddcaf432beab25eb998b654cfab4fc7313f3ca729f4530e543feb96ff3c6",
+      "sha256": "eb4021a3d8a23818cd5a356da83181ef537700f284c83bcee22af4844ea182fb",
       "publishDate": "2026-10-19"
     },
     "nibiru-cli": {
       "source": "nibiru-cli/SKILL.md",
-      "sha256": "6d89208b3022c6305b2ffd6cc49c463247c0b7562e2f4b039df6bd936da2b4c3",
-      "publishDate": "2026-10-19"
-    },
-    "nibiru-gov-upgrade/reference": {
-      "source": "nibiru-gov-upgrade/reference.md",
-      "sha256": "162079302b9e8bd5ede90c31d7d3587775b58e29611d98a76e0a13f4efa01ba1",
-      "publishDate": "2026-10-19"
-    },
-    "nibiru-gov-upgrade": {
-      "source": "nibiru-gov-upgrade/SKILL.md",
-      "sha256": "bea9529dc9f33d9ae7ea5f211a982c4459e73417f6ce12106b5df44d6eebe3c0",
+      "sha256": "1770e2c7dc3c66e479980dcc9513b8e8f852c83b7e4aa40efccabad9d17acf9d",
       "publishDate": "2026-10-19"
     },
     "nibiru-gql/db-events": {
@@ -163,9 +163,14 @@
       "sha256": "d7724b8c506743c561cefe08bac3a9f707b3eb85e1c66e0d547da3eec1ecaf2d",
       "publishDate": "2026-10-19"
     },
+    "python": {
+      "source": "python/SKILL.md",
+      "sha256": "bbfd93b8da7687e15f8d2721c1c22fdd35b06e8c3f7a38db06abb05b6b1b3c48",
+      "publishDate": "2026-11-18"
+    },
     "repo-map/cloning": {
       "source": "repo-map/cloning.md",
-      "sha256": "c6927cf92383673f35a266156da2c0bacba276dcdbc53444058bf1505562fa7a",
+      "sha256": "31322e7cd799915882b8bbf760fd78d2c6a6b5742bb2663959f6908dea5e542f",
       "publishDate": "2026-10-19"
     },
     "repo-map/reference": {
@@ -175,7 +180,7 @@
     },
     "repo-map": {
       "source": "repo-map/SKILL.md",
-      "sha256": "de75b9786ec6826c73e6719d87e545c7ba819a0d7851e522ac60a3448ebcba03",
+      "sha256": "47e44cb8c68fc8905c5f3ca15a35a3ba04a1b8f209dbd81590bc6133916a5032",
       "publishDate": "2026-10-19"
     },
     "sai-perps/examples/sai-perps-prompts": {
@@ -185,7 +190,7 @@
     },
     "sai-perps/sai-contracts": {
       "source": "sai-perps/references/sai-contracts.md",
-      "sha256": "bc724bf0a89c5a0b4f88f5b4af7c57aa8ef0d0321e44fdd6379f4329b21a7582",
+      "sha256": "1ae30248925d6b6718d5124d50b480bd7387d018c61d2120f0242c3c5a87f84a",
       "publishDate": "2026-10-19"
     },
     "sai-perps/sai-db": {
@@ -195,7 +200,7 @@
     },
     "sai-perps/sai-graphql": {
       "source": "sai-perps/references/sai-graphql.md",
-      "sha256": "1ba5a9a4b2802c0397e3f737e043a52eec83f806d9a22a35750c85813da02ab7",
+      "sha256": "0db8fd10710af450d8146dae730738421ca674285ab5aa52752ecf5f0d55f671",
       "publishDate": "2026-10-19"
     },
     "sai-perps/sai-reconciliation": {
@@ -215,13 +220,18 @@
     },
     "sai-perps/sai-vaults": {
       "source": "sai-perps/references/sai-vaults.md",
-      "sha256": "1438403ddb0171f098f20ce127ebf610de9566afa73e171f05d0533c89315e4d",
+      "sha256": "1302686734119efefad7751bfbf000b7b51064adb2588130d9b9c74e4b02fc6b",
       "publishDate": "2026-10-19"
     },
     "sai-perps": {
       "source": "sai-perps/SKILL.md",
       "sha256": "ae1fa94f5b021cfe59c23e146bf01f4867446baf0f84bf729b243c8fe61e0913",
       "publishDate": "2026-10-19"
+    },
+    "sai": {
+      "source": "sai/SKILL.md",
+      "sha256": "0d7f0c72af2bd050ed45729acd35abed1170b3eed2e21939d4d156377cd4b9bd",
+      "publishDate": "2026-11-18"
     },
     "tailscale-serve": {
       "source": "tailscale-serve/SKILL.md",
@@ -233,6 +243,21 @@
       "sha256": "137868ff34f7b22fee9fec38427c34a20b5b67868162289f80bc593c006c3332",
       "publishDate": "2026-10-19"
     },
+    "ud-scripts/bash": {
+      "source": "ud-scripts/bash.md",
+      "sha256": "89f26cff08892c156a95de092a283b5dfe10b804d8f3f62c73da5c7cb65cbfd0",
+      "publishDate": "2026-11-18"
+    },
+    "ud-scripts": {
+      "source": "ud-scripts/SKILL.md",
+      "sha256": "e07706f3fdaf0a5cd44b97eab25cc33fcef7c20dd9dda6f3bee14a1eb305ae6e",
+      "publishDate": "2026-11-18"
+    },
+    "ud-scripts/testable-scripts": {
+      "source": "ud-scripts/testable-scripts.md",
+      "sha256": "86090d6715bf26cd69f7ec326e40f44dae4eebf76ed89feb4ba90a65e33790da",
+      "publishDate": "2026-11-18"
+    },
     "ud-writing-tech/resources": {
       "source": "ud-writing-tech/resources.md",
       "sha256": "223c1688b56b4f48901fc41e2227964a5020da931c1a6d345d09f99c0ea9f63f",
@@ -240,12 +265,12 @@
     },
     "ud-writing-tech": {
       "source": "ud-writing-tech/SKILL.md",
-      "sha256": "19410c8e85501556a52b730f138a83fa15bb8e51db5475e414274b28da0ba729",
+      "sha256": "fb44b6ed28d1be8fab0a6ab0049e86709065a4530813398bad96413ca95398e3",
       "publishDate": "2026-10-19"
     },
     "unslop": {
       "source": "unslop/SKILL.md",
-      "sha256": "181883e539caec8258ec9129e3ba5f133409144a2cbf2aa361158ab94cfc3441",
+      "sha256": "2de8d3522b76b0736c565819a988f414b2505508ea567a2f1ad449471eef2338",
       "publishDate": "2026-10-19"
     }
   }

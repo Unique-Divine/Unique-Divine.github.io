@@ -1,22 +1,18 @@
 ---
-name: bash-defensive-patterns
-description: Master defensive Bash programming techniques for production-grade scripts. Use when writing robust shell scripts, CI/CD pipelines, or system utilities requiring fault tolerance and safety.
+title: Bash Defensive Patterns
+description: Supporting reference for ud-scripts.
+name: ud-scripts
+folder: ud-scripts
+source: ud-scripts/bash.md
+route: ud-scripts/bash
+kind: reference
+stickyToc: true
+publishDate: '2026-11-18'
 ---
 
-# Bash Defensive Patterns
-
-Comprehensive guidance for writing production-ready Bash scripts using defensive programming techniques, error handling, and safety best practices to prevent common pitfalls and ensure reliability.
-
-## When to Use This Skill
-
-- Writing production automation scripts
-- Building CI/CD pipeline scripts
-- Creating system administration utilities
-- Developing error-resilient deployment automation
-- Writing scripts that must handle edge cases safely
-- Building maintainable shell script libraries
-- Implementing comprehensive logging and monitoring
-- Creating scripts that must work across different platforms
+Child page of agent skill `ud-scripts`. Read [SKILL.md](/ai-skills/ud-scripts) first: a
+new repo script usually belongs in Python or Bun. Use this page when Bash is
+the right fit (a few lines of glue) or when editing an existing Bash script.
 
 ## Core Defensive Principles
 
@@ -31,10 +27,10 @@ set -Eeuo pipefail  # Exit on error, unset variables, pipe failures
 
 **Key flags:**
 
-- `set -E`: Inherit ERR trap in functions
-- `set -e`: Exit on any error (command returns non-zero)
-- `set -u`: Exit on undefined variable reference
-- `set -o pipefail`: Pipe fails if any command fails (not just last)
+* `set -E`: Inherit ERR trap in functions
+* `set -e`: Exit on any error (command returns non-zero)
+* `set -u`: Exit on undefined variable reference
+* `set -o pipefail`: Pipe fails if any command fails (not just last)
 
 ### 2. Error Trapping and Cleanup
 
@@ -188,7 +184,7 @@ set -Eeuo pipefail
 
 # Default values
 VERBOSE=false
-DRY_RUN=false
+RUN=false
 OUTPUT_FILE=""
 THREADS=4
 
@@ -198,7 +194,7 @@ Usage: $0 [OPTIONS]
 
 Options:
     -v, --verbose       Enable verbose output
-    -d, --dry-run       Run without making changes
+    --run               Apply changes (see Pattern 10)
     -o, --output FILE   Output file path
     -j, --jobs NUM      Number of parallel jobs
     -h, --help          Show this help message
@@ -213,8 +209,8 @@ while [[ $# -gt 0 ]]; do
             VERBOSE=true
             shift
             ;;
-        -d|--dry-run)
-            DRY_RUN=true
+        --run)
+            RUN=true
             shift
             ;;
         -o|--output)
@@ -428,17 +424,21 @@ while IFS= read -r -d '' file; do
 done < <(find /path -type f -print0)
 ```
 
-### Pattern 10: Dry-Run Support
+### Pattern 10: Print the Plan, Act on --run
+
+One option for dangerous or one-off scripts: print each command instead of
+running it, and run only when `--run` is passed. A `--sim` flag that
+simulates the change is another way to get the same safety.
 
 ```bash
 #!/bin/bash
 set -Eeuo pipefail
 
-DRY_RUN="${DRY_RUN:-false}"
+RUN=false  # set by --run (see Pattern 4)
 
 run_cmd() {
-    if [[ "$DRY_RUN" == "true" ]]; then
-        echo "[DRY RUN] Would execute: $*"
+    if [[ "$RUN" != "true" ]]; then
+        printf '+'; printf ' %q' "$@"; printf '\n'
         return 0
     fi
 
@@ -519,12 +519,12 @@ check_dependencies
 
 1. **Always use strict mode** - `set -Eeuo pipefail`
 2. **Quote all variables** - `"$variable"` prevents word splitting
-3. **Use [[]] conditionals** - More robust than [ ]
+3. **Use \[\[]] conditionals** - More robust than \[ ]
 4. **Implement error trapping** - Catch and handle errors gracefully
 5. **Validate all inputs** - Check file existence, permissions, formats
 6. **Use functions for reusability** - Prefix with meaningful names
 7. **Implement structured logging** - Include timestamps and levels
-8. **Support dry-run mode** - Allow users to preview changes
+8. **Consider a plan mode** - For dangerous one-off scripts, print the commands and act only on `--run`
 9. **Handle temporary files safely** - Use mktemp, cleanup with trap
 10. **Design for idempotency** - Scripts should be safe to rerun
 11. **Document requirements** - List dependencies and minimum versions

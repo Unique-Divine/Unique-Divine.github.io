@@ -1,6 +1,6 @@
 ---
 title: Repo Map — Nibiru and Personal Repos
-description: Maps and routes between key repositories on my machine (boku, nibi-chain, nibi-geth, nibi-go-hm, nibi-ts-sdk, sai-web, sai-perps, nibi-iac, nibi-web, gh-io-ud, and the in-tree Wasm runtime and Rust contracts). Use when the user asks which repo to look at, where a feature lives, how repos connect, how services are deployed (Terraform/IaC), when a task spans chain, EVM, indexer, SDK, frontend, and docs, or when the user asks about the personal site, blog posts, official Nibiru docs, or Astro/gh-pages.
+description: Maps and routes between key repositories on my machine (boku, nibi-chain, nibi-geth, nibi-go-hm, nibi-ts-sdk, sai-web, sai-perps, open-sai, nibi-iac, nibi-web, gh-io-ud, and the in-tree Wasm runtime and Rust contracts). Use when the user asks which repo to look at, where a feature lives, how repos connect, how services are deployed (Terraform/IaC), when a task spans chain, EVM, indexer, SDK, frontend, and docs, or when the user asks about the personal site, blog posts, official Nibiru docs, or Astro/gh-pages.
 name: repo-map
 folder: repo-map
 source: repo-map/SKILL.md
@@ -54,9 +54,18 @@ Use this skill to quickly route questions/tasks to the correct repo(s) under pat
   frontend and API integrations. This uses the "sai-keeper" GraphQL interface.
 * `~/sai-perps`: **Official Sai protocol contracts** (EVM + Wasm). This repo defines what gets deployed onchain; the web app and sai-keeper both talk to these contracts. Used by trading tools and integrations.
 * `~/sai-keeper`: Defines the "sai-keeper" GraphQL interface for Sai.
-* `~/nibi-chain/sai-trading`: **Sai: Trading bot automation service**
+* `~/nibi-chain/lib/sai-trading`: **Sai: Trading bot automation service**
 * `~/sai-docs`: Public-facing user documentation for Sai. Great conceptual
   resource.
+* `~/open-sai`: **Open Sai, the public monorepo for Sai**
+  ([Unique-Divine/open-sai](https://github.com/Unique-Divine/open-sai)). It
+  serves two functions. First, it exports curated work from the private Sai
+  repos (docs, EVM code, public contract interfaces) so people can follow
+  shipping progress; export PRs carry a label and merge automatically after
+  CI. Second, it hosts code developed natively in public: the Python trader
+  CLI under `cli/` and the planned trader MCP. Design lives in boku epics
+  `epics/26-10-13-open-sai/` (exporter) and `epics/26-11-13-Sai-AI/` (CLI,
+  MCP, profiles).
 
 ### Nibiru public site, docs, and wallet app
 
@@ -86,10 +95,10 @@ Use this skill to quickly route questions/tasks to the correct repo(s) under pat
 ### Personal, Blog, Boku Workspace
 
 * `~/boku`: **Personal knowledge base and project hub.** Monorepo for sandboxing, backups, and external brain. Use when working on epics, specs, Nibiru notes, focustime, or scripts that span nibi-chain, sai-perps, sai-web. Contains: `epics/`, `nibi/` (addr-book, cook), `free/` (todos, journal), `sde/`, `jiyuu/` (focustime, mdtoc), `scripts/`. Bun/TS + Go + Rust. Run `just test`, `just install`.
-* `~/gh-io-ud`: **Personal site (GitHub Pages).** Astro 4 + Tailwind. Blog
+* `~/gh-io-ud`: **Personal site (Firebase Hosting).** Astro 4 + Tailwind. Blog
   content in `src/content/post/` (schema in `src/content/config.ts`). Site config
   `src/config.yaml`, nav `src/navigation.js`. Run `just dev`, build `just b`,
-  deploy `just deploy`.
+  deploy to Firebase Hosting with `just deploy`.
 
 ## GitHub Remotes and Git Cloning
 
@@ -97,18 +106,19 @@ Use this skill to quickly route questions/tasks to the correct repo(s) under pat
 
 Nibiru work lives under org **`NibiruChain`**. Local directory names often **differ** from the repository slug (e.g. clone `nibiru` into **`nibi-chain`**). **`gh repo list NibiruChain`** lists canonical slugs for your account.
 
-| Local folder  | Remote                                           |
-| ------------- | ------------------------------------------------ |
-| `nibi-chain`  | `git@github.com:NibiruChain/nibiru.git`          |
-| `nibi-geth`   | `git@github.com:NibiruChain/go-ethereum.git`     |
-| `nibi-go-hm`  | `git@github.com:NibiruChain/go-heartmonitor.git` |
-| `nibi-ts-sdk` | `git@github.com:NibiruChain/ts-sdk.git`          |
-| `nibi-web`    | `git@github.com:NibiruChain/nibi-web.git`        |
-| `sai-web`     | `git@github.com:NibiruChain/sai-web.git`         |
-| `sai-perps`   | `git@github.com:NibiruChain/sai-perps.git`       |
-| `sai-keeper`  | `git@github.com:NibiruChain/sai-keeper.git`      |
-| `sai-docs`    | `git@github.com:NibiruChain/sai-docs.git`        |
-| `nibi-iac`    | `git@github.com:NibiruChain/iac.git`             |
+| Local folder  | Remote                                                     |
+| ------------- | ---------------------------------------------------------- |
+| `nibi-chain`  | `git@github.com:NibiruChain/nibiru.git`                    |
+| `nibi-geth`   | `git@github.com:NibiruChain/go-ethereum.git`               |
+| `nibi-go-hm`  | `git@github.com:NibiruChain/go-heartmonitor.git`           |
+| `nibi-ts-sdk` | `git@github.com:NibiruChain/ts-sdk.git`                    |
+| `nibi-web`    | `git@github.com:NibiruChain/nibi-web.git`                  |
+| `sai-web`     | `git@github.com:NibiruChain/sai-web.git`                   |
+| `sai-perps`   | `git@github.com:NibiruChain/sai-perps.git`                 |
+| `sai-keeper`  | `git@github.com:NibiruChain/sai-keeper.git`                |
+| `sai-docs`    | `git@github.com:NibiruChain/sai-docs.git`                  |
+| `open-sai`    | `git@github.com:Unique-Divine/open-sai.git` (personal org) |
+| `nibi-iac`    | `git@github.com:NibiruChain/iac.git`                       |
 
 Other entries in this map: **`wasm-cosmwasm`** → `git@github.com:CosmWasm/cosmwasm.git`; **`boku`** → `git@github.com:Unique-Divine/boku.git` (personal).
 The archived Nibiru forks are `NibiruChain/go-wasmvm` and `NibiruChain/nibiru-wasm`;

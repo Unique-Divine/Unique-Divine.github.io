@@ -15,7 +15,6 @@ If the list truncates, raise `--limit` or run `gh api orgs/NibiruChain/repos --p
 From an empty or partial `~`, run only the lines you still need (skip if the directory already exists).
 
 ```bash
-mkdir -p "$HOME"
 cd "$HOME"
 
 git clone git@github.com:NibiruChain/nibiru.git nibi-chain
@@ -30,14 +29,13 @@ git clone git@github.com:NibiruChain/sai-docs.git sai-docs
 git clone git@github.com:NibiruChain/iac.git nibi-iac
 ```
 
-The **`nibiru`** checkout also contains **`nibi-chain/sai-trading/`** (trading bot automation); there is **no** separate clone for that path.
+The **`nibiru`** checkout also contains **`nibi-chain/lib/sai-trading/`** (trading bot automation); there is **no** separate clone for that path.
 
 Sanity-check: `git -C ~/<folder> remote get-url origin` should show `NibiruChain/<slug>.git`; the **`folder`** name is chosen for ergonomics and may not equal **`slug`** (see table in [SKILL.md](./SKILL.md)).
 
 ## Wasm / toolchain (upstream CosmWasm, not NibiruChain)
 
 ```bash
-mkdir -p "$HOME"
 cd "$HOME"
 
 git clone git@github.com:CosmWasm/cosmwasm.git wasm-cosmwasm
@@ -57,6 +55,8 @@ cd "$HOME"
 
 git clone git@github.com:Unique-Divine/boku.git boku
 
+git clone git@github.com:Unique-Divine/open-sai.git open-sai
+
 # gh-io-ud: replace with your fork if different
 git clone git@github.com:Unique-Divine/gh-io-ud.git gh-io-ud
 ```
@@ -67,7 +67,6 @@ Runs the same clones as above; skips directories that already contain **`.git`**
 
 ```bash
 clone_nibiruchain_ki() {
-  mkdir -p "$HOME" || return 1
   (
     cd "$HOME" || return 1
     clone_into() {
