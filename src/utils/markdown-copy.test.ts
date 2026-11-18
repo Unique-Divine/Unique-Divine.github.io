@@ -9,10 +9,12 @@ import {
   interactiveNote,
   markdownCopyHref,
   markdownCopyParam,
+  markdownPagePath,
   markdownTable,
   mdxLeftovers,
   pageCopyIntro,
   pagePath,
+  parseMarkdownPage,
   proseLines,
   reduceMarkdown,
   renderMarkdownCopy,
@@ -96,6 +98,38 @@ test("pagePath turns a request path into the page path", () => {
   expect(pagePath("/blog/x/index.html")).toBe("/blog/x")
   expect(pagePath("/blog/x.html")).toBe("/blog/x")
   expect(pagePath("/")).toBe("/")
+})
+
+test("parseMarkdownPage reads title and copyForLlm, then the body", () => {
+  const page = parseMarkdownPage(
+    [
+      "---",
+      'layout: "~/layouts/MarkdownLayout.astro"',
+      'title: "Terms: Unique Divine PC & AI"',
+      "copyForLlm: true",
+      "---",
+      "",
+      "Body.",
+      "",
+    ].join("\n"),
+  )
+  expect(page).toEqual({
+    title: "Terms: Unique Divine PC & AI",
+    copyForLlm: true,
+    body: "\nBody.\n",
+  })
+  expect(parseMarkdownPage("---\ntitle: A\n---\nB").copyForLlm).toBe(
+    undefined,
+  )
+  expect(parseMarkdownPage("No frontmatter.")).toEqual({
+    body: "No frontmatter.",
+  })
+})
+
+test("markdownPagePath maps src/pages files to page paths", () => {
+  expect(markdownPagePath("discord-mcp/index.md")).toBe("/discord-mcp")
+  expect(markdownPagePath("discord-mcp/terms.md")).toBe("/discord-mcp/terms")
+  expect(markdownPagePath("index.md")).toBe("/")
 })
 
 test("pageCopyIntro names the page and the site on one line", () => {

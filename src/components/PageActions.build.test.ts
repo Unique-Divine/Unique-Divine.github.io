@@ -28,24 +28,26 @@ function buttonProps(
   return { markdown: props.markdown[1], intro: props.intro[1] }
 }
 
-/** Every HTML page in `dir`, as site paths such as `/blog/x`. */
-function pagesUnder(dir: string): string[] {
-  return readdirSync(new URL(dir, dist), { recursive: true })
+/** Every built HTML page, as site paths such as `/blog/x`; `` is `/`. */
+function allPages(): string[] {
+  return readdirSync(dist, { recursive: true })
     .map(String)
-    .filter((file) => file.endsWith("/index.html"))
-    .map((file) => `/${dir}${file.replace(/\/index\.html$/, "")}`)
+    .filter((file) => file === "index.html" || file.endsWith("/index.html"))
+    .map((file) => `/${file}`.replace(/\/?index\.html$/, ""))
 }
 
-/** Pages whose `.md` copy the build wrote, such as `/blog/x`. */
+/**
+ * Pages whose `.md` copy the build wrote, such as `/blog/x` for
+ * `blog/x.md` beside `blog/x/index.html`. Other `.md` files, such as raw
+ * `SKILL.md` sources, have no page of their own.
+ */
 function pagesWithCopies(): string[] {
-  const copies = ["blog/", "code/projects/", "ai-skills/", "mcp/"].flatMap(
-    (dir) =>
-      readdirSync(new URL(dir, dist), { recursive: true })
-        .map(String)
-        .filter((file) => file.endsWith(".md"))
-        .map((file) => `/${dir}${file.replace(/\.md$/, "")}`),
-  )
-  return [...copies, "/mcp"].sort()
+  return readdirSync(dist, { recursive: true })
+    .map(String)
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => `/${file.replace(/\.md$/, "")}`)
+    .filter((page) => existsSync(new URL(`${page.slice(1)}/index.html`, dist)))
+    .sort()
 }
 
 buildTest("the button copies the same Markdown as the page's .md copy", () => {
@@ -63,8 +65,18 @@ buildTest("the button copies the same Markdown as the page's .md copy", () => {
 
 buildTest("every page with a Markdown copy shows the button", () => {
   const pages = pagesWithCopies()
-  expect(pages).toContain("/mcp")
-  expect(pages).toContain("/code/projects/sai")
+  for (const page of [
+    "/mcp",
+    "/mcp/slack-mcp",
+    "/ai-skills",
+    "/ai-skills/gh-rev/cli",
+    "/discord-mcp",
+    "/discord-mcp/privacy-policy",
+    "/discord-mcp/terms",
+    "/code/projects/sai",
+    "/blog/26-10-19-block-latency",
+  ])
+    expect(pages).toContain(page)
   const skills = pages.filter((page) => page.startsWith("/ai-skills/"))
   expect(skills.length).toBeGreaterThan(10)
   for (const page of pages) {
@@ -77,15 +89,11 @@ buildTest("every page with a Markdown copy shows the button", () => {
 })
 
 buildTest("pages without copyForLlm show no button", () => {
-  const withButton = [
-    ...pagesUnder("blog/"),
-    ...pagesUnder("code/"),
-    ...pagesUnder("ai-skills/"),
-    ...pagesUnder("mcp/"),
-    ...pagesUnder("about/"),
-  ].filter((page) => buttonProps(page))
   const copies = new Set(pagesWithCopies())
-  expect(withButton.filter((page) => !copies.has(page))).toEqual([])
-  for (const page of ["", "/about", "/blog", "/ai-skills", "/code/projects"])
+  const extra = allPages().filter(
+    (page) => !copies.has(page) && buttonProps(page),
+  )
+  expect(extra).toEqual([])
+  for (const page of ["", "/about", "/contact", "/blog", "/code/projects"])
     expect([page, buttonProps(page)]).toEqual([page, undefined])
 })

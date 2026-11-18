@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises"
+import { readdir, readFile } from "node:fs/promises"
 import { posix } from "node:path"
 import type { ImageMetadata } from "astro"
 import { getImage } from "astro:assets"
@@ -11,8 +11,10 @@ import { absoluteUrl } from "./llms"
 import { markdownComponents } from "./markdown-components"
 import {
   markdownCopyHref,
+  markdownPagePath,
   pageCopyIntro,
   pagePath,
+  parseMarkdownPage,
   reduceMarkdown,
   renderMarkdownCopy,
   skillCopyBody,
@@ -25,10 +27,12 @@ import { getMcpServers } from "./mcp-servers"
 import { getAsset, getPermalink } from "./permalinks"
 import { getProjects } from "./projects"
 import { isPublicPage, isPublicPost } from "./sitemap"
+import { getSkills, SKILLS_REPOSITORY } from "./skills"
+import { skillsCatalogMarkdown } from "./skills-markdown"
 
 /** One page that gets a Markdown copy. */
 export interface MarkdownSource {
-  kind: "post" | "project" | "skill" | "mcp"
+  kind: "post" | "project" | "skill" | "mcp" | "page"
   /** Site-relative HTML page path, such as `/blog/x`. */
   page: string
   /** Site-relative copy path, such as `/blog/x.md`. */
@@ -55,7 +59,8 @@ function siteOrigin(): string {
 /**
  * Pages that get a Markdown copy: the public articles and projects that
  * llms.txt lists, with the same filters, plus the public skill and MCP
- * pages. Standing pages don't.
+ * pages and Markdown pages that set `copyForLlm: true`. Other standing
+ * pages don't.
  */
 export async function getMarkdownSources(): Promise<MarkdownSource[]> {
   const entries = new Map(
@@ -102,22 +107,65 @@ export async function getMarkdownSources(): Promise<MarkdownSource[]> {
     ...projects,
     ...(await skillSources()),
     ...(await mcpSources()),
+    ...(await markdownPageSources()),
   ]
 }
 
 /**
- * Skill and reference pages. The body comes from the raw file that
- * `just skills-import` copies into `public/ai-skills-source/`, the same file
- * the page's "Original Markdown" link downloads.
+ * Markdown pages under `src/pages`, such as `/discord-mcp`, that turn the
+ * button on with `copyForLlm: true` in frontmatter. The frontmatter is the
+ * one switch: `MarkdownLayout` reads the same field.
+ */
+async function markdownPageSources(): Promise<MarkdownSource[]> {
+  const files = (await readdir("src/pages", { recursive: true }))
+    .map(String)
+    .filter((file) => file.endsWith(".md"))
+    .sort()
+  const sources: MarkdownSource[] = []
+  for (const file of files) {
+    const filePath = `src/pages/${file.replace(/\\/g, "/")}`
+    const parsed = parseMarkdownPage(await readFile(filePath, "utf8"))
+    const page = getPermalink(markdownPagePath(file))
+    if (!parsed.copyForLlm || !isPublicPage(page)) continue
+    if (!parsed.title) throw new Error(`${filePath} needs a title`)
+    sources.push({
+      kind: "page",
+      page,
+      href: markdownCopyHref(page),
+      title: parsed.title,
+      body: parsed.body,
+      filePath,
+    })
+  }
+  return sources
+}
+
+/**
+ * The `/ai-skills` catalog, then the skill and reference pages. A skill
+ * page's body comes from the raw file that `just skills-import` copies into
+ * `public/ai-skills-source/`, the same file the page's "Original Markdown"
+ * link downloads.
  */
 async function skillSources(): Promise<MarkdownSource[]> {
+  const catalog = getPermalink("/ai-skills")
+  const catalogSource: MarkdownSource = {
+    kind: "skill",
+    page: catalog,
+    href: markdownCopyHref(catalog),
+    title: "Agent Skills",
+    body: skillsCatalogMarkdown(
+      (await getSkills()).map(({ data }) => data),
+      SKILLS_REPOSITORY,
+    ),
+    filePath: "src/content/skill",
+  }
   const skills = (await getCollection("skill"))
     .map((entry) => ({
       data: entry.data,
       page: getPermalink(`/ai-skills/${entry.data.route}`),
     }))
     .filter(({ page }) => isPublicPage(page))
-  return Promise.all(
+  const pages = await Promise.all(
     skills.map(async ({ data, page }): Promise<MarkdownSource> => {
       const filePath = `public/ai-skills-source/${data.source}`
       return {
@@ -131,6 +179,7 @@ async function skillSources(): Promise<MarkdownSource[]> {
       }
     }),
   )
+  return [catalogSource, ...pages].filter(({ page }) => isPublicPage(page))
 }
 
 /** The MCP catalog and each server page, generated from the manifests. */

@@ -1,4 +1,5 @@
 ---
+import PageActions from "~/components/PageActions.astro"
 import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import { getSkills, skillCover, SKILLS_REPOSITORY } from "~/utils/skills"
@@ -7,6 +8,7 @@ const skills = await getSkills()
 ---
 
 <Layout
+  copyForLlm
   metadata={{
     title: "Agent Skills",
     openGraph: {
@@ -21,7 +23,9 @@ const skills = await getSkills()
       <p class="skills-eyebrow">
         <span aria-hidden="true">◇</span> MY PUBLIC TOOLBOX
       </p>
-      <h1>Agent skills.<br /><span>Less repeating myself.</span></h1>
+      <PageActions>
+        <h1>Agent skills.<br /><span>Less repeating myself.</span></h1>
+      </PageActions>
       <p class="skills-lead">
         The instructions and references I give AI agents for work I do often:
         reviewing code, investigating systems, querying chains, and writing

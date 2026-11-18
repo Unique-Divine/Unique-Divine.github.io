@@ -1,6 +1,7 @@
 ---
 layout: "~/layouts/MarkdownLayout.astro"
 title: "Discord MCP: Unique Divine PC & AI"
+copyForLlm: true
 ---
 
 Unique Divine PC & AI is my privately operated Discord tool. I use it to publish

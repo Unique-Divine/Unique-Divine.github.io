@@ -11,6 +11,7 @@
  */
 import type { Definition, Html, Image, Link, Nodes, Parent, Root } from "mdast"
 import type { MdxJsxFlowElement, MdxJsxTextElement } from "mdast-util-mdx-jsx"
+import yaml from "js-yaml"
 import remarkGfm from "remark-gfm"
 import remarkMdx from "remark-mdx"
 import remarkParse from "remark-parse"
@@ -42,6 +43,35 @@ export function pagePath(pathname: string): string {
     .replace(/\/index\.html$|\.html$/, "")
     .replace(/\/+$/, "")
   return path || "/"
+}
+
+/** A Markdown page under `src/pages`: frontmatter fields and body. */
+export interface MarkdownPage {
+  title?: string
+  copyForLlm?: boolean
+  body: string
+}
+
+/** Splits a Markdown page into the frontmatter fields copies use and body. */
+export function parseMarkdownPage(source: string): MarkdownPage {
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/)
+  if (!match) return { body: source }
+  const data = (yaml.load(match[1]) ?? {}) as Record<string, unknown>
+  return {
+    title: typeof data.title === "string" ? data.title : undefined,
+    copyForLlm:
+      typeof data.copyForLlm === "boolean" ? data.copyForLlm : undefined,
+    body: source.slice(match[0].length),
+  }
+}
+
+/** Page path for a file under `src/pages`, such as `discord-mcp/index.md`. */
+export function markdownPagePath(file: string): string {
+  const path = file
+    .replace(/\\/g, "/")
+    .replace(/\.md$/, "")
+    .replace(/(^|\/)index$/, "")
+  return `/${path}`.replace(/\/+$/, "") || "/"
 }
 
 /** Static-path parameter for `src/pages/[...path].md.ts`: `blog/x`. */
