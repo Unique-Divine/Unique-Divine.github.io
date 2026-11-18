@@ -1,0 +1,492 @@
+---
+import Breadcrumbs from "~/components/mcp/Breadcrumbs.astro"
+import CodeList from "~/components/mcp/CodeList.astro"
+import FixtureNotice from "~/components/mcp/FixtureNotice.astro"
+import ServerCard from "~/components/mcp/ServerCard.astro"
+import CopyCommand from "~/components/skills/CopyCommand.astro"
+import Layout from "~/layouts/PageLayout.astro"
+import { SITE } from "~/utils/config"
+import {
+  claudeCommand,
+  codexToml,
+  cursorJson,
+  jsonLdScript,
+  MAINTAINER,
+  MCP_CATALOG_PATH,
+  registryLabel,
+  RELATED_PAGES,
+  serverBreadcrumbs,
+  serverJsonLd,
+  unsafeTools,
+} from "~/utils/mcp"
+import type { McpManifest } from "~/utils/mcp-schema"
+import { getMcpServers } from "~/utils/mcp-servers"
+
+export async function getStaticPaths() {
+  const servers = await getMcpServers()
+  return servers.map((server) => ({
+    params: { slug: server.slug },
+    props: { server, others: servers.filter((s) => s.slug !== server.slug) },
+  }))
+}
+
+interface Props {
+  server: McpManifest
+  others: McpManifest[]
+}
+const { server, others } = Astro.props
+const destructive = server.tools.filter((tool) => tool.destructive)
+const unsafe = unsafeTools(server.tools)
+const related = RELATED_PAGES[server.slug] ?? []
+const hasInfo = server.tools.some((tool) => tool.name === "mcp_info")
+const access = (tool: McpManifest["tools"][number]) =>
+  tool.readOnly ? "read" : tool.destructive ? "destructive" : "write"
+---
+
+<Layout
+  metadata={{
+    title: `${server.title}: Install and Tools | ${MAINTAINER}`,
+    description: `${server.description} ${server.toolCount} tools, ${server.readOnlyCount} read-only. Install for Claude Code, Codex, or Cursor.`,
+  }}
+>
+  <script
+    type="application/ld+json"
+    slot="head"
+    set:html={jsonLdScript(serverJsonLd(server, SITE.site!))}
+  />
+  <article class="mcp-server">
+    <header>
+      <Breadcrumbs crumbs={serverBreadcrumbs(server)} />
+      <FixtureNotice />
+      <p class="mcp-meta">
+        <span class="mcp-badge">{registryLabel(server.registry)}</span>
+        <span>v{server.version}</span>
+        <span>{server.license}</span>
+        <span>{server.runtime}</span>
+      </p>
+      <h1>{server.title}</h1>
+      <p class="mcp-description">{server.description}</p>
+      <p class="mcp-maintainer">Maintained by {MAINTAINER}</p>
+      <div class="mcp-links">
+        <a href={server.registryUrl}
+          >{registryLabel(server.registry)}: {server.package} ↗</a
+        >
+        <a href={server.sourceUrl}>Source ↗</a>
+        {related.map((page) => <a href={page.href}>{page.label} →</a>)}
+      </div>
+    </header>
+
+    <section aria-labelledby="install">
+      <h2 id="install">Install</h2>
+      <p>
+        Needs {server.runtime}. The commands pin version {server.version}; bump
+        the pin to upgrade.
+      </p>
+      <h3>Claude Code</h3>
+      <CopyCommand
+        command={claudeCommand(server)}
+        label="Copy the Claude Code command"
+      />
+      <h3>Codex</h3>
+      <p>Add this entry to file <code>~/.codex/config.toml</code>:</p>
+      <CopyCommand
+        command={codexToml(server)}
+        label="Copy the Codex TOML entry"
+        multiline
+      />
+      <h3>Cursor</h3>
+      <p>
+        Add this entry to file <code>~/.cursor/mcp.json</code>, or to file
+        <code>.cursor/mcp.json</code> in a project:
+      </p>
+      <CopyCommand
+        command={cursorJson(server)}
+        label="Copy the Cursor JSON entry"
+        multiline
+      />
+    </section>
+
+    {
+      server.envVars.length > 0 && (
+        <section aria-labelledby="environment">
+          <h2 id="environment">Environment Variables</h2>
+          <p>
+            Names only. Set values in your shell or your client's server entry,
+            never in a prompt.
+          </p>
+          <div class="mcp-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Required</th>
+                  <th scope="col">Secret</th>
+                </tr>
+              </thead>
+              <tbody>
+                {server.envVars.map((env) => (
+                  <tr>
+                    <td>
+                      <code>{env.name}</code>
+                    </td>
+                    <td>{env.required ? "Yes" : "No"}</td>
+                    <td>{env.secret ? "Yes" : "No"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )
+    }
+
+    <section aria-labelledby="safety">
+      <h2 id="safety">Safety</h2>
+      <ul class="mcp-safety">
+        <li>
+          {server.readOnlyCount} of {server.toolCount} tools only read. The other
+          {server.writeCount} can change state under your account or bot.
+        </li>
+        {
+          destructive.length > 0 && (
+            <li>
+              {destructive.length} tools are marked destructive. They show as{" "}
+              <span class="mcp-access destructive">destructive</span> in the
+              table; keep your client's approval prompt on for them.
+              {destructive.length <= 20 && (
+                <>
+                  Destructive tools:{" "}
+                  <CodeList names={destructive.map((t) => t.name)} />
+                </>
+              )}
+            </li>
+          )
+        }
+        {
+          unsafe.length > 0 && (
+            <li>
+              Tools ending in <code>_unsafe</code> behave like their plain twins
+              but skip the age window, so they can edit or delete older
+              messages. They still refuse messages you didn't send and still
+              require the message's current text.
+              {server.folder === "slack" && (
+                <>
+                  Over HTTP they stay hidden unless the environment sets{" "}
+                  <code>SLACK_MCP_ENABLE_UNSAFE_TOOLS=true</code>.
+                </>
+              )}
+              Unsafe tools: <CodeList names={unsafe.map((t) => t.name)} />
+            </li>
+          )
+        }
+        {
+          hasInfo && (
+            <li>
+              To learn the version, where the server runs from, or whether an
+              update exists, use the <code>mcp_info</code> tool. Never have an
+              agent read MCP client config files for this; they hold secrets.
+            </li>
+          )
+        }
+      </ul>
+    </section>
+
+    <section aria-labelledby="tools" data-mcp-tools>
+      <h2 id="tools">Tools</h2>
+      <p>
+        <span data-mcp-tool-count>{server.toolCount}</span> tools.
+        Tools tagged <span class="mcp-access read">read</span> change nothing.
+      </p>
+      <div class="mcp-search" data-mcp-search hidden>
+        <label class="sr-only" for="tool-search">Search tools</label><span
+          aria-hidden="true">⌕</span
+        ><input
+          id="tool-search"
+          type="search"
+          placeholder="Search tools, descriptions, or parameters…"
+          autocomplete="off"
+        />
+      </div>
+      <p class="sr-only" role="status" aria-live="polite" data-mcp-status></p>
+      <div class="mcp-table-wrap">
+        <table class="mcp-tools">
+          <thead>
+            <tr>
+              <th scope="col">Tool</th>
+              <th scope="col">Access</th>
+              <th scope="col">Description</th>
+              <th scope="col">Parameters</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              server.tools.map((tool) => (
+                <tr
+                  id={`tool-${tool.name}`}
+                  data-mcp-tool
+                  data-search={[
+                    tool.name,
+                    tool.title,
+                    tool.description,
+                    access(tool),
+                    ...tool.params.map((p) => p.name),
+                  ]
+                    .join(" ")
+                    .toLowerCase()}
+                >
+                  <td>
+                    <code>{tool.name}</code>
+                    <span class="mcp-tool-title">{tool.title}</span>
+                  </td>
+                  <td>
+                    <span class={`mcp-access ${access(tool)}`}>
+                      {access(tool)}
+                    </span>
+                  </td>
+                  <td>{tool.description}</td>
+                  <td>
+                    {tool.params.length === 0 ? (
+                      "None"
+                    ) : (
+                      <CodeList
+                        names={tool.params.map((param) =>
+                          param.required ? `${param.name}*` : param.name,
+                        )}
+                      />
+                    )}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mcp-empty" data-mcp-empty hidden>No matching tools.</p>
+      <p class="mcp-footnote">* Required parameter.</p>
+    </section>
+
+    {
+      others.length > 0 && (
+        <section aria-labelledby="more">
+          <h2 id="more">More MCP Servers by {MAINTAINER}</h2>
+          <ul class="mcp-more">
+            {others.map((other) => (
+              <ServerCard server={other} />
+            ))}
+          </ul>
+          <p>
+            <a href={MCP_CATALOG_PATH}>All MCP servers →</a>
+          </p>
+        </section>
+      )
+    }
+  </article>
+</Layout>
+<style>
+  .mcp-server {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 5rem;
+  }
+  header {
+    margin-bottom: 2.5rem;
+  }
+  .mcp-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: center;
+    font:
+      500 0.72rem var(--aw-font-mono),
+      monospace;
+    color: var(--aw-color-text-muted);
+    margin-bottom: 1rem;
+  }
+  .mcp-badge {
+    border: 1px solid #169f9780;
+    color: #169f97;
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+  }
+  h1 {
+    font-size: 2.6rem;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+  .mcp-description {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--aw-color-text-muted);
+    margin-top: 1rem;
+    max-width: 720px;
+  }
+  .mcp-maintainer {
+    font-size: 0.85rem;
+    margin-top: 0.8rem;
+  }
+  .mcp-links {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    margin-top: 1.2rem;
+  }
+  section {
+    margin-top: 3rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.8rem;
+    scroll-margin-top: 110px;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1.6rem 0 0.6rem;
+  }
+  section > p,
+  .mcp-safety {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--aw-color-text-muted);
+    margin-bottom: 0.8rem;
+  }
+  .mcp-safety {
+    list-style: disc;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.7rem;
+  }
+  code {
+    font-family: var(--aw-font-mono), monospace;
+    font-size: 0.85em;
+    overflow-wrap: anywhere;
+  }
+  .mcp-table-wrap {
+    overflow-x: auto;
+    border: 1px solid #88959935;
+    border-radius: 12px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid #88959925;
+  }
+  th {
+    font-weight: 600;
+    background: #88959910;
+  }
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+  .mcp-tools {
+    min-width: 46rem;
+  }
+  .mcp-tools td:first-child {
+    width: 14rem;
+  }
+  .mcp-tools tr[hidden] {
+    display: none;
+  }
+  .mcp-tool-title {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--aw-color-text-muted);
+  }
+  .mcp-access {
+    display: inline-block;
+    font:
+      500 0.68rem var(--aw-font-mono),
+      monospace;
+    border-radius: 999px;
+    padding: 0 0.5rem;
+    border: 1px solid currentColor;
+  }
+  .mcp-access.read {
+    color: #169f97;
+  }
+  .mcp-access.write {
+    color: #b45309;
+  }
+  .mcp-access.destructive {
+    color: #dc2626;
+  }
+  .mcp-search {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid #88959950;
+    background: #88959908;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+  }
+  .mcp-search[hidden] {
+    display: none;
+  }
+  .mcp-search:focus-within {
+    outline: 2px solid #169f97;
+    outline-offset: 2px;
+  }
+  .mcp-search > span {
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--aw-color-text-muted);
+  }
+  input {
+    width: 100%;
+    min-width: 0;
+    background: transparent;
+    outline: none;
+    font-size: 0.95rem;
+  }
+  .mcp-empty {
+    padding: 1.5rem 0;
+  }
+  .mcp-footnote {
+    font-size: 0.75rem !important;
+    margin-top: 0.6rem;
+  }
+  .mcp-more {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .mcp-links a:hover,
+  section > p a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  a:focus-visible {
+    outline: 2px solid #169f97;
+    outline-offset: 4px;
+  }
+  @media (max-width: 700px) {
+    .mcp-server {
+      padding-top: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    .mcp-more {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+<script>
+  import "~/components/mcp/tool-search"
+</script>

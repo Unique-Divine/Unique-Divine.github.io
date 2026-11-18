@@ -1,0 +1,98 @@
+---
+import CopyCommand from "~/components/skills/CopyCommand.astro"
+import { registryLabel, serverPath } from "~/utils/mcp"
+import type { McpManifest } from "~/utils/mcp-schema"
+
+interface Props {
+  server: McpManifest
+  /** Heading level inside the card. */
+  as?: "h2" | "h3"
+}
+const { server, as: Heading = "h3" } = Astro.props
+---
+
+<li class="mcp-card" data-mcp-card>
+  <div class="mcp-card-top">
+    <span class="mcp-badge">{registryLabel(server.registry)}</span>
+    <span>v{server.version}</span>
+  </div>
+  <Heading><a href={serverPath(server.slug)}>{server.title}</a></Heading>
+  <p>{server.description}</p>
+  <p class="mcp-card-stats">
+    {server.toolCount} tools · {server.readOnlyCount} read-only · {
+      server.writeCount
+    } write
+  </p>
+  <CopyCommand
+    command={server.installCommand}
+    label={`Copy the ${server.title} install command`}
+  />
+  <a class="mcp-card-more" href={serverPath(server.slug)}
+    >Setup, safety, and tools <span aria-hidden="true">→</span></a
+  >
+</li>
+<style>
+  .mcp-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1.4rem;
+    border: 1px solid #88959935;
+    border-radius: 14px;
+    background: #88959906;
+  }
+  .mcp-card:hover {
+    border-color: #169f9790;
+  }
+  .mcp-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    font:
+      500 0.7rem var(--aw-font-mono),
+      monospace;
+    color: var(--aw-color-text-muted);
+  }
+  .mcp-badge {
+    border: 1px solid #169f9780;
+    color: #169f97;
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+    letter-spacing: 0.06em;
+  }
+  h2,
+  h3 {
+    font:
+      600 1.05rem/1.5 var(--aw-font-mono),
+      monospace;
+    margin: 0 0 0.6rem;
+  }
+  h2 a:hover,
+  h3 a:hover,
+  .mcp-card-more:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--aw-color-text-muted);
+    margin: 0 0 1rem;
+  }
+  .mcp-card-stats {
+    font:
+      400 0.75rem var(--aw-font-mono),
+      monospace;
+    margin-top: auto;
+  }
+  .mcp-card-more {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--aw-color-text-muted);
+  }
+  a:focus-visible {
+    outline: 2px solid #169f97;
+    outline-offset: 4px;
+  }
+</style>

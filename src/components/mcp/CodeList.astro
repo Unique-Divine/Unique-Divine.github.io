@@ -1,0 +1,12 @@
+---
+interface Props {
+  names: string[]
+}
+const { names } = Astro.props
+const escape = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+// One string, so the commas sit right after each name.
+const html = names.map((name) => `<code>${escape(name)}</code>`).join(", ")
+---
+
+<Fragment set:html={html} />
