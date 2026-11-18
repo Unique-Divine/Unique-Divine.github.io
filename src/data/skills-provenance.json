@@ -15,7 +15,7 @@
     },
     "evm-rpc": {
       "source": "evm-rpc/SKILL.md",
-      "sha256": "d4f1bfdb2605bf1ca7574bcc76ee375a661143a02a5598767884ac93cbfa7157",
+      "sha256": "7da4963da8d367dc83b43861ab78f03cbec53893c66bededcbde4259bb2c8010",
       "publishDate": "2026-10-19"
     },
     "gh-actionlint": {
@@ -45,7 +45,7 @@
     },
     "gh-rev/cli": {
       "source": "gh-rev/references/cli.md",
-      "sha256": "77dec65e0405556696b1484e9fd33a9c2105acbd19ca18391bc99891d2049a54",
+      "sha256": "6a2d179ba0798215de41104e7a4ad2876fab636e6e114d3e26e9a52a77145028",
       "publishDate": "2026-10-19"
     },
     "gh-rev/implement-review-feedback": {
@@ -165,7 +165,7 @@
     },
     "repo-map/cloning": {
       "source": "repo-map/cloning.md",
-      "sha256": "5cfdc2ef7532f72418acb0487a0d8fde72e449fe88c0b13cc585e04067c05b8b",
+      "sha256": "c6927cf92383673f35a266156da2c0bacba276dcdbc53444058bf1505562fa7a",
       "publishDate": "2026-10-19"
     },
     "repo-map/reference": {
@@ -175,7 +175,7 @@
     },
     "repo-map": {
       "source": "repo-map/SKILL.md",
-      "sha256": "ef49c26740a76317448160dc0545f4cbe8cbf7dee4760c9c54355b87acffd798",
+      "sha256": "de75b9786ec6826c73e6719d87e545c7ba819a0d7851e522ac60a3448ebcba03",
       "publishDate": "2026-10-19"
     },
     "sai-perps/examples/sai-perps-prompts": {
@@ -185,17 +185,17 @@
     },
     "sai-perps/sai-contracts": {
       "source": "sai-perps/references/sai-contracts.md",
-      "sha256": "378340f533da2dceeeaaf4fe5e0b831f972137c8f235cfd965fb68bda71b9e25",
+      "sha256": "bc724bf0a89c5a0b4f88f5b4af7c57aa8ef0d0321e44fdd6379f4329b21a7582",
       "publishDate": "2026-10-19"
     },
     "sai-perps/sai-db": {
       "source": "sai-perps/references/sai-db.md",
-      "sha256": "e63212b1c8670a6fb1c6858c0f057c35623cdbfc4d350339954968a918560fbc",
+      "sha256": "e10d2bfdc9f0a31aaf3ae7e425cbdfa4cab74f323ef06d925328d45c408ed0ba",
       "publishDate": "2026-10-19"
     },
     "sai-perps/sai-graphql": {
       "source": "sai-perps/references/sai-graphql.md",
-      "sha256": "6979fa244ef00a96549abd517dc63beaa155f72f4ee947cb5d824e66592e8753",
+      "sha256": "1ba5a9a4b2802c0397e3f737e043a52eec83f806d9a22a35750c85813da02ab7",
       "publishDate": "2026-10-19"
     },
     "sai-perps/sai-reconciliation": {
@@ -205,12 +205,12 @@
     },
     "sai-perps/sai-referrals": {
       "source": "sai-perps/references/sai-referrals.md",
-      "sha256": "aa71ed129238c29750f6a815882c456a42b26c78d979af44d7c335be8d046dbd",
+      "sha256": "668ef07d48c25f69eb2f6bbfd1d8c56656ee773628518ad4be6d19c5cb1c7dca",
       "publishDate": "2026-10-19"
     },
     "sai-perps/sai-rest": {
       "source": "sai-perps/references/sai-rest.md",
-      "sha256": "e76fd3bbdea10d099578b086c5a3877c85fc4ef00058d6fda798163efe49434c",
+      "sha256": "7894a39f513aaa7393ca017a5a3d5ff7d945c3250500871274075e9e980d6cb0",
       "publishDate": "2026-10-19"
     },
     "sai-perps/sai-vaults": {
