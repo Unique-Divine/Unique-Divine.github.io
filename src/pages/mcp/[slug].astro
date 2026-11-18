@@ -7,6 +7,7 @@ import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import { SITE } from "~/utils/config"
 import {
+  authDocsUrl,
   claudeCommand,
   codexToml,
   cursorJson,
@@ -82,6 +83,13 @@ const access = (tool: McpManifest["tools"][number]) =>
         Needs {server.runtime}. The commands pin version {server.version}; bump
         the pin to upgrade.
       </p>
+      <p>
+        Each snippet has a <code>&lt;NAME&gt;</code> placeholder for every credential
+        or required variable. Replace them with your own values in your client config,
+        and drop optional ones you don't use. To get the credentials, see the <a
+          href={authDocsUrl(server)}>{server.title} sign-in instructions ↗</a
+        >.
+      </p>
       <h3>Claude Code</h3>
       <CopyCommand
         command={claudeCommand(server)}
@@ -121,6 +129,7 @@ const access = (tool: McpManifest["tools"][number]) =>
                   <th scope="col">Name</th>
                   <th scope="col">Required</th>
                   <th scope="col">Secret</th>
+                  <th scope="col">Notes</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,6 +140,7 @@ const access = (tool: McpManifest["tools"][number]) =>
                     </td>
                     <td>{env.required ? "Yes" : "No"}</td>
                     <td>{env.secret ? "Yes" : "No"}</td>
+                    <td>{env.note ?? ""}</td>
                   </tr>
                 ))}
               </tbody>
@@ -194,8 +204,9 @@ const access = (tool: McpManifest["tools"][number]) =>
     <section aria-labelledby="tools" data-mcp-tools>
       <h2 id="tools">Tools</h2>
       <p>
-        <span data-mcp-tool-count>{server.toolCount}</span> tools.
-        Tools tagged <span class="mcp-access read">read</span> change nothing.
+        <span data-mcp-tool-count>{server.toolCount}</span> tools. Tools tagged <span
+          class="mcp-access read">read</span
+        > change nothing.
       </p>
       <div class="mcp-search" data-mcp-search hidden>
         <label class="sr-only" for="tool-search">Search tools</label><span

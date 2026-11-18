@@ -27,6 +27,7 @@ export type McpServer = Pick<
   | "sourceUrl"
   | "registryUrl"
   | "toolCount"
+  | "envVars"
 >
 
 export const serverPath = (slug: string) => `${MCP_CATALOG_PATH}/${slug}`
@@ -44,27 +45,81 @@ export function splitCommand(line: string): {
   return { command, args }
 }
 
-export const claudeCommand = (server: McpServer) =>
-  `claude mcp add ${server.folder} -- ${server.installCommand}`
+/**
+ * Env vars the snippets carry as placeholders: required ones and
+ * credentials. Optional switches stay in the table only.
+ */
+export const snippetEnv = (server: McpServer) =>
+  server.envVars
+    .filter((env) => env.required || env.secret)
+    .map((env) => env.name)
+
+/** A placeholder, never a value: `<SLACK_TOKEN>`. */
+export const placeholder = (name: string) => `<${name}>`
+
+export function claudeCommand(server: McpServer): string {
+  // Quoted, so the shell doesn't read `<NAME>` as a redirect.
+  const env = snippetEnv(server).map(
+    (name) => `-e '${name}=${placeholder(name)}' `,
+  )
+  return `claude mcp add ${server.folder} ${env.join("")}-- ${server.installCommand}`
+}
 
 const tomlString = (value: string) => JSON.stringify(value)
 
 export function codexToml(server: McpServer): string {
   const { command, args } = splitCommand(server.installCommand)
+  const env = snippetEnv(server)
   return [
     `[mcp_servers.${server.folder}]`,
     `command = ${tomlString(command)}`,
     `args = [${args.map(tomlString).join(", ")}]`,
+    ...(env.length
+      ? [
+          `env = { ${env
+            .map((name) => `${name} = ${tomlString(placeholder(name))}`)
+            .join(", ")} }`,
+        ]
+      : []),
   ].join("\n")
 }
 
 export function cursorJson(server: McpServer): string {
   const { command, args } = splitCommand(server.installCommand)
+  const env = snippetEnv(server)
   return JSON.stringify(
-    { mcpServers: { [server.folder]: { command, args } } },
+    {
+      mcpServers: {
+        [server.folder]: {
+          command,
+          args,
+          ...(env.length
+            ? {
+                env: Object.fromEntries(
+                  env.map((name) => [name, placeholder(name)]),
+                ),
+              }
+            : {}),
+        },
+      },
+    },
     null,
     2,
   )
+}
+
+/** README sections that explain how each server signs in. */
+const AUTH_SECTIONS: Record<string, string> = {
+  "slack-mcp": "authenticate",
+  "telegram-mcp": "authenticate",
+  "discord-mcp": "discord-bot-setup",
+}
+
+/** The server README on GitHub, at its sign-in section when known. */
+export function authDocsUrl(server: McpServer): string {
+  const readme = `${server.sourceUrl.replace("/tree/", "/blob/")}/README.md`
+  const section = AUTH_SECTIONS[server.slug]
+  return section ? `${readme}#${section}` : readme
 }
 
 /** Tools named `*_unsafe` drop a guard that their plain twin keeps. */

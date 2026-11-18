@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test"
 
 import {
+  authDocsUrl,
   catalogJsonLd,
   claudeCommand,
   codexToml,
@@ -52,6 +53,7 @@ const server = (
   sourceUrl: `https://github.com/Unique-Divine/jiyuu/tree/main/mcp/${folder}`,
   registryUrl: `https://www.npmjs.com/package/@uniquedivine/mcp-${folder}`,
   toolCount: 3,
+  envVars: [],
   ...overrides,
 })
 
@@ -79,6 +81,86 @@ describe("client snippets", () => {
         telegram: { command: "uvx", args: ["uniquedivine-telegram-mcp@2.0.2"] },
       },
     })
+  })
+
+  const telegram = server("telegram", {
+    registry: "pypi",
+    installCommand: "uvx uniquedivine-telegram-mcp@2.0.2",
+    sourceUrl: "https://github.com/Unique-Divine/jiyuu/tree/main/mcp/telegram",
+    envVars: [
+      { name: "TELEGRAM_API_ID", required: true, secret: false },
+      { name: "TELEGRAM_API_HASH", required: true, secret: true },
+      {
+        name: "TELEGRAM_SESSION_STRING",
+        required: false,
+        secret: true,
+        note: "Or TELEGRAM_SESSION_STRING_<LABEL> per account.",
+      },
+      { name: "JIYUU_MCP_NO_UPDATE_CHECK", required: false, secret: false },
+    ],
+  })
+  const discord = server("discord", {
+    envVars: [
+      { name: "DISCORD_TOKEN", required: false, secret: true },
+      { name: "JIYUU_MCP_NO_UPDATE_CHECK", required: false, secret: false },
+    ],
+  })
+  const telegramEnv = [
+    "TELEGRAM_API_ID",
+    "TELEGRAM_API_HASH",
+    "TELEGRAM_SESSION_STRING",
+  ]
+
+  test("Telegram snippets carry credential placeholders and no switches", () => {
+    expect(claudeCommand(telegram)).toBe(
+      "claude mcp add telegram " +
+        "-e 'TELEGRAM_API_ID=<TELEGRAM_API_ID>' " +
+        "-e 'TELEGRAM_API_HASH=<TELEGRAM_API_HASH>' " +
+        "-e 'TELEGRAM_SESSION_STRING=<TELEGRAM_SESSION_STRING>' " +
+        "-- uvx uniquedivine-telegram-mcp@2.0.2",
+    )
+    expect(codexToml(telegram).split("\n").at(-1)).toBe(
+      "env = { " +
+        telegramEnv.map((name) => `${name} = "<${name}>"`).join(", ") +
+        " }",
+    )
+    expect(JSON.parse(cursorJson(telegram)).mcpServers.telegram.env).toEqual(
+      Object.fromEntries(telegramEnv.map((name) => [name, `<${name}>`])),
+    )
+    for (const text of [
+      claudeCommand(telegram),
+      codexToml(telegram),
+      cursorJson(telegram),
+    ])
+      expect(text).not.toContain("JIYUU_MCP_NO_UPDATE_CHECK")
+  })
+
+  test("Discord snippets carry the bot token placeholder", () => {
+    expect(claudeCommand(discord)).toBe(
+      "claude mcp add discord -e 'DISCORD_TOKEN=<DISCORD_TOKEN>' " +
+        "-- bunx @uniquedivine/mcp-discord@1.2.3",
+    )
+    expect(codexToml(discord)).toContain(
+      'env = { DISCORD_TOKEN = "<DISCORD_TOKEN>" }',
+    )
+    expect(JSON.parse(cursorJson(discord))).toEqual({
+      mcpServers: {
+        discord: {
+          command: "bunx",
+          args: ["@uniquedivine/mcp-discord@1.2.3"],
+          env: { DISCORD_TOKEN: "<DISCORD_TOKEN>" },
+        },
+      },
+    })
+  })
+
+  test("auth docs point at each README's sign-in section", () => {
+    expect(authDocsUrl(telegram)).toBe(
+      "https://github.com/Unique-Divine/jiyuu/blob/main/mcp/telegram/README.md#authenticate",
+    )
+    expect(authDocsUrl(discord)).toBe(
+      "https://github.com/Unique-Divine/jiyuu/blob/main/mcp/discord/README.md#discord-bot-setup",
+    )
   })
 
   test("splitCommand rejects an empty command", () => {
