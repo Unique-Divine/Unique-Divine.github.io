@@ -1,6 +1,6 @@
 ---
 title: 'EVM RPC: Receipt and Trace Playbook'
-description: Query EVM JSON-RPC methods for transaction debugging and endpoint triage, including eth_getTransactionReceipt and debug_traceTransaction. Use when the user asks to inspect tx status, retrieve receipts, run tracers, compare EVM vs Cosmos outcomes, or choose between EVM RPC and Comet RPC endpoints.
+description: Query EVM JSON-RPC methods for transaction debugging and endpoint triage, including eth_getTransactionReceipt and debug_traceTransaction. Use when the user asks to inspect tx status, retrieve receipts, run tracers, compare EVM vs Cosmos outcomes, choose between EVM RPC and Comet RPC endpoints, or batch many Nibiru balance and contract reads into one eth_call with Multicall3 and Nibiru precompiles.
 name: evm-rpc
 folder: evm-rpc
 source: evm-rpc/SKILL.md
@@ -11,6 +11,9 @@ publishDate: '2026-10-19'
 ---
 
 Use this skill for EVM transaction debugging with JSON-RPC.
+
+For many reads in one request on Nibiru (ERC20 and bank balances, native
+NIBI, Wasm queries), read [nibiru-multicall.md](/ai-skills/evm-rpc/nibiru-multicall).
 
 ## Quick Start
 
@@ -343,6 +346,6 @@ curl -s -X POST -H "Content-Type: application/json" \
 ## Additional Resources
 
 * Zero-gas debug walkthrough:
-  `~/boku/epics/epic-evm/26-02-zero-gas/26-02-10-zero-gas-debug.md`
+  `~/boku/epics/26-02-zero-gas/26-02-10-zero-gas-debug.md`
 * Existing endpoint conventions:
-  `~/boku/nibi/cook/index.ts`
+  `~/boku/nibi/cook/src/core.ts`

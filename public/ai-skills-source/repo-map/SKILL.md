@@ -2,7 +2,7 @@
 name: repo-map
 description: >-
   Maps and routes between key repositories on my machine (boku, nibi-chain,
-  nibi-geth, nibi-go-hm, nibi-ts-sdk, sai-web, sai-perps, nibi-iac,
+  nibi-geth, nibi-go-hm, nibi-ts-sdk, sai-web, sai-perps, open-sai, nibi-iac,
   nibi-web, gh-io-ud, and the in-tree Wasm runtime and Rust contracts). Use when the user
   asks which repo to look at, where a feature lives, how repos connect, how
   services are deployed (Terraform/IaC), when a task spans chain, EVM, indexer,
@@ -53,9 +53,18 @@ and query builders.
 frontend and API integrations. This uses the "sai-keeper" GraphQL interface.
 - `~/sai-perps`: **Official Sai protocol contracts** (EVM + Wasm). This repo defines what gets deployed onchain; the web app and sai-keeper both talk to these contracts. Used by trading tools and integrations.
 - `~/sai-keeper`: Defines the "sai-keeper" GraphQL interface for Sai.
-- `~/nibi-chain/sai-trading`: **Sai: Trading bot automation service**
+- `~/nibi-chain/lib/sai-trading`: **Sai: Trading bot automation service**
 - `~/sai-docs`: Public-facing user documentation for Sai. Great conceptual
   resource.
+- `~/open-sai`: **Open Sai, the public monorepo for Sai**
+  ([Unique-Divine/open-sai](https://github.com/Unique-Divine/open-sai)). It
+  serves two functions. First, it exports curated work from the private Sai
+  repos (docs, EVM code, public contract interfaces) so people can follow
+  shipping progress; export PRs carry a label and merge automatically after
+  CI. Second, it hosts code developed natively in public: the Python trader
+  CLI under `cli/` and the planned trader MCP. Design lives in boku epics
+  `epics/26-10-13-open-sai/` (exporter) and `epics/26-11-13-Sai-AI/` (CLI,
+  MCP, profiles).
 
 ### Nibiru public site, docs, and wallet app
 - `~/nibi-web`: **Combined Nibiru website**, `NibiruChain/nibi-web`.
@@ -82,10 +91,10 @@ frontend and API integrations. This uses the "sai-keeper" GraphQL interface.
 
 ### Personal, Blog, Boku Workspace
 - `~/boku`: **Personal knowledge base and project hub.** Monorepo for sandboxing, backups, and external brain. Use when working on epics, specs, Nibiru notes, focustime, or scripts that span nibi-chain, sai-perps, sai-web. Contains: `epics/`, `nibi/` (addr-book, cook), `free/` (todos, journal), `sde/`, `jiyuu/` (focustime, mdtoc), `scripts/`. Bun/TS + Go + Rust. Run `just test`, `just install`.
-- `~/gh-io-ud`: **Personal site (GitHub Pages).** Astro 4 + Tailwind. Blog
+- `~/gh-io-ud`: **Personal site (Firebase Hosting).** Astro 4 + Tailwind. Blog
   content in `src/content/post/` (schema in `src/content/config.ts`). Site config
   `src/config.yaml`, nav `src/navigation.js`. Run `just dev`, build `just b`,
-  deploy `just deploy`.
+  deploy to Firebase Hosting with `just deploy`.
 
 ## GitHub Remotes and Git Cloning
 
@@ -104,6 +113,7 @@ Nibiru work lives under org **`NibiruChain`**. Local directory names often **dif
 | `sai-perps` | `git@github.com:NibiruChain/sai-perps.git` |
 | `sai-keeper` | `git@github.com:NibiruChain/sai-keeper.git` |
 | `sai-docs` | `git@github.com:NibiruChain/sai-docs.git` |
+| `open-sai` | `git@github.com:Unique-Divine/open-sai.git` (personal org) |
 | `nibi-iac` | `git@github.com:NibiruChain/iac.git` |
 
 Other entries in this map: **`wasm-cosmwasm`** → `git@github.com:CosmWasm/cosmwasm.git`; **`boku`** → `git@github.com:Unique-Divine/boku.git` (personal).

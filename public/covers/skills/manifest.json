@@ -4,11 +4,6 @@
     "input": "97ac8458e73944615ba436d9f50e56cd8a9e1adcbb7880c605fce54473db2092",
     "sha256": "eb9be652eab62b2df32ed04123cecbf5f3b38a3c3a5bfea0b4d2d3154e41803d"
   },
-  "bash-defensive-patterns": {
-    "title": "Bash Defensive Patterns",
-    "input": "73db1e00a884445a2cccab4745c4131524322c5d6f8f0c70ed8bd52663b6b743",
-    "sha256": "02b9bbc802a94924c9a6121e943e31ff1186f7b9b46e51dbfac825c272fbf3bb"
-  },
   "drill-spec": {
     "title": "drill-spec",
     "input": "db613da44a89c058d955736692b3fc368ede4a1d320134ed7432d0173a2caca2",
@@ -18,6 +13,11 @@
     "title": "EVM RPC: Receipt and Trace Playbook",
     "input": "8da6780a9525fdc939f82f63d0d1e5ec3dc6db5891da83b3f6d6a098c79405da",
     "sha256": "8b7ee5ecfc1e87d910d82fad56856c474d538d99bad6e9140630a06a46e9c088"
+  },
+  "frontend-design": {
+    "title": "Frontend Design",
+    "input": "9459f5e84eca7666dbcd69bbf0b85af78adfd4d58306c00b19b83e11f6bf6ea3",
+    "sha256": "8490166c1a941d506507a458043df75edd1252a4a7705c44090f1f4e4777f3ad"
   },
   "gh-actionlint": {
     "title": "GH Actionlint",
@@ -74,11 +74,6 @@
     "input": "63b5c47168c8f4cf72418df91f05cff97fde833ea96194c63f47e9af908aec19",
     "sha256": "6c91d3ca5476ebc7b16ff41fe38b06abc586494af28b461948d9db90f5c30afc"
   },
-  "nibiru-gov-upgrade": {
-    "title": "Nibiru governance and upgrades",
-    "input": "25be33a252611439396fdd1c77dabffa9dab5acefcb2545da1d1d969a45d5e5d",
-    "sha256": "945a4dfd75c7cb18d248a4a72d6c4eb4084790e29e381d60b9ea3d7b2e6b7d99"
-  },
   "nibiru-gql": {
     "title": "Nibiru GraphQL and Heart Monitor",
     "input": "d7a22ac51184e6a309e082e1fc39546e811cb4eaacdd936e411fdc9587e358a7",
@@ -88,6 +83,11 @@
     "title": "PostgreSQL psql Skill",
     "input": "a8399c72a86560dc58717f1705a84c5742adb848abbaf648a9d2ebcc9befbcba",
     "sha256": "d32d5362a832d7d89e02e9e5d9f568c74566480b99d3d235952ea91a3460360a"
+  },
+  "python": {
+    "title": "Python",
+    "input": "99697ceb451ca70a4a1d21cdfbadbe1e60b736e487df13975c31e5266b346b0a",
+    "sha256": "3179d73e4b22d952b8f8b0e00c491de60b8b72a83e638dbe784869d4751123db"
   },
   "repo-map": {
     "title": "Repo Map — Nibiru and Personal Repos",
@@ -99,10 +99,20 @@
     "input": "a6bbc26b6e903098f28f165ea3dba3a94664422b023abf3a31b18f6227d406ff",
     "sha256": "dabfc031333bd2e428c09beaddb8a5f15dff7234854163ad157094c89afb7a45"
   },
+  "sai": {
+    "title": "Sai CLI",
+    "input": "3906959c12f208c611a2d2389032944f2673a09e90459048ef24903c57eede98",
+    "sha256": "22b6c24b44d61faae1030bebf86999357495d9cafbff74fbd900d4e5b7f9c503"
+  },
   "tailscale-serve": {
     "title": "Tailscale Serve",
     "input": "c8b38b7733380c7c195a058cf8e1f8ca9dafbe53e879ab47d4af661151d4bc74",
     "sha256": "88890e1dead29290dc0e0b7ab06dfeceff8f7a5b9fd0e6ecc19c0f1491cb265f"
+  },
+  "ud-scripts": {
+    "title": "UD Scripts",
+    "input": "3cfcbd588f9a015ac80e63ea8d67ed70a9f15e19b449ffc1e8dc0e3f4e1ccb58",
+    "sha256": "c93e87d51947f7031b2cfa530c1b064f6300a0c83ea145b560173794016cb865"
   },
   "ud-writing-tech": {
     "title": "UD writing tech",
