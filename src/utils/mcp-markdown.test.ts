@@ -24,7 +24,7 @@ const manifest = (
   registry: "npm",
   package: `@uniquedivine/mcp-${folder}`,
   version: "1.2.3",
-  installCommand: `bunx @uniquedivine/mcp-${folder}@1.2.3`,
+  installCommand: `bunx @uniquedivine/mcp-${folder}@latest`,
   runtime: "Bun >= 1.4.3",
   license: "MIT",
   sourceUrl: `https://github.com/Unique-Divine/jiyuu/tree/main/mcp/${folder}`,
@@ -103,7 +103,7 @@ describe("mcpServerMarkdown", () => {
   test("install snippets match the page's copy buttons", () => {
     expect(text).toContain(
       "```sh\nclaude mcp add slack -e 'SLACK_TOKEN=<SLACK_TOKEN>' " +
-        "-- bunx @uniquedivine/mcp-slack@1.2.3\n```",
+        "-- bunx @uniquedivine/mcp-slack@latest\n```",
     )
     expect(text).toContain('```toml\n[mcp_servers.slack]\ncommand = "bunx"')
     expect(text).toContain('```json\n{\n  "mcpServers": {')

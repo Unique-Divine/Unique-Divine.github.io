@@ -24,8 +24,10 @@ collection use. The importer also rejects:
 - a `site-manifest.json` that isn't a regular file, such as a symlink
 - counts that disagree with the tool list
 - a slug other than `<folder>-mcp`
-- an install command other than exactly `bunx <package>@<version>` for npm
-  or `uvx <package>@<version>` for PyPI
+- an install command other than exactly `bunx <package>@latest` for npm or
+  `uvx <package>@latest` for PyPI. A version pin goes stale with the next
+  release, so the site never shows one. Field `version` still names the
+  release the page describes.
 - a source or registry URL other than the jiyuu tree path and the
   package's npm or PyPI page
 - env var entries with anything besides a name, two flags, and a note

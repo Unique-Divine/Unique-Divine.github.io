@@ -118,12 +118,16 @@ describe("MCP manifest validation", () => {
     ).toThrow("installCommand must be")
   })
 
-  test("accepts only the exact install command for the registry", () => {
+  test("accepts only the exact @latest install command for the registry", () => {
     for (const command of [
-      "bunx @uniquedivine/mcp-slack@4.5.2 && rm -rf ~",
-      "echo hi; bunx @uniquedivine/mcp-slack@4.5.2",
-      "npx @uniquedivine/mcp-slack@4.5.2",
-      "bunx  @uniquedivine/mcp-slack@4.5.2",
+      "bunx @uniquedivine/mcp-slack@latest && rm -rf ~",
+      "echo hi; bunx @uniquedivine/mcp-slack@latest",
+      "npx @uniquedivine/mcp-slack@latest",
+      "bunx  @uniquedivine/mcp-slack@latest",
+      "bunx @uniquedivine/mcp-slack@latest $(id)",
+      // A pinned version goes stale as soon as a newer release ships.
+      "bunx @uniquedivine/mcp-slack@4.5.2",
+      "bunx @uniquedivine/mcp-slack@next",
     ])
       expect(() =>
         prepareManifests([
@@ -134,15 +138,15 @@ describe("MCP manifest validation", () => {
       prepareManifests([
         source(
           "telegram",
-          (m) => (m.installCommand = "bunx uniquedivine-telegram-mcp@2.0.2"),
+          (m) => (m.installCommand = "bunx uniquedivine-telegram-mcp@latest"),
         ),
       ]),
-    ).toThrow('installCommand must be "uvx uniquedivine-telegram-mcp@2.0.2"')
+    ).toThrow('installCommand must be "uvx uniquedivine-telegram-mcp@latest"')
     expect(() =>
       prepareManifests([
         source("slack", (m) => {
           m.package = "@uniquedivine/mcp-slack;id"
-          m.installCommand = `bunx ${m.package}@${m.version}`
+          m.installCommand = `bunx ${m.package}@latest`
         }),
       ]),
     ).toThrow("not a valid npm name")

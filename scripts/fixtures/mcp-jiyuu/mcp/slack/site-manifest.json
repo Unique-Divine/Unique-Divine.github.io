@@ -7,7 +7,7 @@
   "registry": "npm",
   "package": "@uniquedivine/mcp-slack",
   "version": "4.5.2",
-  "installCommand": "bunx @uniquedivine/mcp-slack@4.5.2",
+  "installCommand": "bunx @uniquedivine/mcp-slack@latest",
   "runtime": "Bun >= 1.4.3",
   "license": "MIT",
   "sourceUrl": "https://github.com/Unique-Divine/jiyuu/tree/main/mcp/slack",
@@ -624,7 +624,7 @@
       ]
     }
   ],
-  "installMarkdown": "Run the published package with an exact version pin:\n\n```sh\nbunx @uniquedivine/mcp-slack@4.5.2\n```\n\n### Claude Code\n\n```sh\nclaude mcp add slack -- bunx @uniquedivine/mcp-slack@4.5.2\n```\n",
+  "installMarkdown": "Run the latest published release:\n\n```sh\nbunx @uniquedivine/mcp-slack@latest\n```\n\n### Claude Code\n\n```sh\nclaude mcp add slack -- bunx @uniquedivine/mcp-slack@latest\n```\n",
   "generatedFrom": {
     "revision": "fixture"
   }
