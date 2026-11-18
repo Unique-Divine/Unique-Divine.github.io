@@ -39,9 +39,9 @@ export const GET: APIRoute = async () => {
     // Posts and projects link to their generated `.md` copies; skills to the
     // SKILL.md files that `just skills-import` copies into public/.
     markdown: new Map([
-      ...(await getMarkdownSources()).map(
-        ({ page, href }) => [page, href] as const,
-      ),
+      ...(await getMarkdownSources())
+        .filter(({ kind }) => kind === "post" || kind === "project")
+        .map(({ page, href }) => [page, href] as const),
       ...(await getSkills()).map(
         ({ data }) =>
           [

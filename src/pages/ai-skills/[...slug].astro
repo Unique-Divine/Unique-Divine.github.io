@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content"
 
 import ArticleBody from "~/components/blog/ArticleBody.astro"
+import PageActions from "~/components/PageActions.astro"
 import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import {
@@ -32,6 +33,7 @@ const references = (await getCollection("skill"))
 ---
 
 <Layout
+  copyForLlm={data.copyForLlm ?? true}
   metadata={{
     title: data.title,
     description: data.description,
@@ -57,7 +59,7 @@ const references = (await getCollection("skill"))
           )
         }
       </nav>
-      <h1>{data.title}</h1>
+      <PageActions><h1>{data.title}</h1></PageActions>
       <p class="skill-description">{data.description}</p>
       <div class="skill-links">
         <a href={`${SKILLS_REPOSITORY}/tree/main/ai-skills/${data.folder}`}

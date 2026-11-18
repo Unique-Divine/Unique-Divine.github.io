@@ -70,6 +70,8 @@ const postCollection = defineCollection({
     draft: z.boolean().optional(),
     contentLayout: z.enum(["article", "wide"]).default("article"),
     stickyToc: z.boolean().default(false),
+    /** Show the Copy for LLM button; on for articles unless set false. */
+    copyForLlm: z.boolean().optional(),
 
     title: z.string(),
     excerpt: z.string().optional(),
@@ -97,6 +99,8 @@ export const collections = {
       kind: z.enum(["skill", "reference"]),
       stickyToc: z.literal(true),
       publishDate: z.coerce.date(),
+      /** Show the Copy for LLM button; on unless set false. */
+      copyForLlm: z.boolean().optional(),
     }),
   }),
   // One JSON file per server, written by `just mcp-import`. File
@@ -133,6 +137,8 @@ export const collections = {
       featured: z.boolean().default(false),
       order: z.number().default(0),
       draft: z.boolean().default(false),
+      /** Show the Copy for LLM button; on unless set false. */
+      copyForLlm: z.boolean().optional(),
       links: z.array(z.object({ label: z.string(), href: z.url() })),
     }),
   }),

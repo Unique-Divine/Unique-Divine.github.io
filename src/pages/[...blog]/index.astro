@@ -14,6 +14,7 @@ import type { MetaData } from "~/types"
 import { blogPostRobots, getStaticPathsBlogPost } from "~/utils/blog"
 import { findImage } from "~/utils/images"
 import { getCanonical, getPermalink } from "~/utils/permalinks"
+import { isPublicPost } from "~/utils/sitemap"
 
 export const prerender = true
 
@@ -26,6 +27,9 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { post } = Astro.props as Props
 
 const url = getCanonical(getPermalink(post.permalink, "post"))
+// Public articles have a Markdown copy; frontmatter can turn the button off.
+const copyForLlm =
+  post.kind === "article" && isPublicPost(post) && (post.copyForLlm ?? true)
 const image = (await findImage(post.image)) as
   | ImageMetadata
   | string
@@ -62,7 +66,7 @@ const metadata = merge(
 ) as MetaData
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} copyForLlm={copyForLlm}>
   <SinglePost post={{ ...post, image: image }} url={url} />
   {
     post.kind !== "page" && (

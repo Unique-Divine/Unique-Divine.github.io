@@ -3,6 +3,7 @@ import Breadcrumbs from "~/components/mcp/Breadcrumbs.astro"
 import CodeList from "~/components/mcp/CodeList.astro"
 import FixtureNotice from "~/components/mcp/FixtureNotice.astro"
 import ServerCard from "~/components/mcp/ServerCard.astro"
+import PageActions from "~/components/PageActions.astro"
 import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import { SITE } from "~/utils/config"
@@ -45,6 +46,7 @@ const access = (tool: McpManifest["tools"][number]) =>
 ---
 
 <Layout
+  copyForLlm
   metadata={{
     title: `${server.title}: Install and Tools | ${MAINTAINER}`,
     description: `${server.description} ${server.toolCount} tools, ${server.readOnlyCount} read-only. Install for Claude Code, Codex, or Cursor.`,
@@ -65,7 +67,7 @@ const access = (tool: McpManifest["tools"][number]) =>
         <span>{server.license}</span>
         <span>{server.runtime}</span>
       </p>
-      <h1>{server.title}</h1>
+      <PageActions><h1>{server.title}</h1></PageActions>
       <p class="mcp-description">{server.description}</p>
       <p class="mcp-maintainer">Maintained by {MAINTAINER}</p>
       <div class="mcp-links">

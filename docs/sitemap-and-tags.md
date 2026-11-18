@@ -64,10 +64,35 @@ Links point to Markdown where the site has it:
 ### Markdown Copies
 
 `src/pages/[...path].md.ts` writes one copy per post and project that
-llms.txt lists. `getMarkdownSources` in `src/utils/markdown-copies.ts`
-chooses them with the same filters, and llms.txt links to exactly that set.
-A new post gets a copy on the next build. The `.md` suffix keeps these
-routes apart from the HTML routes under `[...blog]` and `code/projects`.
+llms.txt lists, one per skill and MCP page, the `/ai-skills` catalog, and
+each Markdown page under `src/pages` that sets `copyForLlm: true`. `getMarkdownSources` in
+`src/utils/markdown-copies.ts` chooses them with the same filters, and
+llms.txt links to the post and project copies. A new post gets a copy on
+the next build. The `.md` suffix keeps these routes apart from the HTML
+routes.
+
+- **Skill pages** copy the raw file under `public/ai-skills-source/`, minus
+  its frontmatter and H1, after the skill's description. Relative links
+  resolve against that raw file's URL.
+- **The `/ai-skills` catalog** lists every skill with links to its page and
+  copy, from `src/utils/skills-markdown.ts`.
+- **Markdown pages**, such as `/discord-mcp` and its privacy policy and
+  terms, copy their own body. Frontmatter `copyForLlm: true` turns on both
+  the copy and the button.
+- **MCP pages**, `/mcp` and `/mcp/<slug>`, copy Markdown that
+  `src/utils/mcp-markdown.ts` builds from the manifests: description,
+  install snippets, environment variables, and the tools table.
+
+### Copy for LLM
+
+Pages that have a copy show a "Copy for LLM" button by the title:
+posts, projects, skills and the skills catalog, MCP pages, and the Discord
+MCP policy pages. It copies a context line, the page
+URL, and the same text as the page's `.md` copy. Turn it on with the
+`copyForLlm` prop on `PageLayout` or `MarkdownLayout`, which defaults to
+off, and render the title inside `src/components/PageActions.astro`.
+Posts, projects, and skills can set `copyForLlm: false` in frontmatter to
+hide it. A page that turns the button on without a copy fails the build.
 Firebase's `cleanUrls` only touches `.html`, so it serves each copy as a
 file, by extension, as `text/markdown; charset=utf-8`, like `SKILL.md`.
 

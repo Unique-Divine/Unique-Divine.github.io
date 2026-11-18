@@ -2,6 +2,7 @@
 import Breadcrumbs from "~/components/mcp/Breadcrumbs.astro"
 import FixtureNotice from "~/components/mcp/FixtureNotice.astro"
 import ServerCard from "~/components/mcp/ServerCard.astro"
+import PageActions from "~/components/PageActions.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import { SITE } from "~/utils/config"
 import {
@@ -19,6 +20,7 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
 ---
 
 <Layout
+  copyForLlm
   metadata={{
     title: `${MCP_CATALOG_TITLE} by ${MAINTAINER}`,
     description: MCP_CATALOG_DESCRIPTION,
@@ -38,7 +40,9 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
           MAINTAINER.toUpperCase()
         }
       </p>
-      <h1>MCP servers.<br /><span>Reviewed, published, listed.</span></h1>
+      <PageActions>
+        <h1>MCP servers.<br /><span>Reviewed, published, listed.</span></h1>
+      </PageActions>
       <p class="mcp-lead">
         Model Context Protocol servers I maintain and publish. Each install
         command runs the latest release, so the snippets keep working as I ship

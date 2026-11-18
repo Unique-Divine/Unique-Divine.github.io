@@ -47,6 +47,9 @@ export interface Post {
 
   /** Generate sticky navigation from the compiled Markdown headings. */
   stickyToc?: boolean
+
+  /** Frontmatter override for the Copy for LLM button. */
+  copyForLlm?: boolean
   headings?: MarkdownHeading[]
 
   /**  */

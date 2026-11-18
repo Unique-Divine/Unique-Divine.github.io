@@ -1,6 +1,7 @@
 ---
 layout: "~/layouts/MarkdownLayout.astro"
 title: "Privacy policy for Unique Divine PC & AI"
+copyForLlm: true
 ---
 
 Effective date: July 1, 2026
