@@ -141,6 +141,15 @@ skills-import source:
 skills-test:
     bun test scripts/import-skills scripts/skill-covers src/utils/featured-skills
 
+# Refresh the MCP server snapshot from a jiyuu checkout's
+# mcp/*/site-manifest.json files. Pass scripts/fixtures/mcp-jiyuu for fixtures.
+mcp-import source:
+    bun scripts/import-mcp.ts {{quote(source)}}
+
+# Verify MCP manifest validation and snapshot integrity.
+mcp-test:
+    bun test scripts/import-mcp src/utils/mcp
+
 # Generate skill cover PNGs and a local contact sheet from the shared template.
 covers-generate:
     bun scripts/skill-covers.mjs
