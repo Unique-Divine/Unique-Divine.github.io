@@ -107,14 +107,15 @@ const RUNNER: Record<McpManifest["registry"], string> = {
 
 /**
  * The only install command and links a manifest may carry. Each is built from
- * the registry, package, version, and folder, so nothing else can ride along
- * into a copy button or link.
+ * the registry, package, and folder, so nothing else can ride along into a
+ * copy button or link. The command names the `latest` tag rather than the
+ * manifest's version, so a published release never invalidates it.
  */
 export function expectedUrls(
-  m: Pick<McpManifest, "registry" | "package" | "version" | "folder">,
+  m: Pick<McpManifest, "registry" | "package" | "folder">,
 ) {
   return {
-    installCommand: `${RUNNER[m.registry]} ${m.package}@${m.version}`,
+    installCommand: `${RUNNER[m.registry]} ${m.package}@latest`,
     sourceUrl: `https://github.com/Unique-Divine/jiyuu/tree/main/mcp/${m.folder}`,
     registryUrl:
       m.registry === "npm"

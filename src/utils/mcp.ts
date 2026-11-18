@@ -35,7 +35,7 @@ export const serverPath = (slug: string) => `${MCP_CATALOG_PATH}/${slug}`
 export const registryLabel = (registry: McpManifest["registry"]) =>
   registry === "npm" ? "npm" : "PyPI"
 
-/** Splits `bunx pkg@1.0.0 --flag` into a command and its arguments. */
+/** Splits `bunx pkg@latest --flag` into a command and its arguments. */
 export function splitCommand(line: string): {
   command: string
   args: string[]

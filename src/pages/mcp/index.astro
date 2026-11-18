@@ -38,12 +38,12 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
           MAINTAINER.toUpperCase()
         }
       </p>
-      <h1>MCP servers.<br /><span>Pinned, reviewed, listed.</span></h1>
+      <h1>MCP servers.<br /><span>Reviewed, published, listed.</span></h1>
       <p class="mcp-lead">
         Model Context Protocol servers I maintain and publish. Each install
-        command pins an exact version, so your agent runs the release I
-        reviewed. Every tool is listed with whether it only reads or can change
-        something.
+        command runs the latest release, so the snippets keep working as I ship
+        new versions. Every tool is listed with whether it only reads or can
+        change something.
       </p>
       <p class="mcp-totals">
         {servers.length} servers · {tools} tools

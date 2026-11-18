@@ -47,7 +47,7 @@ const server = (
   registry: "npm",
   package: `@uniquedivine/mcp-${folder}`,
   version: "1.2.3",
-  installCommand: `bunx @uniquedivine/mcp-${folder}@1.2.3`,
+  installCommand: `bunx @uniquedivine/mcp-${folder}@latest`,
   runtime: "Bun >= 1.4.3",
   license: "MIT",
   sourceUrl: `https://github.com/Unique-Divine/jiyuu/tree/main/mcp/${folder}`,
@@ -60,32 +60,32 @@ const server = (
 describe("client snippets", () => {
   test("Claude Code adds the server under its folder name", () => {
     expect(claudeCommand(server("slack"))).toBe(
-      "claude mcp add slack -- bunx @uniquedivine/mcp-slack@1.2.3",
+      "claude mcp add slack -- bunx @uniquedivine/mcp-slack@latest",
     )
   })
 
   test("Codex TOML and Cursor JSON split the command from its arguments", () => {
     const pypi = server("telegram", {
       registry: "pypi",
-      installCommand: "uvx uniquedivine-telegram-mcp@2.0.2",
+      installCommand: "uvx uniquedivine-telegram-mcp@latest",
     })
     expect(codexToml(pypi)).toBe(
       [
         "[mcp_servers.telegram]",
         'command = "uvx"',
-        'args = ["uniquedivine-telegram-mcp@2.0.2"]',
+        'args = ["uniquedivine-telegram-mcp@latest"]',
       ].join("\n"),
     )
     expect(JSON.parse(cursorJson(pypi))).toEqual({
       mcpServers: {
-        telegram: { command: "uvx", args: ["uniquedivine-telegram-mcp@2.0.2"] },
+        telegram: { command: "uvx", args: ["uniquedivine-telegram-mcp@latest"] },
       },
     })
   })
 
   const telegram = server("telegram", {
     registry: "pypi",
-    installCommand: "uvx uniquedivine-telegram-mcp@2.0.2",
+    installCommand: "uvx uniquedivine-telegram-mcp@latest",
     sourceUrl: "https://github.com/Unique-Divine/jiyuu/tree/main/mcp/telegram",
     envVars: [
       { name: "TELEGRAM_API_ID", required: true, secret: false },
@@ -117,7 +117,7 @@ describe("client snippets", () => {
         "-e 'TELEGRAM_API_ID=<TELEGRAM_API_ID>' " +
         "-e 'TELEGRAM_API_HASH=<TELEGRAM_API_HASH>' " +
         "-e 'TELEGRAM_SESSION_STRING=<TELEGRAM_SESSION_STRING>' " +
-        "-- uvx uniquedivine-telegram-mcp@2.0.2",
+        "-- uvx uniquedivine-telegram-mcp@latest",
     )
     expect(codexToml(telegram).split("\n").at(-1)).toBe(
       "env = { " +
@@ -138,7 +138,7 @@ describe("client snippets", () => {
   test("Discord snippets carry the bot token placeholder", () => {
     expect(claudeCommand(discord)).toBe(
       "claude mcp add discord -e 'DISCORD_TOKEN=<DISCORD_TOKEN>' " +
-        "-- bunx @uniquedivine/mcp-discord@1.2.3",
+        "-- bunx @uniquedivine/mcp-discord@latest",
     )
     expect(codexToml(discord)).toContain(
       'env = { DISCORD_TOKEN = "<DISCORD_TOKEN>" }',
@@ -147,7 +147,7 @@ describe("client snippets", () => {
       mcpServers: {
         discord: {
           command: "bunx",
-          args: ["@uniquedivine/mcp-discord@1.2.3"],
+          args: ["@uniquedivine/mcp-discord@latest"],
           env: { DISCORD_TOKEN: "<DISCORD_TOKEN>" },
         },
       },
