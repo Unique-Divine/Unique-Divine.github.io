@@ -8,6 +8,7 @@ import { SITE_PAGES } from "../data/sitePages"
 import { fetchPosts, fetchStandingPages } from "./blog"
 import { APP_BLOG, METADATA, SITE } from "./config"
 import { newestFirst } from "./content-order"
+import { serverPath } from "./mcp"
 import {
   getAsset,
   getBlogPermalink,
@@ -89,6 +90,9 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
   const skillReferences = (await getCollection("skill"))
     .filter(({ data }) => data.kind === "reference")
     .sort((a, b) => a.data.route.localeCompare(b.data.route, "en"))
+  const mcpServers = (await getCollection("mcp"))
+    .map(({ data }) => data)
+    .sort((a, b) => a.title.localeCompare(b.title, "en"))
   const enabled = (kind: "post" | "list" | "category" | "tag") =>
     APP_BLOG.isEnabled &&
     APP_BLOG[kind].isEnabled &&
@@ -191,6 +195,17 @@ export async function getSitemapSections(): Promise<SitemapSection[]> {
       groups,
     },
     { id: "tags", title: "Tags", pages: archives("tag") },
+    {
+      id: "mcp",
+      title: "MCP servers",
+      pages: [
+        { href: getPermalink("/mcp"), label: "All MCP servers" },
+        ...mcpServers.map((server) => ({
+          href: getPermalink(serverPath(server.slug)),
+          label: server.title,
+        })),
+      ],
+    },
     {
       id: "skill-references",
       title: "Agent skill references",

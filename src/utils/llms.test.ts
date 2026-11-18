@@ -61,6 +61,13 @@ const source = (overrides: Partial<LlmsSource> = {}): LlmsSource => ({
       },
     },
   ],
+  mcpServers: [
+    {
+      slug: "slack-mcp",
+      title: "Slack MCP",
+      description: "Read and send Slack messages.\nPinned releases.",
+    },
+  ],
   ...overrides,
 })
 
@@ -121,6 +128,7 @@ test("renderLlmsTxt follows the llmstxt.org layout", () => {
     "## Writing",
     "## Projects",
     "## Agent skills",
+    "## MCP servers",
   ])
   for (const line of lines.filter((line) => line.startsWith("- ")))
     expect(line).toMatch(/^- \[[^\]]+\]\(https:\/\/uniquedivine\.com\/\S*\)/)
@@ -161,6 +169,14 @@ test("primary links, feed, and sections land where the issue asks", () => {
     "https://uniquedivine.com/ai-skills",
     "https://uniquedivine.com/ai-skills/drill-spec",
   ])
+  expect(llmsLinks(section("MCP servers"))).toEqual([
+    "https://uniquedivine.com/mcp",
+    "https://uniquedivine.com/mcp/slack-mcp",
+  ])
+  expect(section("MCP servers")).toContain(
+    "- [Slack MCP](https://uniquedivine.com/mcp/slack-mcp): " +
+      "Read and send Slack messages. Pinned releases.",
+  )
 })
 
 test("renderLlmsTxt skips repeated URLs and drops empty sections", () => {

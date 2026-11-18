@@ -45,6 +45,14 @@ export const headerData = {
       ],
     },
 
+    {
+      text: "MCP Servers",
+      links: [
+        { text: "All MCP servers", href: getPermalink("/mcp") },
+        { text: "Discord bot policy", href: getPermalink("/discord-mcp") },
+      ],
+    },
+
     // TODO: Include in top navigation?
     // {
     //   text: 'Japanese',
