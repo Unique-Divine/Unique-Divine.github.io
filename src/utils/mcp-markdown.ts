@@ -66,8 +66,9 @@ export function mcpServerMarkdown(server: McpManifest): string {
     ].join(" "),
     "## Install",
     [
-      `Needs ${server.runtime}. The commands pin version ${server.version};`,
-      "bump the pin to upgrade. Each snippet has a `<NAME>` placeholder for",
+      `Needs ${server.runtime}. The commands run the latest release. This`,
+      `page lists the tools in version ${server.version}. Each snippet has a`,
+      "`<NAME>` placeholder for",
       "every credential or required variable. Replace them with your own",
       "values in your client config. To get the credentials, see the",
       `[${server.title} sign-in instructions](${authDocsUrl(server)}).`,
