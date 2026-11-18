@@ -30,7 +30,7 @@ const dist = repoUrl("dist/")
 const site = "https://uniquedivine.com"
 const read = (file: string) => readFileSync(new URL(file, dist), "utf8")
 const slugs = readdirSync(repoPath("src/content/mcp"))
-  .filter((file) => file.endsWith(".json"))
+  .filter((file) => file.endsWith(".json") && !file.startsWith("_"))
   .map((file) => file.replace(/\.json$/, ""))
   .sort()
 

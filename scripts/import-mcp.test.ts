@@ -13,7 +13,7 @@ import {
 import { tmpdir } from "node:os"
 import path from "node:path"
 
-import provenance from "~/data/mcp-provenance.json"
+import provenance from "~/content/mcp/_provenance.json"
 import { manifestProblems, mcpManifest } from "~/utils/mcp-schema"
 import { repoPath } from "~/utils/repo-paths"
 
@@ -24,7 +24,9 @@ import {
   MANIFEST_FILE,
   nodeSwapFs,
   prepareManifests,
+  PROVENANCE_FILE,
   readManifests,
+  recoverSnapshot,
   swapSnapshot,
   type SwapFs,
 } from "./import-mcp"
@@ -266,14 +268,14 @@ describe("MCP import", () => {
   test("writes the snapshot and provenance, and reimports stably", async () => {
     const root = jiyuu({ slack: fixture("slack"), discord: fixture("discord") })
     const site = tempDir()
-    mkdirSync(path.join(site, "src/data"), { recursive: true })
     await importMcp(root, site)
     const output = path.join(site, "src/content/mcp")
     expect(readdirSync(output).sort()).toEqual([
+      PROVENANCE_FILE,
       "discord-mcp.json",
       "slack-mcp.json",
     ])
-    const provenancePath = path.join(site, "src/data/mcp-provenance.json")
+    const provenancePath = path.join(site, "src/content/mcp", PROVENANCE_FILE)
     const first = readFileSync(provenancePath, "utf8")
     const record = JSON.parse(first)
     expect(record.fixture).toBe(true)
@@ -289,7 +291,6 @@ describe("MCP import", () => {
 
   test("a failed import leaves the previous snapshot in place", async () => {
     const site = tempDir()
-    mkdirSync(path.join(site, "src/data"), { recursive: true })
     await importMcp(jiyuu({ slack: fixture("slack") }), site)
     const before = readFileSync(
       path.join(site, "src/content/mcp/slack-mcp.json"),
@@ -312,8 +313,7 @@ describe("MCP import", () => {
       return m
     }
     const site = tempDir()
-    mkdirSync(path.join(site, "src/data"), { recursive: true })
-    const provenancePath = path.join(site, "src/data/mcp-provenance.json")
+    const provenancePath = path.join(site, "src/content/mcp", PROVENANCE_FILE)
     await importMcp(
       jiyuu({
         slack: real("slack", "aaa111"),
@@ -339,24 +339,26 @@ describe("MCP import", () => {
 })
 
 describe("snapshot swap", () => {
-  /** A site with an old snapshot and provenance, plus a staged new one. */
+  /** An old snapshot and a staged new one, each with its own provenance. */
   function staged() {
-    const site = tempDir()
-    const output = path.join(site, "content")
-    const provenancePath = path.join(site, "provenance.json")
-    mkdirSync(output)
-    writeFileSync(path.join(output, "old.json"), "old")
-    writeFileSync(provenancePath, "old provenance")
-    mkdirSync(`${output}.next`)
-    writeFileSync(path.join(`${output}.next`, "new.json"), "new")
+    const output = path.join(tempDir(), "mcp")
+    for (const [dir, label] of [
+      [output, "old"],
+      [`${output}.next`, "new"],
+    ]) {
+      mkdirSync(dir)
+      writeFileSync(path.join(dir, `${label}.json`), label)
+      writeFileSync(path.join(dir, PROVENANCE_FILE), `${label} provenance`)
+    }
     const state = () => ({
-      files: readdirSync(output),
-      provenance: readFileSync(provenancePath, "utf8"),
+      files: readdirSync(output).sort(),
+      provenance: readFileSync(path.join(output, PROVENANCE_FILE), "utf8"),
       leftovers: [".prev", ".next"].filter((s) => existsSync(output + s)),
-      provenanceNext: existsSync(`${provenancePath}.next`),
     })
-    return { output, provenancePath, state }
+    return { output, state }
   }
+  const OLD = [PROVENANCE_FILE, "old.json"].sort()
+  const NEW = [PROVENANCE_FILE, "new.json"].sort()
 
   /** Real filesystem calls, except the nth rename throws. */
   const failingRename = (n: number): SwapFs => {
@@ -370,75 +372,79 @@ describe("snapshot swap", () => {
     }
   }
 
-  test("replaces the snapshot and provenance and removes .prev", async () => {
-    const { output, provenancePath, state } = staged()
-    await swapSnapshot(output, provenancePath, "new provenance")
+  test("swaps content and provenance together and removes .prev", async () => {
+    const { output, state } = staged()
+    await swapSnapshot(output)
     expect(state()).toEqual({
-      files: ["new.json"],
+      files: NEW,
       provenance: "new provenance",
       leftovers: [],
-      provenanceNext: false,
     })
   })
 
   for (const [n, step] of [
     [1, "moving the current snapshot to .prev"],
     [2, "moving .next into place"],
-    [3, "renaming the provenance into place"],
   ] as const)
-    test(`a failure while ${step} restores the old snapshot`, async () => {
-      const { output, provenancePath, state } = staged()
-      await expect(
-        swapSnapshot(
-          output,
-          provenancePath,
-          "new provenance",
-          failingRename(n),
-        ),
-      ).rejects.toThrow(`injected rename ${n} failure`)
-      const after = state()
-      expect(after.files).toEqual(["old.json"])
-      expect(after.provenance).toBe("old provenance")
-      expect(after.provenanceNext).toBe(false)
-      expect(after.leftovers).not.toContain(".prev")
+    test(`a failure while ${step} keeps the old pair`, async () => {
+      const { output, state } = staged()
+      await expect(swapSnapshot(output, failingRename(n))).rejects.toThrow(
+        `injected rename ${n} failure`,
+      )
+      expect(state().files).toEqual(OLD)
+      expect(state().provenance).toBe("old provenance")
+      expect(state().leftovers).not.toContain(".prev")
     })
 
-  test("a provenance write failure leaves everything untouched", async () => {
-    const { output, provenancePath, state } = staged()
-    const fs: SwapFs = {
-      ...nodeSwapFs,
-      writeFile: async () => {
-        throw new Error("disk full")
-      },
-    }
-    await expect(
-      swapSnapshot(output, provenancePath, "new provenance", fs),
-    ).rejects.toThrow("disk full")
-    expect(state().files).toEqual(["old.json"])
-    expect(state().provenance).toBe("old provenance")
+  test("a crash between the two renames recovers the old pair", async () => {
+    const { output, state } = staged()
+    renameSync(output, `${output}.prev`)
+    await recoverSnapshot(output)
+    expect(state()).toEqual({
+      files: OLD,
+      provenance: "old provenance",
+      leftovers: [],
+    })
+  })
+
+  test("a crash after the new snapshot lands keeps the new pair", async () => {
+    // The point the review reproduced: new content in place, .prev not yet
+    // removed. Provenance moved with the content, so they still agree.
+    const { output, state } = staged()
+    renameSync(output, `${output}.prev`)
+    renameSync(`${output}.next`, output)
+    await recoverSnapshot(output)
+    expect(state()).toEqual({
+      files: NEW,
+      provenance: "new provenance",
+      leftovers: [],
+    })
   })
 
   test("an import after a crash restores the .prev snapshot first", async () => {
     const site = tempDir()
-    mkdirSync(path.join(site, "src/data"), { recursive: true })
     const root = jiyuu({ slack: fixture("slack") })
     await importMcp(root, site)
     const output = path.join(site, "src/content/mcp")
-    // Simulate a crash between the two directory renames.
     renameSync(output, `${output}.prev`)
     const broken = fixture("slack")
     broken.toolCount = 1
     await expect(importMcp(jiyuu({ slack: broken }), site)).rejects.toThrow(
       "toolCount",
     )
-    expect(readdirSync(output)).toEqual(["slack-mcp.json"])
+    expect(readdirSync(output).sort()).toEqual([
+      PROVENANCE_FILE,
+      "slack-mcp.json",
+    ])
     expect(existsSync(`${output}.prev`)).toBe(false)
   })
 })
 
 describe("committed MCP snapshot", () => {
   const content = repoPath("src/content/mcp")
-  const files = readdirSync(content).filter((f) => f.endsWith(".json"))
+  const files = readdirSync(content).filter(
+    (f) => f.endsWith(".json") && f !== PROVENANCE_FILE,
+  )
 
   test("every server file is valid and listed in the provenance", () => {
     expect(files.length).toBeGreaterThan(0)
@@ -467,5 +473,49 @@ describe("committed MCP snapshot", () => {
           readFileSync(path.join(content, `${manifest.slug}.json`), "utf8"),
         ),
       ).toEqual(manifest)
+  })
+})
+
+describe("env var notes", () => {
+  const withNote = (note: string) =>
+    source("telegram", (m) => (m.envVars[2].note = note))
+
+  test("accepts plain notes that name alternatives", () => {
+    expect(() =>
+      prepareManifests([
+        withNote(
+          "Set this or TELEGRAM_SESSION_NAME. For several accounts, set " +
+            "TELEGRAM_SESSION_STRING_<LABEL> per account instead.",
+        ),
+      ]),
+    ).not.toThrow()
+  })
+
+  test("rejects value-shaped notes the way jiyuu's checkNote does", () => {
+    for (const [note, why] of [
+      ["Set TELEGRAM_API_HASH=abc to sign in.", "an assignment"],
+      ["Use API_HASH = abc.", "an assignment"],
+      ["Example: xoxc-1234", "a Slack token"],
+      ["Hash 0123456789abcdef0123456789abcdef here.", "a long hex run"],
+      [`Session ${"Ab1+".repeat(10)}==`, "a long base64 run"],
+      ["Token ghp_abc", "a known secret prefix"],
+      ["Token github_pat_abc", "a known secret prefix"],
+      ["Token glpat-abc", "a known secret prefix"],
+      ["Token npm_abc", "a known secret prefix"],
+      ["Key sk-abc", "a known secret prefix"],
+      ["Key AKIAABC", "a known secret prefix"],
+      ["Key AIzaABC", "a known secret prefix"],
+      ["-----BEGIN PRIVATE KEY-----", "a known secret prefix"],
+    ])
+      expect(() => prepareManifests([withNote(note)])).toThrow(
+        `envVars[2].note looks like it holds ${why}`,
+      )
+  })
+
+  test("caps notes at 300 characters", () => {
+    expect(() => prepareManifests([withNote("a ".repeat(150))])).not.toThrow()
+    expect(() => prepareManifests([withNote("a ".repeat(150) + "b")])).toThrow(
+      "envVars.2.note",
+    )
   })
 })

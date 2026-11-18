@@ -28,17 +28,21 @@ collection use. The importer also rejects:
   or `uvx <package>@<version>` for PyPI
 - a source or registry URL other than the jiyuu tree path and the
   package's npm or PyPI page
-- env var entries with anything besides a name, two flags, and a short note
+- env var entries with anything besides a name, two flags, and a note
+- a note over 300 characters or one shaped like a value: `NAME=`, a Slack
+  token, a long hex or base64 run, or a known secret prefix. These rules
+  copy `checkNote` in jiyuu's `mcp/scripts/site-manifest.ts`.
 - hosted-service or pricing text
 - fixture manifests mixed with real ones
 
-It reports every problem at once and writes the new snapshot to
-`src/content/mcp.next` and the new provenance to
-`src/data/mcp-provenance.json.next`. The swap then renames the current
-directory to `mcp.prev`, renames `mcp.next` into place, renames the
-provenance into place, and removes `mcp.prev`. A failed step puts the old
-directory back and leaves the old provenance untouched. If an import dies
-between renames, the next run restores `mcp.prev` before it reads anything.
+It reports every problem at once and stages the new snapshot in
+`src/content/mcp.next`, provenance included. Provenance lives in the snapshot
+directory as `src/content/mcp/_provenance.json`, which the `mcp` collection
+skips, so content and provenance always move together. The swap renames the
+current directory to `mcp.prev`, renames `mcp.next` into place, and removes
+`mcp.prev`. A failed rename puts the old directory back. If an import dies
+between the renames, the next run restores `mcp.prev` before it reads
+anything; if it dies after them, the next run removes the stale `mcp.prev`.
 
 The provenance records the jiyuu checkout's `HEAD`, whether its `mcp/`
 directory was dirty, and for each server its version, hash, and

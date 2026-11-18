@@ -1,28 +1,28 @@
 {
   "repository": "https://github.com/Unique-Divine/jiyuu",
-  "checkout": "e4db2ee1536346651625403a0ebeb64189c9222c",
+  "checkout": "a337a28e30866dc85bed084061ba422623ddd230",
   "dirty": false,
   "fixture": false,
   "servers": {
     "discord-mcp": {
       "source": "mcp/discord/site-manifest.json",
       "version": "1.3.8",
-      "revision": "af38e90ba0685829b357c6ffdd2eef463bb1bb8b",
-      "sha256": "6ae9f6c1fed2a7b65582263d4627484aa03551cbc0621b9763e2ddf1f4cbecd1",
+      "revision": "c122a7f8b54ec2feda04e48f06efaafc04056246",
+      "sha256": "20b97cf47eb5a9a101d85ec6d91bc39427803a1377e17ce1d4f355d731d09ce5",
       "importDate": "2026-11-18"
     },
     "slack-mcp": {
       "source": "mcp/slack/site-manifest.json",
       "version": "4.5.2",
-      "revision": "af38e90ba0685829b357c6ffdd2eef463bb1bb8b",
-      "sha256": "63ad688f87a2bd2a3143cf06ad1d746da46a6ed87f00308f59455f0d50ccbc3a",
+      "revision": "c122a7f8b54ec2feda04e48f06efaafc04056246",
+      "sha256": "908d4bc1646aa17d418c551be693aa788c8b4f9726b0b9e59800288100f32e88",
       "importDate": "2026-11-18"
     },
     "telegram-mcp": {
       "source": "mcp/telegram/site-manifest.json",
       "version": "2.0.2",
-      "revision": "af38e90ba0685829b357c6ffdd2eef463bb1bb8b",
-      "sha256": "528e53362c3e93f38568fe08dd1b28deb26bea828a911d35586c99f39b7a6398",
+      "revision": "c122a7f8b54ec2feda04e48f06efaafc04056246",
+      "sha256": "799320cf28994b894129671175a904ebb87132248a5ce839a1dac11209a2712c",
       "importDate": "2026-11-18"
     }
   }

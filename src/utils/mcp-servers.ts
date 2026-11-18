@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content"
 
-import provenance from "~/data/mcp-provenance.json"
+import provenance from "~/content/mcp/_provenance.json"
 
 /** Every imported MCP server, by title. */
 export async function getMcpServers() {

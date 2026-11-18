@@ -136,14 +136,20 @@ export function isFixtureSet(manifests: McpManifest[]): boolean {
   return fixtures > 0
 }
 
-/** The filesystem calls `swapSnapshot` makes, so tests can inject failures. */
+/**
+ * Provenance lives inside the snapshot directory, so one directory rename
+ * swaps content and provenance together. The leading underscore keeps it
+ * out of the `mcp` collection.
+ */
+export const PROVENANCE_FILE = "_provenance.json"
+
+/** The filesystem calls the swap makes, so tests can inject failures. */
 export interface SwapFs {
   rename: (from: string, to: string) => Promise<void>
   rm: (
     target: string,
     options: { recursive: true; force: true },
   ) => Promise<void>
-  writeFile: (target: string, text: string) => Promise<void>
   exists: (target: string) => Promise<boolean>
 }
 
@@ -156,53 +162,33 @@ const exists = async (target: string) => {
   }
 }
 
-export const nodeSwapFs: SwapFs = { rename, rm, writeFile, exists }
+export const nodeSwapFs: SwapFs = { rename, rm, exists }
 
 /**
- * Restores `<output>.prev` when a crash left it without `<output>`, and
- * clears leftovers from an earlier run.
+ * Finishes or undoes an interrupted swap. Without `<output>`, the crash came
+ * between the two renames, so `<output>.prev` goes back. With `<output>`,
+ * the new snapshot is complete and `.prev` is stale. Either way content and
+ * provenance stay paired, because they sit in the same directory.
  */
-export async function recoverSnapshot(
-  output: string,
-  provenancePath: string,
-  fs: SwapFs = nodeSwapFs,
-) {
+export async function recoverSnapshot(output: string, fs: SwapFs = nodeSwapFs) {
   if (!(await fs.exists(output)) && (await fs.exists(`${output}.prev`)))
     await fs.rename(`${output}.prev`, output)
   await fs.rm(`${output}.prev`, { recursive: true, force: true })
   await fs.rm(`${output}.next`, { recursive: true, force: true })
-  await fs.rm(`${provenancePath}.next`, { recursive: true, force: true })
 }
 
 /**
- * Moves `<output>.next` into place with its provenance. The old directory
- * and provenance stay until both new ones are in place; any failure puts
- * them back and rethrows.
+ * Moves the complete `<output>.next`, content and provenance, into place.
+ * A failure puts the old directory back and rethrows.
  */
-export async function swapSnapshot(
-  output: string,
-  provenancePath: string,
-  provenance: string,
-  fs: SwapFs = nodeSwapFs,
-) {
-  const next = `${output}.next`
+export async function swapSnapshot(output: string, fs: SwapFs = nodeSwapFs) {
   const prev = `${output}.prev`
-  const provenanceNext = `${provenancePath}.next`
-  await fs.writeFile(provenanceNext, provenance)
   const hadOutput = await fs.exists(output)
-  let moved = false
+  if (hadOutput) await fs.rename(output, prev)
   try {
-    if (hadOutput) await fs.rename(output, prev)
-    await fs.rename(next, output)
-    moved = true
-    await fs.rename(provenanceNext, provenancePath)
+    await fs.rename(`${output}.next`, output)
   } catch (error) {
-    try {
-      if (moved) await fs.rename(output, next)
-      if (hadOutput && (await fs.exists(prev))) await fs.rename(prev, output)
-    } finally {
-      await fs.rm(provenanceNext, { recursive: true, force: true })
-    }
+    if (hadOutput) await fs.rename(prev, output)
     throw error
   }
   await fs.rm(prev, { recursive: true, force: true })
@@ -215,9 +201,8 @@ export async function importMcp(
 ) {
   const root = path.resolve(source)
   const output = path.join(siteRoot, "src/content/mcp")
-  const provenancePath = path.join(siteRoot, "src/data/mcp-provenance.json")
   // Repair an interrupted earlier import before anything else can fail.
-  await recoverSnapshot(output, provenancePath, fs)
+  await recoverSnapshot(output, fs)
   const sources = await readManifests(root)
   const manifests = prepareManifests(sources)
   if (!manifests.length)
@@ -225,7 +210,9 @@ export async function importMcp(
   const fixture = isFixtureSet(manifests)
   let previous: Partial<McpProvenance> = {}
   try {
-    previous = JSON.parse(await readFile(provenancePath, "utf8"))
+    previous = JSON.parse(
+      await readFile(path.join(output, PROVENANCE_FILE), "utf8"),
+    )
   } catch {
     /* First import. */
   }
@@ -241,14 +228,15 @@ export async function importMcp(
     servers: {},
   }
   const raw = new Map(sources.map((s) => [s.folder, s.raw]))
-  // Write the whole snapshot beside the old one, then swap directories.
-  await mkdir(`${output}.next`, { recursive: true })
+  // Stage the whole snapshot with its provenance, then swap directories.
+  const next = `${output}.next`
+  await mkdir(next, { recursive: true })
   for (const manifest of manifests) {
     const text = raw.get(manifest.folder)!
     const sha256 = hash(text)
     const prior = previous.servers?.[manifest.slug]
     await writeFile(
-      path.join(`${output}.next`, `${manifest.slug}.json`),
+      path.join(next, `${manifest.slug}.json`),
       JSON.stringify(manifest, null, 2) + "\n",
     )
     provenance.servers[manifest.slug] = {
@@ -260,12 +248,11 @@ export async function importMcp(
       importDate: prior?.sha256 === sha256 ? prior.importDate : date,
     }
   }
-  await swapSnapshot(
-    output,
-    provenancePath,
+  await writeFile(
+    path.join(next, PROVENANCE_FILE),
     JSON.stringify(provenance, null, 2) + "\n",
-    fs,
   )
+  await swapSnapshot(output, fs)
   console.log(
     `Imported ${manifests.length} MCP servers from ${fixture ? "fixtures" : root}.`,
   )

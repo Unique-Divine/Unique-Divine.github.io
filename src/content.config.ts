@@ -99,9 +99,10 @@ export const collections = {
       publishDate: z.coerce.date(),
     }),
   }),
-  // One JSON file per server, written by `just mcp-import`.
+  // One JSON file per server, written by `just mcp-import`. File
+  // `_provenance.json` sits beside them and is not an entry.
   mcp: defineCollection({
-    loader: glob({ pattern: "*.json", base: "./src/content/mcp" }),
+    loader: glob({ pattern: "[^_]*.json", base: "./src/content/mcp" }),
     schema: mcpManifest,
   }),
   project: defineCollection({
