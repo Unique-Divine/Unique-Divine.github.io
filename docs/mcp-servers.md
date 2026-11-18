@@ -21,18 +21,30 @@ manifests; a server that opts out has none and gets no page. Module
 `src/utils/mcp-schema.ts` holds the schema that both the importer and the
 collection use. The importer also rejects:
 
+- a `site-manifest.json` that isn't a regular file, such as a symlink
 - counts that disagree with the tool list
 - a slug other than `<folder>-mcp`
-- an install command that doesn't pin `<package>@<version>`
-- env var entries with anything besides a name and two flags
+- an install command other than exactly `bunx <package>@<version>` for npm
+  or `uvx <package>@<version>` for PyPI
+- a source or registry URL other than the jiyuu tree path and the
+  package's npm or PyPI page
+- env var entries with anything besides a name, two flags, and a short note
 - hosted-service or pricing text
+- fixture manifests mixed with real ones
 
-It reports every problem at once, writes the new snapshot to
-`src/content/mcp.next`, and swaps directories only after every file is
-written. File `src/data/mcp-provenance.json` records the jiyuu revision from
-the manifests, whether jiyuu's `mcp/` directory was dirty, and each
-manifest's hash and version. An unchanged reimport keeps the file
-byte-for-byte.
+It reports every problem at once and writes the new snapshot to
+`src/content/mcp.next` and the new provenance to
+`src/data/mcp-provenance.json.next`. The swap then renames the current
+directory to `mcp.prev`, renames `mcp.next` into place, renames the
+provenance into place, and removes `mcp.prev`. A failed step puts the old
+directory back and leaves the old provenance untouched. If an import dies
+between renames, the next run restores `mcp.prev` before it reads anything.
+
+The provenance records the jiyuu checkout's `HEAD`, whether its `mcp/`
+directory was dirty, and for each server its version, hash, and
+`generatedFrom.revision`. Revisions are per server: jiyuu keeps the commit
+that last touched each server's inputs, so they can differ. An unchanged
+reimport keeps the file byte-for-byte.
 
 ## Fixtures
 
@@ -45,7 +57,10 @@ publishing.
 ## Pages and Discovery
 
 Each server page has install snippets for Claude Code, Codex, and Cursor,
-built from `installCommand`, plus env var names, safety notes, a searchable
+built from `installCommand`. The snippets carry a `<NAME>` placeholder for
+each required or secret env var, never a value, and the page links to the
+README section on signing in. The page also lists every env var name with
+its note, safety notes, a searchable
 tools table, and cards for the other servers. The catalog and server pages
 carry `SoftwareApplication`, `ItemList`, and `BreadcrumbList` JSON-LD through
 the layout's `head` slot. The XML sitemap, the HTML sitemap, `llms.txt`, and

@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process"
 import { createHash } from "node:crypto"
 import {
+  lstat,
   mkdir,
   readdir,
   readFile,
@@ -29,12 +30,20 @@ export interface ManifestSource {
 
 export interface McpProvenance {
   repository: string
-  revision: string
+  /** HEAD of the jiyuu checkout at import, or null for fixtures. */
+  checkout: string | null
   dirty: boolean | null
   fixture: boolean
   servers: Record<
     string,
-    { source: string; version: string; sha256: string; importDate: string }
+    {
+      source: string
+      version: string
+      /** The jiyuu commit this server's manifest was generated from. */
+      revision: string
+      sha256: string
+      importDate: string
+    }
   >
 }
 
@@ -79,6 +88,7 @@ export function prepareManifests(sources: ManifestSource[]): McpManifest[] {
 /**
  * Reads `<root>/mcp/<folder>/site-manifest.json` for each folder and nothing
  * else. A folder without the file is a server that opted out of the site.
+ * Symlinks are refused, so the importer never reads outside `mcp/`.
  */
 export async function readManifests(root: string): Promise<ManifestSource[]> {
   const mcpDir = path.join(root, "mcp")
@@ -86,17 +96,17 @@ export async function readManifests(root: string): Promise<ManifestSource[]> {
   const entries = await readdir(mcpDir, { withFileTypes: true })
   for (const entry of entries.sort((a, b) => a.name.localeCompare(b.name))) {
     if (!entry.isDirectory() || entry.name.startsWith(".")) continue
+    const file = path.join(mcpDir, entry.name, MANIFEST_FILE)
     try {
-      sources.push({
-        folder: entry.name,
-        raw: await readFile(
-          path.join(mcpDir, entry.name, MANIFEST_FILE),
-          "utf8",
-        ),
-      })
+      if (!(await lstat(file)).isFile())
+        throw new Error(
+          `Not a regular file: mcp/${entry.name}/${MANIFEST_FILE}`,
+        )
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") continue
+      throw error
     }
+    sources.push({ folder: entry.name, raw: await readFile(file, "utf8") })
   }
   return sources
 }
@@ -113,26 +123,106 @@ function git(root: string, args: string[]): string | null {
 }
 
 /**
- * The jiyuu revision the manifests record. They come from one generator run,
- * so they must agree.
+ * Whether the manifests are fixtures. Each server keeps the revision of the
+ * last jiyuu commit that touched its inputs, so real revisions may differ;
+ * fixtures and real manifests must not mix.
  */
-export function manifestRevision(manifests: McpManifest[]): string {
-  const revisions = new Set(manifests.map((m) => m.generatedFrom.revision))
-  if (revisions.size !== 1)
-    throw new Error(`Manifests disagree on revision: ${[...revisions]}`)
-  return [...revisions][0]
+export function isFixtureSet(manifests: McpManifest[]): boolean {
+  const fixtures = manifests.filter(
+    (m) => m.generatedFrom.revision === FIXTURE_REVISION,
+  ).length
+  if (fixtures && fixtures !== manifests.length)
+    throw new Error("Fixture and jiyuu manifests can't be imported together")
+  return fixtures > 0
 }
 
-export async function importMcp(source: string, siteRoot: string) {
+/** The filesystem calls `swapSnapshot` makes, so tests can inject failures. */
+export interface SwapFs {
+  rename: (from: string, to: string) => Promise<void>
+  rm: (
+    target: string,
+    options: { recursive: true; force: true },
+  ) => Promise<void>
+  writeFile: (target: string, text: string) => Promise<void>
+  exists: (target: string) => Promise<boolean>
+}
+
+const exists = async (target: string) => {
+  try {
+    await lstat(target)
+    return true
+  } catch {
+    return false
+  }
+}
+
+export const nodeSwapFs: SwapFs = { rename, rm, writeFile, exists }
+
+/**
+ * Restores `<output>.prev` when a crash left it without `<output>`, and
+ * clears leftovers from an earlier run.
+ */
+export async function recoverSnapshot(
+  output: string,
+  provenancePath: string,
+  fs: SwapFs = nodeSwapFs,
+) {
+  if (!(await fs.exists(output)) && (await fs.exists(`${output}.prev`)))
+    await fs.rename(`${output}.prev`, output)
+  await fs.rm(`${output}.prev`, { recursive: true, force: true })
+  await fs.rm(`${output}.next`, { recursive: true, force: true })
+  await fs.rm(`${provenancePath}.next`, { recursive: true, force: true })
+}
+
+/**
+ * Moves `<output>.next` into place with its provenance. The old directory
+ * and provenance stay until both new ones are in place; any failure puts
+ * them back and rethrows.
+ */
+export async function swapSnapshot(
+  output: string,
+  provenancePath: string,
+  provenance: string,
+  fs: SwapFs = nodeSwapFs,
+) {
+  const next = `${output}.next`
+  const prev = `${output}.prev`
+  const provenanceNext = `${provenancePath}.next`
+  await fs.writeFile(provenanceNext, provenance)
+  const hadOutput = await fs.exists(output)
+  let moved = false
+  try {
+    if (hadOutput) await fs.rename(output, prev)
+    await fs.rename(next, output)
+    moved = true
+    await fs.rename(provenanceNext, provenancePath)
+  } catch (error) {
+    try {
+      if (moved) await fs.rename(output, next)
+      if (hadOutput && (await fs.exists(prev))) await fs.rename(prev, output)
+    } finally {
+      await fs.rm(provenanceNext, { recursive: true, force: true })
+    }
+    throw error
+  }
+  await fs.rm(prev, { recursive: true, force: true })
+}
+
+export async function importMcp(
+  source: string,
+  siteRoot: string,
+  fs: SwapFs = nodeSwapFs,
+) {
   const root = path.resolve(source)
+  const output = path.join(siteRoot, "src/content/mcp")
+  const provenancePath = path.join(siteRoot, "src/data/mcp-provenance.json")
+  // Repair an interrupted earlier import before anything else can fail.
+  await recoverSnapshot(output, provenancePath, fs)
   const sources = await readManifests(root)
   const manifests = prepareManifests(sources)
   if (!manifests.length)
     throw new Error(`No ${MANIFEST_FILE} files in ${root}/mcp`)
-  const revision = manifestRevision(manifests)
-  const fixture = revision === FIXTURE_REVISION
-  const output = path.join(siteRoot, "src/content/mcp")
-  const provenancePath = path.join(siteRoot, "src/data/mcp-provenance.json")
+  const fixture = isFixtureSet(manifests)
   let previous: Partial<McpProvenance> = {}
   try {
     previous = JSON.parse(await readFile(provenancePath, "utf8"))
@@ -145,14 +235,13 @@ export async function importMcp(source: string, siteRoot: string) {
     : git(root, ["status", "--porcelain", "--", "mcp"])
   const provenance: McpProvenance = {
     repository,
-    revision,
+    checkout: fixture ? null : git(root, ["rev-parse", "HEAD"]),
     dirty: status === null ? null : Boolean(status),
     fixture,
     servers: {},
   }
   const raw = new Map(sources.map((s) => [s.folder, s.raw]))
   // Write the whole snapshot beside the old one, then swap directories.
-  await rm(`${output}.next`, { recursive: true, force: true })
   await mkdir(`${output}.next`, { recursive: true })
   for (const manifest of manifests) {
     const text = raw.get(manifest.folder)!
@@ -165,16 +254,20 @@ export async function importMcp(source: string, siteRoot: string) {
     provenance.servers[manifest.slug] = {
       source: `mcp/${manifest.folder}/${MANIFEST_FILE}`,
       version: manifest.version,
+      revision: manifest.generatedFrom.revision,
       sha256,
       // Keep the date while the manifest is unchanged, so reimports are stable.
       importDate: prior?.sha256 === sha256 ? prior.importDate : date,
     }
   }
-  await rm(output, { recursive: true, force: true })
-  await rename(`${output}.next`, output)
-  await writeFile(provenancePath, JSON.stringify(provenance, null, 2) + "\n")
+  await swapSnapshot(
+    output,
+    provenancePath,
+    JSON.stringify(provenance, null, 2) + "\n",
+    fs,
+  )
   console.log(
-    `Imported ${manifests.length} MCP servers from ${fixture ? "fixtures" : `jiyuu ${revision.slice(0, 12)}`}.`,
+    `Imported ${manifests.length} MCP servers from ${fixture ? "fixtures" : root}.`,
   )
 }
 
