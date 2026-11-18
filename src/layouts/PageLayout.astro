@@ -5,12 +5,20 @@ import PageHeader from "~/components/widgets/PageHeader.astro"
 import Layout from "~/layouts/Layout.astro"
 import { footerData, headerData } from "~/navigation"
 import type { MetaData } from "~/types"
+import { getPageCopy } from "~/utils/markdown-copies"
 
 export interface Props {
   metadata?: MetaData
+  /**
+   * Show the Copy for LLM button where the page renders `PageActions`. The
+   * page must have a Markdown copy; see `getMarkdownSources`.
+   */
+  copyForLlm?: boolean
 }
 
-const { metadata } = Astro.props
+const { metadata, copyForLlm = false } = Astro.props
+// Set before the slot renders, so PageActions in the page can read it.
+if (copyForLlm) Astro.locals.pageCopy = await getPageCopy(Astro.url.pathname)
 ---
 
 <Layout metadata={metadata}>
