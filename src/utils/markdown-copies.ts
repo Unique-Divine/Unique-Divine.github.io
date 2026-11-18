@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises"
 import { posix } from "node:path"
 import type { ImageMetadata } from "astro"
 import { getImage } from "astro:assets"
@@ -10,15 +11,24 @@ import { absoluteUrl } from "./llms"
 import { markdownComponents } from "./markdown-components"
 import {
   markdownCopyHref,
+  pageCopyIntro,
+  pagePath,
   reduceMarkdown,
+  renderMarkdownCopy,
+  skillCopyBody,
   type MarkdownCopy,
+  type PageCopy,
 } from "./markdown-copy"
-import { getPermalink } from "./permalinks"
+import { MCP_CATALOG_PATH, MCP_CATALOG_TITLE, serverPath } from "./mcp"
+import { mcpCatalogMarkdown, mcpServerMarkdown } from "./mcp-markdown"
+import { getMcpServers } from "./mcp-servers"
+import { getAsset, getPermalink } from "./permalinks"
 import { getProjects } from "./projects"
 import { isPublicPage, isPublicPost } from "./sitemap"
 
 /** One page that gets a Markdown copy. */
 export interface MarkdownSource {
+  kind: "post" | "project" | "skill" | "mcp"
   /** Site-relative HTML page path, such as `/blog/x`. */
   page: string
   /** Site-relative copy path, such as `/blog/x.md`. */
@@ -30,6 +40,11 @@ export interface MarkdownSource {
   body: string
   /** Source file relative to the repository root. */
   filePath: string
+  /**
+   * Site-relative URL that relative links in the body resolve against, when
+   * the source is served apart from its page, such as a raw `SKILL.md`.
+   */
+  linkBase?: string
 }
 
 function siteOrigin(): string {
@@ -39,7 +54,8 @@ function siteOrigin(): string {
 
 /**
  * Pages that get a Markdown copy: the public articles and projects that
- * llms.txt lists, with the same filters. Standing pages and skills don't.
+ * llms.txt lists, with the same filters, plus the public skill and MCP
+ * pages. Standing pages don't.
  */
 export async function getMarkdownSources(): Promise<MarkdownSource[]> {
   const entries = new Map(
@@ -53,6 +69,7 @@ export async function getMarkdownSources(): Promise<MarkdownSource[]> {
         throw new Error(`No Markdown source for post ${post.id}`)
       const page = getPermalink(post.permalink, "post")
       return {
+        kind: "post",
         page,
         href: markdownCopyHref(page),
         title: post.title,
@@ -72,6 +89,7 @@ export async function getMarkdownSources(): Promise<MarkdownSource[]> {
       if (!project.filePath || project.body === undefined)
         throw new Error(`No Markdown source for project ${project.id}`)
       return {
+        kind: "project",
         page,
         href: markdownCopyHref(page),
         title: project.data.title,
@@ -79,7 +97,68 @@ export async function getMarkdownSources(): Promise<MarkdownSource[]> {
         filePath: project.filePath,
       }
     })
-  return [...posts, ...projects]
+  return [
+    ...posts,
+    ...projects,
+    ...(await skillSources()),
+    ...(await mcpSources()),
+  ]
+}
+
+/**
+ * Skill and reference pages. The body comes from the raw file that
+ * `just skills-import` copies into `public/ai-skills-source/`, the same file
+ * the page's "Original Markdown" link downloads.
+ */
+async function skillSources(): Promise<MarkdownSource[]> {
+  const skills = (await getCollection("skill"))
+    .map((entry) => ({
+      data: entry.data,
+      page: getPermalink(`/ai-skills/${entry.data.route}`),
+    }))
+    .filter(({ page }) => isPublicPage(page))
+  return Promise.all(
+    skills.map(async ({ data, page }): Promise<MarkdownSource> => {
+      const filePath = `public/ai-skills-source/${data.source}`
+      return {
+        kind: "skill",
+        page,
+        href: markdownCopyHref(page),
+        title: data.title,
+        body: skillCopyBody(await readFile(filePath, "utf8"), data.description),
+        filePath,
+        linkBase: getAsset(`ai-skills-source/${data.source}`),
+      }
+    }),
+  )
+}
+
+/** The MCP catalog and each server page, generated from the manifests. */
+async function mcpSources(): Promise<MarkdownSource[]> {
+  const servers = await getMcpServers()
+  const catalog = getPermalink(MCP_CATALOG_PATH)
+  const sources: MarkdownSource[] = [
+    {
+      kind: "mcp",
+      page: catalog,
+      href: markdownCopyHref(catalog),
+      title: MCP_CATALOG_TITLE,
+      body: mcpCatalogMarkdown(servers),
+      filePath: "src/content/mcp",
+    },
+    ...servers.map((server): MarkdownSource => {
+      const page = getPermalink(serverPath(server.slug))
+      return {
+        kind: "mcp",
+        page,
+        href: markdownCopyHref(page),
+        title: server.title,
+        body: mcpServerMarkdown(server),
+        filePath: `src/content/mcp/${server.slug}.json`,
+      }
+    }),
+  ]
+  return sources.filter(({ page }) => isPublicPage(page))
 }
 
 /**
@@ -119,6 +198,28 @@ export async function buildMarkdownCopy(
       site,
       resolveImage: (url) => optimizedImage(url, source.filePath),
       components: markdownComponents(site),
+      base: source.linkBase && new URL(source.linkBase, site).href,
     }),
+  }
+}
+
+/**
+ * The button's text for a page, built by the same code as its `.md` copy.
+ * Throws for a page with no copy, so turning the button on for one fails
+ * the build instead of shipping a button with nothing to copy.
+ */
+export async function getPageCopy(pathname: string): Promise<PageCopy> {
+  const page = pagePath(pathname)
+  const source = (await getMarkdownSources()).find(
+    (candidate) => candidate.page === page,
+  )
+  if (!source)
+    throw new Error(
+      `copyForLlm is on for ${page}, but it has no Markdown copy. ` +
+        "Add it to getMarkdownSources in src/utils/markdown-copies.ts.",
+    )
+  return {
+    markdown: renderMarkdownCopy(await buildMarkdownCopy(source)),
+    intro: pageCopyIntro(source.title),
   }
 }

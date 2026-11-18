@@ -11,9 +11,12 @@ import {
   markdownCopyParam,
   markdownTable,
   mdxLeftovers,
+  pageCopyIntro,
+  pagePath,
   proseLines,
   reduceMarkdown,
   renderMarkdownCopy,
+  skillCopyBody,
   type ReduceOptions,
 } from "~/utils/markdown-copy"
 import { repoUrl } from "~/utils/repo-paths"
@@ -37,6 +40,69 @@ test("absoluteLink resolves fragments and root paths only", () => {
   expect(absoluteLink("https://x.test/a", page, site)).toBe("https://x.test/a")
   expect(absoluteLink("//cdn.test/a", page, site)).toBe("//cdn.test/a")
   expect(absoluteLink("mailto:a@b.test", page, site)).toBe("mailto:a@b.test")
+})
+
+test("absoluteLink resolves relative paths against a base when given", () => {
+  const base = `${site}/ai-skills-source/gov/SKILL.md`
+  const ref = `${site}/ai-skills-source/gov/reference.md`
+  expect(absoluteLink("./reference.md", page, site, base)).toBe(ref)
+  expect(absoluteLink("reference.md#votes", page, site, base)).toBe(
+    `${ref}#votes`,
+  )
+  expect(absoluteLink("#votes", page, site, base)).toBe(`${page}#votes`)
+  expect(absoluteLink("mailto:a@b.test", page, site, base)).toBe(
+    "mailto:a@b.test",
+  )
+  expect(absoluteLink("//cdn.test/a", page, site, base)).toBe("//cdn.test/a")
+  expect(absoluteLink("./reference.md", page, site)).toBe("./reference.md")
+})
+
+test("reduceMarkdown resolves relative links against base", async () => {
+  const base = `${site}/ai-skills-source/gov/SKILL.md`
+  expect(
+    await reduceMarkdown("See [the reference](./reference.md).", {
+      ...md,
+      base,
+    }),
+  ).toBe(`See [the reference](${site}/ai-skills-source/gov/reference.md).\n`)
+})
+
+test("skillCopyBody swaps frontmatter and the H1 for the description", () => {
+  const raw = [
+    "---",
+    "name: gov",
+    "description: Queries governance.",
+    "---",
+    "",
+    "# Gov",
+    "",
+    "## Workflow",
+    "",
+    "Run it.",
+    "",
+  ].join("\n")
+  expect(skillCopyBody(raw, "Queries governance.")).toBe(
+    "Queries governance.\n\n## Workflow\n\nRun it.\n",
+  )
+  // A reference file with no frontmatter or H1 keeps its first line.
+  expect(skillCopyBody("Intro.\n\n## A\n", "Ref.")).toBe(
+    "Ref.\n\nIntro.\n\n## A\n",
+  )
+})
+
+test("pagePath turns a request path into the page path", () => {
+  expect(pagePath("/mcp/slack-mcp")).toBe("/mcp/slack-mcp")
+  expect(pagePath("/mcp/slack-mcp/")).toBe("/mcp/slack-mcp")
+  expect(pagePath("/blog/x/index.html")).toBe("/blog/x")
+  expect(pagePath("/blog/x.html")).toBe("/blog/x")
+  expect(pagePath("/")).toBe("/")
+})
+
+test("pageCopyIntro names the page and the site on one line", () => {
+  expect(pageCopyIntro(" GH\n PR ")).toBe(
+    'This is "GH PR", a page on uniquedivine.com, ' +
+      "Unique Divine's personal site.",
+  )
 })
 
 test("importedModules maps default, named, and renamed imports", () => {

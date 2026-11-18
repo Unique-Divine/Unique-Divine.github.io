@@ -9,9 +9,9 @@ import { markdownCopyParam, renderMarkdownCopy } from "~/utils/markdown-copy"
 
 /**
  * `<page>.md`: a clean Markdown copy of each post and project that llms.txt
- * lists, such as `/blog/26-10-19-block-latency.md`. The `.md` suffix keeps
- * these paths apart from the HTML routes under `[...blog]` and
- * `code/projects/[...slug]`.
+ * lists, such as `/blog/26-10-19-block-latency.md`, and of each skill and
+ * MCP page. The Copy for LLM button copies the same text. The `.md` suffix
+ * keeps these paths apart from the HTML routes.
  */
 export const getStaticPaths = (async () =>
   (await getMarkdownSources()).map((source) => ({
