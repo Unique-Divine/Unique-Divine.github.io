@@ -22,13 +22,40 @@ export const mcpTool = z.strictObject({
   params: z.array(toolParam),
 })
 
+/** Matches `NOTE_MAX_LENGTH` in jiyuu's `mcp/scripts/site-manifest.ts`. */
+export const NOTE_MAX_LENGTH = 300
+
+/**
+ * Value-shaped text a note must not hold. A copy of `NOTE_REJECTS` in jiyuu's
+ * `mcp/scripts/site-manifest.ts`; keep the two lists identical.
+ */
+export const NOTE_REJECTS: [RegExp, string][] = [
+  [/[A-Z][A-Z0-9_]*\s*=/, "an assignment such as NAME=value"],
+  [/xox[a-z]-/i, "a Slack token"],
+  [/[0-9a-f]{32,}/i, "a long hex run"],
+  [/[A-Za-z0-9+/_-]{40,}={0,2}/, "a long base64 run"],
+  [
+    /\b(gh[pousr]_|github_pat_|glpat-|npm_|sk-|AKIA|AIza)|-----BEGIN/,
+    "a known secret prefix",
+  ],
+]
+
+/** Why a note is refused, or null. Mirrors jiyuu's `checkNote`. */
+export function noteProblem(note: string): string | null {
+  if (note.length > NOTE_MAX_LENGTH)
+    return `is ${note.length} characters; the limit is ${NOTE_MAX_LENGTH}`
+  for (const [pattern, why] of NOTE_REJECTS)
+    if (pattern.test(note)) return `looks like it holds ${why}; notes name only`
+  return null
+}
+
 /** Names only. A manifest that carries a value fails the strict object. */
 const envVar = z.strictObject({
   name: z.string().regex(/^[A-Z][A-Z0-9_]*$/),
   required: z.boolean(),
   secret: z.boolean(),
   /** Plain text, such as the multi-account `_<LABEL>` forms. */
-  note: z.string().min(1).max(300).optional(),
+  note: z.string().min(1).max(NOTE_MAX_LENGTH).optional(),
 })
 
 /** HTTPS only, so a link can't carry `javascript:` or `data:`. */
@@ -124,6 +151,10 @@ export function manifestProblems(m: McpManifest, folder: string): string[] {
     problems.push(`sourceUrl must be ${expected.sourceUrl}`)
   if (m.registryUrl !== expected.registryUrl)
     problems.push(`registryUrl must be ${expected.registryUrl}`)
+  m.envVars.forEach((env, index) => {
+    const problem = env.note === undefined ? null : noteProblem(env.note)
+    if (problem) problems.push(`envVars[${index}].note ${problem}`)
+  })
   const text = JSON.stringify(m)
   for (const pattern of SERVICE_TEXT)
     if (pattern.test(text)) problems.push(`service text matches ${pattern}`)
