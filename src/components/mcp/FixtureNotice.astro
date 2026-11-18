@@ -1,0 +1,28 @@
+---
+import { MCP_FIXTURE } from "~/utils/mcp-servers"
+---
+
+{
+  MCP_FIXTURE && (
+    <p class="mcp-fixture" role="note" data-mcp-fixture>
+      Preview data. These pages render test fixtures, not manifests imported
+      from jiyuu. Run <code>just mcp-import</code> on a jiyuu checkout before
+      publishing.
+    </p>
+  )
+}
+<style>
+  .mcp-fixture {
+    border: 1px dashed #d97706;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--aw-color-text-default);
+    background: #d9770612;
+  }
+  code {
+    font-family: var(--aw-font-mono), monospace;
+  }
+</style>

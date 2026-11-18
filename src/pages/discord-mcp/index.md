@@ -12,6 +12,9 @@ to my AI agent tools through Model Context Protocol, or MCP. I use it much like
 a command-line tool. One example is coordinating Nibiru validator upgrades by
 reviewing prior announcements and preparing release communications.
 
+The MCP server's install commands, environment variables, and full tool list
+are on the [Discord MCP server page](/mcp/discord-mcp).
+
 ## Access and operation
 
 I am the sole operator of the MCP connection. Being a member of a server where

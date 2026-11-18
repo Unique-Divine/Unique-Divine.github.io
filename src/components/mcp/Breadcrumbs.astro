@@ -1,0 +1,49 @@
+---
+import type { Breadcrumb } from "~/utils/mcp"
+
+interface Props {
+  crumbs: Breadcrumb[]
+}
+const { crumbs } = Astro.props
+---
+
+<nav aria-label="Breadcrumb" class="mcp-breadcrumb">
+  <ol>
+    {
+      crumbs.map((crumb, index) =>
+        index === crumbs.length - 1 ? (
+          <li aria-current="page">{crumb.name}</li>
+        ) : (
+          <li>
+            <a href={crumb.path}>{crumb.name}</a>
+            <span aria-hidden="true">/</span>
+          </li>
+        ),
+      )
+    }
+  </ol>
+</nav>
+<style>
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 0 0 1.7rem;
+    padding: 0;
+    font-size: 0.8rem;
+    color: var(--aw-color-text-muted);
+  }
+  li {
+    display: flex;
+    gap: 0.6rem;
+  }
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  a:focus-visible {
+    outline: 2px solid #169f97;
+    outline-offset: 4px;
+  }
+</style>

@@ -46,11 +46,19 @@ export interface LlmsSource {
   /** Published articles and skills, newest first. */
   posts: LlmsPost[]
   projects: LlmsProject[]
+  /** MCP servers from the `mcp` collection, listed after the skills. */
+  mcpServers?: LlmsMcpServer[]
   /**
    * Markdown alternates by HTML page path, such as `/blog/x` to
    * `/blog/x.md`. A listed page with an alternate links to it instead.
    */
   markdown?: ReadonlyMap<string, string>
+}
+
+export interface LlmsMcpServer {
+  slug: string
+  title: string
+  description: string
 }
 
 const MAX_DESCRIPTION = 200
@@ -203,6 +211,22 @@ function buildPageIndex(source: LlmsSource): LlmsIndex {
             description: "Public agent skills I use and maintain.",
           },
           ...skills.map(postLink),
+        ],
+      },
+      {
+        title: "MCP servers",
+        links: [
+          {
+            title: "MCP servers",
+            href: getPermalink("/mcp"),
+            description:
+              "MCP servers I maintain, with install commands and tool lists.",
+          },
+          ...(source.mcpServers ?? []).map((server) => ({
+            title: server.title,
+            href: getPermalink(`/mcp/${server.slug}`),
+            description: oneLine(server.description),
+          })),
         ],
       },
     ],

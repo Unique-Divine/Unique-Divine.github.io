@@ -1,0 +1,192 @@
+---
+import Breadcrumbs from "~/components/mcp/Breadcrumbs.astro"
+import FixtureNotice from "~/components/mcp/FixtureNotice.astro"
+import ServerCard from "~/components/mcp/ServerCard.astro"
+import Layout from "~/layouts/PageLayout.astro"
+import { SITE } from "~/utils/config"
+import {
+  catalogBreadcrumbs,
+  catalogJsonLd,
+  jsonLdScript,
+  MAINTAINER,
+  MCP_CATALOG_DESCRIPTION,
+  MCP_CATALOG_TITLE,
+} from "~/utils/mcp"
+import { getMcpServers } from "~/utils/mcp-servers"
+
+const servers = await getMcpServers()
+const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
+---
+
+<Layout
+  metadata={{
+    title: `${MCP_CATALOG_TITLE} by ${MAINTAINER}`,
+    description: MCP_CATALOG_DESCRIPTION,
+  }}
+>
+  <script
+    type="application/ld+json"
+    slot="head"
+    set:html={jsonLdScript(catalogJsonLd(servers, SITE.site!))}
+  />
+  <div class="mcp-home">
+    <Breadcrumbs crumbs={catalogBreadcrumbs()} />
+    <FixtureNotice />
+    <header class="mcp-intro">
+      <p class="mcp-eyebrow">
+        <span aria-hidden="true">◇</span> MAINTAINED BY {
+          MAINTAINER.toUpperCase()
+        }
+      </p>
+      <h1>MCP servers.<br /><span>Pinned, reviewed, listed.</span></h1>
+      <p class="mcp-lead">
+        Model Context Protocol servers I maintain and publish. Each install
+        command pins an exact version, so your agent runs the release I
+        reviewed. Every tool is listed with whether it only reads or can change
+        something.
+      </p>
+      <p class="mcp-totals">
+        {servers.length} servers · {tools} tools
+      </p>
+    </header>
+    <section aria-labelledby="servers-heading">
+      <h2 id="servers-heading" class="sr-only">Servers</h2>
+      <ul class="mcp-grid">
+        {servers.map((server) => <ServerCard server={server} />)}
+      </ul>
+    </section>
+    <section class="mcp-rules" aria-labelledby="rules-heading">
+      <h2 id="rules-heading">Before you connect one</h2>
+      <ul>
+        <li>
+          Each server signs in as you or as your bot. Its write tools post,
+          edit, and delete with that identity. Server pages flag the destructive
+          ones.
+        </li>
+        <li>
+          To check a server's version, where it runs from, or whether an update
+          exists, ask the agent to call the <code>mcp_info</code> tool. Agents should
+          never read MCP client config files to find out; those files hold secrets.
+        </li>
+        <li>
+          Pages list environment variable names only. Put the values in your
+          shell or client config, not in a prompt.
+        </li>
+      </ul>
+    </section>
+    <footer class="mcp-outro">
+      <p>Maintained by {MAINTAINER}.</p>
+      <a href="/ai-skills">Agent skills →</a>
+    </footer>
+  </div>
+</Layout>
+<style>
+  .mcp-home {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 5rem;
+    color: var(--aw-color-text-default);
+  }
+  .mcp-intro {
+    max-width: 850px;
+    padding-bottom: 3rem;
+  }
+  .mcp-eyebrow {
+    font:
+      500 0.72rem/1.5 var(--aw-font-mono),
+      monospace;
+    letter-spacing: 0.13em;
+    color: var(--aw-color-text-muted);
+    margin: 0 0 1rem;
+  }
+  .mcp-eyebrow span {
+    color: #169f97;
+    font-size: 1.3rem;
+    margin-right: 0.5rem;
+  }
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 1.12;
+    margin: 0 0 1.5rem;
+  }
+  h1 span {
+    color: var(--aw-color-text-muted);
+    font-weight: 450;
+  }
+  .mcp-lead {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 660px;
+    color: var(--aw-color-text-muted);
+  }
+  .mcp-totals {
+    font:
+      400 0.8rem var(--aw-font-mono),
+      monospace;
+    color: var(--aw-color-text-muted);
+    margin-top: 1.5rem;
+  }
+  .mcp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mcp-rules {
+    margin-top: 3.5rem;
+    max-width: 760px;
+  }
+  .mcp-rules h2 {
+    font-size: 1.4rem;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+  .mcp-rules ul {
+    list-style: disc;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.7rem;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--aw-color-text-muted);
+  }
+  code {
+    font-family: var(--aw-font-mono), monospace;
+    font-size: 0.85em;
+  }
+  .mcp-outro {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid #88959935;
+    color: var(--aw-color-text-muted);
+    font-size: 0.8rem;
+  }
+  .mcp-outro a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  @media (max-width: 950px) {
+    .mcp-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 600px) {
+    .mcp-home {
+      padding-top: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    .mcp-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

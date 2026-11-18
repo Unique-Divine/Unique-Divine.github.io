@@ -2,6 +2,8 @@ import { defineCollection } from "astro:content"
 import { glob } from "astro/loaders"
 import { z } from "astro/zod"
 
+import { mcpManifest } from "./utils/mcp-schema"
+
 // Markdown and MDX entries, skipping underscore-prefixed files the way legacy
 // collections did. Entry ids match the legacy slugs.
 const markdownIn = (collection: string) =>
@@ -96,6 +98,12 @@ export const collections = {
       stickyToc: z.literal(true),
       publishDate: z.coerce.date(),
     }),
+  }),
+  // One JSON file per server, written by `just mcp-import`. File
+  // `_provenance.json` sits beside them and is not an entry.
+  mcp: defineCollection({
+    loader: glob({ pattern: "[^_]*.json", base: "./src/content/mcp" }),
+    schema: mcpManifest,
   }),
   project: defineCollection({
     loader: markdownIn("project"),

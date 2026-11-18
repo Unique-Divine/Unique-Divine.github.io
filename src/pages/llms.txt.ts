@@ -5,6 +5,7 @@ import { METADATA, SITE } from "~/utils/config"
 import { newestFirst } from "~/utils/content-order"
 import { buildLlmsIndex, renderLlmsTxt } from "~/utils/llms"
 import { getMarkdownSources } from "~/utils/markdown-copies"
+import { getMcpServers } from "~/utils/mcp-servers"
 import { getAsset, getPermalink } from "~/utils/permalinks"
 import { getProjects } from "~/utils/projects"
 import { isPublicPage, isPublicPost } from "~/utils/sitemap"
@@ -32,6 +33,9 @@ export const GET: APIRoute = async () => {
       .sort((a, b) => a.permalink.localeCompare(b.permalink, "en")),
     posts: (await fetchPosts()).filter(isPublicPost).sort(newestFirst),
     projects,
+    mcpServers: (await getMcpServers()).filter((server) =>
+      isPublicPage(getPermalink(`/mcp/${server.slug}`)),
+    ),
     // Posts and projects link to their generated `.md` copies; skills to the
     // SKILL.md files that `just skills-import` copies into public/.
     markdown: new Map([
