@@ -27,7 +27,12 @@ const envVar = z.strictObject({
   name: z.string().regex(/^[A-Z][A-Z0-9_]*$/),
   required: z.boolean(),
   secret: z.boolean(),
+  /** Plain text, such as the multi-account `_<LABEL>` forms. */
+  note: z.string().min(1).max(300).optional(),
 })
+
+/** HTTPS only, so a link can't carry `javascript:` or `data:`. */
+const httpsUrl = z.url({ protocol: /^https$/ })
 
 export const mcpManifest = z.strictObject({
   schemaVersion: z.literal(MCP_SCHEMA_VERSION),
@@ -41,8 +46,8 @@ export const mcpManifest = z.strictObject({
   installCommand: z.string().min(1),
   runtime: z.string().min(1),
   license: z.string().min(1),
-  sourceUrl: z.url(),
-  registryUrl: z.url(),
+  sourceUrl: httpsUrl,
+  registryUrl: httpsUrl,
   envVars: z.array(envVar),
   toolCount: z.number().int().nonnegative(),
   readOnlyCount: z.number().int().nonnegative(),
@@ -60,6 +65,35 @@ export type McpTool = z.infer<typeof mcpTool>
  * the generator strips it, and the importer rejects anything that slips by.
  */
 const SERVICE_TEXT = [/\bhosted\b/i, /\bpricing\b/i, /\bfree tier\b/i, /\$\d/]
+
+const PACKAGE_NAME: Record<McpManifest["registry"], RegExp> = {
+  npm: /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/,
+  pypi: /^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$/,
+}
+
+/** Runner for each registry's published packages. */
+const RUNNER: Record<McpManifest["registry"], string> = {
+  npm: "bunx",
+  pypi: "uvx",
+}
+
+/**
+ * The only install command and links a manifest may carry. Each is built from
+ * the registry, package, version, and folder, so nothing else can ride along
+ * into a copy button or link.
+ */
+export function expectedUrls(
+  m: Pick<McpManifest, "registry" | "package" | "version" | "folder">,
+) {
+  return {
+    installCommand: `${RUNNER[m.registry]} ${m.package}@${m.version}`,
+    sourceUrl: `https://github.com/Unique-Divine/jiyuu/tree/main/mcp/${m.folder}`,
+    registryUrl:
+      m.registry === "npm"
+        ? `https://www.npmjs.com/package/${m.package}`
+        : `https://pypi.org/project/${m.package}/`,
+  }
+}
 
 /**
  * Rules the shape alone can't express. Returns one message per problem, so
@@ -81,8 +115,15 @@ export function manifestProblems(m: McpManifest, folder: string): string[] {
     problems.push(`writeCount ${m.writeCount} != ${m.tools.length - readOnly}`)
   if (m.tools.some((tool) => tool.readOnly && tool.destructive))
     problems.push("a read-only tool is marked destructive")
-  if (!m.installCommand.includes(`${m.package}@${m.version}`))
-    problems.push(`installCommand must pin ${m.package}@${m.version}`)
+  if (!PACKAGE_NAME[m.registry].test(m.package))
+    problems.push(`package "${m.package}" is not a valid ${m.registry} name`)
+  const expected = expectedUrls(m)
+  if (m.installCommand !== expected.installCommand)
+    problems.push(`installCommand must be "${expected.installCommand}"`)
+  if (m.sourceUrl !== expected.sourceUrl)
+    problems.push(`sourceUrl must be ${expected.sourceUrl}`)
+  if (m.registryUrl !== expected.registryUrl)
+    problems.push(`registryUrl must be ${expected.registryUrl}`)
   const text = JSON.stringify(m)
   for (const pattern of SERVICE_TEXT)
     if (pattern.test(text)) problems.push(`service text matches ${pattern}`)
