@@ -1,0 +1,57 @@
+---
+/**
+ * A page title with its page actions (Copy for LLM) on the same row,
+ * right-aligned. On narrow screens the actions wrap below the title. The
+ * button shows only when the layout's `copyForLlm` prop is on, which puts the
+ * page's Markdown in `Astro.locals.pageCopy`; otherwise this renders the
+ * title alone. Pass the title as the slot.
+ */
+import CopyForLLM from "./CopyForLLM"
+
+interface Props {
+  /** Classes for the row, such as the width and padding the title had. */
+  class?: string
+}
+
+const { class: className } = Astro.props
+const copy = Astro.locals.pageCopy
+---
+
+<div class:list={["title-row", className]}>
+  <slot />
+  {
+    copy && (
+      <div class="page-actions" role="group" aria-label="Page actions">
+        <CopyForLLM
+          client:idle
+          markdown={copy.markdown}
+          intro={copy.intro}
+        />
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .title-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+  }
+  .page-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+  /* Open the tooltip downward so it doesn't cover the title, and anchor it
+     to the right edge so it stays on screen. */
+  .page-actions :global(.ex-copy-tooltip) {
+    bottom: auto;
+    top: calc(100% + 8px);
+    left: auto;
+    right: 0;
+  }
+</style>

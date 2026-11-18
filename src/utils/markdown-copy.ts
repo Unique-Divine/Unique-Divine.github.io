@@ -11,6 +11,7 @@
  */
 import type { Definition, Html, Image, Link, Nodes, Parent, Root } from "mdast"
 import type { MdxJsxFlowElement, MdxJsxTextElement } from "mdast-util-mdx-jsx"
+import yaml from "js-yaml"
 import remarkGfm from "remark-gfm"
 import remarkMdx from "remark-mdx"
 import remarkParse from "remark-parse"
@@ -22,6 +23,55 @@ export function markdownCopyHref(page: string): string {
   if (!path.startsWith("/") || path === "")
     throw new Error(`Markdown copies need a non-root page path: ${page}`)
   return `${path}.md`
+}
+
+/** What the Copy for LLM button copies: the page's copy and a context line. */
+export interface PageCopy {
+  /** The same text the site serves at the page's `.md` path. */
+  markdown: string
+  intro: string
+}
+
+/** Context line the button puts before the page URL. */
+export const pageCopyIntro = (title: string) =>
+  `This is "${title.replace(/\s+/g, " ").trim()}", a page on ` +
+  "uniquedivine.com, Unique Divine's personal site."
+
+/** Site-relative page path for a request path: no trailing slash or .html. */
+export function pagePath(pathname: string): string {
+  const path = pathname
+    .replace(/\/index\.html$|\.html$/, "")
+    .replace(/\/+$/, "")
+  return path || "/"
+}
+
+/** A Markdown page under `src/pages`: frontmatter fields and body. */
+export interface MarkdownPage {
+  title?: string
+  copyForLlm?: boolean
+  body: string
+}
+
+/** Splits a Markdown page into the frontmatter fields copies use and body. */
+export function parseMarkdownPage(source: string): MarkdownPage {
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/)
+  if (!match) return { body: source }
+  const data = (yaml.load(match[1]) ?? {}) as Record<string, unknown>
+  return {
+    title: typeof data.title === "string" ? data.title : undefined,
+    copyForLlm:
+      typeof data.copyForLlm === "boolean" ? data.copyForLlm : undefined,
+    body: source.slice(match[0].length),
+  }
+}
+
+/** Page path for a file under `src/pages`, such as `discord-mcp/index.md`. */
+export function markdownPagePath(file: string): string {
+  const path = file
+    .replace(/\\/g, "/")
+    .replace(/\.md$/, "")
+    .replace(/(^|\/)index$/, "")
+  return `/${path}`.replace(/\/+$/, "") || "/"
 }
 
 /** Static-path parameter for `src/pages/[...path].md.ts`: `blog/x`. */
@@ -79,6 +129,11 @@ export interface ReduceOptions {
    */
   resolveImage?: (url: string) => Promise<string | undefined>
   components?: Record<string, ComponentText>
+  /**
+   * Absolute URL that relative links resolve against, for a source served
+   * somewhere other than its page, such as a raw `SKILL.md`.
+   */
+  base?: string
 }
 
 /** Note that stands in for a component that renders no Markdown text. */
@@ -95,12 +150,21 @@ export function parseMarkdown(source: string, mdx: boolean): Root {
 
 /**
  * Absolute URL for a link target. Fragments resolve against the HTML page and
- * root-relative paths against the site; anything else is left as written.
+ * root-relative paths against the site. Relative paths such as
+ * `./reference.md` resolve against `base` when given; anything else is left
+ * as written.
  */
-export function absoluteLink(url: string, page: string, site: string): string {
+export function absoluteLink(
+  url: string,
+  page: string,
+  site: string,
+  base?: string,
+): string {
   if (url.startsWith("#")) return `${page}${url}`
   if (url.startsWith("/") && !url.startsWith("//"))
     return new URL(url, site).href
+  if (base && url && !/^[a-z][a-z0-9+.-]*:|^\/\//i.test(url))
+    return new URL(url, base).href
   return url
 }
 
@@ -315,7 +379,7 @@ export async function reduceMarkdown(
       }
       case "definition": {
         const { label, identifier, url, title } = node as Definition
-        const absolute = absoluteLink(url, page, site)
+        const absolute = absoluteLink(url, page, site, options.base)
         if (absolute === url) return
         edits.push({
           start: start(node),
@@ -328,7 +392,7 @@ export async function reduceMarkdown(
       }
       case "link": {
         const link = node as Link
-        const absolute = absoluteLink(link.url, page, site)
+        const absolute = absoluteLink(link.url, page, site, options.base)
         const text = source.slice(start(node), end(node))
         const at = text.lastIndexOf("](")
         if (absolute !== link.url && at >= 0) {
@@ -380,6 +444,19 @@ export interface MarkdownCopy {
 }
 
 const day = (date: Date) => date.toISOString().slice(0, 10)
+
+/**
+ * Body of a skill page's copy from its raw `SKILL.md` or reference file: the
+ * description, then the Markdown without its YAML frontmatter or leading H1,
+ * since the copy adds its own title.
+ */
+export function skillCopyBody(raw: string, description: string): string {
+  const body = raw
+    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, "")
+    .replace(/^\s*# [^\n]*\n/, "")
+    .trim()
+  return `${description.trim()}\n\n${body}\n`
+}
 
 /**
  * The copy's file contents: an H1 title, a line with the HTML page's URL and

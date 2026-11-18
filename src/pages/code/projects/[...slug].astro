@@ -1,6 +1,7 @@
 ---
 import { render, type CollectionEntry } from "astro:content"
 
+import PageActions from "~/components/PageActions.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import { getProjects } from "~/utils/projects"
 
@@ -25,7 +26,7 @@ const metadata = {
 }
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} copyForLlm={data.copyForLlm ?? true}>
   <article class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
     <a
       class="text-blue-600 dark:text-cyan-300 hover:underline"
@@ -33,9 +34,11 @@ const metadata = {
     >
     <header class="mt-8 mb-10">
       <p class="text-muted mb-3">{data.role}</p>
-      <h1 class="text-4xl sm:text-5xl font-heading font-bold tracking-tight">
-        {data.title}
-      </h1>
+      <PageActions>
+        <h1 class="text-4xl sm:text-5xl font-heading font-bold tracking-tight">
+          {data.title}
+        </h1>
+      </PageActions>
       <p class="mt-5 text-xl text-muted">{data.summary}</p>
       <ul aria-label="Project Links" class="mt-6 flex flex-wrap gap-3">
         {

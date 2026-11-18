@@ -29,6 +29,7 @@ const getNormalizedPost = async (
     draft = false,
     contentLayout = "article",
     stickyToc = false,
+    copyForLlm,
     metadata = {},
     kind = "article",
     permalink: pagePermalink,
@@ -66,6 +67,7 @@ const getNormalizedPost = async (
     draft: draft,
     contentLayout,
     stickyToc,
+    copyForLlm,
     headings,
 
     metadata,
