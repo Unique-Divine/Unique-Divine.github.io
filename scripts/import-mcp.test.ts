@@ -512,6 +512,13 @@ describe("env var notes", () => {
       )
   })
 
+  test("rejects a whitespace-only note, like jiyuu's asString", () => {
+    for (const note of [" ", "\t\n  "])
+      expect(() => prepareManifests([withNote(note)])).toThrow(
+        "envVars[2].note must be a non-empty string",
+      )
+  })
+
   test("caps notes at 300 characters", () => {
     expect(() => prepareManifests([withNote("a ".repeat(150))])).not.toThrow()
     expect(() => prepareManifests([withNote("a ".repeat(150) + "b")])).toThrow(

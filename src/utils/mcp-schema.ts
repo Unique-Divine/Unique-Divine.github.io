@@ -42,6 +42,7 @@ export const NOTE_REJECTS: [RegExp, string][] = [
 
 /** Why a note is refused, or null. Mirrors jiyuu's `checkNote`. */
 export function noteProblem(note: string): string | null {
+  if (note.trim() === "") return "must be a non-empty string"
   if (note.length > NOTE_MAX_LENGTH)
     return `is ${note.length} characters; the limit is ${NOTE_MAX_LENGTH}`
   for (const [pattern, why] of NOTE_REJECTS)
