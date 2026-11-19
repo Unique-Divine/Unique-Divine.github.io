@@ -30,7 +30,7 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
     slot="head"
     set:html={jsonLdScript(catalogJsonLd(servers, SITE.site!))}
   />
-  <div class="mcp-home">
+  <div class="mcp-home ai-page">
     <FixtureNotice />
     <header class="mcp-intro">
       <AiEngineeringTabs current="mcp" />
@@ -82,12 +82,33 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
   .mcp-home {
     max-width: 1160px;
     margin: 0 auto;
-    padding: 3.5rem 1.5rem 5rem;
+    padding: 3rem 1.5rem 5rem;
     color: var(--aw-color-text-default);
   }
   .mcp-intro {
+    position: relative;
     max-width: 850px;
-    padding-bottom: 3rem;
+    padding: 1rem 0 3.5rem;
+  }
+  .mcp-intro::before {
+    /* Same soft mesh as /ai-skills, shifted toward violet so the two
+       catalogues read as siblings rather than copies. */
+    content: "";
+    position: absolute;
+    inset: -14rem -1.5rem -4rem -1.5rem;
+    z-index: -1;
+    background:
+      radial-gradient(
+        ellipse closest-side at 38% 42%,
+        #6366f11f,
+        transparent
+      ),
+      radial-gradient(
+        ellipse closest-side at 62% 30%,
+        #22d3ee14,
+        transparent
+      );
+    pointer-events: none;
   }
   h1 {
     font-size: 3.5rem;
