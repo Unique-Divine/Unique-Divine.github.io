@@ -33,15 +33,15 @@ export const headerData = {
     {
       text: "AI Engineering",
       links: [
-        { text: "Agent skills", href: getPermalink("/ai-skills") },
-        { text: "MCP servers", href: getPermalink("/mcp") },
+        { text: "Agent Skills", href: getPermalink("/ai-skills") },
+        { text: "MCP Servers", href: getPermalink("/mcp") },
         {
-          text: "Install agent skills",
+          text: "Install & Use AI Skills",
           href: getPermalink("/ai-skills#installation"),
         },
-        { text: "Discord bot policy", href: getPermalink("/discord-mcp") },
+        { text: "Discord Bot Policy", href: getPermalink("/discord-mcp") },
         {
-          text: "Source on GitHub (jiyuu)",
+          text: "GitHub Repo (自由)",
           href: "https://github.com/Unique-Divine/jiyuu",
         },
       ],
