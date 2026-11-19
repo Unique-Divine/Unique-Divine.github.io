@@ -1,12 +1,11 @@
 ---
-import Breadcrumbs from "~/components/mcp/Breadcrumbs.astro"
+import AiEngineeringTabs from "~/components/AiEngineeringTabs.astro"
 import FixtureNotice from "~/components/mcp/FixtureNotice.astro"
 import ServerCard from "~/components/mcp/ServerCard.astro"
 import PageActions from "~/components/PageActions.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import { SITE } from "~/utils/config"
 import {
-  catalogBreadcrumbs,
   catalogJsonLd,
   jsonLdScript,
   MAINTAINER,
@@ -32,14 +31,9 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
     set:html={jsonLdScript(catalogJsonLd(servers, SITE.site!))}
   />
   <div class="mcp-home">
-    <Breadcrumbs crumbs={catalogBreadcrumbs()} />
     <FixtureNotice />
     <header class="mcp-intro">
-      <p class="mcp-eyebrow">
-        <span aria-hidden="true">◇</span> MAINTAINED BY {
-          MAINTAINER.toUpperCase()
-        }
-      </p>
+      <AiEngineeringTabs current="mcp" />
       <PageActions>
         <h1>MCP servers.<br /><span>Reviewed, published, listed.</span></h1>
       </PageActions>
@@ -94,19 +88,6 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
   .mcp-intro {
     max-width: 850px;
     padding-bottom: 3rem;
-  }
-  .mcp-eyebrow {
-    font:
-      500 0.72rem/1.5 var(--aw-font-mono),
-      monospace;
-    letter-spacing: 0.13em;
-    color: var(--aw-color-text-muted);
-    margin: 0 0 1rem;
-  }
-  .mcp-eyebrow span {
-    color: #169f97;
-    font-size: 1.3rem;
-    margin-right: 0.5rem;
   }
   h1 {
     font-size: 3.5rem;

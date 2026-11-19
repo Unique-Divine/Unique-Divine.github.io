@@ -1,0 +1,94 @@
+---
+/**
+ * Breadcrumb-style switcher between the two AI Engineering catalogues:
+ * "AI Engineering / Skills · MCPs". The current catalogue is marked with
+ * aria-current; the other is a link.
+ */
+interface Props {
+  current: "skills" | "mcp"
+}
+
+const { current } = Astro.props
+const tabs = [
+  { id: "skills", label: "Skills", href: "/ai-skills" },
+  { id: "mcp", label: "MCPs", href: "/mcp" },
+] as const
+---
+
+<nav class="ai-tabs" aria-label="AI Engineering">
+  <span class="ai-tabs-root">
+    <span class="ai-tabs-mark" aria-hidden="true">◇</span>
+    AI ENGINEERING
+  </span>
+  <span class="ai-tabs-sep" aria-hidden="true">/</span>
+  <ul>
+    {
+      tabs.map((tab) => (
+        <li>
+          {tab.id === current ? (
+            <span class="ai-tab is-current" aria-current="page">
+              {tab.label}
+            </span>
+          ) : (
+            <a class="ai-tab" href={tab.href}>
+              {tab.label}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .ai-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 1rem;
+    font:
+      500 0.72rem/1.5 var(--aw-font-mono),
+      monospace;
+    letter-spacing: 0.13em;
+    color: var(--aw-color-text-muted);
+  }
+  .ai-tabs-mark {
+    color: #169f97;
+    font-size: 1.3rem;
+    margin-right: 0.5rem;
+    vertical-align: -0.15em;
+  }
+  .ai-tabs-sep {
+    opacity: 0.6;
+  }
+  ul {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.2rem;
+    border: 1px solid rgb(148 163 184 / 0.25);
+    border-radius: 999px;
+  }
+  .ai-tab {
+    display: block;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  a.ai-tab:hover {
+    color: var(--aw-color-text-default);
+    background: rgb(148 163 184 / 0.12);
+  }
+  a.ai-tab:focus-visible {
+    outline: 2px solid #169f97;
+    outline-offset: 2px;
+  }
+  .ai-tab.is-current {
+    color: var(--aw-color-text-default);
+    background: rgb(20 184 166 / 0.16);
+    box-shadow: inset 0 0 0 1px rgb(20 184 166 / 0.35);
+  }
+</style>

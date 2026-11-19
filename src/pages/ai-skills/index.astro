@@ -1,4 +1,5 @@
 ---
+import AiEngineeringTabs from "~/components/AiEngineeringTabs.astro"
 import PageActions from "~/components/PageActions.astro"
 import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
@@ -20,9 +21,7 @@ const skills = await getSkills()
 >
   <main class="skills-home" data-skills-catalogue>
     <header class="skills-intro">
-      <p class="skills-eyebrow">
-        <span aria-hidden="true">◇</span> MY PUBLIC TOOLBOX
-      </p>
+      <AiEngineeringTabs current="skills" />
       <PageActions>
         <h1>Agent skills.<br /><span>Field-tested workflows.</span></h1>
       </PageActions>
