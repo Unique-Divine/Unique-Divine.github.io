@@ -92,12 +92,8 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
             <li class={twMerge(links?.length ? "dropdown" : "", "rounded-lg")}>
               {links?.length ? (
                 <>
-                  <button class="hover:text-link dark:hover:text-white px-4 py-2 flex items-center dark:hover:bg-HoverBgDark hover:bg-HoverBgLight rounded-lg">
-                    {text}{" "}
-                    <Icon
-                      name="tabler:chevron-down"
-                      class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline"
-                    />
+                  <button class="hover:text-link dark:hover:text-white px-4 py-2 flex items-center whitespace-nowrap dark:hover:bg-HoverBgDark hover:bg-HoverBgLight rounded-lg">
+                    {text}
                   </button>
                   <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
                     {links.map(({ text: text2, href: href2 }) => (
@@ -118,7 +114,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
               ) : (
                 <a
                   class:list={[
-                    "hover:text-link dark:hover:text-white px-4 py-2 flex items-centers ",
+                    "hover:text-link dark:hover:text-white px-4 py-2 flex items-center whitespace-nowrap",
                     "hover:bg-HoverBgLight dark:hover:bg-HoverBgDark rounded-lg",
                     { "aw-link-active": href === currentPath },
                   ]}
