@@ -31,25 +31,19 @@ export const headerData = {
     },
 
     {
-      text: "Agent Skills",
+      text: "AI Engineering",
       links: [
-        { text: "All skills", href: getPermalink("/ai-skills") },
+        { text: "Agent skills", href: getPermalink("/ai-skills") },
+        { text: "MCP servers", href: getPermalink("/mcp") },
         {
-          text: "Installation & usage",
+          text: "Install agent skills",
           href: getPermalink("/ai-skills#installation"),
         },
-        {
-          text: "GitHub repository",
-          href: "https://github.com/Unique-Divine/jiyuu/tree/main/ai-skills",
-        },
-      ],
-    },
-
-    {
-      text: "MCP Servers",
-      links: [
-        { text: "All MCP servers", href: getPermalink("/mcp") },
         { text: "Discord bot policy", href: getPermalink("/discord-mcp") },
+        {
+          text: "Source on GitHub (jiyuu)",
+          href: "https://github.com/Unique-Divine/jiyuu",
+        },
       ],
     },
 
@@ -91,7 +85,7 @@ export const headerData = {
     // },
 
     {
-      text: "Blog & Essays",
+      text: "Blog",
       links: [
         {
           text: "Everything (Latest)",
