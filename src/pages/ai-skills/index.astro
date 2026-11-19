@@ -24,7 +24,7 @@ const skills = await getSkills()
         <span aria-hidden="true">◇</span> MY PUBLIC TOOLBOX
       </p>
       <PageActions>
-        <h1>Agent skills.<br /><span>Less repeating myself.</span></h1>
+        <h1>Agent skills.<br /><span>Field-tested workflows.</span></h1>
       </PageActions>
       <p class="skills-lead">
         The instructions and references I give AI agents for work I do often:
@@ -135,11 +135,23 @@ const skills = await getSkills()
     max-width: 850px;
   }
   .skills-intro::before {
+    /* A soft mesh that starts behind the header and fades to nothing on
+       every side, so no edge of the box shows. */
     content: "";
     position: absolute;
-    inset: -1rem 0 0;
+    inset: -14rem -1.5rem -4rem -1.5rem;
     z-index: -1;
-    background: radial-gradient(ellipse at 30% 20%, #14b8a612, transparent 65%);
+    background:
+      radial-gradient(
+        ellipse closest-side at 38% 42%,
+        #14b8a61f,
+        transparent
+      ),
+      radial-gradient(
+        ellipse closest-side at 62% 30%,
+        #22d3ee14,
+        transparent
+      );
     pointer-events: none;
   }
   .skills-eyebrow {
