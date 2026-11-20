@@ -1,6 +1,9 @@
 import { expect, test } from "bun:test"
 import { readFileSync } from "node:fs"
 
+import type { Link, Nodes, Table } from "mdast"
+
+import { pageMarkdown } from "~/components/CopyForLLM"
 import { markdownComponents } from "~/utils/markdown-components"
 import {
   absoluteLink,
@@ -8,6 +11,7 @@ import {
   importedModules,
   interactiveNote,
   linkDestination,
+  linkLabel,
   markdownCopyHref,
   markdownCopyParam,
   markdownPagePath,
@@ -15,6 +19,7 @@ import {
   mdxLeftovers,
   pageCopyIntro,
   pagePath,
+  parseMarkdown,
   parseMarkdownPage,
   proseLines,
   reduceMarkdown,
@@ -814,4 +819,92 @@ test("the block-latency MDX reduces to plain Markdown", async () => {
   // The widgets render Markdown tables, and Guide keeps its data links.
   expect(out.match(/^\| --- \|/gm)?.length).toBeGreaterThan(2)
   expect(out).toMatch(/^Data: .*\/tables\.md\)/m)
+})
+
+/** Every link in a parsed tree, in document order. */
+const linksIn = (node: Nodes): Link[] =>
+  node.type === "link"
+    ? [node]
+    : "children" in node
+      ? (node.children as Nodes[]).flatMap(linksIn)
+      : []
+
+test("protocol-relative links keep their host in both outputs", async () => {
+  const copy = await reduceMarkdown(
+    'Read <a href="//cdn.example.org/guide">the guide</a> and [about](/about).',
+    mdx,
+  )
+  expect(copy).toContain("[the guide](//cdn.example.org/guide)")
+  const clip = pageMarkdown({ intro: "Intro.", markdown: copy }, page)
+  expect(clip).toContain("[the guide](//cdn.example.org/guide)")
+  expect(clip).toContain(`[about](${site}/about)`)
+  const urls = linksIn(parseMarkdown(clip, false)).map((l) => l.url)
+  // The first link is the page URL in the intro line, autolinked by GFM.
+  expect(urls).toEqual([page, "//cdn.example.org/guide", `${site}/about`])
+})
+
+test("generated links stay inside their GFM table cell", async () => {
+  const out = await reduceMarkdown(
+    [
+      "| Demo | Notes |",
+      "| --- | --- |",
+      '| <iframe src="https://x.test/a" title="Speed &#124; Accuracy" /> ' +
+        "| one |",
+      '| <a href="https://x.test/b&#124;c">pipe</a> | two |',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  const table = parseMarkdown(out, false).children[0] as Table
+  expect(table.type).toBe("table")
+  for (const row of table.children) expect(row.children).toHaveLength(2)
+  const text = (link: Link) =>
+    link.children.map((child) => ("value" in child ? child.value : "")).join("")
+  expect(linksIn(table).map((l) => [l.url, text(l)])).toEqual([
+    ["https://x.test/a", "Speed | Accuracy"],
+    ["https://x.test/b%7Cc", "pipe"],
+  ])
+  expect(out).toContain("[Speed \\| Accuracy](https://x.test/a)")
+})
+
+test("linkLabel keeps generated link text on one line and escaped", () => {
+  expect(linkLabel("Two\n  lines [draft] | v2")).toBe(
+    "Two lines \\[draft\\] \\| v2",
+  )
+  expect(linkDestination("https://x.test/a|b c")).toBe(
+    "<https://x.test/a%7Cb c>",
+  )
+})
+
+test("video and audio link their media URL, not captions", async () => {
+  const out = await reduceMarkdown(
+    [
+      '<video controls src="/talk.mp4" title="Talk">',
+      "  Your browser does not support video.",
+      "</video>",
+      "",
+      "<video controls>",
+      '  <track kind="captions" src="/talk.vtt" />',
+      '  <source src="/talk.webm" type="video/webm" />',
+      "  Your browser does not support video.",
+      "</video>",
+      "",
+      "<audio>",
+      '  <track kind="captions" src="/song.vtt" />',
+      '  <source src="/song.mp3" />',
+      "</audio>",
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      `[Talk](${site}/talk.mp4)`,
+      "",
+      `[Embedded video](${site}/talk.webm)`,
+      "",
+      `[Embedded audio](${site}/song.mp3)`,
+      "",
+    ].join("\n"),
+  )
 })

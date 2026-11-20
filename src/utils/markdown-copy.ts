@@ -214,13 +214,12 @@ export function cleanHtml(html: string, site: string): string {
     )
 }
 
-const escapeAlt = (alt: string) => alt.replace(/([\\[\]])/g, "\\$1")
 export const imageMarkdown = (
   alt: string,
   url: string,
   title?: string | null,
 ) =>
-  `![${escapeAlt(alt)}](${url}${
+  `![${linkLabel(alt)}](${linkDestination(url)}${
     title ? ` "${title.replace(/"/g, '\\"')}"` : ""
   })`
 
@@ -258,10 +257,21 @@ function applyEdits(
  * Link destination for `url`, in angle brackets when it holds whitespace or
  * parentheses that would end a bare destination.
  */
-export const linkDestination = (url: string) =>
-  /[\s()<>]/.test(url)
+export const linkDestination = (raw: string) => {
+  // A `|` would end a GFM table cell, so it is percent-encoded everywhere.
+  const url = raw.replace(/\|/g, "%7C")
+  return /[\s()<>]/.test(url)
     ? `<${url.replace(/</g, "%3C").replace(/>/g, "%3E")}>`
     : url
+}
+
+/**
+ * Link text generated from an attribute, such as an embed's `title`: one
+ * line, with brackets and `|` escaped so it stays one link, even inside a
+ * GFM table cell.
+ */
+export const linkLabel = (text: string) =>
+  text.replace(/\s+/g, " ").trim().replace(/([\\[\]|])/g, "\\$1")
 
 /** Embedded media that a copy links to by its `src`, or `data` for objects. */
 const embedElements = new Set([
@@ -445,32 +455,45 @@ export async function reduceMarkdown(
     }
     // A media element whose children are all childless, such as an `<svg>`
     // of shapes or a `<video>` of `<source>`s, is reduced once as a whole.
-    // It takes its source from the first child that has one, or becomes the
-    // image of an `<img>` child, as in `<picture>`. Other wrappers unwrap, so
-    // each child reduces on its own.
+    // It takes its source from the first child that has one, skipping
+    // caption `<track>`s, or becomes the image of an `<img>` child, as in
+    // `<picture>`. A `<video>` or `<audio>` with a URL of its own or from a
+    // `<source>` always links to it; its fallback text is for browsers that
+    // can't play the media, and the link already stands in for it. Other
+    // wrappers unwrap, so each child reduces on its own.
     const parts = children.filter(
       (child) => child.type !== "text" || child.value.trim(),
     )
+    const elements = parts.filter(isJsx)
+    const childAttributes = elements
+      .filter((child) => jsxName(child) !== "track")
+      .map((child) => ({ name: jsxName(child), attrs: jsxAttributes(child) }))
+    const playable = name === "video" || name === "audio"
+    const playableSource = playable
+      ? typeof attributes.src === "string"
+        ? attributes.src
+        : childAttributes.find(
+            (child) =>
+              child.name === "source" && typeof child.attrs.src === "string",
+          )?.attrs.src
+      : undefined
     const embed =
-      mediaElements.has(name) &&
-      parts.length > 0 &&
-      parts.every((child) => isJsx(child) && !child.children.length)
+      (mediaElements.has(name) &&
+        parts.length > 0 &&
+        parts.every((child) => isJsx(child) && !child.children.length)) ||
+      typeof playableSource === "string"
     if (embed && typeof attributes.src !== "string") {
-      const childAttributes = parts.map((child) =>
-        jsxAttributes(child as JsxElement),
-      )
-      const img = parts.findIndex((child) => jsxName(child) === "img")
+      const img = childAttributes.find((child) => child.name === "img")
       const source =
-        img >= 0
-          ? childAttributes[img].src
+        playableSource ??
+        (img
+          ? img.attrs.src
           : childAttributes
-              .map((child) => child.src)
-              .find((src) => typeof src === "string")
+              .map((child) => child.attrs.src)
+              .find((src) => typeof src === "string"))
       if (typeof source === "string") attributes.src = source
-      if (img >= 0) {
-        const { alt } = childAttributes[img]
-        attributes.alt = typeof alt === "string" ? alt : ""
-      }
+      if (img && !playableSource)
+        attributes.alt = typeof img.attrs.alt === "string" ? img.attrs.alt : ""
     }
     if (children.length && !embed) {
       // Unwrap: replace the opening and closing tags, keep the content.
@@ -516,7 +539,7 @@ export async function reduceMarkdown(
         // An embed such as `<iframe>` or `<video>` links to its source.
         const url = absoluteLink(target, page, site, options.base)
         const label = title || `Embedded ${name}`
-        text = `[${escapeAlt(label)}](${linkDestination(url)})`
+        text = `[${linkLabel(label)}](${linkDestination(url)})`
       } else if (flow && (/^[A-Z]/.test(name) || drawingElements.has(name)))
         text = interactiveNote(page)
       // Other lowercase elements, such as `<script>`, `<link>`, or an empty
