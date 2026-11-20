@@ -418,6 +418,23 @@ test("multi-line wrapper text keeps its container prefix", async () => {
   )
 })
 
+test("MDX links and embeds resolve relative URLs against base", async () => {
+  const base = `${site}/ai-skills-source/gov/SKILL.md`
+  const out = await reduceMarkdown(
+    [
+      'See <a href="./reference.md">the reference</a>.',
+      "",
+      '<iframe src="demo.html" title="Demo" />',
+      "",
+    ].join("\n"),
+    { ...mdx, base },
+  )
+  expect(out).toContain(
+    `[the reference](${site}/ai-skills-source/gov/reference.md)`,
+  )
+  expect(out).toContain(`[Demo](${site}/ai-skills-source/gov/demo.html)`)
+})
+
 test("MDX <a href> becomes a Markdown link with an absolute URL", async () => {
   const out = await reduceMarkdown(
     [

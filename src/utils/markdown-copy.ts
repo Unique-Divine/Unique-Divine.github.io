@@ -430,7 +430,7 @@ export async function reduceMarkdown(
         return removeFlow(node)
       }
       const linked = oneParagraph && content.trim() && !hasLink(content)
-      const url = linkDestination(absoluteLink(href, page, site))
+      const url = linkDestination(absoluteLink(href, page, site, options.base))
       edits.push({
         start: start(node),
         end: start(children[0]),
@@ -514,7 +514,7 @@ export async function reduceMarkdown(
         (embedElements.has(name) || (name === "a" && href && title))
       ) {
         // An embed such as `<iframe>` or `<video>` links to its source.
-        const url = absoluteLink(target, page, site)
+        const url = absoluteLink(target, page, site, options.base)
         const label = title || `Embedded ${name}`
         text = `[${escapeAlt(label)}](${linkDestination(url)})`
       } else if (flow && (/^[A-Z]/.test(name) || drawingElements.has(name)))
