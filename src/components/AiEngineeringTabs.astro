@@ -2,7 +2,8 @@
 /**
  * Breadcrumb-style switcher between the two AI Engineering catalogues:
  * "AI Engineering / Skills · MCPs". The current catalogue is marked with
- * aria-current; the other is a link.
+ * aria-current; the other is a link. `AiPageTransition.astro` slides between
+ * the two pages.
  */
 interface Props {
   current: "skills" | "mcp"
@@ -39,112 +40,6 @@ const tabs = [
     }
   </ul>
 </nav>
-
-<script is:inline>
-  // Slide between the two catalogues like an iPhone push: Skills -> MCPs
-  // moves forward (left), MCPs -> Skills moves back (right). Navigations to
-  // any other page skip the transition. Browsers without cross-document view
-  // transitions ignore this and load the page normally.
-  ;(() => {
-    const order = ["/ai-skills", "/mcp"]
-    const index = (url) => {
-      try {
-        return order.indexOf(new URL(url).pathname.replace(/\/+$/, ""))
-      } catch {
-        return -1
-      }
-    }
-    const direction = (from, to) => {
-      const a = index(from)
-      const b = index(to)
-      if (a < 0 || b < 0 || a === b) return null
-      return b > a ? "forward" : "back"
-    }
-    window.addEventListener("pageswap", (event) => {
-      if (!event.viewTransition) return
-      const type = direction(location.href, event.activation?.entry?.url)
-      if (type) event.viewTransition.types.add(type)
-      else event.viewTransition.skipTransition()
-    })
-    window.addEventListener("pagereveal", (event) => {
-      if (!event.viewTransition) return
-      const from = window.navigation?.activation?.from?.url
-      const type = direction(from, location.href)
-      if (type) event.viewTransition.types.add(type)
-      else event.viewTransition.skipTransition()
-    })
-  })()
-</script>
-
-<style is:global>
-  @view-transition {
-    navigation: auto;
-  }
-  .ai-tabs {
-    view-transition-name: ai-tabs;
-  }
-  .ai-page {
-    view-transition-name: ai-page;
-    /* Opaque, so the sliding pages don't show through each other. */
-    background-color: var(--aw-color-bg-page);
-  }
-  .dark .ai-page {
-    background-color: var(--aw-color-bg-page-dark);
-  }
-  /* On "back", the leaving page slides away on top, as on iOS. */
-  html:active-view-transition-type(back)::view-transition-old(ai-page) {
-    z-index: 1;
-  }
-  ::view-transition-group(ai-page) {
-    animation-duration: 420ms;
-    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
-  }
-  html:active-view-transition-type(forward) {
-    &::view-transition-old(ai-page) {
-      animation: 420ms cubic-bezier(0.32, 0.72, 0, 1) both ai-push-out-left;
-    }
-    &::view-transition-new(ai-page) {
-      animation: 420ms cubic-bezier(0.32, 0.72, 0, 1) both ai-push-in-right;
-    }
-  }
-  html:active-view-transition-type(back) {
-    &::view-transition-old(ai-page) {
-      animation: 420ms cubic-bezier(0.32, 0.72, 0, 1) both ai-push-out-right;
-    }
-    &::view-transition-new(ai-page) {
-      animation: 420ms cubic-bezier(0.32, 0.72, 0, 1) both ai-push-in-left;
-    }
-  }
-  @keyframes ai-push-out-left {
-    to {
-      transform: translateX(-30%);
-      opacity: 0;
-    }
-  }
-  @keyframes ai-push-in-right {
-    from {
-      transform: translateX(100%);
-    }
-  }
-  @keyframes ai-push-out-right {
-    to {
-      transform: translateX(100%);
-    }
-  }
-  @keyframes ai-push-in-left {
-    from {
-      transform: translateX(-30%);
-      opacity: 0;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    ::view-transition-group(*),
-    ::view-transition-old(*),
-    ::view-transition-new(*) {
-      animation: none !important;
-    }
-  }
-</style>
 
 <style>
   .ai-tabs {

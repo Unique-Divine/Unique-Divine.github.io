@@ -1,0 +1,128 @@
+---
+/**
+ * The slide between the two AI Engineering catalogues, `/ai-skills` and
+ * `/mcp`. Render it in the layout's head slot on both pages:
+ * `<AiPageTransition slot="head" />`. Each page marks its hero content,
+ * below the switcher, with class `ai-hero`.
+ *
+ * Only the hero moves. The rest of the destination page shows at once and
+ * stays still, so Chrome captures and animates two hero-sized images instead
+ * of two full pages.
+ */
+---
+
+<script is:inline>
+  // Skills -> MCPs pushes forward (left); MCPs -> Skills pushes back
+  // (right). Navigations to any other page skip the transition. This runs in
+  // the head so the pagereveal listener exists before the first render,
+  // when the browser fires that event. Browsers without cross-document view
+  // transitions ignore all of it and load the page normally.
+  ;(() => {
+    const order = ["/ai-skills", "/mcp"]
+    const index = (url) => {
+      try {
+        return order.indexOf(new URL(url).pathname.replace(/\/+$/, ""))
+      } catch {
+        return -1
+      }
+    }
+    const direction = (from, to) => {
+      const a = index(from)
+      const b = index(to)
+      if (a < 0 || b < 0 || a === b) return null
+      return b > a ? "forward" : "back"
+    }
+    window.addEventListener("pageswap", (event) => {
+      if (!event.viewTransition) return
+      const type = direction(location.href, event.activation?.entry?.url)
+      if (type) event.viewTransition.types.add(type)
+      else event.viewTransition.skipTransition()
+    })
+    window.addEventListener("pagereveal", (event) => {
+      if (!event.viewTransition) return
+      const from = window.navigation?.activation?.from?.url
+      const type = direction(from, location.href)
+      if (type) event.viewTransition.types.add(type)
+      else event.viewTransition.skipTransition()
+    })
+  })()
+</script>
+
+<style is:global>
+  @view-transition {
+    navigation: auto;
+  }
+  .ai-tabs {
+    view-transition-name: ai-tabs;
+  }
+  .ai-hero {
+    view-transition-name: ai-hero;
+  }
+  html:active-view-transition-type(forward, back) {
+    /* Freeze the page: drop the old snapshot and show the new one at once,
+       so only the hero animates. */
+    &::view-transition-old(root) {
+      visibility: hidden;
+      animation: none;
+    }
+    &::view-transition-new(root),
+    &::view-transition-group(root) {
+      animation: none;
+    }
+    /* The heroes differ in height; skip the size morph between them. */
+    &::view-transition-group(ai-hero) {
+      animation: none;
+    }
+    /* A push: the two heroes move together, one viewport apart, so they
+       never overlap. Transform only, so the compositor can run it. */
+    &::view-transition-old(ai-hero),
+    &::view-transition-new(ai-hero) {
+      animation-duration: 280ms;
+      animation-timing-function: cubic-bezier(0.2, 0, 0.2, 1);
+      animation-fill-mode: both;
+    }
+  }
+  html:active-view-transition-type(forward) {
+    &::view-transition-old(ai-hero) {
+      animation-name: ai-push-out-left;
+    }
+    &::view-transition-new(ai-hero) {
+      animation-name: ai-push-in-right;
+    }
+  }
+  html:active-view-transition-type(back) {
+    &::view-transition-old(ai-hero) {
+      animation-name: ai-push-out-right;
+    }
+    &::view-transition-new(ai-hero) {
+      animation-name: ai-push-in-left;
+    }
+  }
+  @keyframes ai-push-out-left {
+    to {
+      transform: translateX(-100vw);
+    }
+  }
+  @keyframes ai-push-in-right {
+    from {
+      transform: translateX(100vw);
+    }
+  }
+  @keyframes ai-push-out-right {
+    to {
+      transform: translateX(100vw);
+    }
+  }
+  @keyframes ai-push-in-left {
+    from {
+      transform: translateX(-100vw);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+</style>

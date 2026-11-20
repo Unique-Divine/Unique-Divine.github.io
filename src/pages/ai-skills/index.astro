@@ -1,5 +1,6 @@
 ---
 import AiEngineeringTabs from "~/components/AiEngineeringTabs.astro"
+import AiPageTransition from "~/components/AiPageTransition.astro"
 import PageActions from "~/components/PageActions.astro"
 import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
@@ -19,23 +20,26 @@ const skills = await getSkills()
       "My public collection of agent skills for engineering, research, chain queries, and technical writing.",
   }}
 >
-  <main class="skills-home ai-page" data-skills-catalogue>
+  <AiPageTransition slot="head" />
+  <main class="skills-home" data-skills-catalogue>
     <header class="skills-intro">
       <AiEngineeringTabs current="skills" />
-      <PageActions>
-        <h1>Agent skills.<br /><span>Field-tested workflows.</span></h1>
-      </PageActions>
-      <p class="skills-lead">
-        The instructions and references I give AI agents for work I do often:
-        reviewing code, investigating systems, querying chains, and writing
-        clearly.
-      </p>
-      <div class="skills-actions">
-        <a href="#catalogue" class="skills-primary"
-          >Explore {skills.length} skills <span aria-hidden="true">↗</span></a
-        ><a href={`${SKILLS_REPOSITORY}/tree/main/ai-skills`}
-          >Browse on GitHub <span aria-hidden="true">↗</span></a
-        >
+      <div class="ai-hero">
+        <PageActions>
+          <h1>Agent skills.<br /><span>Field-tested workflows.</span></h1>
+        </PageActions>
+        <p class="skills-lead">
+          The instructions and references I give AI agents for work I do often:
+          reviewing code, investigating systems, querying chains, and writing
+          clearly.
+        </p>
+        <div class="skills-actions">
+          <a href="#catalogue" class="skills-primary"
+            >Explore {skills.length} skills <span aria-hidden="true">↗</span></a
+          ><a href={`${SKILLS_REPOSITORY}/tree/main/ai-skills`}
+            >Browse on GitHub <span aria-hidden="true">↗</span></a
+          >
+        </div>
       </div>
     </header>
     <section

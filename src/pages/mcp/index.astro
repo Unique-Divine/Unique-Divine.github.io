@@ -1,5 +1,6 @@
 ---
 import AiEngineeringTabs from "~/components/AiEngineeringTabs.astro"
+import AiPageTransition from "~/components/AiPageTransition.astro"
 import FixtureNotice from "~/components/mcp/FixtureNotice.astro"
 import ServerCard from "~/components/mcp/ServerCard.astro"
 import PageActions from "~/components/PageActions.astro"
@@ -30,22 +31,25 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
     slot="head"
     set:html={jsonLdScript(catalogJsonLd(servers, SITE.site!))}
   />
-  <div class="mcp-home ai-page">
+  <AiPageTransition slot="head" />
+  <div class="mcp-home">
     <FixtureNotice />
     <header class="mcp-intro">
       <AiEngineeringTabs current="mcp" />
-      <PageActions>
-        <h1>MCP servers.<br /><span>Reviewed, published, listed.</span></h1>
-      </PageActions>
-      <p class="mcp-lead">
-        Model Context Protocol servers I maintain and publish. Each install
-        command runs the latest release, so the snippets keep working as I ship
-        new versions. Every tool is listed with whether it only reads or can
-        change something.
-      </p>
-      <p class="mcp-totals">
-        {servers.length} servers · {tools} tools
-      </p>
+      <div class="ai-hero">
+        <PageActions>
+          <h1>MCP servers.<br /><span>Reviewed, published, listed.</span></h1>
+        </PageActions>
+        <p class="mcp-lead">
+          Model Context Protocol servers I maintain and publish. Each
+          install command runs the latest release, so the snippets keep
+          working as I ship new versions. Every tool is listed with whether
+          it only reads or can change something.
+        </p>
+        <p class="mcp-totals">
+          {servers.length} servers · {tools} tools
+        </p>
+      </div>
     </header>
     <section aria-labelledby="servers-heading">
       <h2 id="servers-heading" class="sr-only">Servers</h2>
