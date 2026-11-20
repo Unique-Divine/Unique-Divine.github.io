@@ -203,9 +203,8 @@ describe("structured data", () => {
       [1, `${site}/mcp/discord-mcp`],
       [2, `${site}/mcp/slack-mcp`],
     ])
-    expect(page.breadcrumb!.itemListElement.map((i: LdItem) => i.item)).toEqual(
-      [`${site}/`, `${site}/mcp`],
-    )
+    expect(page.breadcrumb).toBeUndefined()
+    expect(graph.some((node) => node["@type"] === "BreadcrumbList")).toBe(false)
   })
 
   test("a server page describes the software and belongs to the catalog", () => {
