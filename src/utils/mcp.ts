@@ -209,7 +209,11 @@ export function softwareApplication(server: McpServer, site: string): JsonLd {
   }
 }
 
-/** `/mcp`: the catalog page, its ordered list, each server, and crumbs. */
+/**
+ * `/mcp`: the catalog page, its ordered list, and each server. No
+ * breadcrumb: the page shows the AI Engineering switcher instead of a trail,
+ * and structured data should match what the page shows.
+ */
 export function catalogJsonLd(servers: McpServer[], site: string): JsonLd {
   const listId = `${absolute(MCP_CATALOG_PATH, site)}#servers`
   return {
@@ -227,7 +231,6 @@ export function catalogJsonLd(servers: McpServer[], site: string): JsonLd {
         hasPart: servers.map((server) => ({
           "@id": softwareId(server.slug, site),
         })),
-        breadcrumb: breadcrumbList(catalogBreadcrumbs(), site),
       },
       {
         "@type": "ItemList",

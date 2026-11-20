@@ -88,18 +88,22 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
         class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium"
       >
         {
-          links.map(({ text, href, links }) => (
+          links.map(({ text, href, links }, index) => (
             <li class={twMerge(links?.length ? "dropdown" : "", "rounded-lg")}>
               {links?.length ? (
                 <>
-                  <button class="hover:text-link dark:hover:text-white px-4 py-2 flex items-center dark:hover:bg-HoverBgDark hover:bg-HoverBgLight rounded-lg">
-                    {text}{" "}
-                    <Icon
-                      name="tabler:chevron-down"
-                      class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline"
-                    />
+                  <button
+                    type="button"
+                    class="dropdown-toggle hover:text-link dark:hover:text-white px-4 py-2 flex items-center whitespace-nowrap dark:hover:bg-HoverBgDark hover:bg-HoverBgLight rounded-lg"
+                    aria-expanded="false"
+                    aria-controls={`header-menu-${index}`}
+                  >
+                    {text}
                   </button>
-                  <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
+                  <ul
+                    id={`header-menu-${index}`}
+                    class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl"
+                  >
                     {links.map(({ text: text2, href: href2 }) => (
                       <li>
                         <a
@@ -118,7 +122,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
               ) : (
                 <a
                   class:list={[
-                    "hover:text-link dark:hover:text-white px-4 py-2 flex items-centers ",
+                    "hover:text-link dark:hover:text-white px-4 py-2 flex items-center whitespace-nowrap",
                     "hover:bg-HoverBgLight dark:hover:bg-HoverBgDark rounded-lg",
                     { "aw-link-active": href === currentPath },
                   ]}
@@ -188,3 +192,91 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
     </div>
   </div>
 </header>
+
+<script>
+  // Header dropdowns are disclosures. CSS opens them on hover (for hover
+  // pointers) and on focus; the script keeps aria-expanded in step with what
+  // shows and makes a click or tap toggle what the user saw before it. A
+  // tap focuses the button, and focus alone would open the menu, so the
+  // click reads the state recorded at pointerdown, before that focus.
+  // Escape closes any open menu and returns focus to its button if focus was
+  // inside it; the menu stays closed until the pointer or focus leaves.
+  const shows = (menu: HTMLElement) => getComputedStyle(menu).display !== "none"
+  const syncButton = (button: HTMLButtonElement, menu: HTMLElement) =>
+    button.setAttribute("aria-expanded", String(shows(menu)))
+  const items = [
+    ...document.querySelectorAll<HTMLElement>("#header .dropdown"),
+  ].flatMap((item) => {
+    const button = item.querySelector<HTMLButtonElement>(".dropdown-toggle")
+    const menu = item.querySelector<HTMLElement>(".dropdown-menu")
+    return button && menu ? [{ item, button, menu }] : []
+  })
+  for (const { item, button, menu } of items) {
+    const isOpen = () => shows(menu)
+    const sync = () => syncButton(button, menu)
+    const setOpen = (open: boolean) => {
+      item.classList.toggle("is-open", open)
+      item.classList.toggle("is-dismissed", !open)
+      sync()
+    }
+    const reset = () => {
+      item.classList.remove("is-open", "is-dismissed")
+      sync()
+    }
+    // Only a primary press, and only the click it produces, uses the state
+    // from pointerdown. Enter and Space (click detail 0) always toggle the
+    // state that shows, so a press that never clicks can't leave stale state.
+    let openAtPointerDown: boolean | undefined
+    button.addEventListener("pointerdown", (event) => {
+      openAtPointerDown =
+        event.isPrimary && event.button === 0 ? isOpen() : undefined
+    })
+    button.addEventListener("pointercancel", () => {
+      openAtPointerDown = undefined
+    })
+    button.addEventListener("click", (event) => {
+      const wasOpen =
+        event.detail > 0 && openAtPointerDown !== undefined
+          ? openAtPointerDown
+          : isOpen()
+      openAtPointerDown = undefined
+      setOpen(!wasOpen)
+    })
+    item.addEventListener("mouseenter", sync)
+    item.addEventListener("mouseleave", () => {
+      if (!item.contains(document.activeElement)) reset()
+      else sync()
+    })
+    item.addEventListener("focusin", sync)
+    item.addEventListener("focusout", (event) => {
+      if (!item.contains(event.relatedTarget as Node | null)) reset()
+    })
+    addEventListener("resize", sync)
+    sync()
+  }
+  // A tap or click outside closes a menu that a tap or click opened.
+  document.addEventListener("pointerdown", (event) => {
+    for (const { item, button, menu } of items)
+      if (
+        item.classList.contains("is-open") &&
+        !item.contains(event.target as Node)
+      ) {
+        item.classList.remove("is-open")
+        syncButton(button, menu)
+      }
+  })
+  // Below the desktop breakpoint the links show inline in the phone menu,
+  // so there is no dropdown for Escape to close and focus stays put.
+  const desktop = matchMedia("(min-width: 768px)")
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !desktop.matches) return
+    for (const { item, button, menu } of items) {
+      if (!shows(menu)) continue
+      const focused = item.contains(document.activeElement)
+      item.classList.remove("is-open")
+      item.classList.add("is-dismissed")
+      if (focused) button.focus()
+      syncButton(button, menu)
+    }
+  })
+</script>

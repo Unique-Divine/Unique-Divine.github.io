@@ -1,12 +1,12 @@
 ---
-import Breadcrumbs from "~/components/mcp/Breadcrumbs.astro"
+import AiEngineeringTabs from "~/components/AiEngineeringTabs.astro"
+import AiPageTransition from "~/components/AiPageTransition.astro"
 import FixtureNotice from "~/components/mcp/FixtureNotice.astro"
 import ServerCard from "~/components/mcp/ServerCard.astro"
 import PageActions from "~/components/PageActions.astro"
 import Layout from "~/layouts/PageLayout.astro"
 import { SITE } from "~/utils/config"
 import {
-  catalogBreadcrumbs,
   catalogJsonLd,
   jsonLdScript,
   MAINTAINER,
@@ -31,27 +31,25 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
     slot="head"
     set:html={jsonLdScript(catalogJsonLd(servers, SITE.site!))}
   />
+  <AiPageTransition slot="head" />
   <div class="mcp-home">
-    <Breadcrumbs crumbs={catalogBreadcrumbs()} />
     <FixtureNotice />
     <header class="mcp-intro">
-      <p class="mcp-eyebrow">
-        <span aria-hidden="true">◇</span> MAINTAINED BY {
-          MAINTAINER.toUpperCase()
-        }
-      </p>
-      <PageActions>
-        <h1>MCP servers.<br /><span>Reviewed, published, listed.</span></h1>
-      </PageActions>
-      <p class="mcp-lead">
-        Model Context Protocol servers I maintain and publish. Each install
-        command runs the latest release, so the snippets keep working as I ship
-        new versions. Every tool is listed with whether it only reads or can
-        change something.
-      </p>
-      <p class="mcp-totals">
-        {servers.length} servers · {tools} tools
-      </p>
+      <AiEngineeringTabs current="mcp" />
+      <div class="ai-hero">
+        <PageActions>
+          <h1>MCP servers.<br /><span>Reviewed, published, listed.</span></h1>
+        </PageActions>
+        <p class="mcp-lead">
+          Model Context Protocol servers I maintain and publish. Each
+          install command runs the latest release, so the snippets keep
+          working as I ship new versions. Every tool is listed with whether
+          it only reads or can change something.
+        </p>
+        <p class="mcp-totals">
+          {servers.length} servers · {tools} tools
+        </p>
+      </div>
     </header>
     <section aria-labelledby="servers-heading">
       <h2 id="servers-heading" class="sr-only">Servers</h2>
@@ -88,25 +86,33 @@ const tools = servers.reduce((sum, server) => sum + server.toolCount, 0)
   .mcp-home {
     max-width: 1160px;
     margin: 0 auto;
-    padding: 3.5rem 1.5rem 5rem;
+    padding: 3rem 1.5rem 5rem;
     color: var(--aw-color-text-default);
   }
   .mcp-intro {
+    position: relative;
     max-width: 850px;
-    padding-bottom: 3rem;
+    padding: 1rem 0 3.5rem;
   }
-  .mcp-eyebrow {
-    font:
-      500 0.72rem/1.5 var(--aw-font-mono),
-      monospace;
-    letter-spacing: 0.13em;
-    color: var(--aw-color-text-muted);
-    margin: 0 0 1rem;
-  }
-  .mcp-eyebrow span {
-    color: #169f97;
-    font-size: 1.3rem;
-    margin-right: 0.5rem;
+  .mcp-intro::before {
+    /* Same soft mesh as /ai-skills, shifted toward violet so the two
+       catalogues read as siblings rather than copies. */
+    content: "";
+    position: absolute;
+    inset: -14rem -1.5rem -4rem -1.5rem;
+    z-index: -1;
+    background:
+      radial-gradient(
+        ellipse closest-side at 38% 42%,
+        #6366f11f,
+        transparent
+      ),
+      radial-gradient(
+        ellipse closest-side at 62% 30%,
+        #22d3ee14,
+        transparent
+      );
+    pointer-events: none;
   }
   h1 {
     font-size: 3.5rem;

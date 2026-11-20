@@ -77,9 +77,49 @@
   padding: 0 5px;
 }
 
-.dropdown:hover .dropdown-menu,
-.dropdown:focus-within .dropdown-menu {
+/* Header dropdowns: hover opens them only for a real hover pointer, focus
+   opens them for the keyboard, and the script in PageHeader.astro adds
+   is-open for a tap or click and is-dismissed for Escape or a closing
+   click. Phones list the links inline. */
+@media (hover: hover) {
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+}
+.dropdown:focus-within .dropdown-menu,
+.dropdown.is-open .dropdown-menu {
   display: block;
+}
+
+@media (min-width: 768px) {
+  .dropdown.is-dismissed .dropdown-menu {
+    display: none;
+  }
+
+  /* A small caret appears on hover and focus to show the button opens a
+     menu, without a permanent chevron. */
+  .dropdown-toggle {
+    position: relative;
+  }
+  .dropdown-toggle::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.2rem;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    opacity: 0;
+    transform: translateX(-50%) rotate(45deg);
+    transition: opacity 150ms ease;
+    pointer-events: none;
+  }
+  .dropdown:hover .dropdown-toggle::after,
+  .dropdown-toggle:focus-visible::after,
+  .dropdown-toggle[aria-expanded="true"]::after {
+    opacity: 0.55;
+  }
 }
 
 [astro-icon].icon-light > * {

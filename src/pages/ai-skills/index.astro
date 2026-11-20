@@ -1,4 +1,6 @@
 ---
+import AiEngineeringTabs from "~/components/AiEngineeringTabs.astro"
+import AiPageTransition from "~/components/AiPageTransition.astro"
 import PageActions from "~/components/PageActions.astro"
 import CopyCommand from "~/components/skills/CopyCommand.astro"
 import Layout from "~/layouts/PageLayout.astro"
@@ -18,25 +20,26 @@ const skills = await getSkills()
       "My public collection of agent skills for engineering, research, chain queries, and technical writing.",
   }}
 >
+  <AiPageTransition slot="head" />
   <main class="skills-home" data-skills-catalogue>
     <header class="skills-intro">
-      <p class="skills-eyebrow">
-        <span aria-hidden="true">◇</span> MY PUBLIC TOOLBOX
-      </p>
-      <PageActions>
-        <h1>Agent skills.<br /><span>Less repeating myself.</span></h1>
-      </PageActions>
-      <p class="skills-lead">
-        The instructions and references I give AI agents for work I do often:
-        reviewing code, investigating systems, querying chains, and writing
-        clearly.
-      </p>
-      <div class="skills-actions">
-        <a href="#catalogue" class="skills-primary"
-          >Explore {skills.length} skills <span aria-hidden="true">↗</span></a
-        ><a href={`${SKILLS_REPOSITORY}/tree/main/ai-skills`}
-          >Browse on GitHub <span aria-hidden="true">↗</span></a
-        >
+      <AiEngineeringTabs current="skills" />
+      <div class="ai-hero">
+        <PageActions>
+          <h1>Agent skills.<br /><span>Field-tested workflows.</span></h1>
+        </PageActions>
+        <p class="skills-lead">
+          The instructions and references I give AI agents for work I do often:
+          reviewing code, investigating systems, querying chains, and writing
+          clearly.
+        </p>
+        <div class="skills-actions">
+          <a href="#catalogue" class="skills-primary"
+            >Explore {skills.length} skills <span aria-hidden="true">↗</span></a
+          ><a href={`${SKILLS_REPOSITORY}/tree/main/ai-skills`}
+            >Browse on GitHub <span aria-hidden="true">↗</span></a
+          >
+        </div>
       </div>
     </header>
     <section
@@ -126,7 +129,7 @@ const skills = await getSkills()
   .skills-home {
     max-width: 1160px;
     margin: 0 auto;
-    padding: 4.5rem 1.5rem 5rem;
+    padding: 3rem 1.5rem 5rem;
     color: var(--aw-color-text-default);
   }
   .skills-intro {
@@ -135,11 +138,23 @@ const skills = await getSkills()
     max-width: 850px;
   }
   .skills-intro::before {
+    /* A soft mesh that starts behind the header and fades to nothing on
+       every side, so no edge of the box shows. */
     content: "";
     position: absolute;
-    inset: -1rem 0 0;
+    inset: -14rem -1.5rem -4rem -1.5rem;
     z-index: -1;
-    background: radial-gradient(ellipse at 30% 20%, #14b8a612, transparent 65%);
+    background:
+      radial-gradient(
+        ellipse closest-side at 38% 42%,
+        #14b8a61f,
+        transparent
+      ),
+      radial-gradient(
+        ellipse closest-side at 62% 30%,
+        #22d3ee14,
+        transparent
+      );
     pointer-events: none;
   }
   .skills-eyebrow {
