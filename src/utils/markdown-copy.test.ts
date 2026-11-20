@@ -908,3 +908,21 @@ test("video and audio link their media URL, not captions", async () => {
     ].join("\n"),
   )
 })
+
+test("a linked image with ( ) in its URL keeps the outer link", async () => {
+  const out = await reduceMarkdown(
+    'See <a href="/info"><img src="https://example.test/image(1).png" ' +
+      'alt="Demo" /></a>.',
+    mdx,
+  )
+  expect(out).toBe(
+    `See [![Demo](<https://example.test/image(1).png>)](${site}/info).\n`,
+  )
+  const [link] = linksIn(parseMarkdown(out, false))
+  expect(link.url).toBe(`${site}/info`)
+  expect(link.children[0]).toMatchObject({
+    type: "image",
+    url: "https://example.test/image(1).png",
+    alt: "Demo",
+  })
+})

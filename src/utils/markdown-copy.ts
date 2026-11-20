@@ -223,9 +223,20 @@ export const imageMarkdown = (
     title ? ` "${title.replace(/"/g, '\\"')}"` : ""
   })`
 
-/** Whether Markdown holds a link of its own; a bare image doesn't count. */
-const hasLink = (markdown: string) =>
-  /(^|[^!\\])\[[^\]]*\]\(|<https?:\/\//.test(markdown)
+const commonmarkParser = unified().use(remarkParse)
+
+/**
+ * Whether Markdown holds a link of its own: an inline or reference link, or
+ * an `<https://…>` autolink. An image doesn't count, even one whose
+ * destination is in angle brackets, and neither does a bare URL in text.
+ */
+const hasLink = (markdown: string) => {
+  const found = (node: Nodes): boolean =>
+    node.type === "link" ||
+    node.type === "linkReference" ||
+    ("children" in node && (node.children as Nodes[]).some(found))
+  return found(commonmarkParser.parse(markdown))
+}
 
 /**
  * Applies edits to `source` from the end, keeping only the parts that fall
