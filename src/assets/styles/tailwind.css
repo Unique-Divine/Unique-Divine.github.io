@@ -77,13 +77,20 @@
   padding: 0 5px;
 }
 
-.dropdown:hover .dropdown-menu,
-.dropdown:focus-within .dropdown-menu {
+/* Header dropdowns: hover opens them only for a real hover pointer, focus
+   opens them for the keyboard, and the script in PageHeader.astro adds
+   is-open for a tap or click and is-dismissed for Escape or a closing
+   click. Phones list the links inline. */
+@media (hover: hover) {
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+}
+.dropdown:focus-within .dropdown-menu,
+.dropdown.is-open .dropdown-menu {
   display: block;
 }
 
-/* Escape closes a menu even while the pointer or focus is still inside it;
-   see the script in PageHeader.astro. Phones list the links inline. */
 @media (min-width: 768px) {
   .dropdown.is-dismissed .dropdown-menu {
     display: none;

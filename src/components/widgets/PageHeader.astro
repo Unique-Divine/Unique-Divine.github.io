@@ -194,47 +194,76 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
 </header>
 
 <script>
-  // Header dropdowns are disclosures: CSS opens them on hover and focus, and
-  // this keeps aria-expanded in step with what shows. Escape closes an open
-  // menu and returns focus to its button; the menu stays closed until the
-  // pointer or focus leaves and comes back, or the button is clicked.
-  for (const item of document.querySelectorAll<HTMLElement>(
-    "#header .dropdown",
-  )) {
+  // Header dropdowns are disclosures. CSS opens them on hover (for hover
+  // pointers) and on focus; the script keeps aria-expanded in step with what
+  // shows and makes a click or tap toggle what the user saw before it. A
+  // tap focuses the button, and focus alone would open the menu, so the
+  // click reads the state recorded at pointerdown, before that focus.
+  // Escape closes any open menu and returns focus to its button if focus was
+  // inside it; the menu stays closed until the pointer or focus leaves.
+  const shows = (menu: HTMLElement) => getComputedStyle(menu).display !== "none"
+  const syncButton = (button: HTMLButtonElement, menu: HTMLElement) =>
+    button.setAttribute("aria-expanded", String(shows(menu)))
+  const items = [
+    ...document.querySelectorAll<HTMLElement>("#header .dropdown"),
+  ].flatMap((item) => {
     const button = item.querySelector<HTMLButtonElement>(".dropdown-toggle")
     const menu = item.querySelector<HTMLElement>(".dropdown-menu")
-    if (!button || !menu) continue
-    const sync = () =>
-      button.setAttribute(
-        "aria-expanded",
-        String(getComputedStyle(menu).display !== "none"),
-      )
-    const reopen = () => {
-      item.classList.remove("is-dismissed")
+    return button && menu ? [{ item, button, menu }] : []
+  })
+  for (const { item, button, menu } of items) {
+    const isOpen = () => shows(menu)
+    const sync = () => syncButton(button, menu)
+    const setOpen = (open: boolean) => {
+      item.classList.toggle("is-open", open)
+      item.classList.toggle("is-dismissed", !open)
       sync()
     }
+    const reset = () => {
+      item.classList.remove("is-open", "is-dismissed")
+      sync()
+    }
+    let openAtPointerDown: boolean | undefined
+    button.addEventListener("pointerdown", () => {
+      openAtPointerDown = isOpen()
+    })
+    button.addEventListener("click", () => {
+      const wasOpen = openAtPointerDown ?? isOpen()
+      openAtPointerDown = undefined
+      setOpen(!wasOpen)
+    })
     item.addEventListener("mouseenter", sync)
     item.addEventListener("mouseleave", () => {
-      if (!item.contains(document.activeElement)) reopen()
+      if (!item.contains(document.activeElement)) reset()
       else sync()
     })
     item.addEventListener("focusin", sync)
     item.addEventListener("focusout", (event) => {
-      if (!item.contains(event.relatedTarget as Node | null)) reopen()
-    })
-    button.addEventListener("click", () => {
-      const open = button.getAttribute("aria-expanded") === "true"
-      item.classList.toggle("is-dismissed", open)
-      sync()
-    })
-    item.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape") return
-      if (button.getAttribute("aria-expanded") !== "true") return
-      item.classList.add("is-dismissed")
-      button.focus()
-      sync()
+      if (!item.contains(event.relatedTarget as Node | null)) reset()
     })
     addEventListener("resize", sync)
     sync()
   }
+  // A tap or click outside closes a menu that a tap or click opened.
+  document.addEventListener("pointerdown", (event) => {
+    for (const { item, button, menu } of items)
+      if (
+        item.classList.contains("is-open") &&
+        !item.contains(event.target as Node)
+      ) {
+        item.classList.remove("is-open")
+        syncButton(button, menu)
+      }
+  })
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return
+    for (const { item, button, menu } of items) {
+      if (!shows(menu)) continue
+      const focused = item.contains(document.activeElement)
+      item.classList.remove("is-open")
+      item.classList.add("is-dismissed")
+      if (focused) button.focus()
+      syncButton(button, menu)
+    }
+  })
 </script>

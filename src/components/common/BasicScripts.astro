@@ -50,7 +50,10 @@ import { UI } from "~/utils/config"
       let lastKnownScrollPosition = window.scrollY
       let ticking = true
 
-      attachEvent("#header nav", "click", function () {
+      attachEvent("#header nav", "click", function (event) {
+        // Close the phone menu when a link is followed, not when a section
+        // label such as "AI Engineering" is tapped.
+        if (!event.target?.closest?.("a")) return
         document
           .querySelector("[data-aw-toggle-menu]")
           ?.classList.remove("expanded")
