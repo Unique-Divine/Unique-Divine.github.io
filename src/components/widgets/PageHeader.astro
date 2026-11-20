@@ -223,12 +223,22 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
       item.classList.remove("is-open", "is-dismissed")
       sync()
     }
+    // Only a primary press, and only the click it produces, uses the state
+    // from pointerdown. Enter and Space (click detail 0) always toggle the
+    // state that shows, so a press that never clicks can't leave stale state.
     let openAtPointerDown: boolean | undefined
-    button.addEventListener("pointerdown", () => {
-      openAtPointerDown = isOpen()
+    button.addEventListener("pointerdown", (event) => {
+      openAtPointerDown =
+        event.isPrimary && event.button === 0 ? isOpen() : undefined
     })
-    button.addEventListener("click", () => {
-      const wasOpen = openAtPointerDown ?? isOpen()
+    button.addEventListener("pointercancel", () => {
+      openAtPointerDown = undefined
+    })
+    button.addEventListener("click", (event) => {
+      const wasOpen =
+        event.detail > 0 && openAtPointerDown !== undefined
+          ? openAtPointerDown
+          : isOpen()
       openAtPointerDown = undefined
       setOpen(!wasOpen)
     })
@@ -255,8 +265,11 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`
         syncButton(button, menu)
       }
   })
+  // Below the desktop breakpoint the links show inline in the phone menu,
+  // so there is no dropdown for Escape to close and focus stays put.
+  const desktop = matchMedia("(min-width: 768px)")
   document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return
+    if (event.key !== "Escape" || !desktop.matches) return
     for (const { item, button, menu } of items) {
       if (!shows(menu)) continue
       const focused = item.contains(document.activeElement)
