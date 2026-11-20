@@ -1,12 +1,17 @@
 import { expect, test } from "bun:test"
 import { readFileSync } from "node:fs"
 
+import type { Link, Nodes, Table } from "mdast"
+
+import { pageMarkdown } from "~/components/CopyForLLM"
 import { markdownComponents } from "~/utils/markdown-components"
 import {
   absoluteLink,
   cleanHtml,
   importedModules,
   interactiveNote,
+  linkDestination,
+  linkLabel,
   markdownCopyHref,
   markdownCopyParam,
   markdownPagePath,
@@ -14,6 +19,7 @@ import {
   mdxLeftovers,
   pageCopyIntro,
   pagePath,
+  parseMarkdown,
   parseMarkdownPage,
   proseLines,
   reduceMarkdown,
@@ -282,6 +288,10 @@ test("multi-line replacements keep their container prefix", async () => {
     "",
     "  <Box />",
     "",
+    "- <Box />",
+    "",
+    "> - <Box />",
+    "",
   ].join("\n")
   const out = await reduceMarkdown(source, {
     ...mdx,
@@ -302,6 +312,14 @@ test("multi-line replacements keep their container prefix", async () => {
       "  X",
       "",
       "  Y",
+      "",
+      "- X",
+      "",
+      "  Y",
+      "",
+      "> - X",
+      ">",
+      ">   Y",
       "",
     ].join("\n"),
   )
@@ -330,6 +348,334 @@ test("mapped wrappers keep text around their unwrapped content", async () => {
     },
   )
   expect(out).toBe("Stats.\n\nBody.\n\nData: [JSON](https://x.test/m.json)\n")
+})
+
+test("multi-line wrapper text keeps its container prefix", async () => {
+  const source = [
+    'import Guide from "~/components/Guide.astro"',
+    "",
+    "- item",
+    "",
+    "  <Guide>",
+    "",
+    "  Body.",
+    "",
+    "  </Guide>",
+    "",
+    "- next",
+    "",
+    "> <Guide>",
+    ">",
+    "> Quoted.",
+    ">",
+    "> </Guide>",
+    "",
+    "1. <Guide>",
+    "",
+    "   On the marker line.",
+    "",
+    "   </Guide>",
+    "",
+  ].join("\n")
+  const out = await reduceMarkdown(source, {
+    ...mdx,
+    components: {
+      "~/components/Guide.astro": () => ({
+        before: "Stats.\n\nMore stats.",
+        after: "Data:\n[JSON](https://x.test/m.json)",
+      }),
+    },
+  })
+  expect(out).toBe(
+    [
+      "- item",
+      "",
+      "  Stats.",
+      "",
+      "  More stats.",
+      "",
+      "  Body.",
+      "",
+      "  Data:",
+      "  [JSON](https://x.test/m.json)",
+      "",
+      "- next",
+      "",
+      "> Stats.",
+      ">",
+      "> More stats.",
+      ">",
+      "> Quoted.",
+      ">",
+      "> Data:",
+      "> [JSON](https://x.test/m.json)",
+      "",
+      "1. Stats.",
+      "",
+      "   More stats.",
+      "",
+      "   On the marker line.",
+      "",
+      "   Data:",
+      "   [JSON](https://x.test/m.json)",
+      "",
+    ].join("\n"),
+  )
+})
+
+test("MDX links and embeds resolve relative URLs against base", async () => {
+  const base = `${site}/ai-skills-source/gov/SKILL.md`
+  const out = await reduceMarkdown(
+    [
+      'See <a href="./reference.md">the reference</a>.',
+      "",
+      '<iframe src="demo.html" title="Demo" />',
+      "",
+    ].join("\n"),
+    { ...mdx, base },
+  )
+  expect(out).toContain(
+    `[the reference](${site}/ai-skills-source/gov/reference.md)`,
+  )
+  expect(out).toContain(`[Demo](${site}/ai-skills-source/gov/demo.html)`)
+})
+
+test("MDX <a href> becomes a Markdown link with an absolute URL", async () => {
+  const out = await reduceMarkdown(
+    [
+      'See <a href="/about">the **about** page</a> and',
+      '<a href="#data" target="_blank">the data</a>.',
+      "",
+      '<a href="https://x.test/a b">',
+      "Block link.",
+      "</a>",
+      "",
+      '<a href="https://x.test/d">',
+      "",
+      "One.",
+      "",
+      "Two.",
+      "",
+      "</a>",
+      "",
+      '## <a name="anchor"></a>Heading',
+      "",
+      '## <a href="#x" id="x"></a>Linked heading',
+      "",
+      '<a href="#y" id="y" />',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      `See [the **about** page](${site}/about) and`,
+      `[the data](${page}#data).`,
+      "",
+      "[Block link.](<https://x.test/a b>)",
+      "",
+      "One.",
+      "",
+      "Two.",
+      "",
+      "## Heading",
+      "",
+      "## Linked heading",
+      "",
+    ].join("\n"),
+  )
+})
+
+test("layout wrappers unwrap so each child reduces on its own", async () => {
+  const out = await reduceMarkdown(
+    [
+      'import Box from "~/components/Box.astro"',
+      "",
+      '<p align="center"><img src="/b.png" alt="Logo" /></p>',
+      "",
+      "<div>",
+      '  <img src="/one.png" alt="One" />',
+      '  <img src="/two.png" alt="Two" />',
+      "</div>",
+      "",
+      "<div><Box /></div>",
+      "",
+      '<figure><iframe src="https://y.test/e" title="Talk" /></figure>',
+      "",
+      "<picture>",
+      '  <source srcset="/p.avif" type="image/avif" />',
+      '  <img src="/p.png" alt="Photo" />',
+      "</picture>",
+      "",
+    ].join("\n"),
+    { ...mdx, components: { "~/components/Box.astro": () => "Boxed." } },
+  )
+  expect(out).toBe(
+    [
+      `![Logo](${site}/b.png)`,
+      "",
+      `![One](${site}/one.png)`,
+      `  ![Two](${site}/two.png)`,
+      "",
+      "Boxed.",
+      "",
+      "[Talk](https://y.test/e)",
+      "",
+      `![Photo](${site}/p.png)`,
+      "",
+    ].join("\n"),
+  )
+})
+
+test("childless elements that render nothing are dropped", async () => {
+  const out = await reduceMarkdown(
+    [
+      "Tweet:",
+      "",
+      '<script async src="https://platform.twitter.com/widgets.js"></script>',
+      "",
+      '<link rel="stylesheet" href="/x.css" />',
+      "",
+      '<span id="x"></span>',
+      "",
+      "## Heading",
+      "",
+      'A <div style={{ clear: "both" }} />',
+      "",
+      '<div style={{ clear: "both" }} />',
+      "",
+      "<p></p>",
+      "",
+      "<video />",
+      "",
+      "B",
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe("Tweet:\n\n## Heading\n\nA \n\nB\n")
+})
+
+test("a link that reduces to nothing or a link unwraps", async () => {
+  const out = await reduceMarkdown(
+    [
+      'import Icon from "~/components/Icon.astro"',
+      "",
+      '<a href="https://github.com/x">',
+      "  <Icon />",
+      "</a>",
+      "",
+      '<a href="/x">',
+      "  <br />",
+      "</a>",
+      "",
+      '<a href="/x">',
+      "  <div />",
+      "</a>",
+      "",
+      'See <a href="/x"><Icon /></a> here.',
+      "",
+      '<a href="/x"><iframe src="/e" title="T" /></a>',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      interactiveNote(page),
+      "",
+      "See  here.",
+      "",
+      `[T](${site}/e)`,
+      "",
+    ].join("\n"),
+  )
+})
+
+test("a linked image keeps both its image and its link", async () => {
+  const out = await reduceMarkdown(
+    [
+      '<a href="https://x.test/pkg">',
+      '  <img src="https://x.test/b.svg" alt="badge" />',
+      "</a>",
+      "",
+      '<a href="/ci">',
+      '  <img src="/ci.svg" />',
+      "</a>",
+      "",
+      'Inline <a href="/z"><img src="/z.png" alt="z" /></a>.',
+      "",
+      '<a href="/c">',
+      '  <img src="/c.png" alt="c" />',
+      "  <span>Caption</span>",
+      "</a>",
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      "[![badge](https://x.test/b.svg)](https://x.test/pkg)",
+      "",
+      `[![](${site}/ci.svg)](${site}/ci)`,
+      "",
+      `Inline [![z](${site}/z.png)](${site}/z).`,
+      "",
+      `[![c](${site}/c.png)`,
+      `  Caption](${site}/c)`,
+      "",
+    ].join("\n"),
+  )
+})
+
+test("childless HTML elements link to their source or become a note", async () => {
+  const out = await reduceMarkdown(
+    [
+      "- item",
+      "",
+      '  <iframe src="https://www.youtube.com/embed/x" title="Demo talk" />',
+      "",
+      '<video src="/media/clip.mp4" controls />',
+      "",
+      '<canvas id="chart" />',
+      "",
+      '<svg viewBox="0 0 10 10">',
+      '  <path d="M0 0" />',
+      '  <circle cx="5" />',
+      "</svg>",
+      "",
+      "<video controls>",
+      '  <source src="/m.webm" type="video/webm" />',
+      '  <source src="/m.mp4" type="video/mp4" />',
+      "</video>",
+      "",
+      "<hr />",
+      "",
+      'Inline <img src="/i.png" /> and <a href="/x" title="X" /> end' +
+        ' <svg><path d="M0 0" /></svg>.',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      "- item",
+      "",
+      "  [Demo talk](https://www.youtube.com/embed/x)",
+      "",
+      `[Embedded video](${site}/media/clip.mp4)`,
+      "",
+      interactiveNote(page),
+      "",
+      interactiveNote(page),
+      "",
+      `[Embedded video](${site}/m.webm)`,
+      "",
+      `Inline ![](${site}/i.png) and [X](${site}/x) end .`,
+      "",
+    ].join("\n"),
+  )
+  expect(linkDestination("https://x.test/a(b)")).toBe("<https://x.test/a(b)>")
 })
 
 test("markdownTable escapes pipes and collapses whitespace", () => {
@@ -473,4 +819,110 @@ test("the block-latency MDX reduces to plain Markdown", async () => {
   // The widgets render Markdown tables, and Guide keeps its data links.
   expect(out.match(/^\| --- \|/gm)?.length).toBeGreaterThan(2)
   expect(out).toMatch(/^Data: .*\/tables\.md\)/m)
+})
+
+/** Every link in a parsed tree, in document order. */
+const linksIn = (node: Nodes): Link[] =>
+  node.type === "link"
+    ? [node]
+    : "children" in node
+      ? (node.children as Nodes[]).flatMap(linksIn)
+      : []
+
+test("protocol-relative links keep their host in both outputs", async () => {
+  const copy = await reduceMarkdown(
+    'Read <a href="//cdn.example.org/guide">the guide</a> and [about](/about).',
+    mdx,
+  )
+  expect(copy).toContain("[the guide](//cdn.example.org/guide)")
+  const clip = pageMarkdown({ intro: "Intro.", markdown: copy }, page)
+  expect(clip).toContain("[the guide](//cdn.example.org/guide)")
+  expect(clip).toContain(`[about](${site}/about)`)
+  const urls = linksIn(parseMarkdown(clip, false)).map((l) => l.url)
+  // The first link is the page URL in the intro line, autolinked by GFM.
+  expect(urls).toEqual([page, "//cdn.example.org/guide", `${site}/about`])
+})
+
+test("generated links stay inside their GFM table cell", async () => {
+  const out = await reduceMarkdown(
+    [
+      "| Demo | Notes |",
+      "| --- | --- |",
+      '| <iframe src="https://x.test/a" title="Speed &#124; Accuracy" /> ' +
+        "| one |",
+      '| <a href="https://x.test/b&#124;c">pipe</a> | two |',
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  const table = parseMarkdown(out, false).children[0] as Table
+  expect(table.type).toBe("table")
+  for (const row of table.children) expect(row.children).toHaveLength(2)
+  const text = (link: Link) =>
+    link.children.map((child) => ("value" in child ? child.value : "")).join("")
+  expect(linksIn(table).map((l) => [l.url, text(l)])).toEqual([
+    ["https://x.test/a", "Speed | Accuracy"],
+    ["https://x.test/b%7Cc", "pipe"],
+  ])
+  expect(out).toContain("[Speed \\| Accuracy](https://x.test/a)")
+})
+
+test("linkLabel keeps generated link text on one line and escaped", () => {
+  expect(linkLabel("Two\n  lines [draft] | v2")).toBe(
+    "Two lines \\[draft\\] \\| v2",
+  )
+  expect(linkDestination("https://x.test/a|b c")).toBe(
+    "<https://x.test/a%7Cb c>",
+  )
+})
+
+test("video and audio link their media URL, not captions", async () => {
+  const out = await reduceMarkdown(
+    [
+      '<video controls src="/talk.mp4" title="Talk">',
+      "  Your browser does not support video.",
+      "</video>",
+      "",
+      "<video controls>",
+      '  <track kind="captions" src="/talk.vtt" />',
+      '  <source src="/talk.webm" type="video/webm" />',
+      "  Your browser does not support video.",
+      "</video>",
+      "",
+      "<audio>",
+      '  <track kind="captions" src="/song.vtt" />',
+      '  <source src="/song.mp3" />',
+      "</audio>",
+      "",
+    ].join("\n"),
+    mdx,
+  )
+  expect(out).toBe(
+    [
+      `[Talk](${site}/talk.mp4)`,
+      "",
+      `[Embedded video](${site}/talk.webm)`,
+      "",
+      `[Embedded audio](${site}/song.mp3)`,
+      "",
+    ].join("\n"),
+  )
+})
+
+test("a linked image with ( ) in its URL keeps the outer link", async () => {
+  const out = await reduceMarkdown(
+    'See <a href="/info"><img src="https://example.test/image(1).png" ' +
+      'alt="Demo" /></a>.',
+    mdx,
+  )
+  expect(out).toBe(
+    `See [![Demo](<https://example.test/image(1).png>)](${site}/info).\n`,
+  )
+  const [link] = linksIn(parseMarkdown(out, false))
+  expect(link.url).toBe(`${site}/info`)
+  expect(link.children[0]).toMatchObject({
+    type: "image",
+    url: "https://example.test/image(1).png",
+    alt: "Demo",
+  })
 })

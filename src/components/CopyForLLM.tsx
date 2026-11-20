@@ -23,8 +23,9 @@ export function pageMarkdown(
 ): string {
   const url = new URL(pageUrl)
   url.hash = ""
-  // Make site-relative links absolute so they work outside the page.
-  const body = markdown.trim().replace(/\]\(\//g, `](${url.origin}/`)
+  // Make site-relative links absolute so they work outside the page. A
+  // protocol-relative `](//host/...)` already names its host and stays.
+  const body = markdown.trim().replace(/\]\(\/(?!\/)/g, `](${url.origin}/`)
   return `${intro} Page: ${url.href}\n\n${body}\n`
 }
 
