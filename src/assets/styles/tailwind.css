@@ -82,6 +82,39 @@
   display: block;
 }
 
+/* Escape closes a menu even while the pointer or focus is still inside it;
+   see the script in PageHeader.astro. Phones list the links inline. */
+@media (min-width: 768px) {
+  .dropdown.is-dismissed .dropdown-menu {
+    display: none;
+  }
+
+  /* A small caret appears on hover and focus to show the button opens a
+     menu, without a permanent chevron. */
+  .dropdown-toggle {
+    position: relative;
+  }
+  .dropdown-toggle::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.2rem;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    opacity: 0;
+    transform: translateX(-50%) rotate(45deg);
+    transition: opacity 150ms ease;
+    pointer-events: none;
+  }
+  .dropdown:hover .dropdown-toggle::after,
+  .dropdown-toggle:focus-visible::after,
+  .dropdown-toggle[aria-expanded="true"]::after {
+    opacity: 0.55;
+  }
+}
+
 [astro-icon].icon-light > * {
   stroke-width: 1.2;
 }
