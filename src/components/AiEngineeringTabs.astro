@@ -19,7 +19,7 @@ const tabs = [
 <nav class="ai-tabs" aria-label="AI Engineering">
   <span class="ai-tabs-root">
     <span class="ai-tabs-mark" aria-hidden="true">◇</span>
-    AI ENGINEERING
+    AI Engineering
   </span>
   <span class="ai-tabs-sep" aria-hidden="true">/</span>
   <ul>
@@ -60,8 +60,18 @@ const tabs = [
     margin-right: 0.5rem;
     vertical-align: -0.15em;
   }
+  .ai-tabs-root {
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
   .ai-tabs-sep {
     opacity: 0.6;
+  }
+  /* On phones the pill wraps below the root; a trailing "/" would dangle. */
+  @media (max-width: 30rem) {
+    .ai-tabs-sep {
+      display: none;
+    }
   }
   ul {
     display: flex;
