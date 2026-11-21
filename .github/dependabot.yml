@@ -21,8 +21,10 @@ multi-ecosystem-groups:
       - "A-tech-investment"
 
 updates:
-  # Astro site at the repo root, locked by bun.lock.
-  - package-ecosystem: "bun"
+  # Astro site at the repo root. The `bun` ecosystem reads only the text
+  # bun.lock, and the root still uses binary bun.lockb. The npm updater bumps
+  # package.json only, and bun.lockb catches up on the next `bun install`.
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
