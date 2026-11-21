@@ -59,10 +59,20 @@
     "input": "5f003f0a054919e704d3b378ea30dc069de7cc07b46e2676733de89d2a8654c7",
     "sha256": "848c3a2a8382551483d7423bd61810fc5c14135d7acc39e91a404ceee5e00c7a"
   },
+  "lexicon-domain-lang": {
+    "title": "Lexicon: Domain Language",
+    "input": "083543929f61ebe721017144ef666ac0dd37b5cef0979b71f6e408cb7ac18c6d",
+    "sha256": "68d0547b4059625528df2acc8d8caf2896ceff53aefc30da94b070eddf35901d"
+  },
   "md-tasks": {
     "title": "Markdown tasks and checkbox conventions",
     "input": "7900c0a34a071d3a0ac7efc70fc66b088a498d959584b722dbb8d3d430c9efbd",
     "sha256": "75aebdb47c7e34f535739c3c89578e76306b0039e035f690bdf25e5cc729335f"
+  },
+  "mori-graph": {
+    "title": "Mori Graph",
+    "input": "c65e3cd2e2abd3bf6117e2b2a7246ec1bd67b3d2fb8e75b44c1ee05e0ac759fd",
+    "sha256": "d55fce49b93762199870eca500111b6232d656c99b147f6fe5c09625b627cfb5"
   },
   "new-chat-prompt": {
     "title": "New Chat Prompt",
@@ -94,15 +104,20 @@
     "input": "7ff694f3dd4fac1d6d52828c2fdb0e893a9ea6090e4a73f847ba179fdb57caed",
     "sha256": "ed1e7622d15aaf2dbf707a71b8f911735ced7dcf5e068959beba28136959f28a"
   },
+  "sai-deals": {
+    "title": "Sai Deals",
+    "input": "365b658efa8f9d70bccfb97726358a0b0e5c94a5c7368c692885f794d89f0916",
+    "sha256": "d67166d3e91e7df0b595fe157b377a8be18f543467f17b8f63f23858ecd11410"
+  },
   "sai-perps": {
     "title": "Sai Perps",
     "input": "a6bbc26b6e903098f28f165ea3dba3a94664422b023abf3a31b18f6227d406ff",
     "sha256": "dabfc031333bd2e428c09beaddb8a5f15dff7234854163ad157094c89afb7a45"
   },
   "sai": {
-    "title": "Sai CLI",
-    "input": "3906959c12f208c611a2d2389032944f2673a09e90459048ef24903c57eede98",
-    "sha256": "22b6c24b44d61faae1030bebf86999357495d9cafbff74fbd900d4e5b7f9c503"
+    "title": "Sai",
+    "input": "4b77140e19171559d45d715e51c45585abbfbbd85a1d2382c5168fde3079d57c",
+    "sha256": "d823e3914246cb572eb0ebf20a48e7bc2244c308b2878a3af2dfc86cd558f834"
   },
   "tailscale-serve": {
     "title": "Tailscale Serve",
