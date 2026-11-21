@@ -19,7 +19,7 @@ jobs:
           submodules: true
 
       - name: 'Setup NodeJS and npm'
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/jod' # jod=22, iron=20, gallium=18
 
@@ -34,8 +34,11 @@ jobs:
         # taiki-e/install-action: https://github.com/taiki-e/install-action
         uses: taiki-e/install-action@just
 
-      - run: |
-          just i # install
+      - name: 'Install site dependencies from bun.lockb'
+        run: bun install --frozen-lockfile
+
+      - name: 'Build and test the file service from package-lock.json'
+        run: just files-test
 
       - name: 'Build (bun)'
         run: |

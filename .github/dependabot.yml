@@ -1,33 +1,16 @@
 # Dependabot version updates. Options reference:
 # https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
 #
-# Each ecosystem opens at most one PR per week for minor and patch bumps.
-# Major bumps get their own PRs so a breaking upgrade can wait without
-# blocking the rest.
+# Root site minor and patch updates share a weekly PR. Major site updates
+# get their own PRs.
 
 version: 2
-
-multi-ecosystem-groups:
-  # services/files keeps two lockfiles for one package.json: the Docker build
-  # runs `npm ci` against package-lock.json, and `just deploy-files` runs
-  # `bun install --frozen-lockfile` against bun.lock. One group updates both
-  # lockfiles in the same PR so neither falls behind package.json.
-  files-service:
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    labels:
-      - "dependencies"
-      - "A-tech-investment"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "build"
-      include: "scope"
 
 updates:
   # Astro site at the repo root. The `bun` ecosystem reads only the text
   # bun.lock, and the root still uses binary bun.lockb. The npm updater bumps
-  # package.json only, and bun.lockb catches up on the next `bun install`.
+  # package.json only. Run `bun install` at the root and commit bun.lockb
+  # to the dependency PR. Core runs a frozen install against that lockfile.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -46,15 +29,22 @@ updates:
           - "minor"
           - "patch"
 
+  # Docker and just files-test both install from package-lock.json.
   - package-ecosystem: "npm"
     directory: "/services/files"
-    multi-ecosystem-group: "files-service"
-    patterns: ["*"]
-
-  - package-ecosystem: "bun"
-    directory: "/services/files"
-    multi-ecosystem-group: "files-service"
-    patterns: ["*"]
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "A-tech-investment"
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    groups:
+      files-service:
+        patterns: ["*"]
 
   # Base image for the services/files Dockerfile.
   - package-ecosystem: "docker"

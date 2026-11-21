@@ -34,7 +34,7 @@ deploy-files:
 
 # Test HTTP file serving with real local files and validate TypeScript.
 files-test:
-  cd services/files && bun install --frozen-lockfile && bun run build && bun test src
+  cd services/files && npm ci && npm run build && npm test
 
 # Provision the file bucket and service identities without changing DNS.
 files-setup:
@@ -67,7 +67,7 @@ files-smoke origin image:
 # Install dependencies
 install:
   bun install
-  bun install --cwd services/files
+  npm ci --prefix services/files
 
 alias i := install
 
