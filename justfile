@@ -1,4 +1,5 @@
 workspaces := ""
+npm_command := "bunx npm@12.2.0"
 
 # Displays available recipes when running `just` or `just list`.
 [private]
@@ -33,8 +34,8 @@ deploy-files:
   bash scripts/deploy-files.sh
 
 # Test HTTP file serving with real local files and validate TypeScript.
-files-test:
-  cd services/files && bun install --frozen-lockfile && bun run build && bun test src
+files-test npm=(npm_command):
+  cd services/files && {{npm}} ci && bun run build && bun test src
 
 # Provision the file bucket and service identities without changing DNS.
 files-setup:
@@ -67,7 +68,7 @@ files-smoke origin image:
 # Install dependencies
 install:
   bun install
-  bun install --cwd services/files
+  {{npm_command}} ci --prefix services/files
 
 alias i := install
 
