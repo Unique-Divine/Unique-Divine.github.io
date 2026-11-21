@@ -64,7 +64,7 @@ fit the reading column, with a larger dialog available by clicking the diagram
 or its expand icon. Node and upgrade selection update the image used by the
 viewer. Horizontal scrolling is confined to the expanded view when needed.
 Mobile interaction refinements are tracked in
-[issue 41](https://github.com/Unique-Divine/Unique-Divine.github.io/issues/41).
+[issue 41](https://github.com/Unique-Divine/ud-web/issues/41).
 
 File `src/data/blogSections.ts` changes section headings and document titles
 without changing URL slugs, category/tag membership, or post labels. Unmapped
