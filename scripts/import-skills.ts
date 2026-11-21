@@ -33,6 +33,10 @@ const fragmentCorrections: Record<string, Record<string, string>> = {
   "nibiru-gql/db-user-balances.md": {
     "6-pagination--limits": "6-pagination-and-limits",
   },
+  // GitHub slugs "GET /" as "get-"; Astro renders it as "get".
+  "sai/references/rest.md": {
+    "get-": "get",
+  },
   "sai-perps/references/sai-contracts.md": {
     "fee-config-validation-1": "fee-configuration-validation",
   },

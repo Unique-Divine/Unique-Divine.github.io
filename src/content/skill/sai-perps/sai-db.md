@@ -77,8 +77,8 @@ Suggested debugging workflow:
 
 This database powers two primary APIs. For usage instructions and query patterns, see their respective skills:
 
-* **[sai-graphql.md](/ai-skills/sai-perps/sai-graphql)**: Most tables are exposed via GraphQL queries and subscriptions.
-* **[sai-rest.md](/ai-skills/sai-perps/sai-rest)**: High-level metrics (volume, OI, TVL) are served via REST primarily from `stats_*` table queries (with `stats_cache` as legacy/auxiliary context).
+* **[`sai` skill page `references/graphql.md`](/ai-skills/sai/graphql)**: Most tables are exposed via GraphQL queries and subscriptions.
+* **[`sai` skill page `references/rest.md`](/ai-skills/sai/rest)**: High-level metrics (volume, OI, TVL) are served via REST primarily from `stats_*` table queries (with `stats_cache` as legacy/auxiliary context).
 
 ## Quick start
 
@@ -808,7 +808,7 @@ This document maps database tables to their respective API exposures in GraphQL 
 
 ### GraphQL surfacing
 
-[`sai-graphql.md`](/ai-skills/sai-perps/sai-graphql) covers API usage. Most DB tables map to a
+[`sai` skill page `references/graphql.md`](/ai-skills/sai/graphql) covers API usage. Most DB tables map to a
 GraphQL type, but query fields are grouped below the root domain objects
 `perp`, `lp`, `oracle`, and `referral`.
 
@@ -826,7 +826,7 @@ GraphQL type, but query fields are grouped below the root domain objects
 
 ### REST API surfacing
 
-[`sai-rest.md`](/ai-skills/sai-perps/sai-rest) covers high-level metrics. In current code paths,
+[`sai` skill page `references/rest.md`](/ai-skills/sai/rest) covers high-level metrics. In current code paths,
 `/dexpal/v1/stats` and `/dexpal/v1/metrics` are derived primarily from
 `stats_*` table queries in the API service layer.
 
@@ -854,5 +854,5 @@ Key Procs:
 
 ### See also
 
-* [sai-graphql.md](/ai-skills/sai-perps/sai-graphql)
-* [sai-rest.md](/ai-skills/sai-perps/sai-rest)
+* [`sai` skill page `references/graphql.md`](/ai-skills/sai/graphql)
+* [`sai` skill page `references/rest.md`](/ai-skills/sai/rest)

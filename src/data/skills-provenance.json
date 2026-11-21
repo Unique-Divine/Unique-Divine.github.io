@@ -1,16 +1,16 @@
 {
   "repository": "https://github.com/Unique-Divine/jiyuu",
-  "revision": "15cfec642501a6fd4ff18b7e7c306686a82d5da0",
+  "revision": "72339d43ab816c7b8af6c9350ae0faad1d77d2b1",
   "dirty": false,
   "pages": {
     "drill-spec": {
       "source": "drill-spec/SKILL.md",
-      "sha256": "f89e13df1627498f2b43bad23c09b6d3d85cf2d2d1c6eaa75f4e036fc88a9d25",
+      "sha256": "68944dfe0075ae56979edb22dac47c587e134adeab40c6ef92a1862dd0d45c0c",
       "publishDate": "2026-10-19"
     },
     "evm-rpc/nibiru-multicall": {
       "source": "evm-rpc/nibiru-multicall.md",
-      "sha256": "48376e77e90f29dd76afce78750843e4cbc2c314109250d309656206236cd139",
+      "sha256": "0d4460e117046867568c9970dfaca73ee287b0838dadfe2efdfdc6770afb162f",
       "publishDate": "2026-11-18"
     },
     "evm-rpc": {
@@ -103,10 +103,45 @@
       "sha256": "1e480806f014e1e4cad475f7f5bda81158f2a50eb446150e4da7b0f7231857e0",
       "publishDate": "2026-10-19"
     },
+    "lexicon-domain-lang/format": {
+      "source": "lexicon-domain-lang/references/format.md",
+      "sha256": "faabcd17796cf679723a17d4125e43e8a380b5bbdd7366396e9892b6bfc58cd3",
+      "publishDate": "2026-11-21"
+    },
+    "lexicon-domain-lang": {
+      "source": "lexicon-domain-lang/SKILL.md",
+      "sha256": "118ac85a08bcc54548b0233abdf6a00a75a182f103ff63204a8fc677385349bd",
+      "publishDate": "2026-11-21"
+    },
+    "lexicon-domain-lang/third_party": {
+      "source": "lexicon-domain-lang/THIRD_PARTY.md",
+      "sha256": "c8c0d400bfb61c3eef60107f18ab7f56c9fc1c61ff0eae99395e7fe401ae7854",
+      "publishDate": "2026-11-21"
+    },
     "md-tasks": {
       "source": "md-tasks/SKILL.md",
       "sha256": "76d623c42f445f61b0b6848b664007aa50526f5afb8823c1de6f5a462403404e",
       "publishDate": "2026-10-19"
+    },
+    "mori-graph/graphql": {
+      "source": "mori-graph/references/graphql.md",
+      "sha256": "9fea2597a6848f21cb01d865867be16542bba55f32067d9dc7eac077ba5dee44",
+      "publishDate": "2026-11-21"
+    },
+    "mori-graph/setup": {
+      "source": "mori-graph/references/setup.md",
+      "sha256": "cbc624b7c16dc0c0f3260f920746a80028f9528ed985ef2f35a3ad955bfde9da",
+      "publishDate": "2026-11-21"
+    },
+    "mori-graph/tool-source": {
+      "source": "mori-graph/references/tool-source.md",
+      "sha256": "90ab997d73f97e064bf427df9e83471f959b4f46da9ac4217aecc73efb23127f",
+      "publishDate": "2026-11-21"
+    },
+    "mori-graph": {
+      "source": "mori-graph/SKILL.md",
+      "sha256": "0cee11829940d4492e3744c58e831f6c08db3866e716692082af188547d8c5a8",
+      "publishDate": "2026-11-21"
     },
     "new-chat-prompt": {
       "source": "new-chat-prompt/SKILL.md",
@@ -130,27 +165,27 @@
     },
     "nibiru-cli": {
       "source": "nibiru-cli/SKILL.md",
-      "sha256": "1770e2c7dc3c66e479980dcc9513b8e8f852c83b7e4aa40efccabad9d17acf9d",
+      "sha256": "77d06bc7f1f7db708b65dd4fc5b95ec1d5f412f8c4f020238648c6b84e46569e",
       "publishDate": "2026-10-19"
     },
     "nibiru-gql/db-events": {
       "source": "nibiru-gql/db-events.md",
-      "sha256": "246fcb48c8e51cc3d9df571d1a7be7fe120760db3ed8ee9c7772b612344c9dc7",
+      "sha256": "4ad0bc7442904a98136e8b1d0a16ab807fd3539c3f5740f2fc1dc339c561bbe4",
       "publishDate": "2026-10-19"
     },
     "nibiru-gql/db-staking": {
       "source": "nibiru-gql/db-staking.md",
-      "sha256": "d939d91219b2f9a777e3c3ff4fd633ddf7eba0023134b256f41e89c1f152a370",
+      "sha256": "79caeff480a62cc18915490b56f9c6617bffec61280254e022dbbf8fffd07cf3",
       "publishDate": "2026-10-19"
     },
     "nibiru-gql/db-user-balances": {
       "source": "nibiru-gql/db-user-balances.md",
-      "sha256": "b6d576031dbc7b5b6ae7c7379de6f4f8b0ef0f904b9e51f7526fc3c28dd4901b",
+      "sha256": "8292ee70601009fe965d6c702021232f2e60e11fa56215668a9061203ef3f99c",
       "publishDate": "2026-10-19"
     },
     "nibiru-gql": {
       "source": "nibiru-gql/SKILL.md",
-      "sha256": "f6773ee5f1ed28e7b823d541347cb0bb951b736b3a9a5176abffceedacabd2c1",
+      "sha256": "2a9e3fd91d5feb4168320533d8c159899945fd292202ce1379d234ace8aae6df",
       "publishDate": "2026-10-19"
     },
     "postgresql-psql/reference": {
@@ -170,68 +205,108 @@
     },
     "repo-map/cloning": {
       "source": "repo-map/cloning.md",
-      "sha256": "31322e7cd799915882b8bbf760fd78d2c6a6b5742bb2663959f6908dea5e542f",
+      "sha256": "9bf7cb8953641520948b6dfb9142c816a1169fc5d5b6381224f48483d4451d51",
       "publishDate": "2026-10-19"
     },
     "repo-map/reference": {
       "source": "repo-map/REFERENCE.md",
-      "sha256": "5583adeddb0db3de606a676c3754915a07df79e03ef54ca63fabbb1026e52c81",
+      "sha256": "9b4153204e7f98601c98cd4a4ffbef2a86c58661f51c56527df7bd765758d746",
       "publishDate": "2026-10-19"
     },
     "repo-map": {
       "source": "repo-map/SKILL.md",
-      "sha256": "47e44cb8c68fc8905c5f3ca15a35a3ba04a1b8f209dbd81590bc6133916a5032",
+      "sha256": "1bb112389c4cafcdb8de9e4edc1afb56519ee090347027e1771c460b20832047",
       "publishDate": "2026-10-19"
     },
-    "sai-perps/examples/sai-perps-prompts": {
-      "source": "sai-perps/examples/sai-perps-prompts.md",
-      "sha256": "b55681049135b7f08d803cf7c487cf381110f25202cb983ccb43cf9a555ec273",
-      "publishDate": "2026-10-19"
+    "sai-deals/examples/prompts": {
+      "source": "sai-deals/examples/prompts.md",
+      "sha256": "367b9c75d5a4bb2f7d88a4688beeaef10a73ede09c4a64101aa9f76897d519a3",
+      "publishDate": "2026-11-21"
     },
-    "sai-perps/sai-contracts": {
-      "source": "sai-perps/references/sai-contracts.md",
-      "sha256": "1ae30248925d6b6718d5124d50b480bd7387d018c61d2120f0242c3c5a87f84a",
-      "publishDate": "2026-10-19"
+    "sai-deals/graphql": {
+      "source": "sai-deals/references/graphql.md",
+      "sha256": "3de3e92561d7098c74879528460756aec18618d28bfaeb84d0682d985542aabd",
+      "publishDate": "2026-11-21"
+    },
+    "sai-deals": {
+      "source": "sai-deals/SKILL.md",
+      "sha256": "e916f962dc5ef838debf7c4371396e73a98579655c8cb441cf5eeb2b571a9e62",
+      "publishDate": "2026-11-21"
+    },
+    "sai-deals/workflows/daily-follow-ups": {
+      "source": "sai-deals/workflows/daily-follow-ups.md",
+      "sha256": "e7170ccb9cea91d8a6dd0c66ca5d83ed6a80182b30b8ec4d6934465060802f12",
+      "publishDate": "2026-11-21"
+    },
+    "sai-deals/workflows/deal-review": {
+      "source": "sai-deals/workflows/deal-review.md",
+      "sha256": "aa421f75bc9156404f266e970939e3ce26f318b3a031fa819a11e78e6f81ae15",
+      "publishDate": "2026-11-21"
     },
     "sai-perps/sai-db": {
       "source": "sai-perps/references/sai-db.md",
-      "sha256": "e10d2bfdc9f0a31aaf3ae7e425cbdfa4cab74f323ef06d925328d45c408ed0ba",
-      "publishDate": "2026-10-19"
-    },
-    "sai-perps/sai-graphql": {
-      "source": "sai-perps/references/sai-graphql.md",
-      "sha256": "0db8fd10710af450d8146dae730738421ca674285ab5aa52752ecf5f0d55f671",
-      "publishDate": "2026-10-19"
-    },
-    "sai-perps/sai-reconciliation": {
-      "source": "sai-perps/references/sai-reconciliation.md",
-      "sha256": "63fe53e491e25b074677b8a9a256ef2eb4ca94af8f1c50a3fbc0a634794ac3ee",
-      "publishDate": "2026-10-19"
-    },
-    "sai-perps/sai-referrals": {
-      "source": "sai-perps/references/sai-referrals.md",
-      "sha256": "668ef07d48c25f69eb2f6bbfd1d8c56656ee773628518ad4be6d19c5cb1c7dca",
-      "publishDate": "2026-10-19"
-    },
-    "sai-perps/sai-rest": {
-      "source": "sai-perps/references/sai-rest.md",
-      "sha256": "7894a39f513aaa7393ca017a5a3d5ff7d945c3250500871274075e9e980d6cb0",
-      "publishDate": "2026-10-19"
-    },
-    "sai-perps/sai-vaults": {
-      "source": "sai-perps/references/sai-vaults.md",
-      "sha256": "1302686734119efefad7751bfbf000b7b51064adb2588130d9b9c74e4b02fc6b",
+      "sha256": "7625d9faaeebc171676f76578e1e94b9a98740de60363e15c1775cd46a05f310",
       "publishDate": "2026-10-19"
     },
     "sai-perps": {
       "source": "sai-perps/SKILL.md",
-      "sha256": "ae1fa94f5b021cfe59c23e146bf01f4867446baf0f84bf729b243c8fe61e0913",
+      "sha256": "a6e3f8f1dd7b8f37adb1b8c7c3f2a3b594edd7adc5a78d1733e0535ac632ce69",
       "publishDate": "2026-10-19"
+    },
+    "sai/cli": {
+      "source": "sai/cli.md",
+      "sha256": "db4998bfe37e0a9f9450758a56d3ffac2e6a329cd5d4d18bca34385e68d9702d",
+      "publishDate": "2026-11-21"
+    },
+    "sai/examples/prompts": {
+      "source": "sai/examples/prompts.md",
+      "sha256": "f32f1c5a39363bae8a140ff8d6785aa0f612bd0e1b8029405f8e906f7b18e32d",
+      "publishDate": "2026-11-21"
+    },
+    "sai/mcp": {
+      "source": "sai/mcp.md",
+      "sha256": "30d0b0e155630b44b4597dcc44eae9a98b2895e0445b95558f51e0ec0062f8ae",
+      "publishDate": "2026-11-21"
+    },
+    "sai/contracts": {
+      "source": "sai/references/contracts.md",
+      "sha256": "0951358854adf24bcecd32138e27e1bee360978ede2a78031a715ec572fc8091",
+      "publishDate": "2026-11-21"
+    },
+    "sai/graphql": {
+      "source": "sai/references/graphql.md",
+      "sha256": "96be56108db7e8fe018cfcf8ca62c63374f51e581360cf8b789b27ec37909e05",
+      "publishDate": "2026-11-21"
+    },
+    "sai/reconciliation": {
+      "source": "sai/references/reconciliation.md",
+      "sha256": "78d79ea60aeef951beb12ab57b15f77d5c79206953b40f68a5b5b0e43389d6d7",
+      "publishDate": "2026-11-21"
+    },
+    "sai/referrals": {
+      "source": "sai/references/referrals.md",
+      "sha256": "8dd6b09492399a472c0d46a8f2a86f548d0cb4c625e26f0c0bbc4b338af32d2e",
+      "publishDate": "2026-11-21"
+    },
+    "sai/rest": {
+      "source": "sai/references/rest.md",
+      "sha256": "5762d24dbe7239f856fc34a9071dc7cf640e323a4f6952785bf473d1e626de34",
+      "publishDate": "2026-11-21"
+    },
+    "sai/vaults": {
+      "source": "sai/references/vaults.md",
+      "sha256": "29466ac08c5db6bb47dbb08ac95b007f1e13b441902ce55906e1bad9e132a6fd",
+      "publishDate": "2026-11-21"
     },
     "sai": {
       "source": "sai/SKILL.md",
-      "sha256": "0d7f0c72af2bd050ed45729acd35abed1170b3eed2e21939d4d156377cd4b9bd",
+      "sha256": "745be741aec32a5518a058703856f6bf71b9556556e8d976eb5de29740e40fe5",
       "publishDate": "2026-11-18"
+    },
+    "sai/trading-safety": {
+      "source": "sai/trading-safety.md",
+      "sha256": "8d394d89ea6ff1c3a260bcfa0097b16c36529c498da9a50ef983447273e8e841",
+      "publishDate": "2026-11-21"
     },
     "tailscale-serve": {
       "source": "tailscale-serve/SKILL.md",
