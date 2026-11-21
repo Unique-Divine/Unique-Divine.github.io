@@ -48,6 +48,6 @@ pages; the module loads once either way. It does not require the research data, 
 directory, or the research guide wrapper.
 
 The interaction follows the Sai docs-app Teller component. The next mobile
-iteration is tracked in [issue 41: Improve mobile diagram viewing and zoom](https://github.com/Unique-Divine/Unique-Divine.github.io/issues/41).
+iteration is tracked in [issue 41: Improve mobile diagram viewing and zoom](https://github.com/Unique-Divine/ud-web/issues/41).
 That issue covers initial scale, touch panning, pinch zoom, safe areas, landscape
 orientation, and testing on iOS Safari and Android Chrome.

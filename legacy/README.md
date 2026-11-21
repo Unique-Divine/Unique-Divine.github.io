@@ -47,7 +47,7 @@ These are specified by the `computed.content` field inside of the theme's `Layou
 ## Contribution guidelines
 
 You can contribute to improve this documentation by opening a
-[GitHub](https://github.com/Unique-Divine/Unique-Divine.github.io) issue or pull request.
+[GitHub](https://github.com/Unique-Divine/ud-web) issue or pull request.
 
 ## State Management
 

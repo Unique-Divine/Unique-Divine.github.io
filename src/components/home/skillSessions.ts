@@ -117,7 +117,7 @@ export const SKILL_SESSION_SCRIPTS: SkillSessionScript[] = [
   },
   {
     name: "unslop",
-    cwd: "~/gh-io-ud",
+    cwd: "~/ud-web",
     branch: "ud/about-rewrite",
     verb: "Unslopping",
     finalState: "done",
@@ -170,7 +170,7 @@ export const SKILL_SESSION_SCRIPTS: SkillSessionScript[] = [
   },
   {
     name: "tailscale-serve",
-    cwd: "~/gh-io-ud",
+    cwd: "~/ud-web",
     branch: "ud/agent-logo-strip",
     verb: "Serving",
     finalState: "done",
