@@ -19,6 +19,10 @@ multi-ecosystem-groups:
     labels:
       - "dependencies"
       - "A-tech-investment"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build"
+      include: "scope"
 
 updates:
   # Astro site at the repo root. The `bun` ecosystem reads only the text
@@ -46,19 +50,11 @@ updates:
     directory: "/services/files"
     multi-ecosystem-group: "files-service"
     patterns: ["*"]
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "build"
-      include: "scope"
 
   - package-ecosystem: "bun"
     directory: "/services/files"
     multi-ecosystem-group: "files-service"
     patterns: ["*"]
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "build"
-      include: "scope"
 
   # Base image for the services/files Dockerfile.
   - package-ecosystem: "docker"
