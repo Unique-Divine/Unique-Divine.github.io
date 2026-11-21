@@ -1,0 +1,90 @@
+# Dependabot version updates. Options reference:
+# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+#
+# Each ecosystem opens at most one PR per week for minor and patch bumps.
+# Major bumps get their own PRs so a breaking upgrade can wait without
+# blocking the rest.
+
+version: 2
+
+multi-ecosystem-groups:
+  # services/files keeps two lockfiles for one package.json: the Docker build
+  # runs `npm ci` against package-lock.json, and `just deploy-files` runs
+  # `bun install --frozen-lockfile` against bun.lock. One group updates both
+  # lockfiles in the same PR so neither falls behind package.json.
+  files-service:
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "A-tech-investment"
+
+updates:
+  # Astro site at the repo root, locked by bun.lock.
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "A-tech-investment"
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    groups:
+      site-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "npm"
+    directory: "/services/files"
+    multi-ecosystem-group: "files-service"
+    patterns: ["*"]
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build"
+      include: "scope"
+
+  - package-ecosystem: "bun"
+    directory: "/services/files"
+    multi-ecosystem-group: "files-service"
+    patterns: ["*"]
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build"
+      include: "scope"
+
+  # Base image for the services/files Dockerfile.
+  - package-ecosystem: "docker"
+    directory: "/services/files"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "A-tech-investment"
+    commit-message:
+      prefix: "build"
+      include: "scope"
+
+  # Actions pinned in .github/workflows.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "A-tech-investment"
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"
