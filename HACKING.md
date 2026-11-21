@@ -89,7 +89,7 @@ All commands are run from the root of the project using `just`:
 | `just t`      | Run tests                                     |
 | `just fmt`    | Format codes with Prettier                    |
 | `just lint`   | Run ESLint                                    |
-| `just deploy` | Build and deploy to GitHub Pages              |
+| `just deploy` | Build and deploy to uniquedivine.com          |
 
 <br>
 
@@ -133,19 +133,18 @@ The built files will be in the `dist/` directory.
 
 ## Deployment
 
-The site is deployed to GitHub Pages using the deployment script:
+The site is served at [uniquedivine.com](https://uniquedivine.com) from
+Firebase Hosting. Deploy it with:
 
 ```bash
 just deploy
 ```
 
-This runs `scripts/publish.sh` which:
-1. Installs dependencies using bun
-2. Builds the production site
-3. Creates GitHub Pages records (CNAME, .nojekyll)
-4. Pushes the built site to the `gh-pages` branch
+This runs `scripts/publish.sh`, which builds the production site with
+`just build` and deploys `dist/` with `firebase deploy --only hosting`. The
+Firebase project and hosting site come from `scripts/cloud-config.sh`.
 
-The deployment targets `Unique-Divine.github.io` repository.
+Deploy from a clean checkout of `main`, so only merged work goes live.
 
 <br>
 
